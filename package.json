@@ -19,20 +19,25 @@
     "@testing-library/user-event": "^13.5.0",
     "react": "^19.1.0",
     "react-dom": "^19.1.0",
+    "react-responsive-carousel": "^3.2.23",
+    "react-router-dom": "^7.5.1",
     "sass": "^1.86.3",
+    "slick-carousel": "^1.8.1",
     "web-vitals": "^2.1.4"
   },
   "devDependencies": {
     "@vitejs/plugin-react": "^4.4.1",
+    "concurrently": "^9.1.2",
     "prettier": "^3.5.3",
-    "react-scripts": "5.0.1",
     "vite": "^6.3.2"
   },
   "scripts": {
     "dev": "vite",
+    "start-backend": "php -S localhost:8000 -t ../rouge-backend",
+    "start": "concurrently \"npm run start-backend\" \"vite\"",
     "build": "vite build",
     "preview": "vite preview",
-    "test": "react-scripts test",
+    "test": "echo \"Add test framework like Vitest or Jest\" && exit 0",
     "format": "prettier --write \"src/**/*.{js,jsx,ts,tsx,json,css,scss,md}\""
   },
   "eslintConfig": {

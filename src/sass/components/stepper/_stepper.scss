@@ -1,0 +1,20 @@
+@use "/src/sass/abstract/colors" as *;
+
+.custom-stepper {
+  .custom-stepper-root {
+    background-color: transparent;
+  }
+
+  .custom-step-label {
+    color: $magenta;
+    font-weight: bold;
+  }
+
+  .custom-separator {
+    background-color: magenta;
+  }
+
+  .custom-step-icon {
+    border-color: magenta;
+  }
+}

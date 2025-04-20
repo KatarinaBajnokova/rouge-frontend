@@ -1,0 +1,32 @@
+@use '/src/sass/abstract/colors' as *;
+
+.basket-button {
+  position: fixed;
+  top: 0;
+  right: 0;
+  background-color: rgba($red, 0.8);
+  border-radius: 0 0 1rem 1rem;
+  width: 70px;
+  height: 80px;
+
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+
+  color: #fff;
+  text-align: center;
+
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+
+  &__icon {
+    width: 24px;
+    height: 24px;
+    margin-bottom: 0.3rem;
+  }
+
+  &__label {
+    font-size: 0.9rem;
+    line-height: 1.2;
+  }
+}

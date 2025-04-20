@@ -1,0 +1,49 @@
+<svg width="8" height="13" viewBox="0 0 8 13" fill="none" xmlns="http://www.w3.org/2000/svg">
+<rect width="8" height="13" fill="#1E1E1E"/>
+<g id="Scenario 2 - Buy a look">
+<path d="M-1845 -4156C-1845 -4157.1 -1844.1 -4158 -1843 -4158H6467C6468.1 -4158 6469 -4157.1 6469 -4156V1781C6469 1782.1 6468.1 1783 6467 1783H-1843C-1844.1 1783 -1845 1782.1 -1845 1781V-4156Z" fill="#444444"/>
+<path d="M-1843 -4157H6467V-4159H-1843V-4157ZM6468 -4156V1781H6470V-4156H6468ZM6467 1782H-1843V1784H6467V1782ZM-1844 1781V-4156H-1846V1781H-1844ZM-1843 1782C-1843.55 1782 -1844 1781.55 -1844 1781H-1846C-1846 1782.66 -1844.66 1784 -1843 1784V1782ZM6468 1781C6468 1781.55 6467.55 1782 6467 1782V1784C6468.66 1784 6470 1782.66 6470 1781H6468ZM6467 -4157C6467.55 -4157 6468 -4156.55 6468 -4156H6470C6470 -4157.66 6468.66 -4159 6467 -4159V-4157ZM-1843 -4159C-1844.66 -4159 -1846 -4157.66 -1846 -4156H-1844C-1844 -4156.55 -1843.55 -4157 -1843 -4157V-4159Z" fill="white" fill-opacity="0.1"/>
+<g id="Look page" clip-path="url(#clip0_874_4709)">
+<rect width="412" height="2143" transform="translate(-370 -2081)" fill="#E5DFDF"/>
+<g id="whole page">
+<g id="everything">
+<g id="Body">
+<g id="Reviews">
+<g id="Frame 117">
+<g id="Frame 116" filter="url(#filter0_d_874_4709)">
+<rect x="-109" y="-11" width="129" height="34" rx="17" fill="#AA1DA4"/>
+<g id="Frame 61">
+<g id="Chevron">
+<g id="Frame 318">
+<g id="Next">
+<g id="Group">
+<path id="Vector" d="M1.34985 11.3003L6.65004 6.28008L1.48398 1.22998" stroke="#FBFBFB" stroke-width="2.07523" stroke-linecap="round" stroke-linejoin="round"/>
+</g>
+</g>
+</g>
+</g>
+</g>
+</g>
+</g>
+</g>
+</g>
+</g>
+</g>
+</g>
+</g>
+<defs>
+<filter id="filter0_d_874_4709" x="-113" y="-11" width="137" height="42" filterUnits="userSpaceOnUse" color-interpolation-filters="sRGB">
+<feFlood flood-opacity="0" result="BackgroundImageFix"/>
+<feColorMatrix in="SourceAlpha" type="matrix" values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 127 0" result="hardAlpha"/>
+<feOffset dy="4"/>
+<feGaussianBlur stdDeviation="2"/>
+<feComposite in2="hardAlpha" operator="out"/>
+<feColorMatrix type="matrix" values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0.18 0"/>
+<feBlend mode="normal" in2="BackgroundImageFix" result="effect1_dropShadow_874_4709"/>
+<feBlend mode="normal" in="SourceGraphic" in2="effect1_dropShadow_874_4709" result="shape"/>
+</filter>
+<clipPath id="clip0_874_4709">
+<rect width="412" height="2143" fill="white" transform="translate(-370 -2081)"/>
+</clipPath>
+</defs>
+</svg>

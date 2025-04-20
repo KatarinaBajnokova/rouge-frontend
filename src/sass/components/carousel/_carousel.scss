@@ -1,0 +1,39 @@
+@use '/src/sass/abstract/colors' as *;
+
+.carousel .slide {
+  border: none;
+  position: relative;
+}
+
+.carousel-wrapper {
+  width: 100%;
+  max-width: 100%;
+}
+
+.carousel .control-dots {
+  position: absolute;
+  left: 50%;
+  bottom: 5%;
+  transform: translateX(-50%);
+  display: flex;
+  justify-content: center;
+  list-style: none;
+}
+
+.carousel .control-dots .dot {
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  background-color: white;
+  margin: 0 5px;
+  cursor: pointer;
+  transition:
+    background-color 0.3s,
+    transform 0.3s;
+}
+
+.carousel .control-dots .dot.selected {
+  background-color: $red;
+  width: 18px;
+  border-radius: 60%;
+}
