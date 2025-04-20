@@ -3,7 +3,7 @@ import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import TrendingCard from '../components/cards/TrendingCard';
 import '@/sass/components/cards/_trending_cards.scss'; // for .card-scroll-wrapper
-import '@/sass/sections/_everyday_section.scss'; // reuse same section styles
+import '@/sass/sections/_reorder_section.scss';
 
 const ReorderSection = () => {
   const [looks, setLooks] = useState([]);

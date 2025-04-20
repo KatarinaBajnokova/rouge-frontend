@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import TrendingCard from '../components/cards/TrendingCard';
+import '@/sass/sections/_trending_section.scss';
 
 const TrendingSection = () => {
   const [looks, setLooks] = useState([]);

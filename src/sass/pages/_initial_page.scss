@@ -1,5 +1,7 @@
 @use 'sass:color';
 @use '/src/sass/abstract/colors' as *;
+@use '/src/sass/abstract/typography' as *;
+@use '/src/sass/abstract/mixins' as *;
 
 .initial-page {
   display: flex;
@@ -12,25 +14,27 @@
   text-align: center;
 
   h1 {
-    margin-bottom: 2rem;
-    font-size: 2.5rem;
-    font-weight: bold;
+    @include font('top-title', 'bold');
+    margin-block-end: 2rem;
   }
 
   .button-group {
     display: flex;
     justify-content: center;
     gap: 2rem;
-    margin-top: 1rem;
+    margin-block-start: 1rem;
+  }
+
+  :is(.design-system-btn, .prototype-btn) {
+    color: $white-elements;
+    border: none;
+    padding: 0.75rem 2rem;
+    border-radius: 0.5rem;
+    transition: background-color 0.2s ease;
   }
 
   .design-system-btn {
     background-color: $magenta;
-    color: $white-elements;
-    transition: background-color 0.2s ease;
-    border: none;
-    padding: 0.75rem 2rem;
-    border-radius: 8px;
 
     &:hover {
       background-color: color.adjust($magenta, $lightness: 10%);
@@ -39,19 +43,15 @@
 
   .prototype-btn {
     background-color: $red;
-    color: $white-elements;
-    font-weight: bold;
-    transition: background-color 0.2s ease;
-    border: none;
-    padding: 0.75rem 2rem;
-    border-radius: 8px;
+    font-weight: map-get($font-weights, bold);
 
     &:hover {
       background-color: color.adjust($red, $lightness: -10%);
     }
   }
 
-  @media (max-width: 600px) {
+  @media (max-width: 37.5rem) {
+    // 600px
     .button-group {
       flex-direction: column;
       align-items: center;

@@ -1,7 +1,8 @@
+// src/react/sections/EverydaySection.jsx
 import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import TrendingCard from '../components/cards/TrendingCard';
-import '@/sass/components/cards/_trending_cards.scss'; // for .card-scroll-wrapper
+import '@/sass/components/cards/_trending_cards.scss';
 import '@/sass/sections/_everyday_section.scss';
 
 const EverydaySection = () => {
@@ -26,27 +27,25 @@ const EverydaySection = () => {
         }));
         setLooks(formatted);
       })
-      .catch(err => setError(err.message))
+      .catch(err => {
+        console.error(err);
+        setError(err.message);
+      })
       .finally(() => setLoading(false));
   }, []);
 
   return (
     <section className='home-section section-everyday'>
       <h1>Everyday</h1>
-      <p>Your go-to kit for everyday glam</p>
+      <p>Your go‑to kit for everyday glam</p>
 
-      {loading && <p>Loading cards...</p>}
+      {loading && <p>Loading cards…</p>}
       {error && <p className='error'>Error: {error}</p>}
 
       {!loading && !error && (
         <div className='card-scroll-wrapper'>
           {looks.map(look => (
-            <Link
-              to={`/item/${look.id}`}
-              key={look.id}
-              className='card-link'
-              style={{ textDecoration: 'none' }}
-            >
+            <Link key={look.id} to={`/item/${look.id}`} className='card-link'>
               <TrendingCard look={look} showHeart={false} />
             </Link>
           ))}

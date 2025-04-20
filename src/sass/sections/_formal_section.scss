@@ -2,13 +2,13 @@
 @use '/src/sass/abstract/typography' as *;
 @use '/src/sass/abstract/mixins' as *;
 
-.section-everyday {
+.section-formal {
   background: $white-background;
   color: $black-main;
 
   h1 {
     @include font('section-title', 'bold');
-    margin: 2rem;
+    margin: 1rem;
   }
 
   p {

@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import SimpleCarousel from '../components/carousel/Carousel';
+import HeroCarouselSection from '../sections/HeroCarouselSection';
 import { BasketButton } from '../components/buttons/BasketButton';
 import TrendingSection from '../sections/TrendingSection';
 import EverydaySection from '../sections/EverydaySection';
@@ -26,22 +26,11 @@ const HomeScreen = () => {
 
   return (
     <div className='home-screen'>
-      {/* Section 1: Carousel + Basket */}
-      <section className='home-section section-carousel'>
-        <div className='carousel-container'>
-          <SimpleCarousel />
-          <div className='basket-wrapper'>
-            <BasketButton />
-          </div>
-        </div>
-      </section>
+      {/* Section 1: hero carousel */}
+      <HeroCarouselSection />
 
       {/* Section 2: Trending */}
-      <TrendingSection
-        looks={trendingLooks}
-        loading={loadingTrending}
-        error={errorTrending}
-      />
+      <TrendingSection />
 
       {/* Section 3: Everyday */}
       <EverydaySection />

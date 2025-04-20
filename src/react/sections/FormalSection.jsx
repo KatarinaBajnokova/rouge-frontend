@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import TrendingCard from '../components/cards/TrendingCard';
 import '@/sass/components/cards/_trending_cards.scss'; // for .card-scroll-wrapper
-import '@/sass/sections/_everyday_section.scss'; // reuse section styles
+import '@/sass/sections/_formal_section.scss';
 
 const FormalSection = () => {
   const [looks, setLooks] = useState([]);
@@ -26,7 +26,10 @@ const FormalSection = () => {
         }));
         setLooks(formatted);
       })
-      .catch(err => setError(err.message))
+      .catch(err => {
+        console.error(err);
+        setError(err.message);
+      })
       .finally(() => setLoading(false));
   }, []);
 
@@ -35,18 +38,13 @@ const FormalSection = () => {
       <h1>Formal</h1>
       <p>Elegant taste for any formal setting</p>
 
-      {loading && <p>Loading cards...</p>}
+      {loading && <p>Loading cards…</p>}
       {error && <p className='error'>Error: {error}</p>}
 
       {!loading && !error && (
         <div className='card-scroll-wrapper'>
           {looks.map(look => (
-            <Link
-              to={`/item/${look.id}`}
-              key={look.id}
-              className='card-link'
-              style={{ textDecoration: 'none' }}
-            >
+            <Link key={look.id} to={`/item/${look.id}`} className='card-link'>
               <TrendingCard look={look} showHeart={false} />
             </Link>
           ))}

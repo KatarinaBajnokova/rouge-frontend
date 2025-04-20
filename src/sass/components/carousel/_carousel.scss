@@ -1,39 +1,22 @@
-@use '/src/sass/abstract/colors' as *;
-
-.carousel .slide {
-  border: none;
+.carousel {
   position: relative;
-}
-
-.carousel-wrapper {
+  overflow: hidden;
   width: 100%;
-  max-width: 100%;
-}
 
-.carousel .control-dots {
-  position: absolute;
-  left: 50%;
-  bottom: 5%;
-  transform: translateX(-50%);
-  display: flex;
-  justify-content: center;
-  list-style: none;
-}
+  &__track {
+    display: flex;
+    transition: transform 0.5s ease-in-out;
+  }
 
-.carousel .control-dots .dot {
-  width: 10px;
-  height: 10px;
-  border-radius: 50%;
-  background-color: white;
-  margin: 0 5px;
-  cursor: pointer;
-  transition:
-    background-color 0.3s,
-    transform 0.3s;
-}
+  &__slide {
+    flex: 0 0 100%;
 
-.carousel .control-dots .dot.selected {
-  background-color: $red;
-  width: 18px;
-  border-radius: 60%;
+    > * {
+      width: 100%;
+      height: auto;
+      display: block;
+    }
+  }
+
+  /* NAV AND DOTS BLOCKS REMOVED */
 }

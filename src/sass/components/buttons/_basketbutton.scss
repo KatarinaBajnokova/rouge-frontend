@@ -1,13 +1,19 @@
+/* BasketButton.scss */
 @use '/src/sass/abstract/colors' as *;
 
 .basket-button {
   position: fixed;
-  top: 0;
-  right: 0;
-  background-color: rgba($red, 0.8);
-  border-radius: 0 0 1rem 1rem;
+  top: 0rem;
+  right: 0rem;
+  z-index: 9999;
+
+  border: none;
+  outline: none;
+  background: rgba($red, 0.7);
+
   width: 70px;
   height: 80px;
+  border-radius: 0 0 1rem 1rem;
 
   display: flex;
   flex-direction: column;
@@ -16,13 +22,12 @@
 
   color: #fff;
   text-align: center;
-
-  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  box-shadow: 0 4px 6px rgba(#000, 0.15);
 
   &__icon {
     width: 24px;
     height: 24px;
-    margin-bottom: 0.3rem;
+    margin-bottom: 0.25rem;
   }
 
   &__label {

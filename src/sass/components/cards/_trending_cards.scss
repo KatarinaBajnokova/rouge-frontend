@@ -1,9 +1,9 @@
 .trendingCard {
   display: flex;
   flex-direction: column;
-  background-color: #fff;
+  background: #fff;
   border-radius: 8px;
-  box-shadow: 0 2px 12px rgba(0, 0, 0, 0.1);
+  box-shadow: 0 2px 12px rgba(#000, 0.1);
   overflow: hidden;
   max-width: 240px;
   width: 100%;
@@ -31,14 +31,14 @@
   right: 10px;
   background: #fff;
   border-radius: 50%;
-  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.2);
+  box-shadow: 0 2px 6px rgba(#000, 0.2);
   padding: 6px;
   cursor: pointer;
 }
 
 .trendingCard__content {
   padding: 1rem;
-  background: linear-gradient(to top, white 80%, rgba(255, 255, 255, 0.6));
+  background: linear-gradient(to top, #fff 80%, rgba(#fff, 0.6));
   border-bottom-left-radius: 8px;
   border-bottom-right-radius: 8px;
   display: flex;
@@ -47,33 +47,25 @@
 }
 
 .trendingCard__title {
-  font-weight: 700;
-  font-size: 1.125rem;
+  font: 700 1.125rem/1.3 inherit;
   color: #000;
-  margin: 0;
 }
-
 .trendingCard__category {
   font-size: 0.875rem;
   color: #666;
-  margin: 0;
 }
-
 .trendingCard__footer {
   display: flex;
   justify-content: space-between;
   align-items: center;
   margin-top: 0.5rem;
 }
-
 .trendingCard__badge {
   font-size: 0.875rem;
   padding: 0.25rem 0.5rem;
   border-radius: 4px;
 }
-
 .trendingCard__price {
-  font-weight: 600;
-  font-size: 1rem;
+  font: 600 1rem/1.2 inherit;
   color: #000;
 }
