@@ -19,7 +19,6 @@ const AnimationPage = () => {
     if (videoRef.current) {
       videoRef.current.pause();
     }
-    // Navigate to the homescreen route
     navigate('/homescreen');
   };
 
@@ -50,12 +49,10 @@ const AnimationPage = () => {
         <div className='bottom-card'>
           <h2>Welcome</h2>
           <p>Ready to continue? Sign in, log in, or skip.</p>
-
           <div className='button-group'>
             <SignUpButton />
             <WhiteLogInButton />
           </div>
-
           <button className='skip-button' onClick={handleSkip}>
             Skip
           </button>

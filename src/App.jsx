@@ -7,6 +7,8 @@ import DesignSystem from './react/pages/DesignSystem';
 import AnimationPage from './react/pages/AnimationPage';
 import HomeScreen from './react/pages/HomeScreen';
 import ProductDetail from './react/pages/ProductDetail';
+import BasketPage from './react/pages/BasketPage';
+
 import '@mantine/core/styles.css';
 import '@mantine/carousel/styles.css';
 import 'slick-carousel/slick/slick.css';
@@ -21,8 +23,8 @@ function App() {
         <Route path='/design-system' element={<DesignSystem />} />
         <Route path='/animation' element={<AnimationPage />} />
         <Route path='/homescreen' element={<HomeScreen />} />
-        <Route path='/item/:id' element={<ProductDetail />} />{' '}
-        {/* ← add this */}
+        <Route path='/item/:id' element={<ProductDetail />} />
+        <Route path='/basket' element={<BasketPage />} />
       </Routes>
     </BrowserRouter>
   );

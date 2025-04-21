@@ -26,21 +26,11 @@ const HomeScreen = () => {
 
   return (
     <div className='home-screen'>
-      {/* Section 1: hero carousel */}
       <HeroCarouselSection />
-
-      {/* Section 2: Trending */}
       <TrendingSection />
-
-      {/* Section 3: Everyday */}
       <EverydaySection />
-
-      {/* Section 4: Formal */}
       <FormalSection />
-
-      {/* Section 5: Reorder */}
       <ReorderSection />
-
       <Navbar />
     </div>
   );

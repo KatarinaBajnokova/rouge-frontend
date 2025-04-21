@@ -1,0 +1,35 @@
+@use 'sass:color';
+@use '/src/sass/abstract/colors' as *;
+@use '/src/sass/abstract/typography' as *;
+@use '/src/sass/abstract/mixins' as *;
+
+.product-detail {
+  .detail-instructions {
+    padding: 1rem;
+
+    .instruction-step {
+      display: flex;
+      align-items: flex-start;
+      margin-block-end: 1rem;
+
+      &__number {
+        background: $red;
+        color: $white-elements;
+        width: 2rem;
+        height: 2rem;
+        border-radius: 50%;
+        display: grid;
+        place-content: center;
+        font-weight: map-get($font-weights, bold);
+        flex-shrink: 0;
+      }
+
+      &__body {
+        margin-inline-start: 1rem;
+        flex: 1;
+        border-block-end: 1px solid rgba($black-main, 0.08);
+        padding-block-end: 1rem;
+      }
+    }
+  }
+}

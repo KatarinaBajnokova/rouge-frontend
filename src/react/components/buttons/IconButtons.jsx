@@ -1,5 +1,7 @@
 import React from 'react';
 import { Button } from '@mantine/core';
+import { IconArrowLeft } from '@tabler/icons-react';
+
 import '@/sass/components/buttons/_iconbuttons.scss';
 
 import addToBasketIcon from '@/assets/icons/icon_basket_active.svg';
@@ -11,7 +13,7 @@ import continueWithFacebookIcon from '@/assets/icons/icon_facebook.svg';
 import continueWithGoogleIcon from '@/assets/icons/icon_google.svg';
 import continueWithAppleIcon from '@/assets/icons/icon_apple.svg';
 
-export function AddToBasketIconButton(props) {
+export function AddToBasketIconButton({ onClick, ...props }) {
   return (
     <Button
       classNames={{ root: 'add-to-basket-icon-button' }}
@@ -24,6 +26,7 @@ export function AddToBasketIconButton(props) {
           height={16}
         />
       }
+      onClick={onClick}
       {...props}
     >
       Add to basket
@@ -176,5 +179,18 @@ export function SeeMoreButton(props) {
     <Button classNames={{ root: 'see-more-button' }} {...props}>
       See more &gt;
     </Button>
+  );
+}
+
+export function BackIconButton({ onClick, ...props }) {
+  return (
+    <button
+      className='back-icon-button'
+      onClick={onClick}
+      aria-label='Go back'
+      {...props}
+    >
+      <IconArrowLeft size={20} stroke={2} />
+    </button>
   );
 }

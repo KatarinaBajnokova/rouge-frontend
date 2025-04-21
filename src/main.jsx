@@ -1,10 +1,15 @@
 import React from 'react';
 import ReactDOM from 'react-dom/client';
-import { MantineProvider } from '@mantine/core';
 import App from './App.jsx';
+import { MantineProvider } from '@mantine/core';
+import { Notifications } from '@mantine/notifications';
 
 ReactDOM.createRoot(document.getElementById('root')).render(
-  <MantineProvider withGlobalStyles withNormalizeCSS>
-    <App />
-  </MantineProvider>
+  <React.StrictMode>
+    <MantineProvider withGlobalStyles withNormalizeCSS>
+      {' '}
+      <Notifications />
+      <App />
+    </MantineProvider>
+  </React.StrictMode>
 );

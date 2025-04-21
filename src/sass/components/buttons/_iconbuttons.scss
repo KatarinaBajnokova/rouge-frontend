@@ -1,6 +1,5 @@
-@use "/src/sass/abstract/colors" as *;
+@use '/src/sass/abstract/colors' as *;
 
-// ADD TO BASKET ICON BUTTON
 button.mantine-Button-root.add-to-basket-icon-button {
   background-color: $red;
   color: $white-elements;
@@ -22,7 +21,6 @@ button.mantine-Button-root.add-to-basket-icon-button {
   }
 }
 
-// SEE REVIEWS ICON BUTTON
 button.mantine-Button-root.see-reviews-icon-button {
   background-color: $magenta;
   color: $white-elements;
@@ -41,7 +39,6 @@ button.mantine-Button-root.see-reviews-icon-button {
   }
 }
 
-// FILTER ICON BUTTON
 button.mantine-Button-root.filter-icon-button {
   background-color: $red;
   color: $white-elements;
@@ -63,7 +60,6 @@ button.mantine-Button-root.filter-icon-button {
   }
 }
 
-// LEAVE A REVIEW ICON BUTTON
 button.mantine-Button-root.leave-a-review-icon-button {
   background-color: $magenta;
   color: $white-elements;
@@ -85,7 +81,6 @@ button.mantine-Button-root.leave-a-review-icon-button {
   }
 }
 
-// REPURCHASE ICON BUTTON
 button.mantine-Button-root.repurchase-icon-button {
   background-color: $red;
   color: $white-elements;
@@ -107,7 +102,6 @@ button.mantine-Button-root.repurchase-icon-button {
   }
 }
 
-// CONTINUE WITH FACEBOOK ICON BUTTON
 button.mantine-Button-root.continue-with-facebook-icon-button {
   background-color: $white-elements;
   color: $black-main;
@@ -129,7 +123,6 @@ button.mantine-Button-root.continue-with-facebook-icon-button {
   }
 }
 
-// CONTINUE WITH GOOGLE ICON BUTTON
 button.mantine-Button-root.continue-with-google-icon-button {
   background-color: $white-elements;
   color: $black-main;
@@ -151,7 +144,6 @@ button.mantine-Button-root.continue-with-google-icon-button {
   }
 }
 
-// CONTINUE WITH APPLE ICON BUTTON
 button.mantine-Button-root.continue-with-apple-icon-button {
   background-color: $white-elements;
   color: $black-main;
@@ -173,7 +165,6 @@ button.mantine-Button-root.continue-with-apple-icon-button {
   }
 }
 
-// SEE MORE BUTTON
 button.mantine-Button-root.see-more-button {
   background-color: transparent;
   color: $magenta;
@@ -190,5 +181,27 @@ button.mantine-Button-root.see-more-button {
 
   &:hover {
     opacity: 0.95;
+  }
+}
+
+.back-icon-button {
+  background-color: white;
+  border: none;
+  border-radius: 50%;
+  width: 44px;
+  height: 44px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.15);
+  cursor: pointer;
+  transition: transform 0.2s ease;
+
+  svg {
+    color: black;
+  }
+
+  &:hover {
+    transform: scale(1.05);
   }
 }

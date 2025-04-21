@@ -1,4 +1,3 @@
-// src/react/sections/EverydaySection.jsx
 import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import TrendingCard from '../components/cards/TrendingCard';

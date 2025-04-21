@@ -1,8 +1,7 @@
-// src/sections/ReorderSection.jsx
 import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import TrendingCard from '../components/cards/TrendingCard';
-import '@/sass/components/cards/_trending_cards.scss'; // for .card-scroll-wrapper
+import '@/sass/components/cards/_trending_cards.scss';
 import '@/sass/sections/_reorder_section.scss';
 
 const ReorderSection = () => {

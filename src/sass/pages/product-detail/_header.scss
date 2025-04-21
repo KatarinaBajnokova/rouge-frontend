@@ -1,0 +1,23 @@
+@use 'sass:color';
+@use '/src/sass/abstract/colors' as *;
+@use '/src/sass/abstract/typography' as *;
+@use '/src/sass/abstract/mixins' as *;
+
+.product-detail {
+  .detail-header-buttons {
+    position: absolute;
+    top: 1rem;
+    left: 1rem;
+    right: 1rem;
+    z-index: 10;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    pointer-events: none;
+
+    .back-icon-button,
+    .basket-button {
+      pointer-events: all;
+    }
+  }
+}

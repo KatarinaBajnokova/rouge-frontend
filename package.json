@@ -12,6 +12,7 @@
     "@mantine/carousel": "^7.17.4",
     "@mantine/core": "^7.17.4",
     "@mantine/hooks": "^7.17.4",
+    "@mantine/notifications": "^7.17.4",
     "@tabler/icons-react": "^3.31.0",
     "@testing-library/dom": "^10.4.0",
     "@testing-library/jest-dom": "^6.6.3",
