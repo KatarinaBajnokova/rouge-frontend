@@ -1,4 +1,3 @@
-// src/App.jsx
 import React from 'react';
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
 
@@ -8,6 +7,7 @@ import AnimationPage from './react/pages/AnimationPage';
 import HomeScreen from './react/pages/HomeScreen';
 import ProductDetail from './react/pages/ProductDetail';
 import BasketPage from './react/pages/BasketPage';
+import CheckoutPage from './react/pages/CheckoutPage';
 
 import '@mantine/core/styles.css';
 import '@mantine/carousel/styles.css';
@@ -25,6 +25,7 @@ function App() {
         <Route path='/homescreen' element={<HomeScreen />} />
         <Route path='/item/:id' element={<ProductDetail />} />
         <Route path='/basket' element={<BasketPage />} />
+        <Route path='/checkout' element={<CheckoutPage />} />
       </Routes>
     </BrowserRouter>
   );

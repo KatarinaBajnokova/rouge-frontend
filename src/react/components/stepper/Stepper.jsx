@@ -1,8 +1,8 @@
-import { Stepper } from "@mantine/core";
+import { Stepper } from '@mantine/core';
 
-function FinalStepper() {
+function FinalStepper({ active }) {
   return (
-    <Stepper color="magenta" size="lg" active={1}>
+    <Stepper color='magenta' size='lg' active={active}>
       <Stepper.Step />
       <Stepper.Step />
       <Stepper.Step />

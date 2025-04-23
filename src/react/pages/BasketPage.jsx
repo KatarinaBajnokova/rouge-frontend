@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
+import { CheckoutButton } from '../components/buttons/RedButtons';
 import '@/sass/pages/_basket_page.scss';
 import {
   Title,
@@ -152,9 +153,7 @@ export default function BasketPage() {
             €{totalWithShipping}
           </Title>
         </div>
-        <Button size='md' radius='xl' color='grape'>
-          Check-out
-        </Button>
+        <CheckoutButton onClick={() => navigate('/checkout')} />
       </Group>
     </div>
   );
