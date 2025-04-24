@@ -20,7 +20,6 @@ import {
 } from '../components/buttons/IconButtons';
 import { BasketButton } from '../components/buttons/BasketButton';
 import SimpleCarousel from '../components/carousel/Carousel';
-import Stepper from '../components/stepper/stepper';
 
 const DesignSystem = () => {
   return (

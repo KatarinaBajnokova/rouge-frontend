@@ -50,7 +50,8 @@ const AnimationPage = () => {
           <h2>Welcome</h2>
           <p>Ready to continue? Sign in, log in, or skip.</p>
           <div className='button-group'>
-            <SignUpButton />
+            <SignUpButton onClick={() => navigate('/signup')} />
+
             <WhiteLogInButton />
           </div>
           <button className='skip-button' onClick={handleSkip}>

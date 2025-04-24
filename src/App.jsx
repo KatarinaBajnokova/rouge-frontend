@@ -8,6 +8,9 @@ import HomeScreen from './react/pages/HomeScreen';
 import ProductDetail from './react/pages/ProductDetail';
 import BasketPage from './react/pages/BasketPage';
 import CheckoutPage from './react/pages/CheckoutPage';
+import SignUpPage from './react/pages/SignUpPage';
+import LoginPage from './react/pages/LoginPage';
+import PersonalLookPage from './react/pages/PersonalLookPage';
 
 import '@mantine/core/styles.css';
 import '@mantine/carousel/styles.css';
@@ -26,6 +29,9 @@ function App() {
         <Route path='/item/:id' element={<ProductDetail />} />
         <Route path='/basket' element={<BasketPage />} />
         <Route path='/checkout' element={<CheckoutPage />} />
+        <Route path='/signup' element={<SignUpPage />} />
+        <Route path='/login' element={<LoginPage />} />
+        <Route path='/personal-look' element={<PersonalLookPage />} />
       </Routes>
     </BrowserRouter>
   );
