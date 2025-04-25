@@ -1,7 +1,8 @@
 import React, { useState } from 'react';
 import { useNavigate, Link } from 'react-router-dom';
 import { TextInput, PasswordInput, Divider, Button } from '@mantine/core';
-import { IconEye, IconEyeOff } from '@tabler/icons-react';
+import IconEye from '@tabler/icons-react/dist/esm/icons/iconEye';
+import IconEyeOff from '@tabler/icons-react/dist/esm/icons/iconEyeOff';
 import { showNotification } from '@mantine/notifications';
 
 import FinalStepper from '../components/stepper/Stepper';

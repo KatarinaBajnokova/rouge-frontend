@@ -12,12 +12,10 @@ import {
   ActionIcon,
   Loader,
 } from '@mantine/core';
-import {
-  IconTrash,
-  IconMinus,
-  IconPlus,
-  IconArrowLeft,
-} from '@tabler/icons-react';
+import IconTrash from '@tabler/icons-react/dist/esm/icons/IconTrash';
+import IconMinus from '@tabler/icons-react/dist/esm/icons/IconMinus';
+import IconPlus from '@tabler/icons-react/dist/esm/icons/IconPlus';
+import IconArrowLeft from '@tabler/icons-react/dist/esm/icons/IconArrowLeft';
 
 export default function BasketPage() {
   const [basketItems, setBasketItems] = useState([]);

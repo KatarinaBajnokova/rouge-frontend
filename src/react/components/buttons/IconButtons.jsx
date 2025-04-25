@@ -1,6 +1,6 @@
 import React from 'react';
 import { Button } from '@mantine/core';
-import { IconArrowLeft } from '@tabler/icons-react';
+import IconArrowLeft from '@tabler/icons-react/dist/esm/icons/IconArrowLeft';
 
 import '@/sass/components/buttons/_iconbuttons.scss';
 

@@ -9,7 +9,7 @@ import {
   Group,
   ActionIcon,
 } from '@mantine/core';
-import { IconHeart } from '@tabler/icons-react';
+import IconHeart from '@tabler/icons-react/dist/esm/icons/iconHeart';
 
 const getBadgeColor = (level) => {
   switch (level) {

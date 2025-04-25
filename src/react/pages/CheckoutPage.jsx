@@ -8,7 +8,7 @@ import {
   Checkbox,
   Divider,
 } from '@mantine/core';
-import { IconArrowLeft } from '@tabler/icons-react';
+import IconArrowLeft from '@tabler/icons-react/dist/esm/icons/IconArrowLeft';
 import { useNavigate } from 'react-router-dom';
 
 import FinalStepper from '../components/stepper/Stepper';

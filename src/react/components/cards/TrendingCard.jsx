@@ -1,6 +1,6 @@
 import React from 'react';
 import { Card, Text, Badge, Group, Box, ActionIcon } from '@mantine/core';
-import { IconHeartFilled } from '@tabler/icons-react';
+import IconHeartFilled from '@tabler/icons-react/dist/esm/icons/iconHeartFilled';
 import '@/sass/components/cards/_trending_cards.scss';
 
 const TrendingCard = ({ look, showHeart = false }) => {
