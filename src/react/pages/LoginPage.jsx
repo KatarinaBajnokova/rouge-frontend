@@ -5,6 +5,7 @@ import { TextInput, PasswordInput, Divider, Button } from '@mantine/core';
 import IconEye from '@tabler/icons-react/dist/esm/icons/iconEye';
 import IconEyeOff from '@tabler/icons-react/dist/esm/icons/iconEyeOff';
 import { showNotification } from '@mantine/notifications';
+import { BackIconButton } from '../components/buttons/IconButtons';
 
 import FinalStepper from '../components/stepper/Stepper';
 import {
@@ -108,9 +109,7 @@ const LoginPage = () => {
 
   return (
     <div className='signup-page'>
-      <button className='back-button' onClick={() => navigate(-1)}>
-        ←
-      </button>
+      <BackIconButton onClick={() => navigate(-1)} />
 
       <FinalStepper active={1} />
 

@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { CheckoutButton } from '../components/buttons/RedButtons';
+import { BackIconButton } from '../components/buttons/IconButtons';
 import '@/sass/pages/_basket_page.scss';
 import {
   Title,
@@ -15,7 +16,6 @@ import {
 import IconTrash from '@tabler/icons-react/dist/esm/icons/IconTrash';
 import IconMinus from '@tabler/icons-react/dist/esm/icons/IconMinus';
 import IconPlus from '@tabler/icons-react/dist/esm/icons/IconPlus';
-import IconArrowLeft from '@tabler/icons-react/dist/esm/icons/IconArrowLeft';
 
 export default function BasketPage() {
   const [basketItems, setBasketItems] = useState([]);
@@ -72,14 +72,9 @@ export default function BasketPage() {
   return (
     <div className='basket-page'>
       <Group className='basket-header' align='center' spacing='sm'>
-        <ActionIcon
-          variant='light'
-          size='lg'
-          radius='xl'
-          onClick={() => navigate(-1)}
-        >
-          <IconArrowLeft size={20} />
-        </ActionIcon>
+      
+      <BackIconButton onClick={() => navigate(-1)} />
+
         <Title order={2}>Shopping basket</Title>
       </Group>
 

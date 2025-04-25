@@ -1,6 +1,6 @@
 import React from 'react';
 import { Button } from '@mantine/core';
-import IconArrowLeft from '@tabler/icons-react/dist/esm/icons/IconArrowLeft';
+import IconChevronLeft from '@tabler/icons-react/dist/esm/icons/IconChevronLeft';
 
 import '@/sass/components/buttons/_iconbuttons.scss';
 
@@ -190,7 +190,7 @@ export function BackIconButton({ onClick, ...props }) {
       aria-label='Go back'
       {...props}
     >
-      <IconArrowLeft size={20} stroke={2} />
+      <IconChevronLeft size={20} stroke={2} />
     </button>
   );
 }

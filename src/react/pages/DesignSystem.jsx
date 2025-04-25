@@ -1,5 +1,6 @@
 import React from 'react';
 import { MantineProvider, Group } from '@mantine/core';
+import { Stepper } from '@mantine/core';
 import {
   CheckoutButton,
   ConfirmPurchaseButton,
