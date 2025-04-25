@@ -22,7 +22,7 @@ const getBadgeColor = (level) => {
     case 'Expert':
       return 'red';
     default:
-      return 'gray';
+      return 'magenta';
   }
 };
 

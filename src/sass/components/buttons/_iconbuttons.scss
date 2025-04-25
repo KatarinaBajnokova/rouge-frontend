@@ -185,6 +185,8 @@ button.mantine-Button-root.see-more-button {
 }
 
 .back-icon-button {
+  position: fixed;
+  margin-top: 80px;
   background-color: $white-elements;
   border: none;
   border-radius: 50%;

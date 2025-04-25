@@ -15,7 +15,7 @@ const TrendingCard = ({ look, showHeart = false }) => {
       case 'Expert':
         return 'red';
       default:
-        return 'gray';
+        return 'magenta';
     }
   };
 
