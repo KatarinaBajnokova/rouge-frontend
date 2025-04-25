@@ -1,5 +1,6 @@
 import React from 'react';
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
+import { MantineProvider } from '@mantine/core';
 
 import InitialPage from './react/pages/InitialPage';
 import DesignSystem from './react/pages/DesignSystem';
@@ -20,20 +21,22 @@ import 'react-responsive-carousel/lib/styles/carousel.min.css';
 
 function App() {
   return (
-    <BrowserRouter>
-      <Routes>
-        <Route path='/' element={<InitialPage />} />
-        <Route path='/design-system' element={<DesignSystem />} />
-        <Route path='/animation' element={<AnimationPage />} />
-        <Route path='/homescreen' element={<HomeScreen />} />
-        <Route path='/item/:id' element={<ProductDetail />} />
-        <Route path='/basket' element={<BasketPage />} />
-        <Route path='/checkout' element={<CheckoutPage />} />
-        <Route path='/signup' element={<SignUpPage />} />
-        <Route path='/login' element={<LoginPage />} />
-        <Route path='/personal-look' element={<PersonalLookPage />} />
-      </Routes>
-    </BrowserRouter>
+    <MantineProvider withGlobalStyles withNormalizeCSS>
+      <BrowserRouter>
+        <Routes>
+          <Route path='/' element={<InitialPage />} />
+          <Route path='/design-system' element={<DesignSystem />} />
+          <Route path='/animation' element={<AnimationPage />} />
+          <Route path='/homescreen' element={<HomeScreen />} />
+          <Route path='/item/:id' element={<ProductDetail />} />
+          <Route path='/basket' element={<BasketPage />} />
+          <Route path='/checkout' element={<CheckoutPage />} />
+          <Route path='/signup' element={<SignUpPage />} />
+          <Route path='/login' element={<LoginPage />} />
+          <Route path='/personal-look' element={<PersonalLookPage />} />
+        </Routes>
+      </BrowserRouter>
+    </MantineProvider>
   );
 }
 

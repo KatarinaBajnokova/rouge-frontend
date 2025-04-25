@@ -14,17 +14,6 @@
   padding: 1.5rem 1.5rem 7rem;
   font-family: $font-family;
 
-  .back-button {
-    background-color: $white-elements;
-    border: none;
-    border-radius: 50%;
-    padding: 0.5rem 0.7rem;
-    font-size: map.get($font-sizes, 'icon-title');
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-    align-self: flex-start;
-    margin-bottom: 1rem;
-  }
-
   h2 {
     font-size: map.get($font-sizes, 'section-title');
     font-weight: map.get($font-weights, 'bold');
@@ -85,18 +74,5 @@
     justify-content: center;
   }
 
-  .continue-button {
-    background-color: $red-heart !important;
-    color: $white-elements;
-    font-weight: map.get($font-weights, 'bold');
-    font-size: map.get($font-sizes, 'card-title');
-    padding: 0.75rem 2.5rem;
-    border-radius: 12px;
-    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.15);
-    transition: background-color 0.2s ease;
 
-    &:hover {
-      background-color: darken($red-heart, 8%) !important;
-    }
-  }
 }
