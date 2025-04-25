@@ -5,15 +5,24 @@
 
 .home-screen,
 .home-screen * {
-  margin: 0;
-  padding: 0;
   max-width: 100%;
   overflow-x: hidden;
 }
 
+.section-everyday,
+.section-reorder,
+.section-two,
+.section-formal {
+  padding: 0.5rem;
+}
+
+
+
+
 html,
 body {
   overflow-x: hidden;
+  padding-bottom: 2.5rem;
 }
 
 .card-scroll-wrapper {

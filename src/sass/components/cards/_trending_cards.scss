@@ -37,7 +37,7 @@
 }
 
 .trendingCard__content {
-  padding: 1rem;
+  padding: 0rem;
   background: linear-gradient(to top, #fff 80%, rgba(#fff, 0.6));
   border-bottom-left-radius: 8px;
   border-bottom-right-radius: 8px;
@@ -64,8 +64,24 @@
   font-size: 0.875rem;
   padding: 0.25rem 0.5rem;
   border-radius: 4px;
+  text-align: left;
 }
 .trendingCard__price {
   font: 600 1rem/1.2 inherit;
   color: #000;
+  text-align: right;
 }
+
+.mantine-Card-root{
+  width: 300px;
+
+  p{
+    margin: 0;
+  }
+}
+
+.mantine-Card-root .mantine-Group-root {
+  justify-content: space-between;
+}
+
+

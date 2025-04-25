@@ -17,6 +17,7 @@ import IconTrash from '@tabler/icons-react/dist/esm/icons/IconTrash';
 import IconMinus from '@tabler/icons-react/dist/esm/icons/IconMinus';
 import IconPlus from '@tabler/icons-react/dist/esm/icons/IconPlus';
 
+
 export default function BasketPage() {
   const [basketItems, setBasketItems] = useState([]);
   const [totalPrice, setTotalPrice] = useState(0);

@@ -8,11 +8,10 @@
 
   h1 {
     @include font('section-title', 'bold');
-    margin: 2rem;
+    margin: 1rem;
   }
 
   p {
     @include font('section-description', 'regular');
-    margin: 1rem;
   }
 }

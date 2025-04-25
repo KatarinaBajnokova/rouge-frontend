@@ -5,8 +5,7 @@
 .section-reorder {
   background: $red;
   color: $white-elements;
-  margin: 2rem;
-  padding: 2rem;
+
 
   h1 {
     @include font('section-title', 'bold');
@@ -15,6 +14,5 @@
 
   p {
     @include font('section-description', 'regular');
-    margin: 1rem;
   }
 }
