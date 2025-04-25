@@ -1,0 +1,90 @@
+.personal-info-page {
+  background-color: #f9f9f9;
+  padding: 2rem;
+  min-height: 100vh;
+
+  .personal-form {
+    .mantine-TextInput-root {
+      margin-bottom: 1rem;
+    }
+
+    .mantine-TextInput-input {
+      border-radius: 1rem;
+      background-color: #fff;
+      border: 1px solid #ddd;
+      padding: 0.75rem 1rem;
+    }
+
+    .mantine-TextInput-label {
+      font-weight: 600;
+      font-size: 0.95rem;
+      margin-bottom: 0.25rem;
+    }
+
+    .mantine-Checkbox-root {
+      margin-top: 0.5rem;
+    }
+
+    .mantine-Button-root {
+      margin-top: 1rem;
+    }
+
+    .mantine-Text-root {
+      font-size: 0.9rem;
+    }
+  }
+
+  .confirmation-screen {
+    position: fixed;
+    inset: 0;
+    background: radial-gradient(circle at center, #c8102e 20%, #80001f 100%);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    z-index: 10000;
+
+    .confirmation-bubble {
+      background-color: #fff;
+      padding: 2rem;
+      border-radius: 50%;
+      width: 85%;
+      max-width: 380px;
+      box-shadow: 0 4px 20px rgba(0, 0, 0, 0.15);
+      animation: pop 0.6s ease-out;
+
+      h3 {
+        color: #c8102e;
+        font-size: 1.5rem;
+        margin-bottom: 0.5rem;
+      }
+
+      p,
+      .mantine-Text-root {
+        font-size: 0.95rem;
+        color: #333;
+      }
+
+      .continue-button {
+        background-color: #c8102e;
+        color: #fff;
+        font-weight: bold;
+        padding: 0.75rem 2rem;
+        margin-top: 1.5rem;
+        border-radius: 2rem;
+        box-shadow: 0 4px 14px rgba(0, 0, 0, 0.1);
+      }
+    }
+  }
+
+  @keyframes pop {
+    0% {
+      transform: scale(0.7);
+      opacity: 0;
+    }
+    100% {
+      transform: scale(1);
+      opacity: 1;
+    }
+  }
+}

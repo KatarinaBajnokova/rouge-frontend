@@ -27,11 +27,10 @@ export default function ProductDetail() {
   const [expanded, setExpanded] = useState(false);
   const [showReviews, setShowReviews] = useState(false);
 
-  // ←—— this counter triggers the basket badge to refresh
   const [basketRefresh, setBasketRefresh] = useState(0);
 
   useEffect(() => {
-    fetch(`/api/items/${itemId}`)
+    fetch(`/api/item_detail?id=${itemId}`)
       .then(async res => {
         if (!res.ok) {
           const text = await res.text();
@@ -68,7 +67,6 @@ export default function ProductDetail() {
         withCloseButton: false,
       });
 
-      // ←—— bump the counter so <BasketButton> re-fetches
       setBasketRefresh(x => x + 1);
     } catch (err) {
       notifications.show({
@@ -88,7 +86,6 @@ export default function ProductDetail() {
       {/* Header Buttons */}
       <div className='detail-header-buttons'>
         <BackIconButton onClick={() => navigate(-1)} />
-        {/* pass the refresh counter into your badge */}
         <BasketButton refresh={basketRefresh} />
       </div>
 
