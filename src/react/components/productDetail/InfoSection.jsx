@@ -1,5 +1,6 @@
 import React from 'react';
 import { Title, Text, Badge } from '@mantine/core';
+import { IconChevronDown, IconChevronUp } from '@tabler/icons-react';
 
 export default function InfoSection({ item, expanded, setExpanded }) {
   if (!item) return null;
@@ -45,15 +46,14 @@ export default function InfoSection({ item, expanded, setExpanded }) {
       <div className={`detail-description ${expanded ? 'expanded' : ''}`}>
         <Text>{expanded ? fullDesc : shortDesc}</Text>
         {fullDesc.length > 180 && (
-          <Text
-            component='button'
-            variant='subtle'
-            size='xs'
-            onClick={() => setExpanded(!expanded)}
-            className='toggle-desc-btn'
-          >
-            {expanded ? 'Show less' : 'Show more'}
-          </Text>
+          <button
+  onClick={() => setExpanded(!expanded)}
+  className='toggle-desc-btn'
+>
+  {expanded ? <IconChevronUp size={20} /> : <IconChevronDown size={20} />}
+  <span>{expanded ? 'Show less' : 'Show more'}</span>
+</button>
+
         )}
       </div>
     </section>

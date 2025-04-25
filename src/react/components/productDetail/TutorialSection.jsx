@@ -6,7 +6,7 @@ export default function TutorialSection({ tutorialUrl, poster }) {
 
   return (
     <section className='detail-tutorial'>
-      <Title order={3}>Tutorial preview</Title>
+      <Title className='detail-title' order={3}>Tutorial preview</Title>
       <video
         src={tutorialUrl}
         controls

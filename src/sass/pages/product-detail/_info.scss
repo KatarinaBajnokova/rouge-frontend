@@ -15,19 +15,27 @@
       font-size: 0.875rem;
     }
 
+    .mantine-Text-root {
+       font-family: inherit;
+    }
+
     .detail-tag {
-      background: linear-gradient(135deg, $magenta, $red-heart);
+      background: linear-gradient(130deg, rgba($magenta, 0.6), rgba($red-heart, 0.6));
       color: $white-elements;
-      border: none;
+      border-color: $magenta;
+      padding: 0.7rem;
+      border-radius: 20px;
+      text-transform: none;
     }
 
     .detail-description {
       position: relative;
       background: linear-gradient(
         to top,
-        $white-elements 80%,
-        rgba($magenta, 0.2)
+        rgba($light-magenta, 0.9) 0%, 
+        transparent 70%
       );
+
       border-radius: 0 0 1rem 1rem;
       padding: 1rem;
       margin-top: 1rem;
@@ -37,10 +45,10 @@
       }
 
       .toggle-desc-btn {
-        position: absolute;
+        margin-left: auto;
+        margin-top: 0.2rem;
         inset-block-end: 0.5rem;
         inset-inline-end: 1rem;
-        color: $black-main;
       }
     }
   }
