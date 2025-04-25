@@ -33,7 +33,7 @@ const ReorderSection = () => {
   return (
     <section className='home-section section-reorder'>
       <h1>Reorder</h1>
-      <p>Rediscover your past looks</p>
+      <p className='section-desc'>Rediscover your past looks</p>
 
       {loading && <p>Loading cards...</p>}
       {error && <p className='error'>Error: {error}</p>}

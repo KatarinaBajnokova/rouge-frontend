@@ -73,7 +73,7 @@ const TrendingCard = ({ look, showHeart = false }) => {
         }}
       >
         <Text fw={700} size='lg' mb={2} color='black'>
-          {look.title|| 'No title'}
+          {look.title || 'No title'}
         </Text>
         <Text size='sm' color='dimmed' mb='xs'>
           {look.category}

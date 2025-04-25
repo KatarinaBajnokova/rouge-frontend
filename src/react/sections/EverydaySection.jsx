@@ -36,7 +36,7 @@ const EverydaySection = () => {
   return (
     <section className='home-section section-everyday'>
       <h1>Everyday</h1>
-      <p>Your go‑to kit for everyday glam</p>
+      <p className='section-desc'>Your go‑to kit for everyday glam</p>
 
       {loading && <p>Loading cards…</p>}
       {error && <p className='error'>Error: {error}</p>}

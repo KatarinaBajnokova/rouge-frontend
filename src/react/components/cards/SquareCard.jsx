@@ -75,7 +75,7 @@ export default function SquareCard({ look, showHeart = true }) {
       >
         <div>
           <Text fw={700} size="md" lineClamp={1}>
-            {look.title}
+            {look.title || 'No title'}
           </Text>
           <Text size="sm" color="dimmed" lineClamp={1}>
             {look.category}
