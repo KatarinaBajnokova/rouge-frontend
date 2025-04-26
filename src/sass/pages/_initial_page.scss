@@ -43,7 +43,7 @@
 
   .prototype-btn {
     background-color: $red;
-    font-weight: map-get($font-weights, bold);
+    font-weight: map.get($font-weights, bold);
 
     &:hover {
       background-color: color.adjust($red, $lightness: -10%);

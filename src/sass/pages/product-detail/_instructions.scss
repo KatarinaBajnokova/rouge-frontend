@@ -20,7 +20,7 @@
         border-radius: 50%;
         display: grid;
         place-content: center;
-        font-weight: map-get($font-weights, bold);
+        font-weight: map.get($font-weights, bold);
         flex-shrink: 0;
       }
 
