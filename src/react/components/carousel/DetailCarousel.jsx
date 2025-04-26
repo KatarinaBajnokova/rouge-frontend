@@ -40,12 +40,12 @@ export default function DetailCarousel({ itemId }) {
       align='start'
       breakpoints={[{ maxWidth: 'sm', slideSize: '100%' }]}
     >
-      {images.map((url, idx) => (
-        <Carousel.Slide key={idx}>
+      {images.map((image, idx) => (
+        <Carousel.Slide key={image.id || idx}>
           <div className='carousel-image-wrapper'>
             {!loadedIndexes.includes(idx) && <div className='image-skeleton' />}
             <img
-              src={url}
+              src={image.url}
               alt={`Slide ${idx + 1}`}
               loading='lazy'
               onLoad={() => handleImageLoad(idx)}
