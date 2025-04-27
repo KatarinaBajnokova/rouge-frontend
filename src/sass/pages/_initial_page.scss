@@ -1,4 +1,5 @@
 @use 'sass:color';
+@use 'sass:map';
 @use '/src/sass/abstract/colors' as *;
 @use '/src/sass/abstract/typography' as *;
 @use '/src/sass/abstract/mixins' as *;
@@ -8,7 +9,6 @@
   flex-direction: column;
   justify-content: center;
   align-items: center;
-
   height: 100vh;
   padding: 2rem;
   text-align: center;
@@ -28,7 +28,7 @@
   :is(.design-system-btn, .prototype-btn) {
     color: $white-elements;
     border: none;
-    padding: 0.75rem 2rem;
+    padding: 0rem 2rem;
     border-radius: 0.5rem;
     transition: background-color 0.2s ease;
   }
@@ -43,19 +43,10 @@
 
   .prototype-btn {
     background-color: $red;
-    font-weight: map-get($font-weights, bold);
+    font-weight: map.get($font-weights, bold);
 
     &:hover {
       background-color: color.adjust($red, $lightness: -10%);
-    }
-  }
-
-  @media (max-width: 37.5rem) {
-    // 600px
-    .button-group {
-      flex-direction: column;
-      align-items: center;
-      gap: 1rem;
     }
   }
 }

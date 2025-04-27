@@ -1,54 +1,74 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import { TextInput } from '@mantine/core';
-import '@/sass/components/_address_search.scss';
+import countryMap from '@/react/data/countryMap'; // ✨ Correct import
 
-const AddressSearch = ({ onSelect }) => {
-  const [query, setQuery] = useState('');
-  const [suggestions, setSuggestions] = useState([]);
+export default function AddressSearch({ onSelect, selectedCountry }) {
+  const [search, setSearch] = useState('');
+  const [loading, setLoading] = useState(false);
 
-  useEffect(() => {
-    const fetchSuggestions = async () => {
-      if (query.length < 3) {
-        setSuggestions([]);
-        return;
+  const handleAddressSearch = async query => {
+    if (!query) return;
+    setLoading(true);
+
+    try {
+      const params = new URLSearchParams({
+        q: query,
+        format: 'json',
+        addressdetails: 1,
+        limit: 5,
+      });
+
+      const countryCode = countryMap[selectedCountry];
+      if (countryCode) {
+        params.append('countrycodes', countryCode);
       }
 
-      const res = await fetch(
-        `https://nominatim.openstreetmap.org/search?format=json&q=${encodeURIComponent(query)}`
+      const response = await fetch(
+        `https://nominatim.openstreetmap.org/search?${params.toString()}`,
+        {
+          headers: {
+            'Accept-Language': 'en',
+          },
+        }
       );
-      const data = await res.json();
-      setSuggestions(data);
-    };
 
-    const timeoutId = setTimeout(fetchSuggestions, 300); // debounce
-    return () => clearTimeout(timeoutId);
-  }, [query]);
+      const results = await response.json();
+      console.log('🌍 Search results:', results);
 
-  const handleSelect = suggestion => {
-    setQuery(suggestion.display_name);
-    setSuggestions([]);
-    if (onSelect) onSelect(suggestion);
+      if (Array.isArray(results) && results.length > 0) {
+        onSelect(results[0]);
+      } else {
+        console.warn('⚠️ No address results found');
+        onSelect(null);
+      }
+    } catch (error) {
+      console.error('❌ Error fetching address:', error.message);
+      onSelect(null);
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  const handleInputChange = e => {
+    const value = e.target.value;
+    setSearch(value);
+
+    if (value.length >= 3) {
+      handleAddressSearch(value);
+    } else {
+      onSelect(null); // 🧠 If user deletes input, clear selected address
+    }
   };
 
   return (
-    <div className='address-search'>
-      <TextInput
-        placeholder='Your address...'
-        value={query}
-        onChange={e => setQuery(e.target.value)}
-        radius='md'
-      />
-      {suggestions.length > 0 && (
-        <ul className='suggestions'>
-          {suggestions.map(s => (
-            <li key={s.place_id} onClick={() => handleSelect(s)}>
-              {s.display_name}
-            </li>
-          ))}
-        </ul>
-      )}
-    </div>
+    <TextInput
+      label='Address'
+      placeholder='Type your address...'
+      value={search}
+      onChange={handleInputChange}
+      // Mantine expects loading={true} or loading={false}, not just loading
+      loading={loading ? true : false}
+      required
+    />
   );
-};
-
-export default AddressSearch;
+}

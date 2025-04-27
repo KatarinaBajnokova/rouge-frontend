@@ -1,6 +1,5 @@
 import React, { useState } from 'react';
-import { useNavigate } from 'react-router-dom';
-import { Link } from 'react-router-dom';
+import { useNavigate, Link } from 'react-router-dom';
 import { TextInput, PasswordInput, Divider, Button } from '@mantine/core';
 import IconEye from '@tabler/icons-react/dist/esm/icons/iconEye';
 import IconEyeOff from '@tabler/icons-react/dist/esm/icons/iconEyeOff';
@@ -18,15 +17,46 @@ import {
   facebookProvider,
   signInWithPopup,
 } from '@/firebase';
-
 import { signInWithEmailAndPassword } from 'firebase/auth';
+
 import '@/sass/pages/_signup_page.scss';
 
 const LoginPage = () => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [passwordVisible, setPasswordVisible] = useState(false);
+
   const navigate = useNavigate();
+
+  // 🔥 Helper function: after successful login, fetch user ID
+  const fetchUserId = async email => {
+    try {
+      const response = await fetch(
+        `http://localhost:3000/api/users/by-email?email=${encodeURIComponent(email)}`
+      );
+      if (!response.ok) {
+        throw new Error('User not found in backend.');
+      }
+      const data = await response.json();
+      console.log('✅ Fetched userId:', data.user_id);
+
+      localStorage.setItem('userId', data.user_id);
+      showNotification({
+        title: 'Welcome!',
+        message: 'You are now logged in.',
+        color: 'green',
+      });
+
+      navigate('/homescreen'); // Change if needed
+    } catch (error) {
+      console.error('❌ Error fetching user ID:', error.message);
+      showNotification({
+        title: 'Login error',
+        message: 'Failed to fetch user profile.',
+        color: 'red',
+      });
+    }
+  };
 
   const handleEmailLogin = async () => {
     if (!email || !password) {
@@ -43,13 +73,7 @@ const LoginPage = () => {
       const user = result.user;
       console.log('✅ Email/password login success:', user);
 
-      showNotification({
-        title: 'Logged in!',
-        message: 'Welcome back!',
-        color: 'green',
-      });
-
-      // navigate('/homescreen');
+      await fetchUserId(email); // 🚀 Fetch user ID after Firebase login
     } catch (err) {
       console.error('❌ Email/password login error:', err.message);
       showNotification({
@@ -66,13 +90,7 @@ const LoginPage = () => {
       const user = result.user;
       console.log('✅ Google login success:', user);
 
-      showNotification({
-        title: 'Logged in with Google',
-        message: `Welcome ${user.displayName || 'back'}!`,
-        color: 'green',
-      });
-
-      // navigate('/homescreen');
+      await fetchUserId(user.email); // 🚀 Fetch user ID
     } catch (err) {
       console.error('❌ Google sign-in error:', err.message);
       showNotification({
@@ -89,13 +107,7 @@ const LoginPage = () => {
       const user = result.user;
       console.log('✅ Facebook login success:', user);
 
-      showNotification({
-        title: 'Logged in with Facebook',
-        message: `Welcome ${user.displayName || 'back'}!`,
-        color: 'green',
-      });
-
-      // navigate('/homescreen');
+      await fetchUserId(user.email); // 🚀 Fetch user ID
     } catch (err) {
       console.error('❌ Facebook sign-in error:', err.message);
       showNotification({

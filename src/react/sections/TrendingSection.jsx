@@ -1,5 +1,4 @@
 import React, { useEffect, useState } from 'react';
-import { Link } from 'react-router-dom';
 import TrendingCard from '../components/cards/TrendingCard';
 import '@/sass/sections/_trending_section.scss';
 
@@ -53,14 +52,7 @@ const TrendingSection = () => {
       {!loading && !error && looks.length > 0 && (
         <div className='card-scroll-wrapper'>
           {looks.map(look => (
-            <Link
-              to={`/item/${look.id}`}
-              key={look.id}
-              className='card-link'
-              style={{ textDecoration: 'none' }}
-            >
-              <TrendingCard look={look} showHeart={false} />
-            </Link>
+            <TrendingCard key={look.id} look={look} showHeart={false} />
           ))}
         </div>
       )}

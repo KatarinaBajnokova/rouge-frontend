@@ -3,7 +3,6 @@
 @use '/src/sass/abstract/typography' as *;
 @use '/src/sass/abstract/mixins' as *;
 
-/* Page‐level resets */
 .home-screen,
 .home-screen * {
   margin: 0;
@@ -17,9 +16,6 @@ body {
   overflow-x: hidden;
 }
 
-/* ---------------------------------------------------------- */
-/* Trending/Everyday/etc. Card scroll wrappers                */
-/* ---------------------------------------------------------- */
 .card-scroll-wrapper {
   display: flex;
   overflow-x: auto;

@@ -1,7 +1,8 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import FinalStepper from '../components/stepper/Stepper';
 import { Button } from '@mantine/core';
+import FinalStepper from '../components/stepper/Stepper';
+
 import Look1 from '@/assets/yourlook/1look.png';
 import Look2 from '@/assets/yourlook/2look.png';
 import Look3 from '@/assets/yourlook/3look.png';
@@ -18,15 +19,50 @@ const images = [
 
 const PersonalLookPage = () => {
   const [selected, setSelected] = useState(null);
+  const [loading, setLoading] = useState(false);
   const navigate = useNavigate();
 
   const handleSelect = id => {
     setSelected(id);
   };
 
-  const handleContinue = () => {
-    if (selected) {
-      navigate('/homescreen');
+  const handleContinue = async () => {
+    if (!selected) {
+      alert('Please select a look before continuing.');
+      return;
+    }
+
+    const userId = localStorage.getItem('userId');
+    if (!userId) {
+      alert('User ID not found. Please log in again.');
+      navigate('/login');
+      return;
+    }
+
+    try {
+      setLoading(true);
+
+      const response = await fetch('http://localhost:3000/api/users/update', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          user_id: userId,
+          look_id: selected,
+        }),
+      });
+
+      if (!response.ok) {
+        const errorData = await response.json();
+        throw new Error(errorData.error || 'Failed to update look.');
+      }
+
+      console.log('✅ Look ID updated in backend');
+      navigate('/personal-info');
+    } catch (error) {
+      console.error('❌ Error updating look:', error.message);
+      alert('Failed to update look. Please try again.');
+    } finally {
+      setLoading(false);
     }
   };
 
@@ -39,10 +75,7 @@ const PersonalLookPage = () => {
       <FinalStepper active={1} />
 
       <h2>Select a picture that resembles you</h2>
-      <p>
-        By doing this, you will get product thumbnails that match your
-        appearance.
-      </p>
+      <p>This will help us show products that match your appearance.</p>
 
       <div className='image-grid'>
         {images.map(img => (
@@ -63,9 +96,9 @@ const PersonalLookPage = () => {
           radius='md'
           className='continue-button'
           onClick={handleContinue}
-          disabled={!selected}
+          disabled={!selected || loading}
         >
-          Continue
+          {loading ? 'Saving...' : 'Continue'}
         </Button>
       </div>
     </div>

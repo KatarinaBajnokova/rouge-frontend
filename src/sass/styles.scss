@@ -1,5 +1,4 @@
-@use 'sections/hero_carousel_section';
-@use 'sections/trending_section';
-@use 'sections/everyday_section';
-@use 'sections/formal_section';
-@use 'sections/reorder_section';
+@use './base/reset';
+@use 'sass:map';
+@use '/src/sass/abstract/colors' as *;
+@use '/src/sass/abstract/typography' as *;

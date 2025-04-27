@@ -1,113 +1,144 @@
-import React, { useEffect, useState } from 'react';
-import { Title, Text, Avatar, Button } from '@mantine/core';
-import { IconPencil, IconShoppingBag } from '@tabler/icons-react';
-import { onAuthStateChanged } from 'firebase/auth';
-import { auth } from '@/firebase';
-import Navbar from '../components/navbar/Navbar';
+import React, { useState, useEffect } from 'react';
+import { Title, Text, Group, Avatar, Button, Loader } from '@mantine/core';
 import { useNavigate } from 'react-router-dom';
-import '@/sass/pages/_profile.scss';
+import { BasketButton } from '../components/buttons/BasketButton';
+import Navbar from '../components/navbar/Navbar';
+import headerShape from '@/assets/header-shape.png';
+import '@/sass/pages/_profile_page.scss';
 
 export default function ProfilePage() {
-  const [userData, setUserData] = useState(null);
   const navigate = useNavigate();
+  const [user, setUser] = useState(null);
+  const [loading, setLoading] = useState(true);
+  const [showPersonalInfo, setShowPersonalInfo] = useState(false);
+  const userId = localStorage.getItem('userId');
 
   useEffect(() => {
-    const unsubscribe = onAuthStateChanged(auth, async user => {
-      if (user) {
-        try {
-          const res = await fetch(
-            `http://localhost:8000/api/users/get.php?uid=${user.uid}`
-          );
-          const data = await res.json();
-          setUserData(data);
-        } catch (err) {
-          console.error('❌ Failed to fetch user profile:', err);
-        }
+    const fetchUserProfile = async () => {
+      if (!userId) {
+        navigate('/login');
+        return;
       }
-    });
+      try {
+        const res = await fetch(`http://localhost:3000/api/users/${userId}`);
+        const text = await res.text();
+        const json = JSON.parse(text);
+        if (!res.ok) throw new Error(json.error || 'Failed to fetch profile');
+        setUser(json);
+      } catch {
+        navigate('/login');
+      } finally {
+        setLoading(false);
+      }
+    };
+    fetchUserProfile();
+  }, [navigate, userId]);
 
-    return () => unsubscribe();
-  }, []);
-
-  if (!userData) {
+  if (loading) {
     return (
       <div className='profile-page'>
-        <p>Loading profile...</p>
+        <Loader size='xl' color='pink' />
+      </div>
+    );
+  }
+  if (!user) {
+    return (
+      <div className='profile-page'>
+        <Text color='red'>❌ Failed to load profile.</Text>
       </div>
     );
   }
 
   return (
     <div className='profile-page'>
-      <div className='profile-header'>
-        <Button
-          variant='subtle'
-          leftIcon={<IconPencil size={16} />}
-          className='edit-button'
+      {/* HEADER WITH BACKGROUND SHAPE */}
+      <div className='profile-page__header'>
+        <img
+          src={headerShape}
+          alt=''
+          aria-hidden='true'
+          className='profile-page__header-bg'
+        />
+
+        {/* Left + Right controls */}
+        <Group
+          className='profile-page__header-content'
+          position='apart'
+          spacing='xl'
         >
-          Edit profile
-        </Button>
-
-        <Button
-          variant='subtle'
-          rightIcon={<IconShoppingBag size={18} />}
-          className='basket-button'
-        >
-          Basket
-        </Button>
-
-        <div className='profile-user-wrapper'>
-          <Avatar
-            src='https://randomuser.me/api/portraits/women/68.jpg'
-            size={80}
-            radius='xl'
-          />
-          <div className='nickname-wrapper'>
-            <Title order={3} className='profile-name'>
-              {userData.nickname}
-            </Title>
-          </div>
-        </div>
-      </div>
-
-      <div className='profile-sections'>
-        <section>
-          <Text fw={600} size='lg' className='section-title'>
-            For you
-          </Text>
-          <div
-            className='section-item'
-            onClick={() => navigate('/personal-info')}
-            style={{ cursor: 'pointer' }}
+          <Button
+            className='edit-profile-btn'
+            variant='subtle'
+            onClick={() => navigate('/profile/edit')}
           >
-            <Text>Personal info</Text>
-            <span>&#8250;</span>
-          </div>
-          <div className='section-item'>
-            <Text>Favorites</Text>
-            <span>&#8250;</span>
-          </div>
-        </section>
+            Edit Profile
+          </Button>
+          <BasketButton refresh={true} />
+        </Group>
 
-        <section>
-          <Text fw={600} size='lg' className='section-title'>
-            Settings
-          </Text>
-          <div className='section-item'>
-            <Text>Contact support</Text>
-            <span>&#8250;</span>
-          </div>
-          <div className='section-item'>
-            <Text>Terms of service</Text>
-            <span>&#8250;</span>
-          </div>
-          <div className='section-item'>
-            <Text>FAQ</Text>
-            <span>&#8250;</span>
-          </div>
-        </section>
+        {/* CENTERED USER NAME */}
+        <Title order={2} className='profile-page__header-name'>
+          {user.first_name}
+        </Title>
       </div>
 
+      {/* PROFILE INFO CARD */}
+      <div className='profile-info'>
+        <Avatar
+          src={user.profile_image || 'https://via.placeholder.com/150'}
+          alt='Profile Picture'
+          size='xl'
+          radius='xl'
+          mb='md'
+        />
+
+        {/* For You */}
+        <Title order={3} className='section-header'>
+          For you
+        </Title>
+
+        <Title
+          order={4}
+          style={{ cursor: 'pointer', color: '#4e7bff' }}
+          onClick={() => setShowPersonalInfo(p => !p)}
+        >
+          Personal Info
+        </Title>
+        {showPersonalInfo && (
+          <>
+            <Text>Email: {user.email || 'N/A'}</Text>
+            <Text>Phone: {user.phone || 'N/A'}</Text>
+            <Text>Address: {user.address_1 || 'N/A'}</Text>
+            <Text>Birthday: {user.birthdate || 'N/A'}</Text>
+            <Text>Country: {user.country || 'N/A'}</Text>
+          </>
+        )}
+        <hr className='divider' />
+        <Button onClick={() => navigate('/profile/favorites')}>
+          Favorites
+        </Button>
+        <hr className='divider' />
+
+        {/* Settings */}
+        <Title order={4} mt='xl' className='section-header'>
+          Settings
+        </Title>
+
+        <Button variant='subtle' onClick={() => navigate('/contact-support')}>
+          Contact Support
+        </Button>
+        <hr className='divider' />
+        <Button variant='subtle' onClick={() => navigate('/terms-of-service')}>
+          Terms of Service
+        </Button>
+        <hr className='divider' />
+        <Button variant='subtle' onClick={() => navigate('/faq')}>
+          FAQ
+        </Button>
+        <hr className='divider' />
+      </div>
+
+      {/* BOTTOM NAV */}
       <Navbar />
     </div>
   );

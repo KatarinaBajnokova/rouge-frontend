@@ -1,0 +1,112 @@
+@use 'sass:map';
+@use '/src/sass/abstract/colors' as *;
+@use '/src/sass/abstract/typography' as *;
+
+.profile-page {
+  background-color: $grey-background-elements;
+  margin: 0;
+  padding: 0;
+  min-height: 100vh;
+
+  &__header {
+    position: relative;
+    text-align: center;
+
+    &-name {
+      position: absolute;
+      top: 30%;
+      left: 50%;
+      transform: translateX(-50%);
+      margin: 0;
+      color: $white-elements;
+      font-family: $font-family;
+      font-size: map.get($font-sizes, 'top-title');
+      font-weight: map.get($font-weights, 'bold');
+      pointer-events: none;
+      z-index: 1;
+    }
+
+    &-shape {
+      display: block;
+      margin: 0 auto;
+      margin-top: 56px;
+      width: 80%;
+      height: auto;
+      pointer-events: none;
+    }
+
+    .edit-profile-btn {
+      position: absolute;
+      top: 16px;
+      left: 16px;
+      background: transparent;
+      border: none;
+      color: $white-elements;
+      font-family: $font-family;
+      font-size: map.get($font-sizes, 'icon-title');
+      cursor: pointer;
+      z-index: 2;
+
+      &:hover {
+        opacity: 0.8;
+      }
+    }
+  }
+
+  .profile-info {
+    position: relative;
+
+    .mantine-Avatar-root {
+      position: absolute;
+      top: -30%;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 100px;
+      height: 100px;
+      border: 3px solid $white-elements;
+      border-radius: 50%;
+      background-color: $grey-background-elements;
+      z-index: 2;
+    }
+
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+
+    .mantine-Title-root {
+      width: 100%;
+      text-align: left;
+      margin-bottom: 8px;
+      margin-left: 10%;
+      background: none !important;
+      color: $white-elements !important;
+    }
+
+    .section-header {
+      font-size: map.get($font-sizes, 'section-title') * 1.2;
+      font-weight: map.get($font-weights, 'medium');
+      margin: 24px 0 12px 10%;
+      color: $white-elements !important;
+      background: none !important;
+    }
+
+    .mantine-Button-root,
+    .contact-support-link {
+      align-self: flex-start;
+      margin-bottom: 12px;
+      margin-left: 10%;
+      background: none !important;
+      color: $white-elements !important;
+      border: none !important;
+      box-shadow: none !important;
+      padding: 0 !important;
+    }
+  }
+
+  .divider {
+    width: 80%;
+    border: none;
+    border-bottom: 1px solid $white-elements;
+    margin: 0 0 16px 10%;
+  }
+}

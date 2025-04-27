@@ -12,6 +12,7 @@ import repurchaseIcon from '@/assets/icons/icon_basket_active.svg';
 import continueWithFacebookIcon from '@/assets/icons/icon_facebook.svg';
 import continueWithGoogleIcon from '@/assets/icons/icon_google.svg';
 import continueWithAppleIcon from '@/assets/icons/icon_apple.svg';
+import IconChevronLeft from '@tabler/icons-react/dist/esm/icons/iconChevronLeft';
 
 export function AddToBasketIconButton({ onClick, ...props }) {
   return (
@@ -190,7 +191,7 @@ export function BackIconButton({ onClick, ...props }) {
       aria-label='Go back'
       {...props}
     >
-      <IconArrowLeft size={20} stroke={2} />
+      <IconChevronLeft size={20} stroke={2} />
     </button>
   );
 }

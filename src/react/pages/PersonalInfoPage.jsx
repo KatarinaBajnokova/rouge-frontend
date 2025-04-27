@@ -1,49 +1,46 @@
 import React, { useState } from 'react';
-import { Title, Text, TextInput, Group, Button, Divider } from '@mantine/core';
+import { Title, TextInput, Group, Button, Select } from '@mantine/core';
 import { IconArrowLeft } from '@tabler/icons-react';
 import { useNavigate } from 'react-router-dom';
+import { showNotification } from '@mantine/notifications';
 
 import FinalStepper from '../components/stepper/Stepper';
-import AddressSearch from '../components/AddressSearch';
+import countryMap from '@/react/data/countryMap';
+import { useUpdateUser } from '@/react/hooks/useUpdateUser';
+
 import '@/sass/pages/_personal_info.scss';
 
 export default function PersonalInfoPage() {
   const navigate = useNavigate();
+  const { updateUser, loading } = useUpdateUser();
 
-  const [activeStep, setActiveStep] = useState(0);
-
-  const [address1, setAddress1] = useState(null);
-  const [address2, setAddress2] = useState('');
+  const [country, setCountry] = useState('');
+  const [street, setStreet] = useState('');
+  const [houseNumber, setHouseNumber] = useState('');
+  const [postalCode, setPostalCode] = useState('');
   const [phone, setPhone] = useState('');
-  const [showSecondAddress, setShowSecondAddress] = useState(false);
+  const [birthdate, setBirthdate] = useState('');
 
-  const [cardName, setCardName] = useState('');
-  const [cardNumber, setCardNumber] = useState('');
-  const [cvc, setCvc] = useState('');
-  const [showPayment, setShowPayment] = useState(false);
-
-  const goToPaymentStep = () => {
-    if (!address1 || !phone) {
-      alert('Please fill out all required information.');
-      return;
-    }
-    setActiveStep(1);
-  };
+  const countryOptions = Object.keys(countryMap);
 
   const handleConfirm = () => {
-    const hasPayment = cardName && cardNumber && cvc;
-    const payload = {
-      address_1: address1,
-      address_2: showSecondAddress ? address2 : null,
-      phone,
-      payment: hasPayment
-        ? `${cardName} / ${cardNumber} / CVC: ${cvc}`
-        : 'No payment method provided',
-    };
+    if (!country || !street || !houseNumber || !postalCode || !phone) {
+      showNotification({
+        title: 'Missing Fields',
+        message: 'Please complete all required fields.',
+        color: 'red',
+        position: 'top-center',
+      });
+      return;
+    }
 
-    console.log('Submitted info:', payload);
-    alert('✅ Personal information submitted!');
-    navigate('/profile');
+    const address1 = `${street} ${houseNumber}, ${postalCode}, ${country}`;
+    updateUser({
+      address_1: address1,
+      phone,
+      birthdate: birthdate || null,
+      country: country || null,
+    });
   };
 
   return (
@@ -51,7 +48,7 @@ export default function PersonalInfoPage() {
       <Group position='apart' mb='md'>
         <Button
           variant='subtle'
-          leftIcon={<IconArrowLeft size={20} />}
+          leftSection={<IconArrowLeft size={20} />}
           onClick={() => navigate(-1)}
         >
           Back
@@ -59,98 +56,81 @@ export default function PersonalInfoPage() {
         <Title order={2}>Your Info</Title>
       </Group>
 
-      <FinalStepper active={activeStep} />
+      <FinalStepper active={2} />
 
       <div className='personal-form' style={{ marginTop: '2rem' }}>
-        {activeStep === 0 && (
-          <>
-            <Title order={3} mb='sm'>
-              Personal information
-            </Title>
+        <Title order={3} mb='sm'>
+          Personal Information
+        </Title>
 
-            <Text size='sm' fw={600} mb='xs'>
-              Address
-            </Text>
-            <AddressSearch onSelect={addr => setAddress1(addr.display_name)} />
-            {!showSecondAddress && (
-              <Text
-                size='sm'
-                c='dimmed'
-                style={{ cursor: 'pointer' }}
-                onClick={() => setShowSecondAddress(true)}
-              >
-                + Add another address
-              </Text>
-            )}
-            {showSecondAddress && (
-              <TextInput
-                label='Second address'
-                value={address2}
-                onChange={e => setAddress2(e.currentTarget.value)}
-                mt='xs'
-              />
-            )}
+        <Select
+          label='Country'
+          placeholder='Select your country'
+          data={countryOptions}
+          value={country}
+          onChange={setCountry}
+          searchable
+          nothingFoundMessage='No country found'
+          required
+          mt='md'
+        />
 
-            <TextInput
-              label='Phone number'
-              value={phone}
-              onChange={e => setPhone(e.currentTarget.value)}
-              required
-              mt='md'
-            />
+        <TextInput
+          label='Street'
+          placeholder='Enter street name'
+          value={street}
+          onChange={e => setStreet(e.currentTarget.value)}
+          required
+          mt='md'
+        />
 
-            <Group mt='xl' position='center'>
-              <Button onClick={goToPaymentStep} color='grape' radius='xl'>
-                Continue to payment
-              </Button>
-            </Group>
-          </>
-        )}
+        <Group grow>
+          <TextInput
+            label='House Number'
+            placeholder='e.g. 12A'
+            value={houseNumber}
+            onChange={e => setHouseNumber(e.currentTarget.value)}
+            required
+            mt='md'
+          />
 
-        {activeStep === 1 && (
-          <>
-            <Divider my='xl' />
-            <Title order={3}>Payment method (optional)</Title>
+          <TextInput
+            label='Postal Code'
+            placeholder='e.g. 1000'
+            value={postalCode}
+            onChange={e => setPostalCode(e.currentTarget.value)}
+            required
+            mt='md'
+          />
+        </Group>
 
-            {!showPayment ? (
-              <Text
-                size='sm'
-                c='dimmed'
-                style={{ cursor: 'pointer' }}
-                onClick={() => setShowPayment(true)}
-              >
-                + Add payment method
-              </Text>
-            ) : (
-              <>
-                <TextInput
-                  label='Cardholder name'
-                  value={cardName}
-                  onChange={e => setCardName(e.currentTarget.value)}
-                  mt='xs'
-                />
-                <TextInput
-                  label='Card number'
-                  value={cardNumber}
-                  onChange={e => setCardNumber(e.currentTarget.value)}
-                  mt='xs'
-                />
-                <TextInput
-                  label='CVC'
-                  value={cvc}
-                  onChange={e => setCvc(e.currentTarget.value)}
-                  mt='xs'
-                />
-              </>
-            )}
+        <TextInput
+          label='Phone number'
+          placeholder='Enter your phone number'
+          value={phone}
+          onChange={e => setPhone(e.currentTarget.value)}
+          required
+          mt='md'
+        />
 
-            <Group mt='xl' position='center'>
-              <Button onClick={handleConfirm} color='pink' radius='xl'>
-                Confirm & Continue
-              </Button>
-            </Group>
-          </>
-        )}
+        <TextInput
+          label='Date of Birth'
+          type='date'
+          value={birthdate}
+          onChange={e => setBirthdate(e.currentTarget.value)}
+          mt='md'
+        />
+
+        <Group mt='xl' position='center'>
+          <Button
+            onClick={handleConfirm}
+            color='pink'
+            radius='xl'
+            loading={loading}
+          >
+            Confirm & Continue
+          </Button>
+        </Group>
       </div>
     </div>
   );
