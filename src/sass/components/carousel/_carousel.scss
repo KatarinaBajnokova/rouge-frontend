@@ -1,22 +1,12 @@
-.carousel {
+.simple-carousel {
   position: relative;
-  overflow: hidden;
   width: 100%;
+  overflow: hidden;
 
-  &__track {
-    display: flex;
-    transition: transform 0.5s ease-in-out;
+  .slide {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
   }
-
-  &__slide {
-    flex: 0 0 100%;
-
-    > * {
-      width: 100%;
-      height: auto;
-      display: block;
-    }
-  }
-
-  /* NAV AND DOTS BLOCKS REMOVED */
 }

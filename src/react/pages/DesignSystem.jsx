@@ -19,7 +19,6 @@ import {
   ContinueWithAppleIconButton,
 } from '../components/buttons/IconButtons';
 import { BasketButton } from '../components/buttons/BasketButton';
-import SimpleCarousel from '../components/carousel/Carousel';
 
 const DesignSystem = () => {
   return (
@@ -53,9 +52,6 @@ const DesignSystem = () => {
         <Group mt='xl'>
           <BasketButton />
         </Group>
-
-        <h2>Carousel</h2>
-        <SimpleCarousel />
 
         <h2>Stepper</h2>
         <Stepper />
