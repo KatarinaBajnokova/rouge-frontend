@@ -20,7 +20,15 @@ const TrendingSection = () => {
           throw new Error(`HTTP ${res.status} — ${text}`);
         }
         const data = await res.json();
-        setLooks(data);
+        const formatted = data.map(item => ({
+          id: item.id,
+          title: item.name,
+          category: item.category,
+          level: item.level,
+          price: item.price,
+          image_url: item.image_url,
+        }));
+        setLooks(formatted);
       } catch (err) {
         console.error('fetchTrending error →', err);
         setError(`Failed to fetch trending looks (${err.message})`);
@@ -35,7 +43,9 @@ const TrendingSection = () => {
   return (
     <section className='home-section section-two'>
       <h1>What's trending</h1>
-      <p>Seasonal looks, holiday glam, and trending favorites!</p>
+      <p className='section-desc'>
+        Seasonal looks, holiday glam, and trending favorites!
+      </p>
 
       {loading && <p>Loading cards...</p>}
       {error && <p style={{ color: 'red' }}>Error: {error}</p>}
