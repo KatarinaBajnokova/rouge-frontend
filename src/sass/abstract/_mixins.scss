@@ -1,6 +1,5 @@
 @use '/src/sass/abstract/typography' as *;
 @use 'sass:map';
-@use 'sass:map';
 
 @mixin font($size, $weight: 'regular') {
   font-family: $font-family;
