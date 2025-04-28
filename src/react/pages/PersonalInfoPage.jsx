@@ -1,11 +1,10 @@
-import React, { useState } from 'react';
-import { Title, TextInput, Group, Button, Select } from '@mantine/core';
+import React, { useState, useEffect } from 'react';
+import { Title, TextInput, Group, Button, Select, Loader } from '@mantine/core';
 import { IconArrowLeft } from '@tabler/icons-react';
 import { useNavigate } from 'react-router-dom';
 import { showNotification } from '@mantine/notifications';
 
 import FinalStepper from '../components/stepper/Stepper';
-import countryMap from '@/react/data/countryMap';
 import { useUpdateUser } from '@/react/hooks/useUpdateUser';
 
 import '@/sass/pages/_personal_info.scss';
@@ -14,6 +13,7 @@ export default function PersonalInfoPage() {
   const navigate = useNavigate();
   const { updateUser, loading } = useUpdateUser();
 
+  // form state
   const [country, setCountry] = useState('');
   const [street, setStreet] = useState('');
   const [houseNumber, setHouseNumber] = useState('');
@@ -21,7 +21,34 @@ export default function PersonalInfoPage() {
   const [phone, setPhone] = useState('');
   const [birthdate, setBirthdate] = useState('');
 
-  const countryOptions = Object.keys(countryMap);
+  // country select state
+  const [countryOptions, setCountryOptions] = useState([]);
+  const [countriesLoading, setCountriesLoading] = useState(false);
+
+  useEffect(() => {
+    const cached = sessionStorage.getItem('countries');
+    if (cached) {
+      setCountryOptions(JSON.parse(cached));
+      return;
+    }
+
+    setCountriesLoading(true);
+    fetch('https://restcountries.com/v3.1/all?fields=name')
+      .then(res => res.json())
+      .then(data => {
+        const names = data
+          .map(c => c.name.common)
+          .sort((a, b) => a.localeCompare(b));
+        setCountryOptions(names);
+        sessionStorage.setItem('countries', JSON.stringify(names));
+      })
+      .catch(err => {
+        console.error('Failed to fetch countries', err);
+      })
+      .finally(() => {
+        setCountriesLoading(false);
+      });
+  }, []);
 
   const handleConfirm = () => {
     if (!country || !street || !houseNumber || !postalCode || !phone) {
@@ -71,6 +98,7 @@ export default function PersonalInfoPage() {
           onChange={setCountry}
           searchable
           nothingFoundMessage='No country found'
+          rightSection={countriesLoading ? <Loader size='xs' /> : null}
           required
           mt='md'
         />

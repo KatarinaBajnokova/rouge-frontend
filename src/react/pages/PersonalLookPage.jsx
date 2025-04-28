@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { Button } from '@mantine/core';
 import FinalStepper from '../components/stepper/Stepper';
@@ -22,6 +22,16 @@ const PersonalLookPage = () => {
   const [loading, setLoading] = useState(false);
   const navigate = useNavigate();
 
+  // PRELOAD the next page’s bundle as soon as this component mounts
+  useEffect(() => {
+    import(
+      /* webpackPreload: true */
+      '../pages/PersonalInfoPage'
+    )
+      .then(() => console.log('✅ PersonalInfoPage chunk ready'))
+      .catch(err => console.error('❌ preload failed', err));
+  }, []);
+
   const handleSelect = id => {
     setSelected(id);
   };
@@ -42,14 +52,13 @@ const PersonalLookPage = () => {
     try {
       setLoading(true);
 
-      const response = await fetch('http://localhost:3000/api/users/update', {
+      console.time('UPDATE_LOOK');
+      const response = await fetch('/api/users/update', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({
-          user_id: userId,
-          look_id: selected,
-        }),
+        body: JSON.stringify({ user_id: userId, look_id: selected }),
       });
+      console.timeEnd('UPDATE_LOOK');
 
       if (!response.ok) {
         const errorData = await response.json();

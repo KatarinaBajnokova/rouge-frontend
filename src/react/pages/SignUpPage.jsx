@@ -73,7 +73,6 @@ const SignUpPage = () => {
     }
 
     try {
-      // 1. Create user in Firebase Authentication
       const result = await createUserWithEmailAndPassword(
         auth,
         email,
@@ -95,14 +94,12 @@ const SignUpPage = () => {
 
       const backendData = await backendResponse.json();
 
-      // 🚨 check FIRST if backend was ok
       if (!backendResponse.ok) {
         throw new Error(
           backendData.error || 'Failed to create user in backend.'
         );
       }
 
-      // ✅ THEN save userId
       localStorage.setItem('userId', backendData.user_id);
       localStorage.setItem('firstName', firstName);
       localStorage.setItem('lastName', lastName);

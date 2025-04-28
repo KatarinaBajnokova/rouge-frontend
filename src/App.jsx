@@ -2,7 +2,7 @@ import React, { Suspense, lazy } from 'react';
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import LoadingSpinner from './react/components/LoadingSpinner';
 
-// lazy‐load your pages
+// Lazy-loaded pages
 const InitialPage = lazy(() => import('./react/pages/InitialPage'));
 const DesignSystem = lazy(() => import('./react/pages/DesignSystem'));
 const AnimationPage = lazy(() => import('./react/pages/AnimationPage'));
@@ -13,7 +13,8 @@ const CheckoutPage = lazy(() => import('./react/pages/CheckoutPage'));
 const SignUpPage = lazy(() => import('./react/pages/SignUpPage'));
 const LoginPage = lazy(() => import('./react/pages/LoginPage'));
 const PersonalLookPage = lazy(() => import('./react/pages/PersonalLookPage'));
-const PersonalInfoPage = lazy(() => import('./react/pages/PersonalInfoPage'));
+// Static import to eliminate code-split delay for PersonalInfoPage
+import PersonalInfoPage from './react/pages/PersonalInfoPage';
 const ProfilePage = lazy(() => import('./react/pages/ProfilePage'));
 
 import '@mantine/core/styles.css';
@@ -37,6 +38,7 @@ function App() {
           <Route path='/signup' element={<SignUpPage />} />
           <Route path='/login' element={<LoginPage />} />
           <Route path='/personal-look' element={<PersonalLookPage />} />
+          {/* PersonalInfoPage is statically imported for instant load */}
           <Route path='/personal-info' element={<PersonalInfoPage />} />
           <Route path='/profile' element={<ProfilePage />} />
         </Routes>

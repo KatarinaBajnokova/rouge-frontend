@@ -25,34 +25,33 @@ const LoginPage = () => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [passwordVisible, setPasswordVisible] = useState(false);
+  const [loading, setLoading] = useState(false);
 
   const navigate = useNavigate();
 
-  // 🔥 Helper function: after successful login, fetch user ID
-  const fetchUserId = async email => {
+  // New helper: authenticate against backend
+  const loginWithBackend = async (email, password) => {
     try {
-      const response = await fetch(
-        `http://localhost:3000/api/users/by-email?email=${encodeURIComponent(email)}`
-      );
-      if (!response.ok) {
-        throw new Error('User not found in backend.');
-      }
-      const data = await response.json();
-      console.log('✅ Fetched userId:', data.user_id);
+      const res = await fetch('/api/auth/login', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ email, password }),
+      });
+      const data = await res.json();
+      if (!res.ok) throw new Error(data.error || 'Login failed');
 
       localStorage.setItem('userId', data.user_id);
       showNotification({
-        title: 'Welcome!',
+        title: 'Welcome back!',
         message: 'You are now logged in.',
         color: 'green',
       });
-
-      navigate('/homescreen'); // Change if needed
-    } catch (error) {
-      console.error('❌ Error fetching user ID:', error.message);
+      navigate('/homescreen');
+    } catch (err) {
+      console.error('❌ Backend login error:', err.message);
       showNotification({
         title: 'Login error',
-        message: 'Failed to fetch user profile.',
+        message: err.message,
         color: 'red',
       });
     }
@@ -67,13 +66,12 @@ const LoginPage = () => {
       });
       return;
     }
-
+    setLoading(true);
     try {
-      const result = await signInWithEmailAndPassword(auth, email, password);
-      const user = result.user;
-      console.log('✅ Email/password login success:', user);
-
-      await fetchUserId(email); // 🚀 Fetch user ID after Firebase login
+      // Optionally keep Firebase authentication:
+      await signInWithEmailAndPassword(auth, email, password);
+      // Then login against your backend
+      await loginWithBackend(email, password);
     } catch (err) {
       console.error('❌ Email/password login error:', err.message);
       showNotification({
@@ -81,16 +79,19 @@ const LoginPage = () => {
         message: err.message,
         color: 'red',
       });
+    } finally {
+      setLoading(false);
     }
   };
 
   const handleGoogleSignIn = async () => {
+    setLoading(true);
     try {
       const result = await signInWithPopup(auth, googleProvider);
       const user = result.user;
       console.log('✅ Google login success:', user);
-
-      await fetchUserId(user.email); // 🚀 Fetch user ID
+      // Store ID token or fallback to homescreen
+      navigate('/homescreen');
     } catch (err) {
       console.error('❌ Google sign-in error:', err.message);
       showNotification({
@@ -98,16 +99,18 @@ const LoginPage = () => {
         message: err.message,
         color: 'red',
       });
+    } finally {
+      setLoading(false);
     }
   };
 
   const handleFacebookSignIn = async () => {
+    setLoading(true);
     try {
       const result = await signInWithPopup(auth, facebookProvider);
       const user = result.user;
       console.log('✅ Facebook login success:', user);
-
-      await fetchUserId(user.email); // 🚀 Fetch user ID
+      navigate('/homescreen');
     } catch (err) {
       console.error('❌ Facebook sign-in error:', err.message);
       showNotification({
@@ -115,6 +118,8 @@ const LoginPage = () => {
         message: err.message,
         color: 'red',
       });
+    } finally {
+      setLoading(false);
     }
   };
 
@@ -156,6 +161,7 @@ const LoginPage = () => {
         radius='md'
         size='md'
         onClick={handleEmailLogin}
+        loading={loading}
       >
         Log in
       </Button>
@@ -166,8 +172,13 @@ const LoginPage = () => {
         <ContinueWithFacebookIconButton
           fullWidth
           onClick={handleFacebookSignIn}
+          loading={loading}
         />
-        <ContinueWithGoogleIconButton fullWidth onClick={handleGoogleSignIn} />
+        <ContinueWithGoogleIconButton
+          fullWidth
+          onClick={handleGoogleSignIn}
+          loading={loading}
+        />
       </div>
 
       <div className='login-link'>
