@@ -1,9 +1,9 @@
 @use '/src/sass/abstract/typography' as *;
 @use 'sass:map';
-@use 'sass:map';
 
 @mixin font($size, $weight: 'regular') {
   font-family: $font-family;
   font-size: map.get($font-sizes, $size);
   font-weight: map.get($font-weights, $weight);
 }
+
