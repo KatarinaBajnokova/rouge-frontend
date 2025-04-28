@@ -1,49 +1,30 @@
-import React, { useState, useEffect, useRef } from 'react';
-import PropTypes from 'prop-types';
-import '@/sass/components/carousel/_carousel.scss';
+import React, { useState, useEffect } from 'react';
+import '@/sass/components/carousel/_detail_carousel.scss';
 
-import carousel1 from '@/assets/carousel/carousel1.svg';
-import carousel2 from '@/assets/carousel/carousel2.svg';
-import carousel3 from '@/assets/carousel/carousel3.svg';
+import carousel1 from '../../../assets/carousel/carousel1.svg';
+import carousel2 from '../../../assets/carousel/carousel2.svg';
+import carousel3 from '../../../assets/carousel/carousel3.svg';
+import carousel4 from '../../../assets/carousel/carousel4.svg';
 
-const images = [carousel1, carousel2, carousel3];
+const images = [carousel1, carousel2, carousel3, carousel4];
 
-const Carousel = ({ interval = 5000 }) => {
-  const [current, setCurrent] = useState(0);
-  const count = images.length;
-  const timeoutRef = useRef(null);
-
-  const resetTimeout = () => {
-    if (timeoutRef.current) clearTimeout(timeoutRef.current);
-  };
+export default function SimpleCarousel({ height = 300, interval = 5000 }) {
+  const [currentIndex, setCurrentIndex] = useState(0);
 
   useEffect(() => {
-    resetTimeout();
-    timeoutRef.current = setTimeout(
-      () => setCurrent(prev => (prev + 1) % count),
-      interval
-    );
-    return () => resetTimeout();
-  }, [current, count, interval]);
+    const timer = setInterval(() => {
+      setCurrentIndex(prev => (prev + 1) % images.length);
+    }, interval);
+    return () => clearInterval(timer);
+  }, [interval]);
 
   return (
-    <div className='carousel'>
-      <div
-        className='carousel__track'
-        style={{ transform: `translateX(-${current * 100}%)` }}
-      >
-        {images.map((src, idx) => (
-          <div className='carousel__slide' key={idx}>
-            <img src={src} alt={`Slide ${idx + 1}`} />
-          </div>
-        ))}
-      </div>
+    <div className='simple-carousel' style={{ height }}>
+      <img
+        src={images[currentIndex]}
+        alt={`Slide ${currentIndex + 1}`}
+        className='slide'
+      />
     </div>
   );
-};
-
-Carousel.propTypes = {
-  interval: PropTypes.number,
-};
-
-export default Carousel;
+}

@@ -1,17 +1,21 @@
-import React from 'react';
+import React, { Suspense, lazy } from 'react';
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
-import { MantineProvider } from '@mantine/core';
+import LoadingSpinner from './react/components/LoadingSpinner';
 
-import InitialPage from './react/pages/InitialPage';
-import DesignSystem from './react/pages/DesignSystem';
-import AnimationPage from './react/pages/AnimationPage';
-import HomeScreen from './react/pages/HomeScreen';
-import ProductDetail from './react/pages/ProductDetail';
-import BasketPage from './react/pages/BasketPage';
-import CheckoutPage from './react/pages/CheckoutPage';
-import SignUpPage from './react/pages/SignUpPage';
-import LoginPage from './react/pages/LoginPage';
-import PersonalLookPage from './react/pages/PersonalLookPage';
+// Lazy-loaded pages
+const InitialPage = lazy(() => import('./react/pages/InitialPage'));
+const DesignSystem = lazy(() => import('./react/pages/DesignSystem'));
+const AnimationPage = lazy(() => import('./react/pages/AnimationPage'));
+const HomeScreen = lazy(() => import('./react/pages/HomeScreen'));
+const ProductDetail = lazy(() => import('./react/pages/ProductDetail'));
+const BasketPage = lazy(() => import('./react/pages/BasketPage'));
+const CheckoutPage = lazy(() => import('./react/pages/CheckoutPage'));
+const SignUpPage = lazy(() => import('./react/pages/SignUpPage'));
+const LoginPage = lazy(() => import('./react/pages/LoginPage'));
+const PersonalLookPage = lazy(() => import('./react/pages/PersonalLookPage'));
+// Static import to eliminate code-split delay for PersonalInfoPage
+import PersonalInfoPage from './react/pages/PersonalInfoPage';
+const ProfilePage = lazy(() => import('./react/pages/ProfilePage'));
 
 import '@mantine/core/styles.css';
 import '@mantine/carousel/styles.css';
@@ -21,8 +25,8 @@ import 'react-responsive-carousel/lib/styles/carousel.min.css';
 
 function App() {
   return (
-    <MantineProvider withGlobalStyles withNormalizeCSS>
-      <BrowserRouter>
+    <BrowserRouter>
+      <Suspense fallback={<LoadingSpinner />}>
         <Routes>
           <Route path='/' element={<InitialPage />} />
           <Route path='/design-system' element={<DesignSystem />} />
@@ -34,9 +38,12 @@ function App() {
           <Route path='/signup' element={<SignUpPage />} />
           <Route path='/login' element={<LoginPage />} />
           <Route path='/personal-look' element={<PersonalLookPage />} />
+          {/* PersonalInfoPage is statically imported for instant load */}
+          <Route path='/personal-info' element={<PersonalInfoPage />} />
+          <Route path='/profile' element={<ProfilePage />} />
         </Routes>
-      </BrowserRouter>
-    </MantineProvider>
+      </Suspense>
+    </BrowserRouter>
   );
 }
 

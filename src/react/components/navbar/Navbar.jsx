@@ -9,7 +9,7 @@ import looksIcon from '@/assets/icons/icon_my_looks_inactive.svg';
 import profileIcon from '@/assets/icons/icon_profile_inactive.svg';
 
 const navItems = [
-  { label: 'Home', icon: homeIcon, path: '/' },
+  { label: 'Home', icon: homeIcon, path: '/homescreen' },
   { label: 'All', icon: allIcon, path: '/all' },
   { label: 'My looks', icon: looksIcon, path: '/my-looks' },
   { label: 'Profile', icon: profileIcon, path: '/profile' },

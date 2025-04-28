@@ -1,22 +1,14 @@
-.carousel {
+.simple-carousel {
   position: relative;
-  overflow: hidden;
   width: 100%;
+  height: 100%; // Ensures the carousel respects the height passed via React props
+  overflow: hidden; // Prevents any overflow or scrolling
 
-  &__track {
-    display: flex;
-    transition: transform 0.5s ease-in-out;
+  .slide {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+    pointer-events: none; // Prevents any user interaction that could trigger scrolling
   }
-
-  &__slide {
-    flex: 0 0 100%;
-
-    > * {
-      width: 100%;
-      height: auto;
-      display: block;
-    }
-  }
-
-  /* NAV AND DOTS BLOCKS REMOVED */
 }

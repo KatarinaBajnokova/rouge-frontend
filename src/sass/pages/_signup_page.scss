@@ -1,112 +1,117 @@
-.signup-page {
-  background-color: #f3ebea;
-  padding: 1.5rem;
-  min-height: 100vh;
-  font-family: 'Inter', sans-serif;
-  color: #1a1a1a;
+@use 'sass:map';
+@use '@/sass/abstract/colors' as *;
+@use '@/sass/abstract/typography' as *;
+@use '@/sass/abstract/mixins' as *;
 
+.signup-page {
+  background-color: $white-background;
+  padding: 1rem;
+  min-height: 100vh;
+  font-family: $font-family;
+  color: $black-main;
   display: flex;
   flex-direction: column;
 
+  .back-button {
+    background: $white-elements;
+    border: none;
+    border-radius: 50%;
+    width: 42px;
+    height: 42px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    font-size: map-get($font-sizes, 'top-title');
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 1.5rem;
+    cursor: pointer;
+  }
+
+  .mantine-Stepper-root {
+    margin-bottom: 0.2rem;
+    .mantine-Stepper-step {
+      background: $white-elements;
+      border-radius: 50%;
+      width: 32px;
+      height: 32px;
+      font-weight: map-get($font-weights, 'bold');
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    }
+
+    .mantine-Stepper-step[data-progress] {
+      background: $red;
+      color: $white-elements;
+    }
+
+    .mantine-Stepper-separator {
+      height: 2px;
+      background: $grey-background-elements;
+    }
+  }
+
   h2 {
-    font-size: 1.8rem;
-    font-weight: bold;
-    margin-bottom: 0.25rem;
+    font-size: map-get($font-sizes, 'section-title');
+    font-weight: map-get($font-weights, 'bold');
+    margin-bottom: 0.1rem;
   }
 
   p {
-    margin-bottom: 1.5rem;
-    font-size: 1rem;
+    font-size: map-get($font-sizes, 'section-description');
+    margin-bottom: 0.3rem;
   }
 
   .mantine-TextInput-root,
   .mantine-PasswordInput-root {
-    margin-bottom: 1rem;
+    margin-bottom: 0.5rem;
 
     input {
-      border-radius: 15px;
-      font-size: 1rem;
+      border-radius: 12px;
+      font-size: map-get($font-sizes, 'section-description');
     }
   }
 
-  .sign-up-button {
-    background-color: #9c0d4f;
-    color: white;
-    font-weight: bold;
-    font-size: 1rem;
-    padding: 0.75rem;
-    border-radius: 999px;
-    margin-top: 0.5rem;
-    margin-bottom: 1.5rem;
-    box-shadow: 0 4px 5px rgba(0, 0, 0, 0.1);
-    align-self: center;
-  }
-
   .mantine-Divider-root {
-    font-weight: 500;
-    color: #6e6e6e;
-    margin-bottom: 1rem;
+    font-weight: map-get($font-weights, 'medium');
+    color: $grey-background-elements;
+    margin: 2rem 0 1rem;
   }
 
   .social-buttons {
     display: flex;
     flex-direction: column;
+    align-items: center;
     gap: 0.75rem;
     margin-bottom: 1.5rem;
-    align-self: center;
 
     button {
-      justify-content: flex-start;
-      padding: 0.75rem 1rem;
-      border-radius: 999px;
-      font-weight: 500;
-      font-size: 1rem;
-      box-shadow: 0 3px 4px rgba(0, 0, 0, 0.05);
-
-      img {
-        margin-right: 0.75rem;
-      }
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      width: 100%;
+      max-width: 400px;
     }
   }
 
   .login-link {
     text-align: center;
     margin-top: auto;
+    font-size: map-get($font-sizes, 'icon-title');
 
     a {
-      color: #9c0d4f;
-      font-weight: 600;
+      color: $red-heart;
+      font-weight: map-get($font-weights, 'bold');
       text-decoration: underline;
     }
   }
+}
 
-  // Optional: style the stepper component
-  .mantine-Stepper-root {
-    margin-bottom: 2rem;
-
-    .mantine-Stepper-step {
-      background: #e4e4e4;
-      border-radius: 50%;
-      width: 32px;
-      height: 32px;
-      font-weight: bold;
-      box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-    }
-
-    .mantine-Stepper-step[data-progress] {
-      background: #9c0d4f;
-      color: white;
-    }
-
-    .mantine-Stepper-separator {
-      height: 2px;
-      background: #ccc;
-      
-    }
-  }
-
-  .back-icon-button {
-    position: relative;
-    margin-top: 0;
-  }
+.sign-up-button {
+  margin: 1rem auto 1.5rem;
+  display: block;
+  text-align: center;
+  width: 100%;
+  max-width: 400px;
 }

@@ -1,9 +1,8 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
-import FinalStepper from '../components/stepper/Stepper';
-import { ContinueButton, } from '../components/buttons/RedButtons';
-import { BackIconButton } from '../components/buttons/IconButtons';
 import { Button } from '@mantine/core';
+import FinalStepper from '../components/stepper/Stepper';
+
 import Look1 from '@/assets/yourlook/1look.png';
 import Look2 from '@/assets/yourlook/2look.png';
 import Look3 from '@/assets/yourlook/3look.png';
@@ -20,30 +19,72 @@ const images = [
 
 const PersonalLookPage = () => {
   const [selected, setSelected] = useState(null);
+  const [loading, setLoading] = useState(false);
   const navigate = useNavigate();
+
+  // PRELOAD the next page’s bundle as soon as this component mounts
+  useEffect(() => {
+    import(
+      /* webpackPreload: true */
+      '../pages/PersonalInfoPage'
+    )
+      .then(() => console.log('✅ PersonalInfoPage chunk ready'))
+      .catch(err => console.error('❌ preload failed', err));
+  }, []);
 
   const handleSelect = id => {
     setSelected(id);
   };
 
-  const handleContinue = () => {
-    if (selected) {
-      navigate('/homescreen');
+  const handleContinue = async () => {
+    if (!selected) {
+      alert('Please select a look before continuing.');
+      return;
+    }
+
+    const userId = localStorage.getItem('userId');
+    if (!userId) {
+      alert('User ID not found. Please log in again.');
+      navigate('/login');
+      return;
+    }
+
+    try {
+      setLoading(true);
+
+      console.time('UPDATE_LOOK');
+      const response = await fetch('/api/users/update', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ user_id: userId, look_id: selected }),
+      });
+      console.timeEnd('UPDATE_LOOK');
+
+      if (!response.ok) {
+        const errorData = await response.json();
+        throw new Error(errorData.error || 'Failed to update look.');
+      }
+
+      console.log('✅ Look ID updated in backend');
+      navigate('/personal-info');
+    } catch (error) {
+      console.error('❌ Error updating look:', error.message);
+      alert('Failed to update look. Please try again.');
+    } finally {
+      setLoading(false);
     }
   };
 
   return (
     <div className='personal-look-page'>
-      
-      <BackIconButton onClick={() => navigate(-1)} />
+      <button className='back-button' onClick={() => navigate(-1)}>
+        ←
+      </button>
 
       <FinalStepper active={1} />
 
       <h2>Select a picture that resembles you</h2>
-      <p>
-        By doing this, you will get product thumbnails that match your
-        appearance.
-      </p>
+      <p>This will help us show products that match your appearance.</p>
 
       <div className='image-grid'>
         {images.map(img => (
@@ -58,10 +99,16 @@ const PersonalLookPage = () => {
       </div>
 
       <div className='bottom-bar'>
-      <ContinueButton
-        onClick={handleContinue}
-        disabled={!selected}
-      />
+        <Button
+          fullWidth
+          size='md'
+          radius='md'
+          className='continue-button'
+          onClick={handleContinue}
+          disabled={!selected || loading}
+        >
+          {loading ? 'Saving...' : 'Continue'}
+        </Button>
       </div>
     </div>
   );

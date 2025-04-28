@@ -1,4 +1,4 @@
-@use 'sass:map';
+@use 'sass:map' as map;
 @use '@/sass/abstract/colors' as *;
 @use '@/sass/abstract/typography' as *;
 @use '@/sass/abstract/mixins' as *;
@@ -75,8 +75,28 @@
   }
 
   .back-icon-button {
-    position: relative;
-    margin-top: 0;
-  }
+    position: fixed;
+    margin-top: 80px;
+    background-color: $white-elements;
+    border: none;
+    border-radius: 50%;
+    width: 44px;
+    height: 44px;
+    margin-bottom: 1.5rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.15);
+    cursor: pointer;
+    transition: transform 0.2s ease;
+    margin-bottom: 2rem;
 
+    svg {
+      color: black;
+    }
+
+    &:hover {
+      transform: scale(1.05);
+    }
+  }
 }

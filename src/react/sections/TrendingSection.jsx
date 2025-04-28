@@ -1,5 +1,4 @@
 import React, { useEffect, useState } from 'react';
-import { Link } from 'react-router-dom';
 import TrendingCard from '../components/cards/TrendingCard';
 import '@/sass/sections/_trending_section.scss';
 
@@ -20,7 +19,15 @@ const TrendingSection = () => {
           throw new Error(`HTTP ${res.status} — ${text}`);
         }
         const data = await res.json();
-        setLooks(data);
+        const formatted = data.map(item => ({
+          id: item.id,
+          title: item.name,
+          category: item.category,
+          level: item.level,
+          price: item.price,
+          image_url: item.image_url,
+        }));
+        setLooks(formatted);
       } catch (err) {
         console.error('fetchTrending error →', err);
         setError(`Failed to fetch trending looks (${err.message})`);
@@ -35,7 +42,9 @@ const TrendingSection = () => {
   return (
     <section className='home-section section-two'>
       <h1>What's trending</h1>
-      <p className='section-desc'>Seasonal looks, holiday glam, and trending favorites!</p>
+      <p className='section-desc'>
+        Seasonal looks, holiday glam, and trending favorites!
+      </p>
 
       {loading && <p>Loading cards...</p>}
       {error && <p style={{ color: 'red' }}>Error: {error}</p>}
@@ -43,14 +52,7 @@ const TrendingSection = () => {
       {!loading && !error && looks.length > 0 && (
         <div className='card-scroll-wrapper'>
           {looks.map(look => (
-            <Link
-              to={`/item/${look.id}`}
-              key={look.id}
-              className='card-link'
-              style={{ textDecoration: 'none' }}
-            >
-              <TrendingCard look={look} showHeart={false} />
-            </Link>
+            <TrendingCard key={look.id} look={look} showHeart={false} />
           ))}
         </div>
       )}

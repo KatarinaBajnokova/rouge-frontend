@@ -1,5 +1,4 @@
 import React, { useState, useEffect } from 'react';
-import { Link } from 'react-router-dom';
 import TrendingCard from '../components/cards/TrendingCard';
 import '@/sass/components/cards/_trending_cards.scss';
 import '@/sass/sections/_formal_section.scss';
@@ -44,9 +43,7 @@ const FormalSection = () => {
       {!loading && !error && (
         <div className='card-scroll-wrapper'>
           {looks.map(look => (
-            <Link key={look.id} to={`/item/${look.id}`} className='card-link'>
-              <TrendingCard look={look} showHeart={false} />
-            </Link>
+            <TrendingCard key={look.id} look={look} showHeart={false} />
           ))}
         </div>
       )}

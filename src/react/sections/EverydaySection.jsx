@@ -1,5 +1,4 @@
 import React, { useState, useEffect } from 'react';
-import { Link } from 'react-router-dom';
 import TrendingCard from '../components/cards/TrendingCard';
 import '@/sass/components/cards/_trending_cards.scss';
 import '@/sass/sections/_everyday_section.scss';
@@ -36,7 +35,7 @@ const EverydaySection = () => {
   return (
     <section className='home-section section-everyday'>
       <h1>Everyday</h1>
-      <p className='section-desc'>Your go‑to kit for everyday glam</p>
+      <p>Your go-to kit for everyday glam</p>
 
       {loading && <p>Loading cards…</p>}
       {error && <p className='error'>Error: {error}</p>}
@@ -44,9 +43,7 @@ const EverydaySection = () => {
       {!loading && !error && (
         <div className='card-scroll-wrapper'>
           {looks.map(look => (
-            <Link key={look.id} to={`/item/${look.id}`} className='card-link'>
-              <TrendingCard look={look} showHeart={false} />
-            </Link>
+            <TrendingCard key={look.id} look={look} showHeart={false} />
           ))}
         </div>
       )}

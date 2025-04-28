@@ -1,5 +1,6 @@
 import React from 'react';
 import { Button } from '@mantine/core';
+import { Link } from 'react-router-dom';
 import '@/sass/components/buttons/_redbuttons.scss';
 
 export function CheckoutButton(props) {
@@ -44,9 +45,11 @@ export function WhiteLogInButton(props) {
 
 export function SignUpButton(props) {
   return (
-    <Button type='button' classNames={{ root: 'sign-up-button' }} {...props}>
-      Sign up
-    </Button>
+    <Link to='/signup' prefetch='intent' style={{ textDecoration: 'none' }}>
+      <Button classNames={{ root: 'sign-up-button' }} {...props}>
+        Sign up
+      </Button>
+    </Link>
   );
 }
 

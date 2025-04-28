@@ -1,15 +1,12 @@
 import React, { useState } from 'react';
 import { useNavigate, Link } from 'react-router-dom';
-import { TextInput, PasswordInput, Divider, Button } from '@mantine/core';
-import { IconEye } from '@tabler/icons-react';
-import { IconEyeOff } from '@tabler/icons-react';
+import { TextInput, PasswordInput, Divider } from '@mantine/core';
 import { showNotification } from '@mantine/notifications';
-
+import { SignUpButton } from '../components/buttons/RedButtons';
 import FinalStepper from '../components/stepper/Stepper';
 import {
   ContinueWithFacebookIconButton,
   ContinueWithGoogleIconButton,
-  BackIconButton,
 } from '../components/buttons/IconButtons';
 
 import {
@@ -18,22 +15,39 @@ import {
   facebookProvider,
   signInWithPopup,
 } from '@/firebase';
-
 import { createUserWithEmailAndPassword } from 'firebase/auth';
+import IconEye from '@tabler/icons-react/dist/esm/icons/iconEye';
+import IconEyeOff from '@tabler/icons-react/dist/esm/icons/iconEyeOff';
+
 import '@/sass/pages/_signup_page.scss';
 
 const SignUpPage = () => {
+  const [firstName, setFirstName] = useState('');
+  const [lastName, setLastName] = useState('');
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
+  const [confirmPassword, setConfirmPassword] = useState('');
   const [passwordVisible, setPasswordVisible] = useState(false);
+
   const navigate = useNavigate();
 
   const handleEmailSignUp = async () => {
+    if (!firstName || !lastName || !email || !password || !confirmPassword) {
+      showNotification({
+        title: 'Missing Fields',
+        message: 'Please fill out all fields.',
+        color: 'red',
+        position: 'top-center',
+      });
+      return;
+    }
+
     if (!email.includes('@') || !email.includes('.')) {
       showNotification({
         title: 'Invalid Email',
         message: 'Please enter a valid email address.',
         color: 'red',
+        position: 'top-center',
       });
       return;
     }
@@ -43,6 +57,17 @@ const SignUpPage = () => {
         title: 'Weak Password',
         message: 'Password must be at least 6 characters.',
         color: 'red',
+        position: 'top-center',
+      });
+      return;
+    }
+
+    if (password !== confirmPassword) {
+      showNotification({
+        title: 'Password Mismatch',
+        message: 'Passwords do not match.',
+        color: 'red',
+        position: 'top-center',
       });
       return;
     }
@@ -54,22 +79,58 @@ const SignUpPage = () => {
         password
       );
       const user = result.user;
-      console.log('✅ Email/password sign-up success:', user);
+      console.log('✅ Firebase sign-up success:', user);
+
+      const backendResponse = await fetch('http://localhost:3000/api/users', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          first_name: firstName,
+          last_name: lastName,
+          email: email,
+          password: password,
+        }),
+      });
+
+      const backendData = await backendResponse.json();
+
+      if (!backendResponse.ok) {
+        throw new Error(
+          backendData.error || 'Failed to create user in backend.'
+        );
+      }
+
+      localStorage.setItem('userId', backendData.user_id);
+      localStorage.setItem('firstName', firstName);
+      localStorage.setItem('lastName', lastName);
+      localStorage.setItem('email', email);
+      localStorage.setItem('password', password);
+
+      console.log('✅ User created in backend:', backendData);
 
       showNotification({
         title: 'Signed up!',
-        message: 'Your account was created successfully.',
+        message: 'Continue personalizing your profile.',
         color: 'green',
       });
 
       navigate('/personal-look');
     } catch (err) {
-      console.error('❌ Email/password sign-up error:', err.message);
-      showNotification({
-        title: 'Sign-up error',
-        message: err.message,
-        color: 'red',
-      });
+      console.error('❌ Sign-up error:', err.message);
+
+      if (err.message.includes('email-already-in-use')) {
+        showNotification({
+          title: 'Email already exists',
+          message: 'Please use a different email or login instead.',
+          color: 'red',
+        });
+      } else {
+        showNotification({
+          title: 'Sign-up error',
+          message: err.message,
+          color: 'red',
+        });
+      }
     }
   };
 
@@ -121,7 +182,9 @@ const SignUpPage = () => {
 
   return (
     <div className='signup-page'>
-      <BackIconButton onClick={() => navigate(-1)} />
+      <button className='back-button' onClick={() => navigate(-1)}>
+        ←
+      </button>
 
       <FinalStepper active={0} />
 
@@ -129,11 +192,30 @@ const SignUpPage = () => {
       <p>Create a new account</p>
 
       <TextInput
+        label='First Name'
+        placeholder='Your first name'
+        value={firstName}
+        onChange={e => setFirstName(e.currentTarget.value)}
+        className='input-field'
+        required
+      />
+
+      <TextInput
+        label='Last Name'
+        placeholder='Your last name'
+        value={lastName}
+        onChange={e => setLastName(e.currentTarget.value)}
+        className='input-field'
+        required
+      />
+
+      <TextInput
         label='Email'
         placeholder='Your email...'
         value={email}
         onChange={e => setEmail(e.currentTarget.value)}
         className='input-field'
+        required
       />
 
       <PasswordInput
@@ -147,17 +229,21 @@ const SignUpPage = () => {
         value={password}
         onChange={e => setPassword(e.currentTarget.value)}
         className='input-field'
+        required
       />
 
-      <Button
-        fullWidth
-        className='sign-up-button'
-        radius='md'
-        size='md'
-        onClick={handleEmailSignUp}
-      >
+      <PasswordInput
+        label='Confirm Password'
+        placeholder='Confirm your password'
+        value={confirmPassword}
+        onChange={e => setConfirmPassword(e.currentTarget.value)}
+        className='input-field'
+        required
+      />
+
+      <SignUpButton fullWidth radius='md' size='md' onClick={handleEmailSignUp}>
         Sign up
-      </Button>
+      </SignUpButton>
 
       <Divider label='Or register with' labelPosition='center' my='lg' />
 
@@ -170,7 +256,7 @@ const SignUpPage = () => {
       </div>
 
       <div className='login-link'>
-        <Link to='/login'>Have a profile? Log in</Link>
+        <Link to='/login'>Already have an account? Log in</Link>
       </div>
     </div>
   );
