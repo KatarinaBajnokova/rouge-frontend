@@ -6,6 +6,7 @@ import { showNotification } from '@mantine/notifications';
 
 import FinalStepper from '../components/stepper/Stepper';
 import { useUpdateUser } from '@/react/hooks/useUpdateUser';
+import { BackIconButton } from '../components/buttons/IconButtons';
 
 import '@/sass/pages/_personal_info.scss';
 
@@ -72,15 +73,9 @@ export default function PersonalInfoPage() {
 
   return (
     <div className='personal-info-page'>
-      <Group position='apart' mb='md'>
-        <Button
-          variant='subtle'
-          leftSection={<IconArrowLeft size={20} />}
-          onClick={() => navigate(-1)}
-        >
-          Back
-        </Button>
-        <Title order={2}>Your Info</Title>
+      <Group className='basket-header'>
+        <BackIconButton onClick={() => navigate(-1)} />
+        <Title order={2}>Shopping basket</Title>
       </Group>
 
       <FinalStepper active={2} />
