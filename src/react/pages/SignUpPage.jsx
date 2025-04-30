@@ -7,6 +7,7 @@ import FinalStepper from '../components/stepper/Stepper';
 import {
   ContinueWithFacebookIconButton,
   ContinueWithGoogleIconButton,
+  BackIconButton
 } from '../components/buttons/IconButtons';
 
 import {
@@ -182,9 +183,7 @@ const SignUpPage = () => {
 
   return (
     <div className='signup-page'>
-      <button className='back-button' onClick={() => navigate(-1)}>
-        ←
-      </button>
+      <BackIconButton onClick={() => navigate(-1)} />
 
       <FinalStepper active={0} />
 
@@ -242,7 +241,6 @@ const SignUpPage = () => {
       />
 
       <SignUpButton fullWidth radius='md' size='md' onClick={handleEmailSignUp}>
-        Sign up
       </SignUpButton>
 
       <Divider label='Or register with' labelPosition='center' my='lg' />

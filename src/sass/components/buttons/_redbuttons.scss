@@ -6,6 +6,7 @@ button.mantine-Button-root {
   font-size: 1.1rem;
   border: none;
   transition: all 0.2s ease;
+  text-align: center;
 
   &:hover {
     opacity: 0.95;
@@ -16,7 +17,7 @@ button.mantine-Button-root {
   &.continue-button {
     background-color: $red;
     color: $white-elements;
-    width: 200px;
+    width: fit-content;
     height: 50px;
     padding: 0.7rem 1rem;
     border-radius: 0.8rem;
