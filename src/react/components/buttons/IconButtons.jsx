@@ -1,6 +1,5 @@
 import React from 'react';
-import { Button } from '@mantine/core';
-import IconChevronLeft from '@tabler/icons-react/dist/esm/icons/IconChevronLeft';
+import { Button, Title } from '@mantine/core';
 
 import '@/sass/components/buttons/_iconbuttons.scss';
 
@@ -195,3 +194,13 @@ export function BackIconButton({ onClick, ...props }) {
     </button>
   );
 }
+
+export function BackHeader({ text, onBack, backButtonStyle }) {
+  return (
+    <div className="back-header">
+      <BackIconButton onClick={onBack} style={backButtonStyle} />
+      <Title order={2}>{text}</Title>
+    </div>
+  );
+}
+
