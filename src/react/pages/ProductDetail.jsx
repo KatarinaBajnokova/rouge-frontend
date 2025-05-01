@@ -86,7 +86,6 @@ export default function ProductDetail() {
       {/* Header Buttons */}
       <div className='detail-header-buttons'>
         <BackIconButton
-          onClick={() => navigate(-1)}
           style={{ position: 'fixed' }}
         />
 

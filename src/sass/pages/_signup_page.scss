@@ -5,8 +5,7 @@
 
 .signup-page {
   background-color: $white-background;
-  padding: 1.2rem 1.5rem 7rem;
-  min-height: 100vh;
+  padding: 1.2rem 1.5rem;
   font-family: $font-family;
   color: $black-main;
   display: flex;
@@ -19,12 +18,12 @@
   h2 {
     font-size: map.get($font-sizes, 'section-title');
     font-weight: map.get($font-weights, 'bold');
-    margin-bottom: 0.4rem;
+    margin-bottom: 0.2rem;
   }
 
   p {
     font-size: map.get($font-sizes, 'section-description');
-    margin-bottom: 0.4rem;
+    margin-bottom: 0.7rem;
     margin-top: 0;
   }
 
@@ -41,25 +40,33 @@
   .mantine-Divider-root {
     font-weight: map.get($font-weights, 'medium');
     color: $grey-background-elements;
-    margin: 2rem 0 1rem;
   }
 
-  .social-buttons {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    gap: 0.75rem;
-    margin-bottom: 1rem;
+  .social-register-section{
+    margin-top: 1.3rem;
 
-    button {
+    .social-divider{
+      margin-bottom: 1rem;
+    }
+
+    .social-buttons {
       display: flex;
+      flex-direction: column;
       align-items: center;
-      justify-content: center;
-      width: 100%;
-      height: 45px;
-      max-width: 400px;
+      gap: 0.75rem;
+      margin-bottom: 1rem;
+  
+      button {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        width: 100%;
+        height: 45px;
+        max-width: 400px;
+      }
     }
   }
+
 
   .login-link {
     text-align: center;
@@ -69,7 +76,7 @@
     a {
       color: $magenta;
       font-weight: map.get($font-weights, 'bold');
-      text-decoration: underline;
+      text-decoration: underline !important;
     }
   }
 }
@@ -78,4 +85,12 @@
   margin: 1rem auto 0.1rem;
   display: block;
   max-width: 400px;
+}
+
+button.mantine-Button-root.continue-with-facebook-icon-button{
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.10);
+}
+
+button.mantine-Button-root.continue-with-google-icon-button{
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.10);
 }

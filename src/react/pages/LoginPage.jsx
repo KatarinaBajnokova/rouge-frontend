@@ -127,7 +127,7 @@ const LoginPage = () => {
 
   return (
     <div className='login-page'>
-      <BackIconButton onClick={() => navigate(-1)} />
+      <BackIconButton />
 
       <FinalStepper active={1} />
 

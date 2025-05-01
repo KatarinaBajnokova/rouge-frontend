@@ -1,5 +1,6 @@
 import React from 'react';
 import { Button, Title } from '@mantine/core';
+import { useNavigate } from 'react-router-dom';
 
 import '@/sass/components/buttons/_iconbuttons.scss';
 
@@ -183,10 +184,20 @@ export function SeeMoreButton(props) {
 }
 
 export function BackIconButton({ onClick, ...props }) {
+  const navigate = useNavigate();
+
+  const handleClick = (e) => {
+    if (onClick) {
+      onClick(e);
+    } else {
+      navigate(-1); // fallback
+    }
+  };
+
   return (
     <button
       className='back-icon-button'
-      onClick={onClick}
+      onClick={handleClick}
       aria-label='Go back'
       {...props}
     >

@@ -79,7 +79,7 @@ const PersonalLookPage = () => {
 
   return (
     <div className='personal-look-page'>
-      <BackIconButton onClick={() => navigate(-1)} />
+      <BackIconButton />
 
       <FinalStepper active={1} />
 

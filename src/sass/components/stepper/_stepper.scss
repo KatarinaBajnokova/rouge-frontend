@@ -1,5 +1,7 @@
 @use '/src/sass/abstract/colors' as *;
 
+//notes bc the stepper was the most difficult to edit bc of mantine overwriting our styling
+
 .custom-stepper {
   max-width: 260px;
   min-width: 260px;
@@ -7,7 +9,7 @@
 
   .mantine-Stepper-separator {
     height: 3px;
-    background-color: #828282;
+    background-color: $light-grey;
     border-radius: 100px;
   }
 
@@ -40,8 +42,8 @@
   .mantine-Stepper-step:not([data-completed]):not([data-progress]) {
     .mantine-Stepper-stepIcon {
       background-color: $white-elements;
-      border: 2px solid #828282;
-      color: #828282;
+      border: 2px solid $light-grey;
+      color: $light-grey;
     }
   }
 
