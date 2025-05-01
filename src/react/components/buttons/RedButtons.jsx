@@ -78,6 +78,14 @@ export function BottomBarButton(props) {
   );
 }
 
+export function BottomBarConfirmPurchaseButton(props) {
+  return (
+    <div className='bottom-bar'>
+      <ConfirmPurchaseButton {...props} />
+    </div>
+  );
+}
+
 
 
 
