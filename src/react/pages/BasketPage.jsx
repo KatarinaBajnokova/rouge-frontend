@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { CheckoutButton } from '../components/buttons/RedButtons';
-import { BackIconButton } from '../components/buttons/IconButtons';
+import { BackIconButton, BackHeader } from '../components/buttons/IconButtons';
 import '@/sass/pages/_basket_page.scss';
 import {
   Title,
@@ -72,12 +72,7 @@ export default function BasketPage() {
 
   return (
     <div className='basket-page'>
-      <Group className='basket-header' align='center' spacing='sm'>
-      
-      <BackIconButton onClick={() => navigate(-1)} />
-
-        <Title order={2}>Shopping basket</Title>
-      </Group>
+      <BackHeader text="Shopping basket"/>
 
       <Text fw={700} mt='md' mb='xs'>
         Your items
