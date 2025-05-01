@@ -17,7 +17,7 @@ button.mantine-Button-root {
   &.continue-button {
     background-color: $red;
     color: $white-elements;
-    width: fit-content;
+    width: 200px;
     height: 50px;
     padding: 0.7rem 1rem;
     border-radius: 0.8rem;
@@ -55,6 +55,7 @@ button.mantine-Button-root {
     padding: 0.2rem 1rem;
     border-radius: 1rem;
   }
+
 }
 
 // ----- TABLET OVERRIDES (601px - 1024px) -----
@@ -79,4 +80,19 @@ button.mantine-Button-root {
       height: auto; // Allow content-driven height
     }
   }
+}
+
+.bottom-bar {
+  background-color: $black-main;
+  padding: 1.8rem 2rem 2rem;
+  border-top-left-radius: 1.5rem;
+  border-top-right-radius: 1.5rem;
+  box-shadow: 0 -8px 20px rgba(0, 0, 0, 0.08);
+  position: fixed;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  z-index: 100;
+  display: flex;
+  justify-content: center;
 }

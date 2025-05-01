@@ -14,6 +14,7 @@ import {
   SignUpButton,
   ContinueButton,
   MoreInfoButton,
+  BottomBarButton
 } from '../components/buttons/RedButtons';
 
 import {
@@ -68,6 +69,9 @@ const DesignSystem = () => {
         <h2>Back button</h2>
         <BackIconButton style={{ position: 'relative', marginTop: '0px', marginBottom: '16px' }} />
         <BackHeader text="Section title" />
+
+        <h2>Bottom bar</h2>
+        <BottomBarButton />
 
       </div>
     </MantineProvider>

@@ -68,3 +68,17 @@ export function MoreInfoButton(props) {
     </Button>
   );
 }
+
+export function BottomBarButton(props) {
+  return (
+    <div className='bottom-bar'>
+      <ContinueButton {...props} />
+    </div>
+  );
+}
+
+
+
+
+
+

@@ -1,6 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { Button } from '@mantine/core';
+import { BackIconButton } from '../components/buttons/IconButtons';
+import { BottomBarButton } from '../components/buttons/RedButtons';
 import FinalStepper from '../components/stepper/Stepper';
 
 import Look1 from '@/assets/yourlook/1look.png';
@@ -77,9 +79,7 @@ const PersonalLookPage = () => {
 
   return (
     <div className='personal-look-page'>
-      <button className='back-button' onClick={() => navigate(-1)}>
-        ←
-      </button>
+      <BackIconButton onClick={() => navigate(-1)} />
 
       <FinalStepper active={1} />
 
@@ -98,18 +98,12 @@ const PersonalLookPage = () => {
         ))}
       </div>
 
-      <div className='bottom-bar'>
-        <Button
-          fullWidth
-          size='md'
-          radius='md'
-          className='continue-button'
-          onClick={handleContinue}
-          disabled={!selected || loading}
-        >
-          {loading ? 'Saving...' : 'Continue'}
-        </Button>
-      </div>
+    <BottomBarButton
+      onClick={handleContinue}
+      disabled={!selected || loading}
+      loading={loading}
+    />
+
     </div>
   );
 };

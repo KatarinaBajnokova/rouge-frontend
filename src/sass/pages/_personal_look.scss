@@ -17,15 +17,15 @@
   h2 {
     font-size: map.get($font-sizes, 'section-title');
     font-weight: map.get($font-weights, 'bold');
-    margin-top: 0.5rem;
+    margin-bottom: 0.4rem;
     color: $black-main;
   }
 
   p {
     font-size: map.get($font-sizes, 'section-description');
     color: $black-review;
-    margin-top: 0.5rem;
     margin-bottom: 2rem;
+    margin-top: 0;
     font-weight: map.get($font-weights, 'regular');
   }
 
@@ -53,43 +53,14 @@
       }
 
       &.selected {
-        border-color: $red-heart;
-        box-shadow: 0 0 0 3px rgba($red-heart, 0.3);
+        border-color: $magenta;
+        box-shadow: 0 0 0 3px rgba($magenta, 0.3);
       }
     }
   }
 
-  .bottom-bar {
-    background-color: $black-main;
-    padding: 1.8rem 2rem 2rem;
-    border-top-left-radius: 1.5rem;
-    border-top-right-radius: 1.5rem;
-    box-shadow: 0 -8px 20px rgba(0, 0, 0, 0.08);
-    position: fixed;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    z-index: 100;
-    display: flex;
-    justify-content: center;
-  }
-
   .back-icon-button {
-    position: fixed;
-    margin-top: 80px;
-    background-color: $white-elements;
-    border: none;
-    border-radius: 50%;
-    width: 44px;
-    height: 44px;
-    margin-bottom: 1.5rem;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.15);
-    cursor: pointer;
-    transition: transform 0.2s ease;
-    margin-bottom: 2rem;
+    margin-top: 0;
 
     svg {
       color: black;
