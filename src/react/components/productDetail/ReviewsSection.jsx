@@ -15,7 +15,9 @@ export default function ReviewsSection({
 
   return (
     <section className='detail-reviews'>
-      <Title className='detail-title' order={3}>Reviews</Title>
+      <Title className='detail-title' order={3}>
+        Reviews
+      </Title>
 
       {!showReviews && (
         <Paper

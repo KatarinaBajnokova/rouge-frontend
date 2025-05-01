@@ -5,7 +5,6 @@
 .section-two {
   background: $black-main;
   color: $white-elements;
-  
 
   h1 {
     @include font('section-title', 'bold');

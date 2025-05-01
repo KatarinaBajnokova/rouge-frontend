@@ -98,12 +98,11 @@ const PersonalLookPage = () => {
         ))}
       </div>
 
-    <BottomBarButton
-      onClick={handleContinue}
-      disabled={!selected || loading}
-      loading={loading}
-    />
-
+      <BottomBarButton
+        onClick={handleContinue}
+        disabled={!selected || loading}
+        loading={loading}
+      />
     </div>
   );
 };

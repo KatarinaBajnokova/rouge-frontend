@@ -17,7 +17,6 @@ import IconTrash from '@tabler/icons-react/dist/esm/icons/IconTrash';
 import IconMinus from '@tabler/icons-react/dist/esm/icons/IconMinus';
 import IconPlus from '@tabler/icons-react/dist/esm/icons/IconPlus';
 
-
 export default function BasketPage() {
   const [basketItems, setBasketItems] = useState([]);
   const [totalPrice, setTotalPrice] = useState(0);
@@ -72,7 +71,7 @@ export default function BasketPage() {
 
   return (
     <div className='basket-page'>
-      <BackHeader text="Shopping basket"/>
+      <BackHeader text='Shopping basket' />
 
       <Text fw={700} mt='md' mb='xs'>
         Your items

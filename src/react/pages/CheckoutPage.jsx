@@ -11,7 +11,11 @@ import {
 import { useNavigate } from 'react-router-dom';
 
 import FinalStepper from '../components/stepper/Stepper';
-import { ConfirmPurchaseButton, BottomBarButton, BottomBarConfirmPurchaseButton } from '../components/buttons/RedButtons';
+import {
+  ConfirmPurchaseButton,
+  BottomBarButton,
+  BottomBarConfirmPurchaseButton,
+} from '../components/buttons/RedButtons';
 import { BackHeader } from '../components/buttons/IconButtons';
 import '@/sass/pages/_checkout_page.scss';
 
@@ -119,7 +123,7 @@ export default function CheckoutPage() {
 
   return (
     <div className='checkout-page'>
-      <BackHeader text="Checkout"/>
+      <BackHeader text='Checkout' />
 
       <FinalStepper active={activeStep} />
 
@@ -202,8 +206,11 @@ export default function CheckoutPage() {
                 />
               </>
             )}
-            
-            <BottomBarButton text="Continue to payment" onClick={goToPaymentStep} />
+
+            <BottomBarButton
+              text='Continue to payment'
+              onClick={goToPaymentStep}
+            />
           </>
         )}
 

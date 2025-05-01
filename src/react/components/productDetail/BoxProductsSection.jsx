@@ -6,7 +6,9 @@ export default function BoxProductsSection({ boxProducts }) {
 
   return (
     <section className='detail-box-products'>
-      <Title className='detail-title' order={3}>Box products</Title>
+      <Title className='detail-title' order={3}>
+        Box products
+      </Title>
       <div className='box-products-list'>
         {boxProducts.map(box => (
           <div key={box.id} className='box-product-card'>

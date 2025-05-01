@@ -197,10 +197,9 @@ export function BackIconButton({ onClick, ...props }) {
 
 export function BackHeader({ text, onBack, backButtonStyle }) {
   return (
-    <div className="back-header">
+    <div className='back-header'>
       <BackIconButton onClick={onBack} style={backButtonStyle} />
       <Title order={2}>{text}</Title>
     </div>
   );
 }
-

@@ -55,12 +55,11 @@ export function SignUpButton(props) {
 
 export function ContinueButton({ text = 'Continue', ...props }) {
   return (
-    <Button type="button" classNames={{ root: 'continue-button' }} {...props}>
+    <Button type='button' classNames={{ root: 'continue-button' }} {...props}>
       {text}
     </Button>
   );
 }
-
 
 export function MoreInfoButton(props) {
   return (
@@ -85,9 +84,3 @@ export function BottomBarConfirmPurchaseButton(props) {
     </div>
   );
 }
-
-
-
-
-
-

@@ -7,7 +7,6 @@ import { showNotification } from '@mantine/notifications';
 import { BackIconButton } from '../components/buttons/IconButtons';
 import { LogInButton } from '../components/buttons/RedButtons';
 
-
 import FinalStepper from '../components/stepper/Stepper';
 import {
   ContinueWithFacebookIconButton,
@@ -156,10 +155,7 @@ const LoginPage = () => {
         className='input-field'
       />
 
-      <LogInButton
-        onClick={handleEmailLogin}
-        loading={loading}
-      />
+      <LogInButton onClick={handleEmailLogin} loading={loading} />
 
       <Divider label='Or continue with' labelPosition='center' my='lg' />
 

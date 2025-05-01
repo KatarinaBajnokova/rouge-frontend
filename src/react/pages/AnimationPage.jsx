@@ -48,10 +48,10 @@ const AnimationPage = () => {
       {showUI && (
         <div className='bottom-card'>
           <h2>Welcome</h2>
-          
+
           <div className='bottom-text'>
-          <p>Ready to continue?</p> 
-          <p>You can sign in, log in, or skip.</p>
+            <p>Ready to continue?</p>
+            <p>You can sign in, log in, or skip.</p>
           </div>
 
           <div className='button-group'>

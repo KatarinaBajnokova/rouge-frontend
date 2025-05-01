@@ -85,10 +85,10 @@ export default function ProductDetail() {
     <div className='product-detail'>
       {/* Header Buttons */}
       <div className='detail-header-buttons'>
-      <BackIconButton
-        onClick={() => navigate(-1)}
-        style={{ position: 'fixed' }}
-      />
+        <BackIconButton
+          onClick={() => navigate(-1)}
+          style={{ position: 'fixed' }}
+        />
 
         <BasketButton refresh={basketRefresh} />
       </div>

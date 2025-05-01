@@ -73,7 +73,7 @@ export default function PersonalInfoPage() {
 
   return (
     <div className='personal-info-page'>
-      <BackHeader text="Section title" />
+      <BackHeader text='Section title' />
 
       <FinalStepper active={2} />
 
@@ -141,7 +141,11 @@ export default function PersonalInfoPage() {
           mt='md'
         />
 
-        <BottomBarButton text="Confirm & Continue" onClick={handleConfirm} loading={loading} />
+        <BottomBarButton
+          text='Confirm & Continue'
+          onClick={handleConfirm}
+          loading={loading}
+        />
       </div>
     </div>
   );

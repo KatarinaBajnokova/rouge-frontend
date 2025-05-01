@@ -6,7 +6,6 @@
   background: $red;
   color: $white-elements;
 
-
   h1 {
     @include font('section-title', 'bold');
     margin: 1rem;

@@ -1,20 +1,52 @@
-@use "/src/sass/abstract/colors" as *;
+@use '/src/sass/abstract/colors' as *;
 
 .custom-stepper {
-  .custom-stepper-root {
-    background-color: transparent;
+  max-width: 260px;
+  min-width: 260px;
+  margin: 0 auto;
+
+  .mantine-Stepper-separator {
+    height: 3px;
+    background-color: #828282;
+    border-radius: 100px;
   }
 
-  .custom-step-label {
-    color: $magenta;
-    font-weight: bold;
-  }
-
-  .custom-separator {
+  //active separator
+  .mantine-Stepper-separator[data-active='true'] {
     background-color: $magenta;
   }
 
-  .custom-step-icon {
-    border-color: $magenta;
+  //completed step
+  .mantine-Stepper-step[data-completed='true'] {
+    .mantine-Stepper-stepIcon {
+      background-color: $magenta;
+      border-color: $magenta;
+      color: $white-elements;
+      box-shadow: 0 2px 4px rgba(0, 0, 0, 0.15);
+    }
+  }
+
+  //active step
+  .mantine-Stepper-step[data-progress='true'] {
+    .mantine-Stepper-stepIcon {
+      background-color: $magenta;
+      border: 2px solid $magenta;
+      color: $white-elements;
+      font-weight: bold;
+    }
+  }
+
+  //inactive step (next)
+  .mantine-Stepper-step:not([data-completed]):not([data-progress]) {
+    .mantine-Stepper-stepIcon {
+      background-color: $white-elements;
+      border: 2px solid #828282;
+      color: #828282;
+    }
+  }
+
+  //step label/number
+  .mantine-Stepper-step {
+    font-weight: bold;
   }
 }
