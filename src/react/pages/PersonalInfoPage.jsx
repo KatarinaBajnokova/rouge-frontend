@@ -1,12 +1,12 @@
 import React, { useState, useEffect } from 'react';
 import { Title, TextInput, Group, Button, Select, Loader } from '@mantine/core';
-import { IconArrowLeft } from '@tabler/icons-react';
 import { useNavigate } from 'react-router-dom';
 import { showNotification } from '@mantine/notifications';
 
 import FinalStepper from '../components/stepper/Stepper';
 import { useUpdateUser } from '@/react/hooks/useUpdateUser';
-import { BackIconButton } from '../components/buttons/IconButtons';
+import { BackHeader } from '../components/buttons/IconButtons';
+import { BottomBarButton } from '../components/buttons/RedButtons';
 
 import '@/sass/pages/_personal_info.scss';
 
@@ -73,10 +73,7 @@ export default function PersonalInfoPage() {
 
   return (
     <div className='personal-info-page'>
-      <Group className='basket-header'>
-        <BackIconButton onClick={() => navigate(-1)} />
-        <Title order={2}>Shopping basket</Title>
-      </Group>
+      <BackHeader text="Section title" />
 
       <FinalStepper active={2} />
 
@@ -144,16 +141,7 @@ export default function PersonalInfoPage() {
           mt='md'
         />
 
-        <Group mt='xl' position='center'>
-          <Button
-            onClick={handleConfirm}
-            color='pink'
-            radius='xl'
-            loading={loading}
-          >
-            Confirm & Continue
-          </Button>
-        </Group>
+        <BottomBarButton text="Confirm & Continue" onClick={handleConfirm} loading={loading} />
       </div>
     </div>
   );
