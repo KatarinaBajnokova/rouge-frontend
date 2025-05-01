@@ -5,6 +5,8 @@ import IconEye from '@tabler/icons-react/dist/esm/icons/iconEye';
 import IconEyeOff from '@tabler/icons-react/dist/esm/icons/iconEyeOff';
 import { showNotification } from '@mantine/notifications';
 import { BackIconButton } from '../components/buttons/IconButtons';
+import { LogInButton } from '../components/buttons/RedButtons';
+
 
 import FinalStepper from '../components/stepper/Stepper';
 import {
@@ -20,7 +22,7 @@ import {
 } from '@/firebase';
 import { signInWithEmailAndPassword } from 'firebase/auth';
 
-import '@/sass/pages/_signup_page.scss';
+import '@/sass/pages/_login_page.scss';
 
 const LoginPage = () => {
   const [email, setEmail] = useState('');
@@ -125,7 +127,7 @@ const LoginPage = () => {
   };
 
   return (
-    <div className='signup-page'>
+    <div className='login-page'>
       <BackIconButton onClick={() => navigate(-1)} />
 
       <FinalStepper active={1} />
@@ -154,16 +156,10 @@ const LoginPage = () => {
         className='input-field'
       />
 
-      <Button
-        fullWidth
-        className='sign-up-button'
-        radius='md'
-        size='md'
+      <LogInButton
         onClick={handleEmailLogin}
         loading={loading}
-      >
-        Log in
-      </Button>
+      />
 
       <Divider label='Or continue with' labelPosition='center' my='lg' />
 

@@ -1,0 +1,106 @@
+@use 'sass:map';
+@use '@/sass/abstract/colors' as *;
+@use '@/sass/abstract/typography' as *;
+@use '@/sass/abstract/mixins' as *;
+
+.login-page {
+  background-color: $white-background;
+  padding: 1.2rem 1.5rem 7rem;
+  min-height: 100vh;
+  font-family: $font-family;
+  color: $black-main;
+  display: flex;
+  flex-direction: column;
+
+  .back-icon-button{
+    margin-top: 0;
+  }
+
+  .mantine-Stepper-root {
+    margin-bottom: 0.2rem;
+    .mantine-Stepper-step {
+      background: $white-elements;
+      border-radius: 50%;
+      width: 32px;
+      height: 32px;
+      font-weight: map.get($font-weights, 'bold');
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    }
+
+    .mantine-Stepper-step[data-progress] {
+      background: $red;
+      color: $white-elements;
+    }
+
+    .mantine-Stepper-separator {
+      height: 2px;
+      background: $grey-background-elements;
+    }
+  }
+
+  h2 {
+    font-size: map.get($font-sizes, 'section-title');
+    font-weight: map.get($font-weights, 'bold');
+    margin-bottom: 0.4rem;
+  }
+
+  p {
+    font-size: map.get($font-sizes, 'section-description');
+    margin-bottom: 0.4rem;
+    margin-top: 0;
+  }
+
+  .mantine-TextInput-root,
+  .mantine-PasswordInput-root {
+    margin-bottom: 0.5rem;
+
+    input {
+      border-radius: 12px;
+      font-size: map.get($font-sizes, 'section-description');
+    }
+  }
+
+  .mantine-Divider-root {
+    font-weight: map.get($font-weights, 'medium');
+    color: $grey-background-elements;
+    margin: 2rem 0 1rem;
+  }
+
+  .social-buttons {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0.75rem;
+    margin-bottom: 1rem;
+
+    button {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      width: 100%;
+      height: 45px;
+      max-width: 400px;
+    }
+  }
+
+  .login-link {
+    text-align: center;
+    margin-top: 10px;
+    font-size: map.get($font-sizes, 'icon-title');
+
+    a {
+      color: $magenta;
+      font-weight: map.get($font-weights, 'bold');
+      text-decoration: underline;
+    }
+  }
+}
+
+.log-in-button {
+  margin: 1rem auto 0.1rem;
+  display: block;
+  max-width: 400px;
+}
