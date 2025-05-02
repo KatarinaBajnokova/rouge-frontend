@@ -3,8 +3,8 @@
 
 .checkout-page {
   background-color: $white-background;
-  padding: 2rem;
-  min-height: 100vh;
+  padding: 1.2rem 1.5rem;
+ margin-bottom: 110.8px;
 
   .checkout-form {
     .mantine-TextInput-root {
@@ -81,7 +81,7 @@
     .confirmation-bubble {
       background-color: #fff;
       padding: 2rem;
-      border-radius: 80px;
+      border-radius: 60px;
       width: 85%;
       max-width: 380px;
       box-shadow: 0 4px 20px rgba(0, 0, 0, 0.15);
@@ -110,6 +110,11 @@
       }
     }
   }
+}
+
+.m_26063560:checked{
+  background-color: $magenta;
+  border: $magenta;
 }
 
 @keyframes spin {
