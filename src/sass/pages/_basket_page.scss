@@ -1,9 +1,13 @@
 @use '/src/sass/abstract/colors' as *;
 @use '/src/sass/abstract/typography' as *;
 
+body {
+  background-color: $white-background;
+}
+
 .basket-page {
   padding: 1rem;
-  padding-bottom: 7rem;
+  margin-bottom: 144.5px; //footer hight
   background: $white-background;
 
   .basket-header {
@@ -26,11 +30,12 @@
     padding: 0.75rem;
     align-items: center;
     min-height: 100px;
+    justify-content: center;
   }
 
   .mantine-Image-root {
-    width: 75px !important;
-    height: 75px !important;
+    width: 95px !important;
+    height: 95px !important;
     border-radius: 0.75rem;
     object-fit: cover;
   }
@@ -72,6 +77,46 @@
     .basket-footer__left {
       display: flex;
       flex-direction: column;
+    }
+  }
+
+  .basket-card__info {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    position: relative;
+    height: 100%;
+
+    .basket-card__text {
+      align-self: flex-start;
+      padding-right: 2rem;
+    }
+
+    .basket-card__buttons {
+      margin-top: auto;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      width: 100%;
+
+      .basket-card__price {
+        flex: 1;
+        text-align: left;
+      }
+
+      .basket-card__quantity {
+        flex-shrink: 0;
+        display: flex;
+        justify-content: flex-end;
+      }
+    }
+
+    .mantine-ActionIcon-root.trash-icon {
+      position: absolute;
+      top: 0;
+      right: 0;
+      background-color: $red-heart;
     }
   }
 }

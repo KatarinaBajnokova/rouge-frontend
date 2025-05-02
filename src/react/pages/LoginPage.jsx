@@ -129,7 +129,7 @@ const LoginPage = () => {
     <div className='login-page'>
       <BackIconButton />
 
-      <FinalStepper active={1} />
+      <FinalStepper active={0} />
 
       <h2>Log in</h2>
       <p>Welcome back</p>
@@ -157,23 +157,29 @@ const LoginPage = () => {
 
       <LogInButton onClick={handleEmailLogin} loading={loading} />
 
-      <Divider label='Or continue with' labelPosition='center' my='lg' />
-
-      <div className='social-buttons'>
-        <ContinueWithFacebookIconButton
-          fullWidth
-          onClick={handleFacebookSignIn}
-          loading={loading}
+      <div className='social-register-section'>
+        <Divider
+          className='social-divider'
+          label='Or continue with'
+          labelPosition='center'
         />
-        <ContinueWithGoogleIconButton
-          fullWidth
-          onClick={handleGoogleSignIn}
-          loading={loading}
-        />
-      </div>
 
-      <div className='login-link'>
-        <Link to='/signup'>Don't have an account? Sign up</Link>
+        <div className='social-buttons'>
+          <ContinueWithFacebookIconButton
+            fullWidth
+            onClick={handleFacebookSignIn}
+            loading={loading}
+          />
+          <ContinueWithGoogleIconButton
+            fullWidth
+            onClick={handleGoogleSignIn}
+            loading={loading}
+          />
+        </div>
+
+        <div className='login-link'>
+          <Link to='/signup'>Don't have an account? Sign up</Link>
+        </div>
       </div>
     </div>
   );

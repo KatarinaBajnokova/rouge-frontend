@@ -3,6 +3,10 @@
 @use '@/sass/abstract/typography' as *;
 @use '@/sass/abstract/mixins' as *;
 
+body {
+  background-color: $white-background;
+}
+
 .signup-page {
   background-color: $white-background;
   padding: 1.2rem 1.5rem;
@@ -42,10 +46,10 @@
     color: $grey-background-elements;
   }
 
-  .social-register-section{
+  .social-register-section {
     margin-top: 1.3rem;
 
-    .social-divider{
+    .social-divider {
       margin-bottom: 1rem;
     }
 
@@ -55,7 +59,7 @@
       align-items: center;
       gap: 0.75rem;
       margin-bottom: 1rem;
-  
+
       button {
         display: flex;
         align-items: center;
@@ -66,7 +70,6 @@
       }
     }
   }
-
 
   .login-link {
     text-align: center;
@@ -87,10 +90,10 @@
   max-width: 400px;
 }
 
-button.mantine-Button-root.continue-with-facebook-icon-button{
-  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.10);
+button.mantine-Button-root.continue-with-facebook-icon-button {
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
 }
 
-button.mantine-Button-root.continue-with-google-icon-button{
-  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.10);
+button.mantine-Button-root.continue-with-google-icon-button {
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
 }

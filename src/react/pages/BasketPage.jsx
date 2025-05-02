@@ -82,45 +82,51 @@ export default function BasketPage() {
           <div className='basket-card' key={item.id}>
             <Image src={item.image_url} width={90} radius='md' />
             <div className='basket-card__info'>
-              <Group position='apart'>
-                <div>
-                  <Text fw={700}>{item.name}</Text>
-                  <Text size='sm' c='dimmed'>
-                    {item.category}
-                  </Text>
-                  <Text size='xs' c='green'>
-                    {item.level}
+              <div className='basket-card__text'>
+                <Text fw={700}>{item.name}</Text>
+                <Text size='sm' c='dimmed'>
+                  {item.category}
+                </Text>
+                <Text size='xs' c='green'>
+                  {item.level}
+                </Text>
+              </div>
+
+              <ActionIcon
+                className='trash-icon'
+                onClick={() => removeItem(item.id)}
+              >
+                <IconTrash size={18} />
+              </ActionIcon>
+
+              <div className='basket-card__buttons'>
+                <div className='basket-card__price'>
+                  <Text fw={700}>
+                    €{(item.price * item.quantity).toFixed(2).replace('.', ',')}
                   </Text>
                 </div>
-                <ActionIcon onClick={() => removeItem(item.id)}>
-                  <IconTrash size={18} />
-                </ActionIcon>
-              </Group>
-
-              <Group position='apart' mt='xs'>
-                <Text fw={700}>
-                  €{(item.price * item.quantity).toFixed(2).replace('.', ',')}
-                </Text>
-                <Group spacing={6}>
-                  <ActionIcon
-                    variant='default'
-                    radius='xl'
-                    onClick={() => updateQuantity(item.id, item.quantity - 1)}
-                    disabled={item.quantity <= 1}
-                  >
-                    <IconMinus size={14} />
-                  </ActionIcon>
-                  <Text fw={500}>{item.quantity}</Text>
-                  <ActionIcon
-                    variant='default'
-                    radius='xl'
-                    onClick={() => updateQuantity(item.id, item.quantity + 1)}
-                    disabled={item.quantity >= 10}
-                  >
-                    <IconPlus size={14} />
-                  </ActionIcon>
-                </Group>
-              </Group>
+                <div className='basket-card__quantity'>
+                  <Group spacing={6}>
+                    <ActionIcon
+                      variant='default'
+                      radius='xl'
+                      onClick={() => updateQuantity(item.id, item.quantity - 1)}
+                      disabled={item.quantity <= 1}
+                    >
+                      <IconMinus size={14} />
+                    </ActionIcon>
+                    <Text fw={500}>{item.quantity}</Text>
+                    <ActionIcon
+                      variant='default'
+                      radius='xl'
+                      onClick={() => updateQuantity(item.id, item.quantity + 1)}
+                      disabled={item.quantity >= 10}
+                    >
+                      <IconPlus size={14} />
+                    </ActionIcon>
+                  </Group>
+                </div>
+              </div>
             </div>
           </div>
         ))}
