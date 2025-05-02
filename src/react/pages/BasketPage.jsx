@@ -80,7 +80,7 @@ export default function BasketPage() {
       <Stack spacing='sm'>
         {basketItems.map(item => (
           <div className='basket-card' key={item.id}>
-            <Image src={item.image_url} width={90} radius='md' />
+            <Image src={item.image_url} radius='md' />
             <div className='basket-card__info'>
               <div className='basket-card__text'>
                 <Text fw={700}>{item.name}</Text>
