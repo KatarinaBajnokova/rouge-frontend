@@ -73,10 +73,8 @@ export default function PersonalInfoPage() {
 
   return (
     <div className='personal-info-page'>
-      <BackHeader text='Section title' />
-
+      <BackHeader text='Personal Information' />
       <FinalStepper active={2} />
-
       <div className='personal-form' style={{ marginTop: '2rem' }}>
         <Title order={3} mb='sm'>
           Personal Information
@@ -91,7 +89,6 @@ export default function PersonalInfoPage() {
           searchable
           nothingFoundMessage='No country found'
           rightSection={countriesLoading ? <Loader size='xs' /> : null}
-          required
           mt='md'
         />
 
@@ -100,7 +97,6 @@ export default function PersonalInfoPage() {
           placeholder='Enter street name'
           value={street}
           onChange={e => setStreet(e.currentTarget.value)}
-          required
           mt='md'
         />
 
@@ -110,7 +106,6 @@ export default function PersonalInfoPage() {
             placeholder='e.g. 12A'
             value={houseNumber}
             onChange={e => setHouseNumber(e.currentTarget.value)}
-            required
             mt='md'
           />
 
@@ -119,7 +114,6 @@ export default function PersonalInfoPage() {
             placeholder='e.g. 1000'
             value={postalCode}
             onChange={e => setPostalCode(e.currentTarget.value)}
-            required
             mt='md'
           />
         </Group>
@@ -129,7 +123,6 @@ export default function PersonalInfoPage() {
           placeholder='Enter your phone number'
           value={phone}
           onChange={e => setPhone(e.currentTarget.value)}
-          required
           mt='md'
         />
 
