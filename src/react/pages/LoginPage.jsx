@@ -5,6 +5,7 @@ import IconEye from '@tabler/icons-react/dist/esm/icons/iconEye';
 import IconEyeOff from '@tabler/icons-react/dist/esm/icons/iconEyeOff';
 import { showNotification } from '@mantine/notifications';
 import { BackIconButton } from '../components/buttons/IconButtons';
+import { LogInButton } from '../components/buttons/RedButtons';
 
 import FinalStepper from '../components/stepper/Stepper';
 import {
@@ -20,7 +21,7 @@ import {
 } from '@/firebase';
 import { signInWithEmailAndPassword } from 'firebase/auth';
 
-import '@/sass/pages/_signup_page.scss';
+import '@/sass/pages/_login_page.scss';
 
 const LoginPage = () => {
   const [email, setEmail] = useState('');
@@ -125,10 +126,10 @@ const LoginPage = () => {
   };
 
   return (
-    <div className='signup-page'>
-      <BackIconButton onClick={() => navigate(-1)} />
+    <div className='login-page'>
+      <BackIconButton />
 
-      <FinalStepper active={1} />
+      <FinalStepper active={0} />
 
       <h2>Log in</h2>
       <p>Welcome back</p>
@@ -154,34 +155,31 @@ const LoginPage = () => {
         className='input-field'
       />
 
-      <Button
-        fullWidth
-        className='sign-up-button'
-        radius='md'
-        size='md'
-        onClick={handleEmailLogin}
-        loading={loading}
-      >
-        Log in
-      </Button>
+      <LogInButton onClick={handleEmailLogin} loading={loading} />
 
-      <Divider label='Or continue with' labelPosition='center' my='lg' />
-
-      <div className='social-buttons'>
-        <ContinueWithFacebookIconButton
-          fullWidth
-          onClick={handleFacebookSignIn}
-          loading={loading}
+      <div className='social-register-section'>
+        <Divider
+          className='social-divider'
+          label='Or continue with'
+          labelPosition='center'
         />
-        <ContinueWithGoogleIconButton
-          fullWidth
-          onClick={handleGoogleSignIn}
-          loading={loading}
-        />
-      </div>
 
-      <div className='login-link'>
-        <Link to='/signup'>Don't have an account? Sign up</Link>
+        <div className='social-buttons'>
+          <ContinueWithFacebookIconButton
+            fullWidth
+            onClick={handleFacebookSignIn}
+            loading={loading}
+          />
+          <ContinueWithGoogleIconButton
+            fullWidth
+            onClick={handleGoogleSignIn}
+            loading={loading}
+          />
+        </div>
+
+        <div className='login-link'>
+          <Link to='/signup'>Don't have an account? Sign up</Link>
+        </div>
       </div>
     </div>
   );

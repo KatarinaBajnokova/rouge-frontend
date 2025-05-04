@@ -6,7 +6,9 @@ export default function InstructionsSection({ instructions }) {
 
   return (
     <section className='detail-instructions'>
-      <Title className='detail-title' order={3}>Instructions preview</Title>
+      <Title className='detail-title' order={3}>
+        Instructions preview
+      </Title>
       <div className='instructions-list'>
         {instructions.map((step, idx) => (
           <div key={idx} className='instruction-step'>

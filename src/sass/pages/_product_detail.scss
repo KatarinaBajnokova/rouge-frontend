@@ -12,9 +12,8 @@
 
 .product-detail,
 .product-detail * {
-  font-family: 'YourFontNameHere', sans-serif !important;
+  font-family: inherit !important;
 }
-
 
 .product-detail {
   position: relative;
@@ -23,7 +22,6 @@
   padding-bottom: 6rem;
   color: $grey-background-elements;
   min-height: 100dvh;
-  
 }
 
 .detail-tags {
@@ -53,8 +51,3 @@
 .detail-title.mantine-Title-root {
   margin-bottom: 1rem;
 }
-
-
-
-
-

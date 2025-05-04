@@ -8,11 +8,15 @@ import {
   Checkbox,
   Divider,
 } from '@mantine/core';
-import IconArrowLeft from '@tabler/icons-react/dist/esm/icons/IconArrowLeft';
 import { useNavigate } from 'react-router-dom';
 
 import FinalStepper from '../components/stepper/Stepper';
-import { ConfirmPurchaseButton } from '../components/buttons/RedButtons';
+import {
+  ConfirmPurchaseButton,
+  BottomBarButton,
+  BottomBarConfirmPurchaseButton,
+} from '../components/buttons/RedButtons';
+import { BackHeader } from '../components/buttons/IconButtons';
 import '@/sass/pages/_checkout_page.scss';
 
 export default function CheckoutPage() {
@@ -119,16 +123,7 @@ export default function CheckoutPage() {
 
   return (
     <div className='checkout-page'>
-      <Group position='apart' mb='md'>
-        <Button
-          variant='subtle'
-          leftIcon={<IconArrowLeft size={20} />}
-          onClick={() => navigate(-1)}
-        >
-          Back
-        </Button>
-        <Title order={2}>Checkout</Title>
-      </Group>
+      <BackHeader text='Checkout' />
 
       <FinalStepper active={activeStep} />
 
@@ -211,11 +206,11 @@ export default function CheckoutPage() {
                 />
               </>
             )}
-            <Group mt='xl' position='center'>
-              <Button onClick={goToPaymentStep} color='grape' radius='xl'>
-                Continue to payment
-              </Button>
-            </Group>
+
+            <BottomBarButton
+              text='Continue to payment'
+              onClick={goToPaymentStep}
+            />
           </>
         )}
 
@@ -334,9 +329,7 @@ export default function CheckoutPage() {
                 <Text fw={700}>€{finalTotal}</Text>
               </div>
             </div>
-            <Group mt='xl' position='center'>
-              <ConfirmPurchaseButton onClick={handleConfirmPurchase} />
-            </Group>
+            <BottomBarConfirmPurchaseButton onClick={handleConfirmPurchase} />
           </>
         )}
       </div>

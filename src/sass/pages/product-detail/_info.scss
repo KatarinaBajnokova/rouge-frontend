@@ -16,11 +16,15 @@
     }
 
     .mantine-Text-root {
-       font-family: inherit;
+      font-family: inherit;
     }
 
     .detail-tag {
-      background: linear-gradient(130deg, rgba($magenta, 0.6), rgba($red-heart, 0.6));
+      background: linear-gradient(
+        130deg,
+        rgba($magenta, 0.6),
+        rgba($red-heart, 0.6)
+      );
       color: $white-elements;
       border-color: $magenta;
       padding: 0.7rem;
@@ -32,7 +36,7 @@
       position: relative;
       background: linear-gradient(
         to top,
-        rgba($light-magenta, 0.9) 0%, 
+        rgba($light-magenta, 0.9) 0%,
         transparent 70%
       );
 

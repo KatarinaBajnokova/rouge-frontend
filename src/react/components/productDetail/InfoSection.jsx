@@ -47,13 +47,16 @@ export default function InfoSection({ item, expanded, setExpanded }) {
         <Text>{expanded ? fullDesc : shortDesc}</Text>
         {fullDesc.length > 180 && (
           <button
-  onClick={() => setExpanded(!expanded)}
-  className='toggle-desc-btn'
->
-  {expanded ? <IconChevronUp size={20} /> : <IconChevronDown size={20} />}
-  <span>{expanded ? 'Show less' : 'Show more'}</span>
-</button>
-
+            onClick={() => setExpanded(!expanded)}
+            className='toggle-desc-btn'
+          >
+            {expanded ? (
+              <IconChevronUp size={20} />
+            ) : (
+              <IconChevronDown size={20} />
+            )}
+            <span>{expanded ? 'Show less' : 'Show more'}</span>
+          </button>
         )}
       </div>
     </section>

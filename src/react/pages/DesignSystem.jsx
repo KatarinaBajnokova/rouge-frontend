@@ -1,6 +1,9 @@
 import React from 'react';
 import { MantineProvider, Group } from '@mantine/core';
 import { Stepper } from '@mantine/core';
+
+import { BackIconButton, BackHeader } from '../components/buttons/IconButtons';
+
 import {
   CheckoutButton,
   ConfirmPurchaseButton,
@@ -8,7 +11,9 @@ import {
   SignUpButton,
   ContinueButton,
   MoreInfoButton,
+  BottomBarButton,
 } from '../components/buttons/RedButtons';
+
 import {
   AddToBasketIconButton,
   SeeReviewsIconButton,
@@ -56,6 +61,19 @@ const DesignSystem = () => {
 
         <h2>Stepper</h2>
         <Stepper />
+
+        <h2>Back button</h2>
+        <BackIconButton
+          style={{
+            position: 'relative',
+            marginTop: '0px',
+            marginBottom: '16px',
+          }}
+        />
+        <BackHeader text='Section title' />
+
+        <h2>Bottom bar</h2>
+        <BottomBarButton />
       </div>
     </MantineProvider>
   );
