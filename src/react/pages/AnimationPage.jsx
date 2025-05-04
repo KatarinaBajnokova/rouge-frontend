@@ -56,8 +56,7 @@ const AnimationPage = () => {
 
           <div className='button-group'>
             <SignUpButton onClick={() => navigate('/signup')} />
-
-            <WhiteLogInButton />
+            <WhiteLogInButton onClick={() => navigate('/login')} />
           </div>
           <button className='skip-button' onClick={handleSkip}>
             Skip
