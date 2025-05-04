@@ -53,10 +53,10 @@ export function SignUpButton(props) {
   );
 }
 
-export function ContinueButton(props) {
+export function ContinueButton({ text = 'Continue', ...props }) {
   return (
     <Button type='button' classNames={{ root: 'continue-button' }} {...props}>
-      Continue
+      {text}
     </Button>
   );
 }
@@ -66,5 +66,21 @@ export function MoreInfoButton(props) {
     <Button type='button' classNames={{ root: 'more-info-button' }} {...props}>
       More info
     </Button>
+  );
+}
+
+export function BottomBarButton(props) {
+  return (
+    <div className='bottom-bar'>
+      <ContinueButton {...props} />
+    </div>
+  );
+}
+
+export function BottomBarConfirmPurchaseButton(props) {
+  return (
+    <div className='bottom-bar'>
+      <ConfirmPurchaseButton {...props} />
+    </div>
   );
 }

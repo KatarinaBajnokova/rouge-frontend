@@ -4,7 +4,7 @@
 
 .personal-info-page {
   background-color: $white-background;
-  padding: 2rem;
+  padding: 1.5rem 1.5rem 7rem;
   min-height: 100vh;
 
   .personal-form {
@@ -15,7 +15,7 @@
     .mantine-TextInput-input {
       border-radius: 1rem;
       background-color: $white-elements;
-      border: 1px solid $grey-background-elements;
+      border: 1px solid #b8b8b8;
       padding: 0.75rem 1rem;
     }
 
@@ -27,14 +27,6 @@
 
     .mantine-Checkbox-root {
       margin-top: 0.5rem;
-    }
-
-    .mantine-Button-root {
-      margin-top: 1rem;
-      background-color: $magenta;
-      color: $white-elements;
-      font-family: $font-family;
-      font-weight: map.get($font-weights, 'bold');
     }
 
     .mantine-Text-root {
@@ -72,17 +64,13 @@
         font-size: map.get($font-sizes, 'section-description');
         color: $black-main;
       }
-
-      .continue-button {
-        background-color: $red-heart;
-        color: $white-elements;
-        font-weight: map.get($font-weights, 'bold');
-        padding: 0.75rem 2rem;
-        margin-top: 1.5rem;
-        border-radius: 2rem;
-        box-shadow: 0 4px 14px rgba(0, 0, 0, 0.1);
-      }
     }
+  }
+
+  .m_8fb7ebe7 {
+    border-radius: 1rem;
+    background-color: $white-elements;
+    border: 1px solid #b8b8b8;
   }
 
   @keyframes pop {

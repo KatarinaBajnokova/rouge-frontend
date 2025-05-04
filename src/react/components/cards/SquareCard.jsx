@@ -11,7 +11,7 @@ import {
 } from '@mantine/core';
 import IconHeart from '@tabler/icons-react/dist/esm/icons/iconHeart';
 
-const getBadgeColor = (level) => {
+const getBadgeColor = level => {
   switch (level) {
     case 'Easy':
       return 'green';
@@ -29,8 +29,8 @@ const getBadgeColor = (level) => {
 export default function SquareCard({ look, showHeart = true }) {
   return (
     <Card
-      shadow="sm"
-      radius="md"
+      shadow='sm'
+      radius='md'
       withBorder
       sx={{
         width: 240,
@@ -47,9 +47,9 @@ export default function SquareCard({ look, showHeart = true }) {
         />
         {showHeart && (
           <ActionIcon
-            variant="white"
-            radius="xl"
-            size="lg"
+            variant='white'
+            radius='xl'
+            size='lg'
             sx={{
               position: 'absolute',
               top: 8,
@@ -57,7 +57,7 @@ export default function SquareCard({ look, showHeart = true }) {
               boxShadow: '0 2px 6px rgba(0,0,0,0.15)',
             }}
           >
-            <IconHeart size={20} color="black" />
+            <IconHeart size={20} color='black' />
           </ActionIcon>
         )}
       </CardSection>
@@ -74,23 +74,23 @@ export default function SquareCard({ look, showHeart = true }) {
         }}
       >
         <div>
-          <Text fw={700} size="md" lineClamp={1}>
+          <Text fw={700} size='md' lineClamp={1}>
             {look.title || 'No title'}
           </Text>
-          <Text size="sm" color="dimmed" lineClamp={1}>
+          <Text size='sm' color='dimmed' lineClamp={1}>
             {look.category}
           </Text>
         </div>
-        <Group position="apart" noWrap>
+        <Group position='apart' noWrap>
           <Badge
             color={getBadgeColor(look.level)}
-            variant="light"
-            radius="sm"
-            size="sm"
+            variant='light'
+            radius='sm'
+            size='sm'
           >
             ✦ {look.level}
           </Badge>
-          <Text fw={600} size="md">
+          <Text fw={600} size='md'>
              €{look.price}
           </Text>
         </Group>

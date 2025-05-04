@@ -15,16 +15,15 @@
 .section-formal {
   padding: 0.5rem;
 
-  .section-desc{
+  .section-desc {
     margin-left: 1rem;
   }
 }
 
-
 html,
 body {
   overflow-x: hidden;
-  padding-bottom: 2.5rem;
+  margin-bottom: 65px; //navbar height
 }
 
 .card-scroll-wrapper {

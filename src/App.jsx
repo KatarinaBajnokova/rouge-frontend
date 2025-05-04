@@ -1,8 +1,8 @@
 import React, { Suspense, lazy } from 'react';
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import LoadingSpinner from './react/components/LoadingSpinner';
+import { CheckoutProvider } from './react/contexts/CheckoutContext';
 
-// Lazy-loaded pages
 const InitialPage = lazy(() => import('./react/pages/InitialPage'));
 const DesignSystem = lazy(() => import('./react/pages/DesignSystem'));
 const AnimationPage = lazy(() => import('./react/pages/AnimationPage'));
@@ -13,9 +13,14 @@ const CheckoutPage = lazy(() => import('./react/pages/CheckoutPage'));
 const SignUpPage = lazy(() => import('./react/pages/SignUpPage'));
 const LoginPage = lazy(() => import('./react/pages/LoginPage'));
 const PersonalLookPage = lazy(() => import('./react/pages/PersonalLookPage'));
-// Static import to eliminate code-split delay for PersonalInfoPage
-import PersonalInfoPage from './react/pages/PersonalInfoPage';
 const ProfilePage = lazy(() => import('./react/pages/ProfilePage'));
+
+import PersonalInfoPage from './react/pages/PersonalInfoPage';
+import AddressPage from './react/pages/checkout/Adress';
+import PersonalInformation from './react/pages/checkout/PersonalInformation';
+import PaymentMethodPage from './react/pages/checkout/PaymentMethod';
+import BuyingForFriendPage from './react/pages/checkout/BuyingForFriendPage';
+import SummaryPage from './react/pages/checkout/SummaryPage';
 
 import '@mantine/core/styles.css';
 import '@mantine/carousel/styles.css';
@@ -26,23 +31,40 @@ import 'react-responsive-carousel/lib/styles/carousel.min.css';
 function App() {
   return (
     <BrowserRouter>
-      <Suspense fallback={<LoadingSpinner />}>
-        <Routes>
-          <Route path='/' element={<InitialPage />} />
-          <Route path='/design-system' element={<DesignSystem />} />
-          <Route path='/animation' element={<AnimationPage />} />
-          <Route path='/homescreen' element={<HomeScreen />} />
-          <Route path='/item/:id' element={<ProductDetail />} />
-          <Route path='/basket' element={<BasketPage />} />
-          <Route path='/checkout' element={<CheckoutPage />} />
-          <Route path='/signup' element={<SignUpPage />} />
-          <Route path='/login' element={<LoginPage />} />
-          <Route path='/personal-look' element={<PersonalLookPage />} />
-          {/* PersonalInfoPage is statically imported for instant load */}
-          <Route path='/personal-info' element={<PersonalInfoPage />} />
-          <Route path='/profile' element={<ProfilePage />} />
-        </Routes>
-      </Suspense>
+      <CheckoutProvider>
+        <Suspense fallback={<LoadingSpinner />}>
+          <Routes>
+            <Route path='/' element={<InitialPage />} />
+            <Route path='/design-system' element={<DesignSystem />} />
+            <Route path='/animation' element={<AnimationPage />} />
+            <Route path='/homescreen' element={<HomeScreen />} />
+            <Route path='/item/:id' element={<ProductDetail />} />
+            <Route path='/basket' element={<BasketPage />} />
+
+            <Route path='/checkout' element={<CheckoutPage />} />
+            <Route
+              path='/checkout/payment-method'
+              element={<PaymentMethodPage />}
+            />
+            <Route
+              path='/checkout/friend-info'
+              element={<BuyingForFriendPage />}
+            />
+            <Route path='/checkout/address' element={<AddressPage />} />
+            <Route path='/checkout/summary' element={<SummaryPage />} />
+            <Route
+              path='/checkout/personal-info'
+              element={<PersonalInformation />}
+            />
+
+            <Route path='/signup' element={<SignUpPage />} />
+            <Route path='/login' element={<LoginPage />} />
+            <Route path='/personal-look' element={<PersonalLookPage />} />
+            <Route path='/personal-info' element={<PersonalInfoPage />} />
+            <Route path='/profile' element={<ProfilePage />} />
+          </Routes>
+        </Suspense>
+      </CheckoutProvider>
     </BrowserRouter>
   );
 }
