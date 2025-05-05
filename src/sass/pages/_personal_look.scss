@@ -11,14 +11,15 @@
   display: flex;
   flex-direction: column;
   position: relative;
-  padding: 1.5rem 1.5rem 7rem;
+  padding: 1.5rem 1.5rem;
   font-family: $font-family;
 
   h2 {
     font-size: map.get($font-sizes, 'section-title');
     font-weight: map.get($font-weights, 'bold');
-    margin-bottom: 0.2rem;
+    margin-bottom: 0.5rem;
     color: $black-main;
+    line-height: 1.2;
   }
 
   p {
@@ -61,13 +62,5 @@
 
   .back-icon-button {
     margin-top: 0;
-
-    svg {
-      color: black;
-    }
-
-    &:hover {
-      transform: scale(1.05);
-    }
   }
 }
