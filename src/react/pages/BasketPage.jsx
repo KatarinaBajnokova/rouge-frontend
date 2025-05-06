@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { CheckoutButton } from '../components/buttons/RedButtons';
 import { BackHeader } from '../components/buttons/IconButtons';
+import emptyBasketIcon from '@/assets/icons/IMG_empty_basket.svg';
 import '@/sass/pages/_basket_page.scss';
 import {
   Title,
@@ -24,8 +25,8 @@ export default function BasketPage() {
 
   const fetchBasket = () => {
     const resetFlag = localStorage.getItem('resetBasket');
-    if (resetFlag === 'true') return; // prevent restoring data right after reset
-  
+    if (resetFlag === 'true') return;
+
     setLoading(true);
     fetch('/api/basket')
       .then(res => res.json())
@@ -38,7 +39,6 @@ export default function BasketPage() {
       .catch(err => console.error('Failed to fetch basket:', err))
       .finally(() => setLoading(false));
   };
-  
 
   useEffect(() => {
     const resetFlag = localStorage.getItem('resetBasket');
@@ -54,9 +54,9 @@ export default function BasketPage() {
         setTotalPrice(cached.reduce((sum, i) => sum + i.price * i.quantity, 0));
       }
     }
-  
+
     fetchBasket();
-  
+
     const onStorage = e => {
       if (e.key === LOCAL_KEY) {
         const newVal = e.newValue;
@@ -71,8 +71,6 @@ export default function BasketPage() {
     window.addEventListener('storage', onStorage);
     return () => window.removeEventListener('storage', onStorage);
   }, []);
-  
-  
 
   const removeItem = async basketId => {
     await fetch(`/api/basket/${basketId}`, { method: 'DELETE' });
@@ -107,94 +105,115 @@ export default function BasketPage() {
     <div className='basket-page'>
       <BackHeader text='Shopping Basket' />
 
-      <Text fw={700} mt='md' mb='xs'>
-        Your items
-      </Text>
+      {basketItems.length === 0 ? (
+        <div className='empty-basket'>
+          <img src={emptyBasketIcon} alt='Empty basket'  />
 
-      <Stack spacing='sm'>
-        {basketItems.map(item => (
-          <div className='basket-card' key={item.id}>
-            <Image src={item.image_url} radius='md' />
-            <div className='basket-card__info'>
-              <div className='basket-card__text'>
-                <Text fw={700}>{item.name}</Text>
-                <Text size='sm' c='dimmed'>
-                  {item.category}
-                </Text>
-                <Text size='xs' c='green'>
-                  {item.level}
-                </Text>
-              </div>
-
-              <ActionIcon
-                className='trash-icon'
-                onClick={() => removeItem(item.id)}
-              >
-                <IconTrash size={18} />
-              </ActionIcon>
-
-              <div className='basket-card__buttons'>
-                <div className='basket-card__price'>
-                  <Text fw={700}>
-                    €{(item.price * item.quantity).toFixed(2).replace('.', ',')}
-                  </Text>
-                </div>
-                <div className='basket-card__quantity'>
-                  <Group spacing={6}>
-                    <ActionIcon
-                      variant='default'
-                      radius='xl'
-                      onClick={() => updateQuantity(item.id, item.quantity - 1)}
-                      disabled={item.quantity <= 1}
-                    >
-                      <IconMinus size={14} />
-                    </ActionIcon>
-                    <Text fw={500}>{item.quantity}</Text>
-                    <ActionIcon
-                      variant='default'
-                      radius='xl'
-                      onClick={() => updateQuantity(item.id, item.quantity + 1)}
-                      disabled={item.quantity >= 10}
-                    >
-                      <IconPlus size={14} />
-                    </ActionIcon>
-                  </Group>
-                </div>
-              </div>
-            </div>
-          </div>
-        ))}
-      </Stack>
-
-      <Group className='basket-footer' position='apart' align='flex-end'>
-        <div className='basket-footer__left'>
-          <Text size='16px' fw={500}>
-            Shipping:
-          </Text>
-          <Text size='20px' mt='xs' c='dimmed'>
-            €{shipping.toFixed(2).replace('.', ',')}
-          </Text>
-          <Text mt='xs' fw={700}>
-            Total:
-          </Text>
-          <Title order={2} mt={-6}>
-            €{totalWithShipping}
-          </Title>
+          <p>
+            Your basket is empty.
+          </p>
         </div>
-        <CheckoutButton
-          onClick={() => {
-            localStorage.removeItem(LOCAL_KEY);
-            window.dispatchEvent(
-              new StorageEvent('storage', {
-                key: LOCAL_KEY,
-                oldValue: JSON.stringify(basketItems),
-                newValue: null,
-              })
-            );
-            navigate('/checkout/personal-info');
-          }}
-        />
-      </Group>
+
+        
+      ) : (
+        <>
+          <Text fw={700} mt='md' mb='xs'>
+            Your items
+          </Text>
+
+          <Stack spacing='sm'>
+            {basketItems.map(item => (
+              <div className='basket-card' key={item.id}>
+                <Image src={item.image_url} radius='md' />
+                <div className='basket-card__info'>
+                  <div className='basket-card__text'>
+                    <Text fw={700}>{item.name}</Text>
+                    <Text size='sm' c='dimmed'>
+                      {item.category}
+                    </Text>
+                    <Text size='xs' c='green'>
+                      {item.level}
+                    </Text>
+                  </div>
+
+                  <ActionIcon
+                    className='trash-icon'
+                    onClick={() => removeItem(item.id)}
+                  >
+                    <IconTrash size={18} />
+                  </ActionIcon>
+
+                  <div className='basket-card__buttons'>
+                    <div className='basket-card__price'>
+                      <Text fw={700}>
+                        €
+                        {(item.price * item.quantity)
+                          .toFixed(2)
+                          .replace('.', ',')}
+                      </Text>
+                    </div>
+                    <div className='basket-card__quantity'>
+                      <Group spacing={6}>
+                        <ActionIcon
+                          variant='default'
+                          radius='xl'
+                          onClick={() =>
+                            updateQuantity(item.id, item.quantity - 1)
+                          }
+                          disabled={item.quantity <= 1}
+                        >
+                          <IconMinus size={14} />
+                        </ActionIcon>
+                        <Text fw={500}>{item.quantity}</Text>
+                        <ActionIcon
+                          variant='default'
+                          radius='xl'
+                          onClick={() =>
+                            updateQuantity(item.id, item.quantity + 1)
+                          }
+                          disabled={item.quantity >= 10}
+                        >
+                          <IconPlus size={14} />
+                        </ActionIcon>
+                      </Group>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            ))}
+          </Stack>
+
+          <Group className='basket-footer' position='apart' align='flex-end'>
+            <div className='basket-footer__left'>
+              <Text size='16px' fw={500}>
+                Shipping:
+              </Text>
+              <Text size='20px' mt='xs' c='dimmed'>
+                €{shipping.toFixed(2).replace('.', ',')}
+              </Text>
+              <Text mt='xs' fw={700}>
+                Total:
+              </Text>
+              <Title order={2} mt={-6}>
+                €{totalWithShipping}
+              </Title>
+            </div>
+            <CheckoutButton
+              onClick={() => {
+                localStorage.removeItem(LOCAL_KEY);
+                window.dispatchEvent(
+                  new StorageEvent('storage', {
+                    key: LOCAL_KEY,
+                    oldValue: JSON.stringify(basketItems),
+                    newValue: null,
+                  })
+                );
+                navigate('/checkout/personal-info');
+              }}
+            />
+          </Group>
+        </>
+      )}
     </div>
   );
 }
