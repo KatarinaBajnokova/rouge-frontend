@@ -3,8 +3,7 @@ import { Title, Text, Divider, Button } from '@mantine/core';
 import { useNavigate } from 'react-router-dom';
 import { showNotification } from '@mantine/notifications';
 
-import FinalStepper from '../../components/stepper/Stepper';
-import { BackHeader } from '../../components/buttons/IconButtons';
+import { BackHeader, BackIconButton } from '../../components/buttons/IconButtons';
 import { BottomBarButton } from '../../components/buttons/RedButtons';
 
 import ConfirmationOverlay from '../../components/checkout/ConfirmationOverlay';
@@ -67,7 +66,7 @@ export default function CheckoutOverviewPage() {
   }, []);
 
   const paymentLabels = {
-    card: 'Credit / Debit Card',
+    card: 'Credit / Debit card',
     paypal: 'PayPal',
     klarna: 'Klarna',
     applepay: 'Apple Pay',
@@ -76,7 +75,7 @@ export default function CheckoutOverviewPage() {
   const handleConfirm = async () => {
     if (!firstName || !lastName || !email) {
       showNotification({
-        title: 'Missing Info',
+        title: 'Missing info',
         message: 'Personal info incomplete',
         color: 'red',
       });
@@ -84,7 +83,7 @@ export default function CheckoutOverviewPage() {
     }
     if (!country || !street || !houseNumber || !postalCode || !phone) {
       showNotification({
-        title: 'Missing Info',
+        title: 'Missing info',
         message: 'Address incomplete',
         color: 'red',
       });
@@ -92,7 +91,7 @@ export default function CheckoutOverviewPage() {
     }
     if (!method) {
       showNotification({
-        title: 'Missing Info',
+        title: 'Missing info',
         message: 'Payment method not selected',
         color: 'red',
       });
@@ -140,7 +139,7 @@ export default function CheckoutOverviewPage() {
     } catch (err) {
       console.error(err);
       showNotification({
-        title: 'Order Failed',
+        title: 'Order failed',
         message: 'Could not submit order. Please try again.',
         color: 'red',
       });
@@ -153,60 +152,87 @@ export default function CheckoutOverviewPage() {
 
   return (
     <div className='summary-page'>
-      <BackHeader text='Review Your Order' />
-      <div className='checkout-overview' style={{ marginTop: '2rem' }}>
+      <BackIconButton/>
+      <div className='summary-top'>
+      <h2>Review Your Order</h2>
+      <p>Before finalizing the purchase check if your information is correct!</p>
+      </div>
+
+
+      <div className='checkout-overview'>
         <div className='checkout-personal-info'>
+
           <div className='section'>
-            <Title order={3}>Personal Information</Title>
+            <Title order={4}>Personal information</Title>
             <Text>
               {firstName} {lastName}
             </Text>
             <Text>{email}</Text>
           </div>
 
-          <Divider my='sm' />
-
           <div className='section'>
-            <Title order={4}>Buying for a Friend</Title>
+            <Title order={4}>Buying for a friend</Title>
+            <div className='friend-additional'>
             <Text>
               {addGiftWrap ? '🎁 Gift wrapping added' : 'No gift wrapping'}
             </Text>
             <Text>
               {addPersonalCard ? '✉️ Personal card added' : 'No personal card'}
             </Text>
+
+            <Divider />
+            </div>
             {(addGiftWrap || addPersonalCard) && (
               <>
-                <Text>Name: {friendName || '-'}</Text>
-                <Text>Email: {friendEmail || '-'}</Text>
-                {addPersonalCard && <Text>Note: {personalNote || '-'}</Text>}
+                <Text>
+  <span className="subtitle-text">Name:</span> {friendName || '-'}
+</Text>
+<Text>
+  <span className="subtitle-text">Email:</span> {friendEmail || '-'}
+</Text>
+{addPersonalCard && (
+  <Text>
+    <span className="subtitle-text">Note:</span> {personalNote || '-'}
+  </Text>
+)}
+
               </>
             )}
           </div>
 
-          <Divider my='sm' />
           <div className='section'>
-            <Title order={4}>Shipping Address</Title>
-            <Text>
-              {street} {houseNumber}, {postalCode}, {country}
-            </Text>
-            <Text>Phone: {phone}</Text>
-            <Divider my='sm' />
-            <Title order={4}>Payment Method</Title>
-            <Text>{paymentLabels[method] || '-'}</Text>
-            {method === 'card' && (
-              <>
-                <Text>Cardholder: {cardName}</Text>
-                <Text>Card Number: **** **** **** {cardNumber.slice(-4)}</Text>
-              </>
-            )}
+          <Title order={4}>Shipping information</Title>
+<Text>
+  <span className="subtitle-text">Address:</span> {street} {houseNumber}, {postalCode}, {country}
+</Text>
+<Text>
+  <span className="subtitle-text">Phone:</span> {phone}
+</Text>
+
+<Divider />
+
+<Title order={4}>Payment method</Title>
+<Text>
+  <span className="subtitle-text">Method:</span> {paymentLabels[method] || '-'}
+</Text>
+{method === 'card' && (
+  <>
+    <Text>
+      <span className="subtitle-text">Cardholder:</span> {cardName}
+    </Text>
+    <Text>
+      <span className="subtitle-text">Card number:</span> **** **** **** {cardNumber.slice(-4)}
+    </Text>
+  </>
+)}
+
           </div>
         </div>
 
-        <Divider my='sm' />
 
         <div className='checkout-order-info'>
-          <div className='section'>
-            <Title order={4}>Order Summary</Title>
+
+            <Title order={4}>Order summary</Title>
             {basketItems.map(item => (
               <div className='summary-line' key={item.id}>
                 <Text>
@@ -217,12 +243,10 @@ export default function CheckoutOverviewPage() {
                 </Text>
               </div>
             ))}
-          </div>
-        </div>
 
-        <Divider my='sm' />
+      <Divider my="sm"/>
 
-        <div className='section'>
+        <Title order={4}>Costs</Title>
         <div className='summary-line'>
             <Text>Shipping</Text>
             <Text>€{SHIPPING_COST.toFixed(2).replace('.', ',')}</Text>
@@ -240,17 +264,18 @@ export default function CheckoutOverviewPage() {
             </div>
           )}
           <Divider my='sm' />
-          <div className='summary-line total'>
-            <Text fw={700}>Final Total</Text>
-            <Text fw={700}>€{finalTotal}</Text>
+          <div className='summary-line-total'>
+            <Text className='total-text'>Final total</Text>
+            <Text className='total-text' >€{finalTotal}</Text>
           </div>
+          </div>
+          
           <BottomBarButton
             fullWidth
             onClick={handleConfirm}
-            text='Confirm & Pay'
+            text='Finalize purchase'
           />
         </div>
       </div>
-    </div>
   );
 }
