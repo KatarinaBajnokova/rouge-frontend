@@ -1,0 +1,22 @@
+@use 'sass:map';
+@use '@/sass/abstract/colors' as *;
+@use '@/sass/abstract/typography' as *;
+@use '@/sass/abstract/mixins' as *;
+
+.address-page{
+    min-height: 100vh;
+background-color: $white-background;
+  padding: 1.2rem 1.5rem;
+  font-family: $font-family;
+  color: $black-main;
+  display: flex;
+  flex-direction: column;
+
+  .back-icon-button {
+    margin-top: 0;
+  }
+
+  .personal-form{
+    margin-top: 0.5rem;
+  }
+}

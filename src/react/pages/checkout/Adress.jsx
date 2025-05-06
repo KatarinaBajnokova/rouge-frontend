@@ -4,10 +4,10 @@ import { useNavigate } from 'react-router-dom';
 import { showNotification } from '@mantine/notifications';
 
 import FinalStepper from '../../components/stepper/Stepper';
-import { BackHeader } from '../../components/buttons/IconButtons';
-import { ContinueButton } from '../../components/buttons/RedButtons';
+import { BackIconButton } from '../../components/buttons/IconButtons';
+import { BottomBarButton } from '../../components/buttons/RedButtons';
 
-import '@/sass/pages/_personal_info.scss';
+import '@/sass/pages/checkout/_address.scss';
 
 const STORAGE_KEY = 'shippingAddress';
 
@@ -65,11 +65,11 @@ export default function AddressPage() {
   };
 
   return (
-    <div className='personal-info-page'>
-      <BackHeader text='Shipping Address' />
+    <div className='address-page'>
+      <BackIconButton />
       <FinalStepper active={1} />
-      <div className='personal-form' style={{ marginTop: '2rem' }}>
-        <Title order={3} mb='sm'>
+      <div className='personal-form'>
+        <Title order={3}>
           Shipping Address
         </Title>
 
@@ -123,12 +123,10 @@ export default function AddressPage() {
           required
         />
 
-        <ContinueButton
-          text='Confirm & Continue'
-          fullWidth
-          mt='xl'
-          onClick={handleConfirm}
-        />
+<BottomBarButton
+                  text='Confirm & Continue'
+                  onClick={handleConfirm}
+                />
       </div>
     </div>
   );
