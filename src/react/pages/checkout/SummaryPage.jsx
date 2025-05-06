@@ -3,7 +3,10 @@ import { Title, Text, Divider, Button } from '@mantine/core';
 import { useNavigate } from 'react-router-dom';
 import { showNotification } from '@mantine/notifications';
 
-import { BackHeader, BackIconButton } from '../../components/buttons/IconButtons';
+import {
+  BackHeader,
+  BackIconButton,
+} from '../../components/buttons/IconButtons';
 import { BottomBarButton } from '../../components/buttons/RedButtons';
 
 import ConfirmationOverlay from '../../components/checkout/ConfirmationOverlay';
@@ -152,16 +155,16 @@ export default function CheckoutOverviewPage() {
 
   return (
     <div className='summary-page'>
-      <BackIconButton/>
+      <BackIconButton />
       <div className='summary-top'>
-      <h2>Review Your Order</h2>
-      <p>Before finalizing the purchase check if your information is correct!</p>
+        <h2>Review Your Order</h2>
+        <p>
+          Before finalizing the purchase check if your information is correct!
+        </p>
       </div>
-
 
       <div className='checkout-overview'>
         <div className='checkout-personal-info'>
-
           <div className='section'>
             <Title order={4}>Personal information</Title>
             <Text>
@@ -173,81 +176,85 @@ export default function CheckoutOverviewPage() {
           <div className='section'>
             <Title order={4}>Buying for a friend</Title>
             <div className='friend-additional'>
-            <Text>
-              {addGiftWrap ? '🎁 Gift wrapping added' : 'No gift wrapping'}
-            </Text>
-            <Text>
-              {addPersonalCard ? '✉️ Personal card added' : 'No personal card'}
-            </Text>
+              <Text>
+                {addGiftWrap ? '🎁 Gift wrapping added' : 'No gift wrapping'}
+              </Text>
+              <Text>
+                {addPersonalCard
+                  ? '✉️ Personal card added'
+                  : 'No personal card'}
+              </Text>
 
-            <Divider />
+              <Divider />
             </div>
             {(addGiftWrap || addPersonalCard) && (
               <>
                 <Text>
-  <span className="subtitle-text">Name:</span> {friendName || '-'}
-</Text>
-<Text>
-  <span className="subtitle-text">Email:</span> {friendEmail || '-'}
-</Text>
-{addPersonalCard && (
-  <Text>
-    <span className="subtitle-text">Note:</span> {personalNote || '-'}
-  </Text>
-)}
-
+                  <span className='subtitle-text'>Name:</span>{' '}
+                  {friendName || '-'}
+                </Text>
+                <Text>
+                  <span className='subtitle-text'>Email:</span>{' '}
+                  {friendEmail || '-'}
+                </Text>
+                {addPersonalCard && (
+                  <Text>
+                    <span className='subtitle-text'>Note:</span>{' '}
+                    {personalNote || '-'}
+                  </Text>
+                )}
               </>
             )}
           </div>
 
           <div className='section'>
-          <Title order={4}>Shipping information</Title>
-<Text>
-  <span className="subtitle-text">Address:</span> {street} {houseNumber}, {postalCode}, {country}
-</Text>
-<Text>
-  <span className="subtitle-text">Phone:</span> {phone}
-</Text>
+            <Title order={4}>Shipping information</Title>
+            <Text>
+              <span className='subtitle-text'>Address:</span> {street}{' '}
+              {houseNumber}, {postalCode}, {country}
+            </Text>
+            <Text>
+              <span className='subtitle-text'>Phone:</span> {phone}
+            </Text>
 
-<Divider />
+            <Divider />
 
-<Title order={4}>Payment method</Title>
-<Text>
-  <span className="subtitle-text">Method:</span> {paymentLabels[method] || '-'}
-</Text>
-{method === 'card' && (
-  <>
-    <Text>
-      <span className="subtitle-text">Cardholder:</span> {cardName}
-    </Text>
-    <Text>
-      <span className="subtitle-text">Card number:</span> **** **** **** {cardNumber.slice(-4)}
-    </Text>
-  </>
-)}
-
+            <Title order={4}>Payment method</Title>
+            <Text>
+              <span className='subtitle-text'>Method:</span>{' '}
+              {paymentLabels[method] || '-'}
+            </Text>
+            {method === 'card' && (
+              <>
+                <Text>
+                  <span className='subtitle-text'>Cardholder:</span> {cardName}
+                </Text>
+                <Text>
+                  <span className='subtitle-text'>Card number:</span> **** ****
+                  **** {cardNumber.slice(-4)}
+                </Text>
+              </>
+            )}
           </div>
         </div>
 
-
         <div className='checkout-order-info'>
+          <Title order={4}>Order summary</Title>
+          {basketItems.map(item => (
+            <div className='summary-line' key={item.id}>
+              <Text>
+                {item.name} x{item.quantity}
+              </Text>
+              <Text>
+                €{(item.price * item.quantity).toFixed(2).replace('.', ',')}
+              </Text>
+            </div>
+          ))}
 
-            <Title order={4}>Order summary</Title>
-            {basketItems.map(item => (
-              <div className='summary-line' key={item.id}>
-                <Text>
-                  {item.name} x{item.quantity}
-                </Text>
-                <Text>
-                  €{(item.price * item.quantity).toFixed(2).replace('.', ',')}
-                </Text>
-              </div>
-            ))}
+          <Divider my='sm' />
 
-      <Divider my="sm"/>
-
-        <Title order={4}>Costs</Title>
-        <div className='summary-line'>
+          <Title order={4}>Costs</Title>
+          <div className='summary-line'>
             <Text>Shipping</Text>
             <Text>€{SHIPPING_COST.toFixed(2).replace('.', ',')}</Text>
           </div>
@@ -266,16 +273,16 @@ export default function CheckoutOverviewPage() {
           <Divider my='sm' />
           <div className='summary-line-total'>
             <Text className='total-text'>Final total</Text>
-            <Text className='total-text' >€{finalTotal}</Text>
+            <Text className='total-text'>€{finalTotal}</Text>
           </div>
-          </div>
-          
-          <BottomBarButton
-            fullWidth
-            onClick={handleConfirm}
-            text='Finalize purchase'
-          />
         </div>
+
+        <BottomBarButton
+          fullWidth
+          onClick={handleConfirm}
+          text='Finalize purchase'
+        />
       </div>
+    </div>
   );
 }
