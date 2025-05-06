@@ -186,7 +186,7 @@ export function SeeMoreButton(props) {
 export function BackIconButton({ onClick, ...props }) {
   const navigate = useNavigate();
 
-  const handleClick = (e) => {
+  const handleClick = e => {
     if (onClick) {
       onClick(e);
     } else {

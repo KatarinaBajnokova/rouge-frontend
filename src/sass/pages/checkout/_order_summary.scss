@@ -19,4 +19,38 @@
     padding: 1rem;
     border-radius: 1rem;
   }
+
+  .checkout-overview {
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+
+    .section {
+      background-color: $white-elements;
+      border-radius: 1rem;
+      padding: 1.25rem;
+      box-shadow: 0 0 8px rgba(0, 0, 0, 0.05);
+
+      h3,
+      h4 {
+        margin-bottom: 0.5rem;
+        font-weight: 600;
+      }
+
+      .info-line {
+        display: flex;
+        justify-content: space-between;
+        margin-bottom: 0.5rem;
+      }
+
+      .total {
+        font-weight: bold;
+        font-size: 1.1rem;
+      }
+
+      .divider {
+        margin: 1rem 0;
+      }
+    }
+  }
 }

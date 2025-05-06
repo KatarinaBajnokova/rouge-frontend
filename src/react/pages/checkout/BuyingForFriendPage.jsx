@@ -79,7 +79,6 @@ export default function BuyingForFriendPage() {
       </div>
 
       <div className='additional'>
-
         <h3>Additional</h3>
         <div className='checkboxes-part'>
           <Checkbox

@@ -156,84 +156,100 @@ export default function CheckoutOverviewPage() {
       <BackHeader text='Review Your Order' />
       <div className='checkout-overview' style={{ marginTop: '2rem' }}>
         <div className='checkout-personal-info'>
-          <Title order={3}>Personal Information</Title>
-          <Text>
-            {firstName} {lastName}
-          </Text>
-          <Text>{email}</Text>
+          <div className='section'>
+            <Title order={3}>Personal Information</Title>
+            <Text>
+              {firstName} {lastName}
+            </Text>
+            <Text>{email}</Text>
+          </div>
+
           <Divider my='sm' />
-          <Title order={4}>Buying for a Friend</Title>
-          <Text>
-            {addGiftWrap ? '🎁 Gift wrapping added' : 'No gift wrapping'}
-          </Text>
-          <Text>
-            {addPersonalCard ? '✉️ Personal card added' : 'No personal card'}
-          </Text>
-          {(addGiftWrap || addPersonalCard) && (
-            <>
-              <Text>Name: {friendName || '-'}</Text>
-              <Text>Email: {friendEmail || '-'}</Text>
-              {addPersonalCard && <Text>Note: {personalNote || '-'}</Text>}
-            </>
-          )}
+
+          <div className='section'>
+            <Title order={4}>Buying for a Friend</Title>
+            <Text>
+              {addGiftWrap ? '🎁 Gift wrapping added' : 'No gift wrapping'}
+            </Text>
+            <Text>
+              {addPersonalCard ? '✉️ Personal card added' : 'No personal card'}
+            </Text>
+            {(addGiftWrap || addPersonalCard) && (
+              <>
+                <Text>Name: {friendName || '-'}</Text>
+                <Text>Email: {friendEmail || '-'}</Text>
+                {addPersonalCard && <Text>Note: {personalNote || '-'}</Text>}
+              </>
+            )}
+          </div>
+
           <Divider my='sm' />
-          <Title order={4}>Shipping Address</Title>
-          <Text>
-            {street} {houseNumber}, {postalCode}, {country}
-          </Text>
-          <Text>Phone: {phone}</Text>
-          <Divider my='sm' />
-          <Title order={4}>Payment Method</Title>
-          <Text>{paymentLabels[method] || '-'}</Text>
-          {method === 'card' && (
-            <>
-              <Text>Cardholder: {cardName}</Text>
-              <Text>Card Number: **** **** **** {cardNumber.slice(-4)}</Text>
-            </>
-          )}
+          <div className='section'>
+            <Title order={4}>Shipping Address</Title>
+            <Text>
+              {street} {houseNumber}, {postalCode}, {country}
+            </Text>
+            <Text>Phone: {phone}</Text>
+            <Divider my='sm' />
+            <Title order={4}>Payment Method</Title>
+            <Text>{paymentLabels[method] || '-'}</Text>
+            {method === 'card' && (
+              <>
+                <Text>Cardholder: {cardName}</Text>
+                <Text>Card Number: **** **** **** {cardNumber.slice(-4)}</Text>
+              </>
+            )}
+          </div>
         </div>
+
         <Divider my='sm' />
 
         <div className='checkout-order-info'>
-          <Title order={4}>Order Summary</Title>
-          {basketItems.map(item => (
-            <div className='summary-line' key={item.id}>
-              <Text>
-                {item.name} x{item.quantity}
-              </Text>
-              <Text>
-                €{(item.price * item.quantity).toFixed(2).replace('.', ',')}
-              </Text>
-            </div>
-          ))}
+          <div className='section'>
+            <Title order={4}>Order Summary</Title>
+            {basketItems.map(item => (
+              <div className='summary-line' key={item.id}>
+                <Text>
+                  {item.name} x{item.quantity}
+                </Text>
+                <Text>
+                  €{(item.price * item.quantity).toFixed(2).replace('.', ',')}
+                </Text>
+              </div>
+            ))}
+          </div>
         </div>
-        <Divider my='xs' />
+
+        <Divider my='sm' />
+
+        <div className='section'>
         <div className='summary-line'>
-          <Text>Shipping</Text>
-          <Text>€{SHIPPING_COST.toFixed(2).replace('.', ',')}</Text>
-        </div>
-        {addGiftWrap && (
-          <div className='summary-line'>
-            <Text>🎁 Gift wrapping</Text>
-            <Text>€{GIFT_WRAP_COST.toFixed(2).replace('.', ',')}</Text>
+            <Text>Shipping</Text>
+            <Text>€{SHIPPING_COST.toFixed(2).replace('.', ',')}</Text>
           </div>
-        )}
-        {addPersonalCard && (
-          <div className='summary-line'>
-            <Text>✉️ Personal card</Text>
-            <Text>€{PERSONAL_CARD_COST.toFixed(2).replace('.', ',')}</Text>
+          {addGiftWrap && (
+            <div className='summary-line'>
+              <Text>🎁 Gift wrapping</Text>
+              <Text>€{GIFT_WRAP_COST.toFixed(2).replace('.', ',')}</Text>
+            </div>
+          )}
+          {addPersonalCard && (
+            <div className='summary-line'>
+              <Text>✉️ Personal card</Text>
+              <Text>€{PERSONAL_CARD_COST.toFixed(2).replace('.', ',')}</Text>
+            </div>
+          )}
+          <Divider my='sm' />
+          <div className='summary-line total'>
+            <Text fw={700}>Final Total</Text>
+            <Text fw={700}>€{finalTotal}</Text>
           </div>
-        )}
-        <Divider my='xs' />
-        <div className='summary-line total'>
-          <Text fw={700}>Final Total</Text>
-          <Text fw={700}>€{finalTotal}</Text>
+          <BottomBarButton
+            fullWidth
+            onClick={handleConfirm}
+            text='Confirm & Pay'
+          />
         </div>
-        <BottomBarButton
-          fullWidth
-          onClick={handleConfirm}
-          text='Confirm & Pay'
-        />
       </div>
     </div>
   );
