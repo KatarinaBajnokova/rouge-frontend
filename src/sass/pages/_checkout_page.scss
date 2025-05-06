@@ -1,6 +1,10 @@
 @use '/src/sass/abstract/colors' as *;
 @use '/src/sass/abstract/typography' as *;
 
+body {
+  background-color: $white-background;
+}
+
 .checkout-page {
   background-color: $white-background;
   padding: 1.2rem 1.5rem;
@@ -115,6 +119,10 @@
 .m_26063560:checked{
   background-color: $magenta;
   border: $magenta;
+}
+
+.mantine-Textarea-input {
+  border-radius: 1rem;
 }
 
 @keyframes spin {
