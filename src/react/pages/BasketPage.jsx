@@ -23,6 +23,9 @@ export default function BasketPage() {
   const LOCAL_KEY = 'basket';
 
   const fetchBasket = () => {
+    const resetFlag = localStorage.getItem('resetBasket');
+    if (resetFlag === 'true') return; // prevent restoring data right after reset
+  
     setLoading(true);
     fetch('/api/basket')
       .then(res => res.json())
@@ -35,21 +38,29 @@ export default function BasketPage() {
       .catch(err => console.error('Failed to fetch basket:', err))
       .finally(() => setLoading(false));
   };
+  
 
   useEffect(() => {
-    const cached = JSON.parse(localStorage.getItem(LOCAL_KEY) || 'null');
-    if (cached) {
-      setBasketItems(cached);
-      setTotalPrice(cached.reduce((sum, i) => sum + i.price * i.quantity, 0));
-      setLoading(false);
+    const resetFlag = localStorage.getItem('resetBasket');
+    if (resetFlag === 'true') {
+      localStorage.removeItem(LOCAL_KEY);
+      setBasketItems([]);
+      setTotalPrice(0);
+      localStorage.removeItem('resetBasket');
+    } else {
+      const cached = JSON.parse(localStorage.getItem(LOCAL_KEY) || 'null');
+      if (cached) {
+        setBasketItems(cached);
+        setTotalPrice(cached.reduce((sum, i) => sum + i.price * i.quantity, 0));
+      }
     }
+  
     fetchBasket();
-
+  
     const onStorage = e => {
       if (e.key === LOCAL_KEY) {
         const newVal = e.newValue;
         if (!newVal) {
-          // basket cleared
           setBasketItems([]);
           setTotalPrice(0);
         } else {
@@ -60,6 +71,8 @@ export default function BasketPage() {
     window.addEventListener('storage', onStorage);
     return () => window.removeEventListener('storage', onStorage);
   }, []);
+  
+  
 
   const removeItem = async basketId => {
     await fetch(`/api/basket/${basketId}`, { method: 'DELETE' });

@@ -17,17 +17,26 @@ export default function ConfirmationOverlay() {
         localStorage.removeItem('personalInfo');
         localStorage.removeItem('shippingAddress');
         localStorage.removeItem('paymentMethod');
+      
+        // ✅ Flag to signal basket reset in this tab
+        localStorage.setItem('resetBasket', 'true');
+      
         // 3. notify other tabs/components to refresh
         window.dispatchEvent(
           new StorageEvent('storage', { key: 'basket', newValue: null })
         );
-      })
+      })      
       .finally(() => setLoading(false));
   }, []);
 
   const handleContinue = () => {
-    navigate('/homescreen');
+    // Force reload and make sure basket button updates
+    localStorage.setItem('basketRefresh', Date.now().toString());
+    navigate('/homescreen', { replace: true });
+    window.location.reload();
   };
+  
+  
 
   return (
     <div className='order-confirmation-screen'>
