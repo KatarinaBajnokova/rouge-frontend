@@ -53,7 +53,7 @@ export default function BuyingForFriendPage() {
   return (
     <div className='checkout-page'>
       <BackHeader text='Buying for a friend?' />
-      <FinalStepper active={1} />
+      <FinalStepper active={0} />
 
       <div className='checkout-summary' style={{ marginTop: '2rem' }}>
         <Title order={4}>Buying for a friend</Title>

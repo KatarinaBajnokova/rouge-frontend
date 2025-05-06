@@ -156,10 +156,10 @@ export default function BasketPage() {
 
       <Group className='basket-footer' position='apart' align='flex-end'>
         <div className='basket-footer__left'>
-          <Text size='sm' fw={500}>
+          <Text size='16px' fw={500}>
             Shipping:
           </Text>
-          <Text size='sm' c='dimmed'>
+          <Text size='20px' mt='xs' c='dimmed'>
             €{shipping.toFixed(2).replace('.', ',')}
           </Text>
           <Text mt='xs' fw={700}>

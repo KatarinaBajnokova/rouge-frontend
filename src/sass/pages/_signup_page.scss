@@ -23,6 +23,7 @@ body {
     font-size: map.get($font-sizes, 'section-title');
     font-weight: map.get($font-weights, 'bold');
     margin-bottom: 0.2rem;
+    margin-top: 0.5rem;
   }
 
   p {
@@ -61,13 +62,13 @@ body {
   
   .mantine-Divider-label {
     white-space: nowrap;
-    font-size: 0.775rem;
+    font-size: 0.800rem;
     color: var(--mantine-color-dimmed);
   }
   
 
   .social-register-section {
-    margin-top: 0.3rem;
+    margin-top: 1rem;
 
     .social-divider {
       margin-bottom: 1rem;
@@ -95,11 +96,12 @@ body {
     text-align: center;
     margin-top: auto;
     font-size: map.get($font-sizes, 'icon-title');
+    line-height: 1.4;
 
     a {
       color: $magenta;
       font-weight: map.get($font-weights, 'bold');
-      text-decoration: underline;
+      text-decoration: underline !important;
     }
   }
 }

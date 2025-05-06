@@ -262,7 +262,7 @@ const SignUpPage = () => {
         </div>
 
         <div className='login-link'>
-          <Link to='/login'>Already have an account? Log in</Link>
+          <Link  to='/login'>Already have an account? Log in</Link>
         </div>
       </div>
     </div>
