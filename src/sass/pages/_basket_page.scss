@@ -40,7 +40,7 @@ body {
     aspect-ratio: 1 / 1;
     border-radius: 0.75rem;
     display: block;
-  }  
+  }
 
   .basket-footer {
     position: fixed;
@@ -70,43 +70,43 @@ body {
     justify-content: flex-start; // <- use whichever is correct
     position: relative;
     height: 100%;
-  
+
     .mantine-Group-root:first-child {
       margin-bottom: 0.25rem;
     }
-  
+
     .mantine-Text-root {
       line-height: 1.2;
     }
-  
+
     .mantine-Group-root:last-child {
       margin-top: 0.5rem;
     }
-  
+
     .basket-card__text {
       align-self: flex-start;
       padding-right: 2rem;
     }
-  
+
     .basket-card__buttons {
       margin-top: auto;
       display: flex;
       justify-content: space-between;
       align-items: center;
       width: 100%;
-  
+
       .basket-card__price {
         flex: 1;
         text-align: left;
       }
-  
+
       .basket-card__quantity {
         flex-shrink: 0;
         display: flex;
         justify-content: flex-end;
       }
     }
-  
+
     .mantine-ActionIcon-root.trash-icon {
       position: absolute;
       top: 0;
@@ -114,5 +114,4 @@ body {
       background-color: $red-heart;
     }
   }
-  
 }

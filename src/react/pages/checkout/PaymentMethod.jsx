@@ -11,7 +11,10 @@ import {
 import { useNavigate } from 'react-router-dom';
 import { BackIconButton } from '../../components/buttons/IconButtons';
 import FinalStepper from '../../components/stepper/Stepper';
-import { ContinueButton, BottomBarButton } from '../../components/buttons/RedButtons';
+import {
+  ContinueButton,
+  BottomBarButton,
+} from '../../components/buttons/RedButtons';
 import {
   IconCreditCard,
   IconBrandPaypal,
@@ -91,28 +94,23 @@ export default function PaymentMethodPage() {
         <BackIconButton />
         <FinalStepper active={2} />
 
+        <h2>Choose your payment method</h2>
 
-          <h2>
-            Choose your payment method
-          </h2>
-
-          <Box className='payment-method-form'>
+        <Box className='payment-method-form'>
           <Group direction='row' spacing='sm'>
             {options.map(({ value, label, icon }) => (
               <Paper
-  key={value}
-  withBorder
-  radius="md"
-  className={`payment-option ${method === value ? 'selected' : ''}`}
-  onClick={() => selectMethod(value)}
->
-  {icon}
-  <Text>{label}</Text>
-</Paper>
-
+                key={value}
+                withBorder
+                radius='md'
+                className={`payment-option ${method === value ? 'selected' : ''}`}
+                onClick={() => selectMethod(value)}
+              >
+                {icon}
+                <Text>{label}</Text>
+              </Paper>
             ))}
           </Group>
-
 
           {method === 'card' && (
             <Box className='card-details'>
@@ -149,8 +147,6 @@ export default function PaymentMethodPage() {
             }
             onClick={handleProceed}
           />
-
-          
         </Box>
       </div>
 

@@ -74,14 +74,11 @@ export default function PersonalInfoPage() {
       <BackIconButton />
       <FinalStepper active={2} />
       <div className='personal-form' style={{ marginTop: '2rem' }}>
-        <h2>
-          Personal information
-        </h2>
+        <h2>Personal information</h2>
         <div className='step-description'>
-        <p>Press "Confirm & Continue" if you wish to skip this part.</p>
-        <p>Your addresses can always be edited in the profile settings.</p>
+          <p>Press "Confirm & Continue" if you wish to skip this part.</p>
+          <p>Your addresses can always be edited in the profile settings.</p>
         </div>
-
 
         <Select
           label='Country'

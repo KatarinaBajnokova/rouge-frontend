@@ -56,34 +56,33 @@
       align-items: center;
       padding: 0.5rem 1rem;
       border-radius: 12px;
-    
+
       // Layout: icon + label in a row
       svg {
         margin-right: 0.75rem;
         flex-shrink: 0;
       }
-    
+
       .mantine-Text-root {
         font-weight: 500;
         font-size: 1rem;
         white-space: nowrap;
       }
-    
+
       &:hover,
       &:active {
         background-color: rgba($grey-background-elements, 0.1);
       }
-    
+
       &.selected {
         background-color: rgba($grey-background-elements, 0.2);
         border-color: $magenta;
       }
     }
-    
-    .card-details{
+
+    .card-details {
       margin-top: 1.5rem;
     }
-    
   }
 }
 

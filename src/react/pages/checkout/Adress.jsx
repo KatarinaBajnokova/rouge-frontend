@@ -69,9 +69,7 @@ export default function AddressPage() {
       <BackIconButton />
       <FinalStepper active={1} />
       <div className='personal-form'>
-        <Title order={3}>
-          Shipping Address
-        </Title>
+        <Title order={3}>Shipping Address</Title>
 
         <Select
           label='Country'
@@ -123,10 +121,7 @@ export default function AddressPage() {
           required
         />
 
-<BottomBarButton
-                  text='Confirm & Continue'
-                  onClick={handleConfirm}
-                />
+        <BottomBarButton text='Confirm & Continue' onClick={handleConfirm} />
       </div>
     </div>
   );

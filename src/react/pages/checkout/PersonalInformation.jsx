@@ -1,11 +1,8 @@
-import React, { useState, useEffect, } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useNavigate, Link } from 'react-router-dom';
 import { TextInput, Divider, PasswordInput } from '@mantine/core';
 import { showNotification } from '@mantine/notifications';
-import {
-  SignUpButton,
-  LogInButton,
-} from '../../components/buttons/RedButtons';
+import { SignUpButton, LogInButton } from '../../components/buttons/RedButtons';
 import {
   ContinueWithFacebookIconButton,
   ContinueWithGoogleIconButton,
@@ -80,7 +77,7 @@ export default function PersonalInfoCheckout() {
       });
       return;
     }
-  
+
     if (!email.includes('@') || !email.includes('.')) {
       showNotification({
         title: 'Invalid Email',
@@ -90,7 +87,7 @@ export default function PersonalInfoCheckout() {
       });
       return;
     }
-  
+
     if (password.length < 6) {
       showNotification({
         title: 'Weak Password',
@@ -100,7 +97,7 @@ export default function PersonalInfoCheckout() {
       });
       return;
     }
-  
+
     if (password !== confirmPassword) {
       showNotification({
         title: 'Password Mismatch',
@@ -110,18 +107,22 @@ export default function PersonalInfoCheckout() {
       });
       return;
     }
-  
+
     try {
-      const result = await createUserWithEmailAndPassword(auth, email, password);
+      const result = await createUserWithEmailAndPassword(
+        auth,
+        email,
+        password
+      );
       const user = result.user;
-  
+
       showNotification({
         title: 'Signed up!',
         message: `Welcome ${user.displayName || firstName}!`,
         color: 'green',
         position: 'top-center',
       });
-  
+
       persistAndContinue({
         firstName,
         lastName,
@@ -143,7 +144,6 @@ export default function PersonalInfoCheckout() {
       });
     }
   };
-  
 
   const handleSocialSignIn = async (provider, label) => {
     try {
@@ -180,14 +180,12 @@ export default function PersonalInfoCheckout() {
 
   return (
     <div className='signup-page'>
-      
-        <BackIconButton />
+      <BackIconButton />
 
       <h2>Account</h2>
       <div className='step-description'>
-      <p style={{ color: 'red', fontWeight: 'bold' }}>Before proceeding!</p>
-      <p>Seems like you don't have an account or aren't logged in!</p>
-
+        <p style={{ color: 'red', fontWeight: 'bold' }}>Before proceeding!</p>
+        <p>Seems like you don't have an account or aren't logged in!</p>
       </div>
 
       <TextInput
@@ -242,25 +240,27 @@ export default function PersonalInfoCheckout() {
 
       <SignUpButton fullWidth onClick={handleEmailContinue}></SignUpButton>
 
-<div className='social-register-section'>
-      <Divider className='social-divider' label='Or log in with' labelPosition='center' />
-      <div className='social-buttons'>
-        <ContinueWithFacebookIconButton
-          fullWidth
-          onClick={() => handleSocialSignIn(facebookProvider, 'Facebook')}
+      <div className='social-register-section'>
+        <Divider
+          className='social-divider'
+          label='Or log in with'
+          labelPosition='center'
         />
-        <ContinueWithGoogleIconButton
-          fullWidth
-          onClick={() => handleSocialSignIn(googleProvider, 'Google')}
-        />
-        
-        <div className='login-link'>
-          <Link to='/login'>Already have an account? Log in</Link>
+        <div className='social-buttons'>
+          <ContinueWithFacebookIconButton
+            fullWidth
+            onClick={() => handleSocialSignIn(facebookProvider, 'Facebook')}
+          />
+          <ContinueWithGoogleIconButton
+            fullWidth
+            onClick={() => handleSocialSignIn(googleProvider, 'Google')}
+          />
+
+          <div className='login-link'>
+            <Link to='/login'>Already have an account? Log in</Link>
+          </div>
         </div>
       </div>
-
-      </div>
-
     </div>
   );
 }

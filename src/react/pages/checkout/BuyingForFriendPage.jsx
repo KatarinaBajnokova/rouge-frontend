@@ -60,59 +60,54 @@ export default function BuyingForFriendPage() {
         <p>If you're buying for a friend fillout these.</p>
 
         <TextInput
-        className='checkout-form'
-        label="Name"
-        placeholder="Friend's name..."
+          className='checkout-form'
+          label='Name'
+          placeholder="Friend's name..."
           value={friendName}
           onChange={e => setFriendName(e.currentTarget.value)}
           mt='sm'
         />
         <TextInput
-        className='checkout-form'
-        label="Email"
-        placeholder="Friend's email..."
+          className='checkout-form'
+          label='Email'
+          placeholder="Friend's email..."
           type='email'
           value={friendEmail}
           onChange={e => setFriendEmail(e.currentTarget.value)}
           mt='sm'
         />
+      </div>
 
-</div>
+      <div className='additional'>
+        <div className='checkboxes-part'>
+          <Checkbox
+            label={`🎁 Gift wrapping (€${GIFT_WRAP_COST.toFixed(2)})`}
+            mt='sm'
+            checked={addGiftWrap}
+            onChange={e => setAddGiftWrap(e.currentTarget.checked)}
+          />
+          <Checkbox
+            label={`✉️ Personal card (€${PERSONAL_CARD_COST.toFixed(2)})`}
+            mt='sm'
+            checked={addPersonalCard}
+            onChange={e => setAddPersonalCard(e.currentTarget.checked)}
+          />
+        </div>
 
-<div className='additional'>
-
-<div className='checkboxes-part'>
-<Checkbox
-          label={`🎁 Gift wrapping (€${GIFT_WRAP_COST.toFixed(2)})`}
-          mt='sm'
-          checked={addGiftWrap}
-          onChange={e => setAddGiftWrap(e.currentTarget.checked)}
-        />
-        <Checkbox
-          label={`✉️ Personal card (€${PERSONAL_CARD_COST.toFixed(2)})`}
-          mt='sm'
-          checked={addPersonalCard}
-          onChange={e => setAddPersonalCard(e.currentTarget.checked)}
-        />
-
-</div>
-
-{addPersonalCard && (
-  <Textarea
-    className='my-custom-textarea'
-    label='Personal Note'
-    placeholder='Write a message...'
-    value={personalNote}
-    onChange={e => setPersonalNote(e.currentTarget.value)}
-    minRows={3}
-    autosize
-    mt='sm'
-  />
-)}
-      <BottomBarButton
-        onClick={handleContinue}
-      />
-</div>
+        {addPersonalCard && (
+          <Textarea
+            className='my-custom-textarea'
+            label='Personal Note'
+            placeholder='Write a message...'
+            value={personalNote}
+            onChange={e => setPersonalNote(e.currentTarget.value)}
+            minRows={3}
+            autosize
+            mt='sm'
+          />
+        )}
+        <BottomBarButton onClick={handleContinue} />
+      </div>
     </div>
   );
 }

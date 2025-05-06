@@ -18,17 +18,17 @@ body {
     margin-top: 0;
   }
 
-    h2 {
-      font-size: map.get($font-sizes, 'section-title');
-      font-weight: map.get($font-weights, 'bold');
-      margin-bottom: 0.5rem;
-      margin-top: 0.5rem;
-      color: $black-main;
-      line-height: 1.2;
-    }
-  
-    .step-description{
-      margin-bottom: 1rem;
+  h2 {
+    font-size: map.get($font-sizes, 'section-title');
+    font-weight: map.get($font-weights, 'bold');
+    margin-bottom: 0.5rem;
+    margin-top: 0.5rem;
+    color: $black-main;
+    line-height: 1.2;
+  }
+
+  .step-description {
+    margin-bottom: 1rem;
 
     p {
       font-size: map.get($font-sizes, 'section-description');
@@ -57,7 +57,7 @@ body {
     display: flex;
     align-items: center;
     justify-content: center;
-  
+
     // force visible lines
     &::before,
     &::after {
@@ -67,13 +67,13 @@ body {
       background-color: var(--mantine-color-dimmed);
     }
   }
-  
+
   .mantine-Divider-label {
     white-space: nowrap;
-    font-size: 0.800rem;
+    font-size: 0.8rem;
     color: var(--mantine-color-dimmed);
   }
-  
+
   .social-register-section {
     margin-top: 1rem;
 
@@ -99,19 +99,19 @@ body {
     }
   }
 
-    .login-link {
-      text-align: center;
-      margin-top: auto;
-      font-size: map.get($font-sizes, 'icon-title');
-      line-height: 1.4;
-  
-      a {
-        color: $magenta;
-        font-weight: map.get($font-weights, 'bold');
-        text-decoration: underline;
-      }
+  .login-link {
+    text-align: center;
+    margin-top: auto;
+    font-size: map.get($font-sizes, 'icon-title');
+    line-height: 1.4;
+
+    a {
+      color: $magenta;
+      font-weight: map.get($font-weights, 'bold');
+      text-decoration: underline;
     }
   }
+}
 
 .mantine-TextInput-root {
   margin-bottom: 0.25rem;
@@ -135,4 +135,3 @@ button.mantine-Button-root.continue-with-facebook-icon-button {
 button.mantine-Button-root.continue-with-google-icon-button {
   box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
 }
-

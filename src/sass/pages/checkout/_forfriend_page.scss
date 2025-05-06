@@ -2,7 +2,6 @@
 @use '@/sass/abstract/colors' as *;
 @use '@/sass/abstract/typography' as *;
 
-
 .forfriend-page {
   min-height: 100vh;
   background-color: $white-background;
@@ -13,7 +12,7 @@
     margin-top: 0;
   }
 
-  .checkout-summary{
+  .checkout-summary {
     margin-bottom: 2rem;
     h2 {
       font-size: map.get($font-sizes, 'section-title');
@@ -23,7 +22,7 @@
       color: $black-main;
       line-height: 1.2;
     }
-  
+
     p {
       font-size: map.get($font-sizes, 'section-description');
       color: $black-review;
@@ -31,7 +30,6 @@
       margin-top: 0.1rem;
       font-weight: map.get($font-weights, 'regular');
     }
-  
   }
 
   .checkout-form {
@@ -57,7 +55,7 @@
     }
   }
 
-  .m_26063560:checked{
+  .m_26063560:checked {
     background-color: $magenta;
     border: $magenta;
   }
@@ -70,17 +68,17 @@
   }
 }
 
-.my-custom-textarea{
+.my-custom-textarea {
   .mantine-Textarea-input {
-  margin-bottom: 1rem;
-  border-radius: 0.5rem;
-  background-color: #fff;
-  border: 1px solid #ddd;
-  padding: 0.75rem 1rem;
-}
-.mantine-Textarea-label {
-  font-weight: 600;
-  font-size: 0.95rem;
-  margin-bottom: 0.25rem;
-}
+    margin-bottom: 1rem;
+    border-radius: 0.5rem;
+    background-color: #fff;
+    border: 1px solid #ddd;
+    padding: 0.75rem 1rem;
+  }
+  .mantine-Textarea-label {
+    font-weight: 600;
+    font-size: 0.95rem;
+    margin-bottom: 0.25rem;
+  }
 }

@@ -49,7 +49,7 @@ body {
     display: flex;
     align-items: center;
     justify-content: center;
-  
+
     // force visible lines
     &::before,
     &::after {
@@ -59,13 +59,12 @@ body {
       background-color: var(--mantine-color-dimmed);
     }
   }
-  
+
   .mantine-Divider-label {
     white-space: nowrap;
-    font-size: 0.800rem;
+    font-size: 0.8rem;
     color: var(--mantine-color-dimmed);
   }
-  
 
   .social-register-section {
     margin-top: 1rem;
