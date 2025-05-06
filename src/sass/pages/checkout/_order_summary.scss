@@ -1,0 +1,22 @@
+@use 'sass:map';
+@use '@/sass/abstract/colors' as *;
+@use '@/sass/abstract/typography' as *;
+
+.summary-page{
+    background-color: $white-background;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    padding: 1.2rem 1.5rem;
+    margin-bottom: 90px;
+
+    .back-header {
+        margin-bottom: 0;
+      }
+
+    .checkout-order-info{
+        background-color: $white-elements;
+        padding: 1rem;
+        border-radius: 1rem;
+    }
+}

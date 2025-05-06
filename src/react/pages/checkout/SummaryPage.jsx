@@ -5,10 +5,10 @@ import { showNotification } from '@mantine/notifications';
 
 import FinalStepper from '../../components/stepper/Stepper';
 import { BackHeader } from '../../components/buttons/IconButtons';
-import { ContinueButton } from '../../components/buttons/RedButtons';
+import { BottomBarButton } from '../../components/buttons/RedButtons';
 
 import ConfirmationOverlay from '../../components/checkout/ConfirmationOverlay';
-import '@/sass/pages/_checkout_page.scss';
+import '@/sass/pages/checkout/_order_summary.scss';
 import '@/sass/pages/checkout/_last_popup.scss';
 
 export default function CheckoutOverviewPage() {
@@ -152,11 +152,11 @@ export default function CheckoutOverviewPage() {
   }
 
   return (
-    <div className='checkout-page'>
+    <div className='summary-page'>
       <BackHeader text='Review Your Order' />
-      <FinalStepper active={3} />
       <div className='checkout-overview' style={{ marginTop: '2rem' }}>
-        <Title order={4}>Personal Information</Title>
+        <div className='checkout-personal-info'>
+        <Title order={3}>Personal Information</Title>
         <Text>
           {firstName} {lastName}
         </Text>
@@ -191,7 +191,11 @@ export default function CheckoutOverviewPage() {
             <Text>Card Number: **** **** **** {cardNumber.slice(-4)}</Text>
           </>
         )}
+
+</div>
         <Divider my='sm' />
+
+        <div className='checkout-order-info'>
         <Title order={4}>Order Summary</Title>
         {basketItems.map(item => (
           <div className='summary-line' key={item.id}>
@@ -203,6 +207,8 @@ export default function CheckoutOverviewPage() {
             </Text>
           </div>
         ))}
+
+</div>
         <Divider my='xs' />
         <div className='summary-line'>
           <Text>Shipping</Text>
@@ -225,9 +231,8 @@ export default function CheckoutOverviewPage() {
           <Text fw={700}>Final Total</Text>
           <Text fw={700}>€{finalTotal}</Text>
         </div>
-        <ContinueButton
+        <BottomBarButton
           fullWidth
-          mt='xl'
           onClick={handleConfirm}
           text='Confirm & Pay'
         />
