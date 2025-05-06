@@ -7,8 +7,8 @@ body {
 
 .basket-page {
   padding: 1.2rem 1.5rem;
-  margin-bottom: 144.5px; //footer hight
   background: $white-background;
+  min-height: 100vh;
 
   .basket-header {
     display: flex;

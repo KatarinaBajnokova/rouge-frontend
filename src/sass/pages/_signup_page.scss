@@ -14,6 +14,7 @@ body {
   color: $black-main;
   display: flex;
   flex-direction: column;
+  min-height: 100vh;
 
   .back-icon-button {
     margin-top: 0;
@@ -106,7 +107,7 @@ body {
 }
 
 .sign-up-button {
-  margin: 1rem auto 0.1rem;
+  margin: 1.5rem auto 0.1rem;
   display: block;
   max-width: 400px;
 }
