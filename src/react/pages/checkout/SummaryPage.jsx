@@ -9,7 +9,7 @@ import {
 } from '../../components/buttons/IconButtons';
 import { BottomBarButton } from '../../components/buttons/RedButtons';
 
-import ConfirmationOverlay from '../../components/checkout/ConfirmationOverlay';
+import ConfirmationOverlay from './ConfirmationOverlay';
 import '@/sass/pages/checkout/_order_summary.scss';
 import '@/sass/pages/checkout/_last_popup.scss';
 
@@ -185,10 +185,11 @@ export default function CheckoutOverviewPage() {
                   : 'No personal card'}
               </Text>
 
-              <Divider />
+              
             </div>
             {(addGiftWrap || addPersonalCard) && (
               <>
+              <Divider />
                 <Text>
                   <span className='subtitle-text'>Name:</span>{' '}
                   {friendName || '-'}

@@ -4,11 +4,12 @@
 
 .summary-page {
   background-color: $white-background;
-  min-height: 143vh;
+  min-height: 100vh;
   display: flex;
   flex-direction: column;
   padding: 1.2rem 1.5rem;
   font-family: $font-family;
+  margin-bottom: 50px;
 
   .back-header {
     margin-bottom: 0;

@@ -40,22 +40,20 @@ export default function ConfirmationOverlay() {
         ) : (
           <>
             <Title order={3}>Thank you for your order!</Title>
-            <Text mt='sm'>
+            <Text>
               Your order has been received and is currently being processed.
             </Text>
-            <Text mt='xs'>
+            <Text>
               You will receive an <strong>email confirmation</strong> with
               tracking information soon.
             </Text>
             <Button
               className='continue-button'
-              radius='xl'
-              size='md'
-              mt='xl'
               onClick={handleContinue}
             >
               Continue shopping
             </Button>
+            
           </>
         )}
       </div>
