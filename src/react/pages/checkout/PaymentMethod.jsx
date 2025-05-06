@@ -9,9 +9,9 @@ import {
   Modal,
 } from '@mantine/core';
 import { useNavigate } from 'react-router-dom';
-import { BackHeader } from '../../components/buttons/IconButtons';
+import { BackIconButton } from '../../components/buttons/IconButtons';
 import FinalStepper from '../../components/stepper/Stepper';
-import { ContinueButton } from '../../components/buttons/RedButtons';
+import { ContinueButton, BottomBarButton } from '../../components/buttons/RedButtons';
 import {
   IconCreditCard,
   IconBrandPaypal,
@@ -88,36 +88,34 @@ export default function PaymentMethodPage() {
   return (
     <>
       <div className='payment-method-page'>
-        <BackHeader text='Payment Method' />
+        <BackIconButton />
         <FinalStepper active={2} />
 
-        <Box className='payment-method-form' mt='2rem'>
-          <Title order={3} mb='sm'>
-            Choose your payment method
-          </Title>
 
-          <Group direction='column' spacing='sm'>
+          <h2>
+            Choose your payment method
+          </h2>
+
+          <Box className='payment-method-form'>
+          <Group direction='row' spacing='sm'>
             {options.map(({ value, label, icon }) => (
               <Paper
-                key={value}
-                withBorder
-                radius='md'
-                className={`payment-option ${
-                  method === value ? 'selected' : ''
-                }`}
-                p='sm'
-                onClick={() => selectMethod(value)}
-              >
-                <Group align='center' spacing='sm'>
-                  {icon}
-                  <Text>{label}</Text>
-                </Group>
-              </Paper>
+  key={value}
+  withBorder
+  radius="md"
+  className={`payment-option ${method === value ? 'selected' : ''}`}
+  onClick={() => selectMethod(value)}
+>
+  {icon}
+  <Text>{label}</Text>
+</Paper>
+
             ))}
           </Group>
 
+
           {method === 'card' && (
-            <Box mt='md'>
+            <Box className='card-details'>
               <TextInput
                 label='Cardholder Name'
                 placeholder='John Doe'
@@ -142,16 +140,17 @@ export default function PaymentMethodPage() {
             </Box>
           )}
 
-          <ContinueButton
+          <BottomBarButton
             text='Continue'
             fullWidth
-            mt='xl'
             disabled={
               !method ||
               (method === 'card' && (!cardName || !cardNumber || !cvc))
             }
             onClick={handleProceed}
           />
+
+          
         </Box>
       </div>
 

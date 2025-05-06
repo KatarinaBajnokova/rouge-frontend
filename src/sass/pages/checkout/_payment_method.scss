@@ -8,10 +8,25 @@
   min-height: 100vh;
   display: flex;
   flex-direction: column;
+  padding: 1.2rem 1.5rem;
+  margin-bottom: 50px;
+
+  .back-icon-button {
+    margin-top: 0;
+  }
+
+  h2 {
+    font-size: map.get($font-sizes, 'section-title');
+    font-weight: map.get($font-weights, 'bold');
+    margin-bottom: 0.5rem;
+    margin-top: 0.5rem;
+    color: $black-main;
+    line-height: 1.2;
+  }
 
   .payment-method-form {
+    margin-top: 1rem;
     flex: 1;
-    padding: 0 1.5rem;
     display: flex;
     flex-direction: column;
 
@@ -35,17 +50,40 @@
         border-color 0.2s ease;
       background-color: transparent;
       border: 1px solid $grey-background-elements;
-
+      width: 100%;
+      min-height: 60px;
+      display: flex;
+      align-items: center;
+      padding: 0.5rem 1rem;
+      border-radius: 12px;
+    
+      // Layout: icon + label in a row
+      svg {
+        margin-right: 0.75rem;
+        flex-shrink: 0;
+      }
+    
+      .mantine-Text-root {
+        font-weight: 500;
+        font-size: 1rem;
+        white-space: nowrap;
+      }
+    
       &:hover,
       &:active {
         background-color: rgba($grey-background-elements, 0.1);
       }
-
+    
       &.selected {
         background-color: rgba($grey-background-elements, 0.2);
         border-color: $magenta;
       }
     }
+    
+    .card-details{
+      margin-top: 1.5rem;
+    }
+    
   }
 }
 
@@ -58,13 +96,12 @@
       font-size: map.get($font-sizes, 'body');
       margin-bottom: 1rem;
     }
-
-    .continue-button {
-      background-color: transparent;
-      color: $magenta;
-      border: 2px solid $magenta;
-      width: 100%;
-      font-weight: map.get($font-weights, 'bold');
-    }
   }
+}
+
+.mantine-Modal-body {
+  display: flex;
+  flex-direction: column;
+  align-items: center; // centers child elements horizontally
+  text-align: center; // centers text inside <p>
 }
