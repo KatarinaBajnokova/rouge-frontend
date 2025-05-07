@@ -9,6 +9,7 @@ const AnimationPage = lazy(() => import('./react/pages/AnimationPage'));
 const HomeScreen = lazy(() => import('./react/pages/HomeScreen'));
 const ProductDetail = lazy(() => import('./react/pages/ProductDetail'));
 const BasketPage = lazy(() => import('./react/pages/BasketPage'));
+
 const SignUpPage = lazy(() => import('./react/pages/SignUpPage'));
 const LoginPage = lazy(() => import('./react/pages/LoginPage'));
 const PersonalLookPage = lazy(() => import('./react/pages/PersonalLookPage'));
