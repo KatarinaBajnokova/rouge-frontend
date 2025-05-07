@@ -2,10 +2,6 @@
 @use '@/sass/abstract/colors' as *;
 @use '@/sass/abstract/typography' as *;
 
-body {
-  background-color: $white-background;
-}
-
 .signup-page {
   background-color: $white-background;
   padding: 1.2rem 1.5rem;
@@ -13,6 +9,7 @@ body {
   color: $black-main;
   display: flex;
   flex-direction: column;
+  min-height: 100vh;
 
   .back-icon-button {
     margin-top: 0;

@@ -1,0 +1,111 @@
+.animation-page {
+  min-height: 100vh;
+  background-color: #fff;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+}
+.animation-video {
+  width: 100%;
+  height: auto;
+  object-fit: cover;
+  transition: transform 0.5s ease;
+}
+.animation-video.video-moved {
+  transform: translateY(-55%);
+}
+.bottom-card {
+  position: absolute;
+  bottom: 0;
+  left: 50%;
+  transform: translate(-50%);
+  width: 100%;
+  height: 50%;
+  background-color: #0b0b0b;
+  color: #fbfbfb;
+  border-radius: 4rem 4rem 0 0;
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-start;
+  padding-top: 2rem;
+  animation: slideUp 0.8s ease-out forwards;
+}
+.bottom-card h2 {
+  margin-bottom: 0rem;
+  margin-top: 0rem;
+  font-size: 2.5rem;
+  font-weight: 700;
+}
+.bottom-card .bottom-text {
+  margin-bottom: 2rem;
+  margin-top: 0.3rem;
+  font-size: 1.3rem;
+}
+.bottom-card .bottom-text p {
+  margin: 0;
+}
+.bottom-card .button-group {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  align-items: center;
+  margin-bottom: 1rem;
+}
+.bottom-card .skip-button {
+  position: absolute;
+  bottom: 1.3rem;
+  right: 1rem;
+  width: 120px;
+  height: 50px;
+  border: 2px solid #aa1da4;
+  background: none;
+  color: #aa1da4;
+  padding: 0.3rem 0.4rem;
+  border-radius: 9999px;
+  cursor: pointer;
+  font-size: 1rem;
+  transition: background-color 0.2s ease;
+}
+.bottom-card .skip-button:hover {
+  background-color: #fff3;
+}
+@keyframes slideUp {
+  0% {
+    transform: translate(-50%, 100%);
+  }
+  to {
+    transform: translate(-50%);
+  }
+}
+@media screen and (min-width: 601px) and (max-width: 1024px) {
+  .animation-video {
+    width: 60%;
+    max-width: 60%;
+  }
+  .animation-video.video-moved {
+    transform: translateY(-35%);
+  }
+  .bottom-card {
+    height: 55%;
+    border-radius: 1.5rem 1.5rem 0 0;
+  }
+  .bottom-card h2 {
+    font-size: 1.3rem;
+  }
+  .bottom-card p {
+    font-size: 0.9rem;
+  }
+  .bottom-card .button-group {
+    margin-bottom: 3rem;
+  }
+  .bottom-card .skip-button {
+    width: 6rem;
+    font-size: 0.9rem;
+    padding: 0.4rem 0.8rem;
+    margin-top: 0.2rem;
+  }
+}

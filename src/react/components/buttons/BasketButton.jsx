@@ -21,9 +21,21 @@ export function BasketButton({ refresh }) {
     }
   };
 
+  // Initial fetch or prop-driven refresh
   useEffect(() => {
     fetchBasketCount();
   }, [refresh]);
+
+  // 🔁 Listen to localStorage 'basketRefresh' flag across tabs or reloads
+  useEffect(() => {
+    const onStorage = e => {
+      if (e.key === 'basketRefresh') {
+        fetchBasketCount();
+      }
+    };
+    window.addEventListener('storage', onStorage);
+    return () => window.removeEventListener('storage', onStorage);
+  }, []);
 
   return (
     <button

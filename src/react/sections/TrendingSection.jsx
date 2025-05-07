@@ -41,10 +41,12 @@ const TrendingSection = () => {
 
   return (
     <section className='home-section section-two'>
+      <div className='section-header'>
       <h1>What's trending</h1>
       <p className='section-desc'>
         Seasonal looks, holiday glam, and trending favorites!
       </p>
+      </div>
 
       {loading && <p>Loading cards...</p>}
       {error && <p style={{ color: 'red' }}>Error: {error}</p>}

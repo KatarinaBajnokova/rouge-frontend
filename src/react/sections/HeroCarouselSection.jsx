@@ -6,7 +6,7 @@ import '@/sass/sections/_hero_carousel_section.scss';
 const HeroCarouselSection = () => (
   <section className='home-section section-carousel'>
     <div className='carousel-container'>
-      <SimpleCarousel height={500} />
+      <SimpleCarousel height='auto' />
       <div className='basket-wrapper'>
         <BasketButton />
       </div>

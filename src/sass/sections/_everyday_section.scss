@@ -6,12 +6,18 @@
   background: $white-background;
   color: $black-main;
 
-  h1 {
-    @include font('section-title', 'bold');
-    margin: 1rem;
-  }
+  .section-header{
+    margin-left: 1rem;
 
-  p {
-    @include font('section-description', 'regular');
+    h1 {
+      @include font('section-title', 'bold');
+      margin-bottom: 0.3rem;
+      margin-top: 1rem;
+    }
+  
+    p {
+      @include font('section-description', 'regular');
+      margin: 0;
+    }
   }
 }

@@ -1,0 +1,96 @@
+body {
+  background-color: #f3eded;
+}
+.signup-page {
+  background-color: #f3eded;
+  padding: 1.2rem 1.5rem;
+  font-family: Montserrat, sans-serif;
+  color: #0b0b0b;
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+}
+.signup-page .back-icon-button {
+  margin-top: 0;
+}
+.signup-page h2 {
+  font-size: 25px;
+  font-weight: 700;
+  margin-bottom: 0.2rem;
+  margin-top: 0.5rem;
+}
+.signup-page p {
+  font-size: 16px;
+  margin-bottom: 0.7rem;
+  margin-top: 0;
+}
+.signup-page .mantine-TextInput-root,
+.signup-page .mantine-PasswordInput-root {
+  margin-bottom: 0.5rem;
+}
+.signup-page .mantine-TextInput-root input,
+.signup-page .mantine-PasswordInput-root input {
+  border-radius: 12px;
+  font-size: 16px;
+}
+.signup-page .mantine-Divider-root {
+  font-weight: 500;
+  color: #2d2d2d;
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.signup-page .mantine-Divider-root:before,
+.signup-page .mantine-Divider-root:after {
+  content: '';
+  flex: 1;
+  height: 1px;
+  background-color: var(--mantine-color-dimmed);
+}
+.signup-page .mantine-Divider-label {
+  white-space: nowrap;
+  font-size: 0.8rem;
+  color: var(--mantine-color-dimmed);
+}
+.signup-page .social-register-section {
+  margin-top: 1rem;
+}
+.signup-page .social-register-section .social-divider {
+  margin-bottom: 1rem;
+}
+.signup-page .social-register-section .social-buttons {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.85rem;
+  margin-bottom: 1rem;
+}
+.signup-page .social-register-section .social-buttons button {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  height: 45px;
+  max-width: 400px;
+}
+.signup-page .login-link {
+  text-align: center;
+  margin-top: auto;
+  font-size: 14px;
+  line-height: 1.4;
+}
+.signup-page .login-link a {
+  color: #aa1da4;
+  font-weight: 700;
+  text-decoration: underline !important;
+}
+.sign-up-button {
+  margin: 1.5rem auto 0.1rem;
+  display: block;
+  max-width: 400px;
+}
+button.mantine-Button-root.continue-with-facebook-icon-button,
+button.mantine-Button-root.continue-with-google-icon-button {
+  box-shadow: 0 4px 6px #0000001a;
+}
