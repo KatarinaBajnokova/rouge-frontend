@@ -105,7 +105,11 @@ export default function PersonalInfoCheckout() {
 
     try {
       const { auth, createUserWithEmailAndPassword } = await getFirebaseAuth();
-      const result = await createUserWithEmailAndPassword(auth, email, password);      
+      const result = await createUserWithEmailAndPassword(
+        auth,
+        email,
+        password
+      );
       const user = result.user;
 
       showNotification({
@@ -141,7 +145,7 @@ export default function PersonalInfoCheckout() {
     try {
       const { auth, signInWithPopup } = await getFirebaseAuth();
       const result = await signInWithPopup(auth, provider);
-      
+
       const user = result.user;
       const info = {
         firstName: user.displayName || '',

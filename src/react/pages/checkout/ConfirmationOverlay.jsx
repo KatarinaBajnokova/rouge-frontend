@@ -17,15 +17,15 @@ export default function ConfirmationOverlay() {
         localStorage.removeItem('personalInfo');
         localStorage.removeItem('shippingAddress');
         localStorage.removeItem('paymentMethod');
-      
+
         // ✅ Flag to signal basket reset in this tab
         localStorage.setItem('resetBasket', 'true');
-      
+
         // 3. notify other tabs/components to refresh
         window.dispatchEvent(
           new StorageEvent('storage', { key: 'basket', newValue: null })
         );
-      })      
+      })
       .finally(() => setLoading(false));
   }, []);
 
@@ -35,8 +35,6 @@ export default function ConfirmationOverlay() {
     navigate('/homescreen', { replace: true });
     window.location.reload();
   };
-  
-  
 
   return (
     <div className='order-confirmation-screen'>
@@ -56,13 +54,9 @@ export default function ConfirmationOverlay() {
               You will receive an <strong>email confirmation</strong> with
               tracking information soon.
             </Text>
-            <Button
-              className='continue-button'
-              onClick={handleContinue}
-            >
+            <Button className='continue-button' onClick={handleContinue}>
               Continue shopping
             </Button>
-            
           </>
         )}
       </div>

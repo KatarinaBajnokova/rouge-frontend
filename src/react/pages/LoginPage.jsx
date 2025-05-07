@@ -15,7 +15,6 @@ import {
 
 import { getFirebaseAuth } from '../../getFirebaseAuth';
 
-
 import '@/sass/pages/_login_page.scss';
 
 const LoginPage = () => {
@@ -56,22 +55,29 @@ const LoginPage = () => {
 
   const handleEmailLogin = async () => {
     if (!email || !password) {
-      showNotification({ title: 'Missing credentials', message: 'Please enter both email and password.', color: 'red' });
+      showNotification({
+        title: 'Missing credentials',
+        message: 'Please enter both email and password.',
+        color: 'red',
+      });
       return;
     }
-  
+
     setLoading(true);
     try {
       const { auth, signInWithEmailAndPassword } = await getFirebaseAuth();
       await signInWithEmailAndPassword(auth, email, password);
       await loginWithBackend(email, password);
     } catch (err) {
-      showNotification({ title: 'Login error', message: err.message, color: 'red' });
+      showNotification({
+        title: 'Login error',
+        message: err.message,
+        color: 'red',
+      });
     } finally {
       setLoading(false);
     }
   };
-  
 
   const handleGoogleSignIn = async () => {
     setLoading(true);
@@ -80,25 +86,33 @@ const LoginPage = () => {
       const result = await signInWithPopup(auth, googleProvider);
       navigate('/homescreen');
     } catch (err) {
-      showNotification({ title: 'Google sign-in error', message: err.message, color: 'red' });
+      showNotification({
+        title: 'Google sign-in error',
+        message: err.message,
+        color: 'red',
+      });
     } finally {
       setLoading(false);
     }
   };
-  
+
   const handleFacebookSignIn = async () => {
     setLoading(true);
     try {
-      const { auth, facebookProvider, signInWithPopup } = await getFirebaseAuth();
+      const { auth, facebookProvider, signInWithPopup } =
+        await getFirebaseAuth();
       const result = await signInWithPopup(auth, facebookProvider);
       navigate('/homescreen');
     } catch (err) {
-      showNotification({ title: 'Facebook sign-in error', message: err.message, color: 'red' });
+      showNotification({
+        title: 'Facebook sign-in error',
+        message: err.message,
+        color: 'red',
+      });
     } finally {
       setLoading(false);
     }
   };
-  
 
   return (
     <div className='login-page'>

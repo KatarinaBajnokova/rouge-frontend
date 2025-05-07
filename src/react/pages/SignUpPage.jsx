@@ -70,8 +70,12 @@ const SignUpPage = () => {
 
     try {
       const { auth, createUserWithEmailAndPassword } = await getFirebaseAuth();
-      const result = await createUserWithEmailAndPassword(auth, email, password);
-      
+      const result = await createUserWithEmailAndPassword(
+        auth,
+        email,
+        password
+      );
+
       const user = result.user;
       console.log('✅ Firebase sign-up success:', user);
 
@@ -131,7 +135,7 @@ const SignUpPage = () => {
   const handleGoogleSignIn = async () => {
     try {
       const { auth, googleProvider, signInWithPopup } = await getFirebaseAuth();
-const result = await signInWithPopup(auth, googleProvider);
+      const result = await signInWithPopup(auth, googleProvider);
 
       const user = result.user;
       console.log('✅ Google sign-in success:', user);
@@ -155,9 +159,10 @@ const result = await signInWithPopup(auth, googleProvider);
 
   const handleFacebookSignIn = async () => {
     try {
-      const { auth, facebookProvider, signInWithPopup } = await getFirebaseAuth();
+      const { auth, facebookProvider, signInWithPopup } =
+        await getFirebaseAuth();
       const result = await signInWithPopup(auth, facebookProvider);
-      
+
       const user = result.user;
       console.log('✅ Facebook sign-in success:', user);
 

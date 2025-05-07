@@ -42,7 +42,6 @@ const navItems = [
   },
 ];
 
-
 const Navbar = () => {
   const location = useLocation();
 
@@ -51,15 +50,22 @@ const Navbar = () => {
       {navItems.map(item => {
         const isActive = location.pathname === item.path;
         return (
-          <NavLink key={item.label} to={item.path} className={`nav-item${isActive ? ' active' : ''}`}>
-  <div className="nav-icon-container">
-    <img src={isActive ? item.activeIcon : item.icon} alt={item.label} className="nav-icon" />
-  </div>
-  <Text size="xs" className="nav-label">
-    {item.label}
-  </Text>
-</NavLink>
-
+          <NavLink
+            key={item.label}
+            to={item.path}
+            className={`nav-item${isActive ? ' active' : ''}`}
+          >
+            <div className='nav-icon-container'>
+              <img
+                src={isActive ? item.activeIcon : item.icon}
+                alt={item.label}
+                className='nav-icon'
+              />
+            </div>
+            <Text size='xs' className='nav-label'>
+              {item.label}
+            </Text>
+          </NavLink>
         );
       })}
     </nav>

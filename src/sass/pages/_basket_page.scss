@@ -11,7 +11,6 @@ body {
   background: $white-background;
   min-height: 100vh;
   font-family: $font-family;
-  
 
   .basket-header {
     display: flex;
@@ -118,7 +117,7 @@ body {
     }
   }
 
-  .empty-basket{
+  .empty-basket {
     position: fixed;
     top: 50%;
     left: 50%;
@@ -135,7 +134,7 @@ body {
       margin: 0 auto;
     }
 
-    p{
+    p {
       margin-top: 0;
       color: $grey-background-elements;
       font-size: 18px;
