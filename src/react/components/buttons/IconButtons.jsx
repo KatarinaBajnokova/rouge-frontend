@@ -190,7 +190,7 @@ export function BackIconButton({ onClick, ...props }) {
     if (onClick) {
       onClick(e);
     } else {
-      navigate(-1); // fallback
+      navigate(-1);
     }
   };
 

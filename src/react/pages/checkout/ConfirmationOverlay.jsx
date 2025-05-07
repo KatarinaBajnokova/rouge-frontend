@@ -17,17 +17,26 @@ export default function ConfirmationOverlay() {
         localStorage.removeItem('personalInfo');
         localStorage.removeItem('shippingAddress');
         localStorage.removeItem('paymentMethod');
+      
+        // ✅ Flag to signal basket reset in this tab
+        localStorage.setItem('resetBasket', 'true');
+      
         // 3. notify other tabs/components to refresh
         window.dispatchEvent(
           new StorageEvent('storage', { key: 'basket', newValue: null })
         );
-      })
+      })      
       .finally(() => setLoading(false));
   }, []);
 
   const handleContinue = () => {
-    navigate('/homescreen');
+    // Force reload and make sure basket button updates
+    localStorage.setItem('basketRefresh', Date.now().toString());
+    navigate('/homescreen', { replace: true });
+    window.location.reload();
   };
+  
+  
 
   return (
     <div className='order-confirmation-screen'>
@@ -40,22 +49,20 @@ export default function ConfirmationOverlay() {
         ) : (
           <>
             <Title order={3}>Thank you for your order!</Title>
-            <Text mt='sm'>
+            <Text>
               Your order has been received and is currently being processed.
             </Text>
-            <Text mt='xs'>
+            <Text>
               You will receive an <strong>email confirmation</strong> with
               tracking information soon.
             </Text>
             <Button
               className='continue-button'
-              radius='xl'
-              size='md'
-              mt='xl'
               onClick={handleContinue}
             >
               Continue shopping
             </Button>
+            
           </>
         )}
       </div>

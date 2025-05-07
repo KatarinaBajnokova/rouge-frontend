@@ -79,16 +79,17 @@ export default function BuyingForFriendPage() {
       </div>
 
       <div className='additional'>
+        <h3>Additional</h3>
         <div className='checkboxes-part'>
           <Checkbox
             label={`🎁 Gift wrapping (€${GIFT_WRAP_COST.toFixed(2)})`}
-            mt='sm'
+            mt='md'
             checked={addGiftWrap}
             onChange={e => setAddGiftWrap(e.currentTarget.checked)}
           />
           <Checkbox
             label={`✉️ Personal card (€${PERSONAL_CARD_COST.toFixed(2)})`}
-            mt='sm'
+            mt='md'
             checked={addPersonalCard}
             onChange={e => setAddPersonalCard(e.currentTarget.checked)}
           />
