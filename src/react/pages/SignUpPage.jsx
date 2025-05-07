@@ -10,13 +10,8 @@ import {
   BackIconButton,
 } from '../components/buttons/IconButtons';
 
-import {
-  auth,
-  googleProvider,
-  facebookProvider,
-  signInWithPopup,
-} from '@/firebase';
-import { createUserWithEmailAndPassword } from 'firebase/auth';
+import { getFirebaseAuth } from '../../getFirebaseAuth';
+
 import IconEye from '@tabler/icons-react/dist/esm/icons/iconEye';
 import IconEyeOff from '@tabler/icons-react/dist/esm/icons/iconEyeOff';
 
@@ -74,11 +69,9 @@ const SignUpPage = () => {
     }
 
     try {
-      const result = await createUserWithEmailAndPassword(
-        auth,
-        email,
-        password
-      );
+      const { auth, createUserWithEmailAndPassword } = await getFirebaseAuth();
+      const result = await createUserWithEmailAndPassword(auth, email, password);
+      
       const user = result.user;
       console.log('✅ Firebase sign-up success:', user);
 
@@ -137,7 +130,9 @@ const SignUpPage = () => {
 
   const handleGoogleSignIn = async () => {
     try {
-      const result = await signInWithPopup(auth, googleProvider);
+      const { auth, googleProvider, signInWithPopup } = await getFirebaseAuth();
+const result = await signInWithPopup(auth, googleProvider);
+
       const user = result.user;
       console.log('✅ Google sign-in success:', user);
 
@@ -160,7 +155,9 @@ const SignUpPage = () => {
 
   const handleFacebookSignIn = async () => {
     try {
+      const { auth, facebookProvider, signInWithPopup } = await getFirebaseAuth();
       const result = await signInWithPopup(auth, facebookProvider);
+      
       const user = result.user;
       console.log('✅ Facebook sign-in success:', user);
 

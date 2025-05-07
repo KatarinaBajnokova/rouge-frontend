@@ -9,13 +9,8 @@ import {
   BackIconButton,
 } from '../../components/buttons/IconButtons';
 
-import {
-  auth,
-  googleProvider,
-  facebookProvider,
-  signInWithPopup,
-} from '@/firebase';
-import { createUserWithEmailAndPassword } from 'firebase/auth';
+import { getFirebaseAuth } from '../../../getFirebaseAuth';
+
 import { useCheckout } from '../../contexts/CheckoutContext';
 
 import '@/sass/pages/checkout/_personal_information.scss';
@@ -109,11 +104,8 @@ export default function PersonalInfoCheckout() {
     }
 
     try {
-      const result = await createUserWithEmailAndPassword(
-        auth,
-        email,
-        password
-      );
+      const { auth, createUserWithEmailAndPassword } = await getFirebaseAuth();
+      const result = await createUserWithEmailAndPassword(auth, email, password);      
       const user = result.user;
 
       showNotification({
@@ -147,7 +139,9 @@ export default function PersonalInfoCheckout() {
 
   const handleSocialSignIn = async (provider, label) => {
     try {
+      const { auth, signInWithPopup } = await getFirebaseAuth();
       const result = await signInWithPopup(auth, provider);
+      
       const user = result.user;
       const info = {
         firstName: user.displayName || '',

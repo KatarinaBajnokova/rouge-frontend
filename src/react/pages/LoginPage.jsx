@@ -13,13 +13,8 @@ import {
   ContinueWithGoogleIconButton,
 } from '../components/buttons/IconButtons';
 
-import {
-  auth,
-  googleProvider,
-  facebookProvider,
-  signInWithPopup,
-} from '@/firebase';
-import { signInWithEmailAndPassword } from 'firebase/auth';
+import { getFirebaseAuth } from '../../getFirebaseAuth';
+
 
 import '@/sass/pages/_login_page.scss';
 
@@ -61,69 +56,49 @@ const LoginPage = () => {
 
   const handleEmailLogin = async () => {
     if (!email || !password) {
-      showNotification({
-        title: 'Missing credentials',
-        message: 'Please enter both email and password.',
-        color: 'red',
-      });
+      showNotification({ title: 'Missing credentials', message: 'Please enter both email and password.', color: 'red' });
       return;
     }
+  
     setLoading(true);
     try {
-      // Optionally keep Firebase authentication:
+      const { auth, signInWithEmailAndPassword } = await getFirebaseAuth();
       await signInWithEmailAndPassword(auth, email, password);
-      // Then login against your backend
       await loginWithBackend(email, password);
     } catch (err) {
-      console.error('❌ Email/password login error:', err.message);
-      showNotification({
-        title: 'Login error',
-        message: err.message,
-        color: 'red',
-      });
+      showNotification({ title: 'Login error', message: err.message, color: 'red' });
     } finally {
       setLoading(false);
     }
   };
+  
 
   const handleGoogleSignIn = async () => {
     setLoading(true);
     try {
+      const { auth, googleProvider, signInWithPopup } = await getFirebaseAuth();
       const result = await signInWithPopup(auth, googleProvider);
-      const user = result.user;
-      console.log('✅ Google login success:', user);
-      // Store ID token or fallback to homescreen
       navigate('/homescreen');
     } catch (err) {
-      console.error('❌ Google sign-in error:', err.message);
-      showNotification({
-        title: 'Google sign-in error',
-        message: err.message,
-        color: 'red',
-      });
+      showNotification({ title: 'Google sign-in error', message: err.message, color: 'red' });
     } finally {
       setLoading(false);
     }
   };
-
+  
   const handleFacebookSignIn = async () => {
     setLoading(true);
     try {
+      const { auth, facebookProvider, signInWithPopup } = await getFirebaseAuth();
       const result = await signInWithPopup(auth, facebookProvider);
-      const user = result.user;
-      console.log('✅ Facebook login success:', user);
       navigate('/homescreen');
     } catch (err) {
-      console.error('❌ Facebook sign-in error:', err.message);
-      showNotification({
-        title: 'Facebook sign-in error',
-        message: err.message,
-        color: 'red',
-      });
+      showNotification({ title: 'Facebook sign-in error', message: err.message, color: 'red' });
     } finally {
       setLoading(false);
     }
   };
+  
 
   return (
     <div className='login-page'>
