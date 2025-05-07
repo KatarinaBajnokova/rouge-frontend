@@ -4,7 +4,7 @@ import { useNavigate } from 'react-router-dom';
 
 import FinalStepper from '../components/stepper/Stepper';
 import { useUpdateUser } from '@/react/hooks/useUpdateUser';
-import { BackHeader } from '../components/buttons/IconButtons';
+import { BackHeader, BackIconButton } from '../components/buttons/IconButtons';
 import { BottomBarButton } from '../components/buttons/RedButtons';
 
 import '@/sass/pages/_personal_info.scss';
@@ -71,12 +71,14 @@ export default function PersonalInfoPage() {
 
   return (
     <div className='personal-info-page'>
-      <BackHeader text='Personal Information' />
+      <BackIconButton />
       <FinalStepper active={2} />
       <div className='personal-form' style={{ marginTop: '2rem' }}>
-        <Title order={3} mb='sm'>
-          Personal Information
-        </Title>
+        <h2>Personal information</h2>
+        <div className='step-description'>
+          <p>Press "Confirm & Continue" if you wish to skip this part.</p>
+          <p>Your addresses can always be edited in the profile settings.</p>
+        </div>
 
         <Select
           label='Country'

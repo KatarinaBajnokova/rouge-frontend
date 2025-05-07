@@ -1,0 +1,122 @@
+import React, { useState, useEffect } from 'react';
+import { Title, TextInput, Group, Select, Loader } from '@mantine/core';
+import { BackHeader } from '../../components/buttons/IconButtons';
+import FinalStepper from '../../components/stepper/Stepper';
+import { BottomBarButton } from '../../components/buttons/RedButtons';
+
+import { useCreateUser } from '../../hooks/useCreateUser';
+import '@/sass/pages/_personal_info.scss';
+
+export default function PersonalInfoPage() {
+  const { createUser, loading } = useCreateUser();
+
+  const [country, setCountry] = useState('');
+  const [street, setStreet] = useState('');
+  const [houseNumber, setHouseNumber] = useState('');
+  const [postalCode, setPostalCode] = useState('');
+  const [phone, setPhone] = useState('');
+  const [birthdate, setBirthdate] = useState('');
+
+  const [countryOptions, setCountryOptions] = useState([]);
+  const [countriesLoading, setCountriesLoading] = useState(false);
+
+  useEffect(() => {
+    const cached = sessionStorage.getItem('countries');
+    if (cached) {
+      setCountryOptions(JSON.parse(cached));
+      return;
+    }
+    setCountriesLoading(true);
+    fetch('https://restcountries.com/v3.1/all?fields=name')
+      .then(res => res.json())
+      .then(list => {
+        const names = list.map(c => c.name.common).sort();
+        setCountryOptions(names);
+        sessionStorage.setItem('countries', JSON.stringify(names));
+      })
+      .catch(err => console.error('Failed to fetch countries', err))
+      .finally(() => setCountriesLoading(false));
+  }, []);
+
+  const handleConfirm = () => {
+    const address_1 = `${street} ${houseNumber}, ${postalCode}, ${country}`;
+    createUser({
+      address_1,
+      phone,
+      birthdate: birthdate || null,
+      country: country || null,
+    });
+  };
+
+  return (
+    <div className='personal-info-page'>
+      <BackHeader text='Personal Information' />
+      <FinalStepper active={2} />
+
+      <div className='personal-form' style={{ marginTop: '2rem' }}>
+        <Title order={3} mb='sm'>
+          Personal Information
+        </Title>
+
+        <Select
+          label='Country'
+          placeholder='Select your country'
+          data={countryOptions}
+          value={country}
+          onChange={setCountry}
+          searchable
+          nothingFoundMessage='No country found'
+          rightSection={countriesLoading ? <Loader size='xs' /> : null}
+          mt='md'
+        />
+
+        <TextInput
+          label='Street'
+          placeholder='Enter street name'
+          value={street}
+          onChange={e => setStreet(e.currentTarget.value)}
+          mt='md'
+        />
+
+        <Group grow>
+          <TextInput
+            label='House Number'
+            placeholder='e.g. 12A'
+            value={houseNumber}
+            onChange={e => setHouseNumber(e.currentTarget.value)}
+            mt='md'
+          />
+          <TextInput
+            label='Postal Code'
+            placeholder='e.g. 1000'
+            value={postalCode}
+            onChange={e => setPostalCode(e.currentTarget.value)}
+            mt='md'
+          />
+        </Group>
+
+        <TextInput
+          label='Phone number'
+          placeholder='Enter your phone number'
+          value={phone}
+          onChange={e => setPhone(e.currentTarget.value)}
+          mt='md'
+        />
+
+        <TextInput
+          label='Date of Birth'
+          type='date'
+          value={birthdate}
+          onChange={e => setBirthdate(e.currentTarget.value)}
+          mt='md'
+        />
+
+        <BottomBarButton
+          text='Confirm & Continue'
+          onClick={handleConfirm}
+          loading={loading}
+        />
+      </div>
+    </div>
+  );
+}

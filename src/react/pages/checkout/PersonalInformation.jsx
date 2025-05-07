@@ -1,28 +1,23 @@
 import React, { useState, useEffect } from 'react';
-import { useNavigate } from 'react-router-dom';
-import { TextInput, Divider } from '@mantine/core';
+import { useNavigate, Link } from 'react-router-dom';
+import { TextInput, Divider, PasswordInput } from '@mantine/core';
 import { showNotification } from '@mantine/notifications';
-import {
-  BottomBarButton,
-  LogInButton,
-} from '../../components/buttons/RedButtons';
-import FinalStepper from '../../components/stepper/Stepper';
+import { SignUpButton, LogInButton } from '../../components/buttons/RedButtons';
 import {
   ContinueWithFacebookIconButton,
   ContinueWithGoogleIconButton,
   BackIconButton,
 } from '../../components/buttons/IconButtons';
 
-import {
-  auth,
-  googleProvider,
-  facebookProvider,
-  signInWithPopup,
-} from '@/firebase';
+import { getFirebaseAuth } from '../../../getFirebaseAuth';
+
 import { useCheckout } from '../../contexts/CheckoutContext';
 
 import '@/sass/pages/checkout/_personal_information.scss';
 import '@/sass/components/buttons/_redbuttons.scss';
+
+import IconEye from '@tabler/icons-react/dist/esm/icons/iconEye';
+import IconEyeOff from '@tabler/icons-react/dist/esm/icons/iconEyeOff';
 
 const STORAGE_KEY = 'personalInfo';
 
@@ -30,6 +25,9 @@ export default function PersonalInfoCheckout() {
   const [firstName, setFirstName] = useState('');
   const [lastName, setLastName] = useState('');
   const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
+  const [confirmPassword, setConfirmPassword] = useState('');
+  const [passwordVisible, setPasswordVisible] = useState(false);
   const [companyName, setCompanyName] = useState('');
   const [vatNumber, setVatNumber] = useState('');
   const [addGiftWrap, setAddGiftWrap] = useState(false);
@@ -64,33 +62,90 @@ export default function PersonalInfoCheckout() {
     navigate('/checkout/friend-info');
   };
 
-  const handleEmailContinue = () => {
-    if (!firstName || !lastName || !email) {
+  const handleEmailContinue = async () => {
+    if (!firstName || !lastName || !email || !password || !confirmPassword) {
       showNotification({
         title: 'Missing Fields',
-        message: 'Please fill out first name, last name, and email.',
+        message: 'Please fill out all fields.',
         color: 'red',
         position: 'top-center',
       });
       return;
     }
-    persistAndContinue({
-      firstName,
-      lastName,
-      email,
-      companyName,
-      vatNumber,
-      addGiftWrap,
-      addPersonalCard,
-      friendName,
-      friendEmail,
-      personalNote,
-    });
+
+    if (!email.includes('@') || !email.includes('.')) {
+      showNotification({
+        title: 'Invalid Email',
+        message: 'Please enter a valid email address.',
+        color: 'red',
+        position: 'top-center',
+      });
+      return;
+    }
+
+    if (password.length < 6) {
+      showNotification({
+        title: 'Weak Password',
+        message: 'Password must be at least 6 characters.',
+        color: 'red',
+        position: 'top-center',
+      });
+      return;
+    }
+
+    if (password !== confirmPassword) {
+      showNotification({
+        title: 'Password Mismatch',
+        message: 'Passwords do not match.',
+        color: 'red',
+        position: 'top-center',
+      });
+      return;
+    }
+
+    try {
+      const { auth, createUserWithEmailAndPassword } = await getFirebaseAuth();
+      const result = await createUserWithEmailAndPassword(
+        auth,
+        email,
+        password
+      );
+      const user = result.user;
+
+      showNotification({
+        title: 'Signed up!',
+        message: `Welcome ${user.displayName || firstName}!`,
+        color: 'green',
+        position: 'top-center',
+      });
+
+      persistAndContinue({
+        firstName,
+        lastName,
+        email,
+        companyName,
+        vatNumber,
+        addGiftWrap,
+        addPersonalCard,
+        friendName,
+        friendEmail,
+        personalNote,
+      });
+    } catch (err) {
+      showNotification({
+        title: 'Sign-up error',
+        message: err.message,
+        color: 'red',
+        position: 'top-center',
+      });
+    }
   };
 
   const handleSocialSignIn = async (provider, label) => {
     try {
+      const { auth, signInWithPopup } = await getFirebaseAuth();
       const result = await signInWithPopup(auth, provider);
+
       const user = result.user;
       const info = {
         firstName: user.displayName || '',
@@ -123,53 +178,87 @@ export default function PersonalInfoCheckout() {
 
   return (
     <div className='signup-page'>
-      <div className='page-header'>
-        <BackIconButton />
-        <h2>Personal Information</h2>
-      </div>
+      <BackIconButton />
 
-      <FinalStepper active={0} />
+      <h2>Account</h2>
+      <div className='step-description'>
+        <p style={{ color: 'red', fontWeight: 'bold' }}>Before proceeding!</p>
+        <p>Seems like you don't have an account or aren't logged in!</p>
+      </div>
 
       <TextInput
         label='First Name'
         placeholder='Your first name'
         value={firstName}
         onChange={e => setFirstName(e.currentTarget.value)}
+        className='input-field'
         required
       />
+
       <TextInput
         label='Last Name'
         placeholder='Your last name'
         value={lastName}
         onChange={e => setLastName(e.currentTarget.value)}
+        className='input-field'
         required
-        mt='sm'
       />
+
       <TextInput
         label='Email'
         placeholder='Your email...'
         value={email}
         onChange={e => setEmail(e.currentTarget.value)}
+        className='input-field'
         required
-        mt='sm'
       />
 
-      <Divider label='or log in with' labelPosition='center' mt='lg' mb='sm' />
-      <div className='social-buttons'>
-        <ContinueWithFacebookIconButton
-          fullWidth
-          onClick={() => handleSocialSignIn(facebookProvider, 'Facebook')}
-        />
-        <ContinueWithGoogleIconButton
-          fullWidth
-          onClick={() => handleSocialSignIn(googleProvider, 'Google')}
-        />
-        <LogInButton fullWidth onClick={() => navigate('/login')}>
-          Log in
-        </LogInButton>
-      </div>
+      <PasswordInput
+        label='Password'
+        placeholder='Enter your password...'
+        visible={passwordVisible}
+        onVisibilityChange={() => setPasswordVisible(!passwordVisible)}
+        visibilityToggleIcon={({ reveal }) =>
+          reveal ? <IconEyeOff size={16} /> : <IconEye size={16} />
+        }
+        value={password}
+        onChange={e => setPassword(e.currentTarget.value)}
+        className='input-field'
+        required
+      />
 
-      <BottomBarButton text='Continue' onClick={handleEmailContinue} mt='lg' />
+      <PasswordInput
+        label='Confirm Password'
+        placeholder='Confirm your password'
+        value={confirmPassword}
+        onChange={e => setConfirmPassword(e.currentTarget.value)}
+        className='input-field'
+        required
+      />
+
+      <SignUpButton fullWidth onClick={handleEmailContinue}></SignUpButton>
+
+      <div className='social-register-section'>
+        <Divider
+          className='social-divider'
+          label='Or log in with'
+          labelPosition='center'
+        />
+        <div className='social-buttons'>
+          <ContinueWithFacebookIconButton
+            fullWidth
+            onClick={() => handleSocialSignIn(facebookProvider, 'Facebook')}
+          />
+          <ContinueWithGoogleIconButton
+            fullWidth
+            onClick={() => handleSocialSignIn(googleProvider, 'Google')}
+          />
+
+          <div className='login-link'>
+            <Link to='/login'>Already have an account? Log in</Link>
+          </div>
+        </div>
+      </div>
     </div>
   );
 }

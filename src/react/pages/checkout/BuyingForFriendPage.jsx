@@ -1,11 +1,11 @@
 import React, { useState, useEffect } from 'react';
-import { Title, Checkbox, TextInput, Divider } from '@mantine/core';
+import { Title, Checkbox, TextInput, Textarea } from '@mantine/core';
 import { useNavigate } from 'react-router-dom';
-import { BackHeader } from '../../components/buttons/IconButtons';
+import { BackIconButton } from '../../components/buttons/IconButtons';
 import FinalStepper from '../../components/stepper/Stepper';
-import { ContinueButton } from '../../components/buttons/RedButtons';
+import { BottomBarButton } from '../../components/buttons/RedButtons';
 import { useCheckout } from '../../contexts/CheckoutContext';
-import '@/sass/pages/_checkout_page.scss';
+import '@/sass/pages/checkout/_forfriend_page.scss';
 
 const STORAGE_KEY = 'personalInfo';
 
@@ -51,54 +51,63 @@ export default function BuyingForFriendPage() {
   };
 
   return (
-    <div className='checkout-page'>
-      <BackHeader text='Buying for a friend?' />
-      <FinalStepper active={1} />
+    <div className='forfriend-page'>
+      <BackIconButton />
+      <FinalStepper active={0} />
 
-      <div className='checkout-summary' style={{ marginTop: '2rem' }}>
-        <Title order={4}>Buying for a friend</Title>
-
-        <Checkbox
-          label={`🎁 Gift wrapping (€${GIFT_WRAP_COST.toFixed(2)})`}
-          mt='sm'
-          checked={addGiftWrap}
-          onChange={e => setAddGiftWrap(e.currentTarget.checked)}
-        />
-        <Checkbox
-          label={`✉️ Personal card (€${PERSONAL_CARD_COST.toFixed(2)})`}
-          mt='sm'
-          checked={addPersonalCard}
-          onChange={e => setAddPersonalCard(e.currentTarget.checked)}
-        />
+      <div className='checkout-summary'>
+        <h2>Buying for a friend</h2>
+        <p>If you're buying for a friend fillout these.</p>
 
         <TextInput
-          label="Friend's Name"
+          className='checkout-form'
+          label='Name'
+          placeholder="Friend's name..."
           value={friendName}
           onChange={e => setFriendName(e.currentTarget.value)}
           mt='sm'
         />
         <TextInput
-          label="Friend's Email"
+          className='checkout-form'
+          label='Email'
+          placeholder="Friend's email..."
           type='email'
           value={friendEmail}
           onChange={e => setFriendEmail(e.currentTarget.value)}
           mt='sm'
         />
-        <TextInput
-          label='Personal Note'
-          placeholder='Write a message...'
-          value={personalNote}
-          onChange={e => setPersonalNote(e.currentTarget.value)}
-          mt='sm'
-        />
+      </div>
 
-        <Divider my='md' />
-        <ContinueButton
-          fullWidth
-          mt='xl'
-          onClick={handleContinue}
-          text='Continue to Address'
-        />
+      <div className='additional'>
+        <h3>Additional</h3>
+        <div className='checkboxes-part'>
+          <Checkbox
+            label={`🎁 Gift wrapping (€${GIFT_WRAP_COST.toFixed(2)})`}
+            mt='md'
+            checked={addGiftWrap}
+            onChange={e => setAddGiftWrap(e.currentTarget.checked)}
+          />
+          <Checkbox
+            label={`✉️ Personal card (€${PERSONAL_CARD_COST.toFixed(2)})`}
+            mt='md'
+            checked={addPersonalCard}
+            onChange={e => setAddPersonalCard(e.currentTarget.checked)}
+          />
+        </div>
+
+        {addPersonalCard && (
+          <Textarea
+            className='my-custom-textarea'
+            label='Personal Note'
+            placeholder='Write a message...'
+            value={personalNote}
+            onChange={e => setPersonalNote(e.currentTarget.value)}
+            minRows={3}
+            autosize
+            mt='sm'
+          />
+        )}
+        <BottomBarButton onClick={handleContinue} />
       </div>
     </div>
   );
