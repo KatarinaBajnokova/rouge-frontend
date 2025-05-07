@@ -184,12 +184,10 @@ export default function CheckoutOverviewPage() {
                   ? '✉️ Personal card added'
                   : 'No personal card'}
               </Text>
-
-              
             </div>
             {(addGiftWrap || addPersonalCard) && (
               <>
-              <Divider />
+                <Divider />
                 <Text>
                   <span className='subtitle-text'>Name:</span>{' '}
                   {friendName || '-'}

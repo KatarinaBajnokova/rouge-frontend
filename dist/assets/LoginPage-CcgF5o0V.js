@@ -1,0 +1,142 @@
+import { b as c, j as s, v, P as y, D as I } from './mantine-BTrqRPtO.js';
+import {
+  u as k,
+  B as P,
+  m as S,
+  I as L,
+  o as N,
+  L as W,
+  e as C,
+  f as E,
+  k as B,
+  s as i,
+  p as u,
+} from './index-Wzv5Lk5m.js';
+const O = () => {
+  const [n, m] = c.useState(''),
+    [r, p] = c.useState(''),
+    [h, f] = c.useState(!1),
+    [g, t] = c.useState(!1),
+    d = k(),
+    w = async (e, o) => {
+      try {
+        const a = await fetch('/api/auth/login', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ email: e, password: o }),
+          }),
+          l = await a.json();
+        if (!a.ok) throw new Error(l.error || 'Login failed');
+        localStorage.setItem('userId', l.user_id),
+          i({
+            title: 'Welcome back!',
+            message: 'You are now logged in.',
+            color: 'green',
+          }),
+          d('/homescreen');
+      } catch (a) {
+        console.error('❌ Backend login error:', a.message),
+          i({ title: 'Login error', message: a.message, color: 'red' });
+      }
+    },
+    x = async () => {
+      if (!n || !r) {
+        i({
+          title: 'Missing credentials',
+          message: 'Please enter both email and password.',
+          color: 'red',
+        });
+        return;
+      }
+      t(!0);
+      try {
+        const { auth: e, signInWithEmailAndPassword: o } = await u();
+        await o(e, n, r), await w(n, r);
+      } catch (e) {
+        i({ title: 'Login error', message: e.message, color: 'red' });
+      } finally {
+        t(!1);
+      }
+    },
+    j = async () => {
+      t(!0);
+      try {
+        const { auth: e, googleProvider: o, signInWithPopup: a } = await u(),
+          l = await a(e, o);
+        d('/homescreen');
+      } catch (e) {
+        i({ title: 'Google sign-in error', message: e.message, color: 'red' });
+      } finally {
+        t(!1);
+      }
+    },
+    b = async () => {
+      t(!0);
+      try {
+        const { auth: e, facebookProvider: o, signInWithPopup: a } = await u(),
+          l = await a(e, o);
+        d('/homescreen');
+      } catch (e) {
+        i({
+          title: 'Facebook sign-in error',
+          message: e.message,
+          color: 'red',
+        });
+      } finally {
+        t(!1);
+      }
+    };
+  return s.jsxs('div', {
+    className: 'login-page',
+    children: [
+      s.jsx(P, {}),
+      s.jsx(S, { active: 0 }),
+      s.jsx('h2', { children: 'Log in' }),
+      s.jsx('p', { children: 'Welcome back' }),
+      s.jsx(v, {
+        label: 'Email',
+        placeholder: 'Your email...',
+        value: n,
+        onChange: e => m(e.currentTarget.value),
+        className: 'input-field',
+      }),
+      s.jsx(y, {
+        label: 'Password',
+        placeholder: 'Your password...',
+        visible: h,
+        onVisibilityChange: () => f(!h),
+        visibilityToggleIcon: ({ reveal: e }) =>
+          e ? s.jsx(L, { size: 16 }) : s.jsx(N, { size: 16 }),
+        value: r,
+        onChange: e => p(e.currentTarget.value),
+        className: 'input-field',
+      }),
+      s.jsx(W, { onClick: x, loading: g }),
+      s.jsxs('div', {
+        className: 'social-register-section',
+        children: [
+          s.jsx(I, {
+            className: 'social-divider',
+            label: 'Or continue with',
+            labelPosition: 'center',
+          }),
+          s.jsxs('div', {
+            className: 'social-buttons',
+            children: [
+              s.jsx(C, { fullWidth: !0, onClick: b, loading: g }),
+              s.jsx(E, { fullWidth: !0, onClick: j, loading: g }),
+            ],
+          }),
+          s.jsx('div', {
+            className: 'login-link',
+            children: s.jsx(B, {
+              to: '/signup',
+              children: "Don't have an account? Sign up",
+            }),
+          }),
+        ],
+      }),
+    ],
+  });
+};
+export { O as default };

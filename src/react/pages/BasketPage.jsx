@@ -107,14 +107,10 @@ export default function BasketPage() {
 
       {basketItems.length === 0 ? (
         <div className='empty-basket'>
-          <img src={emptyBasketIcon} alt='Empty basket'  />
+          <img src={emptyBasketIcon} alt='Empty basket' />
 
-          <p>
-            Your basket is empty.
-          </p>
+          <p>Your basket is empty.</p>
         </div>
-
-        
       ) : (
         <>
           <Text fw={700} mt='md' mb='xs'>
