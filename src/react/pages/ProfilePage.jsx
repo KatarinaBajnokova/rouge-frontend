@@ -138,7 +138,6 @@ export default function ProfilePage() {
         <hr className='divider' />
       </div>
 
-
       <Navbar />
     </div>
   );

@@ -35,8 +35,8 @@ const EverydaySection = () => {
   return (
     <section className='home-section section-everyday'>
       <div className='section-header'>
-      <h1>Everyday</h1>
-      <p>Your go-to kit for everyday glam</p>
+        <h1>Everyday</h1>
+        <p>Your go-to kit for everyday glam</p>
       </div>
 
       {loading && <p>Loading cards…</p>}

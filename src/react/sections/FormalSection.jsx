@@ -34,9 +34,9 @@ const FormalSection = () => {
 
   return (
     <section className='home-section section-formal'>
-       <div className='section-header'>
-      <h1>Formal</h1>
-      <p className='section-desc'>Elegant taste for any formal setting</p>
+      <div className='section-header'>
+        <h1>Formal</h1>
+        <p className='section-desc'>Elegant taste for any formal setting</p>
       </div>
 
       {loading && <p>Loading cards…</p>}

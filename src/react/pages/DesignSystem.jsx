@@ -59,10 +59,10 @@ const DesignSystem = () => {
 
         <h2>Category component</h2>
         <AllCategoryItem
-        icon={iconEveryday}
-        label="Everyday"
-        //onClick={() => navigate('/category/everyday')}
-      />
+          icon={iconEveryday}
+          label='Everyday'
+          //onClick={() => navigate('/category/everyday')}
+        />
 
         <h2>Basket Button</h2>
         <Group mt='xl'>

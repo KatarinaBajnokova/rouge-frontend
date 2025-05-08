@@ -13,72 +13,65 @@ import '@/sass/pages/_all_page.scss';
 import iconEveryday from '@/assets/icons/all_categories/IMG_Everyday.svg';
 import { IconSearch } from '@tabler/icons-react';
 
-
-
 export default function AllPage() {
   const navigate = useNavigate();
   const [searchTerm, setSearchTerm] = useState('');
 
   return (
-    <div className="all-page">
+    <div className='all-page'>
+      <div className='search-wrapper'>
+        <TextInput
+          className='search-bar'
+          placeholder='Search...'
+          leftSection={searchTerm ? null : <IconSearch size={18} />}
+          radius='md'
+          size='md'
+          value={searchTerm}
+          onChange={e => setSearchTerm(e.currentTarget.value)}
+        />
 
-<div className="search-wrapper">
+        <BasketButton />
+      </div>
 
-<TextInput
-  className="search-bar"
-  placeholder="Search..."
-  leftSection={searchTerm ? null : <IconSearch size={18} />}
-  radius="md"
-  size="md"
-  value={searchTerm}
-  onChange={(e) => setSearchTerm(e.currentTarget.value)}
-/>
+      <FilterIconButton />
 
+      <div className='category-section'>
+        <h2>Spotlight</h2>
 
-  <BasketButton />
-</div>
+        <div className='category-list'>
+          <AllCategoryItem
+            icon={iconEveryday}
+            label='Everyday'
+            //onClick={() => navigate('/category/everyday')}
+          />
 
-    <FilterIconButton />
+          <AllCategoryItem
+            icon={iconEveryday}
+            label='Everyday'
+            //onClick={() => navigate('/category/everyday')}
+          />
+        </div>
+      </div>
 
-<div className='category-section'>
+      <div className='category-section'>
+        <h2>Spotlight</h2>
 
-<h2>Spotlight</h2>
+        <div className='category-list'>
+          <AllCategoryItem
+            icon={iconEveryday}
+            label='Everyday'
+            //onClick={() => navigate('/category/everyday')}
+          />
 
-<div className='category-list'>
-<AllCategoryItem
-        icon={iconEveryday}
-        label="Everyday"
-        //onClick={() => navigate('/category/everyday')}
-      />
+          <AllCategoryItem
+            icon={iconEveryday}
+            label='Everyday'
+            //onClick={() => navigate('/category/everyday')}
+          />
+        </div>
+      </div>
 
-<AllCategoryItem
-        icon={iconEveryday}
-        label="Everyday"
-        //onClick={() => navigate('/category/everyday')}
-      />
-</div>
-</div>
-
-<div className='category-section'>
-
-<h2>Spotlight</h2>
-
-<div className='category-list'>
-<AllCategoryItem
-        icon={iconEveryday}
-        label="Everyday"
-        //onClick={() => navigate('/category/everyday')}
-      />
-
-<AllCategoryItem
-        icon={iconEveryday}
-        label="Everyday"
-        //onClick={() => navigate('/category/everyday')}
-      />
-</div>
-</div>
-
-<Navbar />
+      <Navbar />
     </div>
-  );  
+  );
 }
