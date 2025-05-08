@@ -44,10 +44,10 @@ button.mantine-Button-root.filter-icon-button {
   background-color: $red;
   color: $white-elements;
   font-weight: bold;
-  font-size: 1.1rem;
-  width: 200px;
-  height: 50px;
-  padding: 0.2rem 1rem;
+  font-size: 1rem;
+  width: 115px;
+  height: 45px;
+  padding: 0.2rem 0.5rem;
   border-radius: 0.5rem;
   transition:
     background-color 0.2s ease,
@@ -220,4 +220,9 @@ button.mantine-Button-root.see-more-button {
     margin-top: 0 !important;
     margin-bottom: 0 !important;
   }
+}
+
+.filter-icon-button {
+  margin-top: 1rem;
+  margin-bottom: 0.3rem;
 }

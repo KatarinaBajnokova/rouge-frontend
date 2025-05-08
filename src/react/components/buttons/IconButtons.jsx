@@ -201,7 +201,7 @@ export function BackIconButton({ onClick, ...props }) {
       aria-label='Go back'
       {...props}
     >
-      <IconChevronLeft size={20} stroke={2} />
+      <IconChevronLeft size={33} stroke={2} />
     </button>
   );
 }

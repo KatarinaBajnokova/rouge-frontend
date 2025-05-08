@@ -6,7 +6,7 @@
   background: $red;
   color: $white-elements;
 
-  .section-header{
+  .section-header {
     margin-left: 1rem;
 
     h1 {
@@ -14,7 +14,7 @@
       margin-bottom: 0.3rem;
       margin-top: 1rem;
     }
-  
+
     p {
       @include font('section-description', 'regular');
       margin: 0;
