@@ -25,6 +25,9 @@ import {
   ContinueWithAppleIconButton,
 } from '../components/buttons/IconButtons';
 import { BasketButton } from '../components/buttons/BasketButton';
+import AllCategoryItem from '../components/AllCategoryItem';
+
+import iconEveryday from '@/assets/icons/all_categories/IMG_Everyday.svg';
 
 const DesignSystem = () => {
   return (
@@ -53,6 +56,13 @@ const DesignSystem = () => {
           <ContinueWithGoogleIconButton />
           <ContinueWithAppleIconButton />
         </Group>
+
+        <h2>Category component</h2>
+        <AllCategoryItem
+          icon={iconEveryday}
+          label='Everyday'
+          //onClick={() => navigate('/category/everyday')}
+        />
 
         <h2>Basket Button</h2>
         <Group mt='xl'>

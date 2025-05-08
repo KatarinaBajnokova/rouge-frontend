@@ -1,0 +1,42 @@
+@use 'sass:map';
+@use '@/sass/abstract/colors' as *;
+@use '@/sass/abstract/typography' as *;
+@use '@/sass/abstract/mixins' as *;
+
+.all-category-item {
+  display: flex;
+  flex-direction: column;
+  margin: 0.01rem;
+  border-radius: 12px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  font-family: $font-family;
+  //box-shadow: 0 4px 4px -2px rgba(0, 0, 0, 0.1);
+
+  .item-content {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    width: 100%;
+  }
+
+  img {
+    width: 40px;
+    margin-right: 0.75rem;
+  }
+
+  p {
+    font-size: map.get($font-sizes, 'category-title');
+    font-weight: 600;
+    margin-right: auto;
+  }
+
+  &:hover {
+    background-color: #f8f8f8;
+  }
+
+  .mantine-Divider-root {
+    border-color: #bcbcbc;
+    height: 2px;
+  }
+}

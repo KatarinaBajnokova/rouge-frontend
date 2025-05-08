@@ -9,6 +9,7 @@ const AnimationPage = lazy(() => import('./react/pages/AnimationPage'));
 const HomeScreen = lazy(() => import('./react/pages/HomeScreen'));
 const ProductDetail = lazy(() => import('./react/pages/ProductDetail'));
 const BasketPage = lazy(() => import('./react/pages/BasketPage'));
+
 const SignUpPage = lazy(() => import('./react/pages/SignUpPage'));
 const LoginPage = lazy(() => import('./react/pages/LoginPage'));
 const PersonalLookPage = lazy(() => import('./react/pages/PersonalLookPage'));
@@ -20,6 +21,7 @@ import PersonalInformation from './react/pages/checkout/PersonalInformation';
 import PaymentMethodPage from './react/pages/checkout/PaymentMethod';
 import BuyingForFriendPage from './react/pages/checkout/BuyingForFriendPage';
 import SummaryPage from './react/pages/checkout/SummaryPage';
+import AllPage from './react/pages/AllPage';
 
 import '@mantine/core/styles.css';
 import '@mantine/carousel/styles.css';
@@ -60,6 +62,8 @@ function App() {
             <Route path='/personal-look' element={<PersonalLookPage />} />
             <Route path='/personal-info' element={<PersonalInfoPage />} />
             <Route path='/profile' element={<ProfilePage />} />
+
+            <Route path='/all' element={<AllPage />} />
           </Routes>
         </Suspense>
       </CheckoutProvider>
