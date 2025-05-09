@@ -145,9 +145,14 @@ const logout = async () => {
         </Button>
         <hr className='divider' />
         
-        <Button color="red" variant="light" onClick={logout}>
-          Log Out
-        </Button>
+<Button
+  variant="light"
+  onClick={logout}
+  className="logout-button"
+>
+  Log Out
+</Button>
+
 
       </div>
 
