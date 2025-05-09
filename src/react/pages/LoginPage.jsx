@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { useNavigate, Link } from 'react-router-dom';
+import { useNavigate, Link, useLocation } from 'react-router-dom';
 import { TextInput, PasswordInput, Divider, Button } from '@mantine/core';
 import IconEye from '@tabler/icons-react/dist/esm/icons/iconEye';
 import IconEyeOff from '@tabler/icons-react/dist/esm/icons/iconEyeOff';
@@ -22,6 +22,9 @@ const LoginPage = () => {
   const [password, setPassword] = useState('');
   const [passwordVisible, setPasswordVisible] = useState(false);
   const [loading, setLoading] = useState(false);
+  const location = useLocation();
+  const cameFromProfile = new URLSearchParams(location.search).get('from') === 'profile';
+
 
   const navigate = useNavigate();
 
@@ -116,7 +119,14 @@ const LoginPage = () => {
 
   return (
     <div className='login-page'>
-      <BackIconButton />
+      <BackIconButton onClick={() => {
+  if (cameFromProfile) {
+    navigate('/homescreen');
+  } else {
+    navigate(-1);
+  }
+}} />
+
 
       <FinalStepper active={0} />
 

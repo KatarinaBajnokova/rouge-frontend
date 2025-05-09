@@ -1,6 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import { useNavigate, Link } from 'react-router-dom';
-import { TextInput, Divider, PasswordInput } from '@mantine/core';
+import { useAuth } from '@/react/hooks/useAuth';
+
+import { TextInput, Divider, PasswordInput, Loader } from '@mantine/core';
 import { showNotification } from '@mantine/notifications';
 import { SignUpButton, LogInButton } from '../../components/buttons/RedButtons';
 import {
@@ -37,6 +39,7 @@ export default function PersonalInfoCheckout() {
   const [personalNote, setPersonalNote] = useState('');
 
   const navigate = useNavigate();
+  const { userId, loading: authLoading } = useAuth();
   const { setPersonalInfo } = useCheckout();
 
   useEffect(() => {
@@ -175,6 +178,15 @@ export default function PersonalInfoCheckout() {
       });
     }
   };
+
+  if (authLoading || !userId) {
+    return (
+      <div className="checkout-auth-loading">
+        <Loader size="lg" color="pink" />
+      </div>
+    );
+  }
+  
 
   return (
     <div className='signup-page'>

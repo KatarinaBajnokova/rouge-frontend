@@ -1,4 +1,6 @@
 import React, { useState, useEffect } from 'react';
+import { useAuth } from '@/react/hooks/useAuth';
+
 import { Title, Text, Group, Avatar, Button, Loader } from '@mantine/core';
 import { useNavigate } from 'react-router-dom';
 import { BasketButton } from '../components/buttons/BasketButton';
@@ -9,14 +11,20 @@ import '@/sass/pages/_profile_page.scss';
 export default function ProfilePage() {
   const navigate = useNavigate();
   const [user, setUser] = useState(null);
-  const [loading, setLoading] = useState(true);
   const [showPersonalInfo, setShowPersonalInfo] = useState(false);
-  const userId = localStorage.getItem('userId');
+  const { userId, loading: authLoading } = useAuth();  
+  const logout = async () => {
+    await fetch('/api/routes/logout.php', { method: 'POST' });
+    localStorage.clear();
+    document.cookie = 'session_token=; Max-Age=0; path=/';
+    navigate('/login?from=profile');
+  };
+  
 
   useEffect(() => {
     const fetchUserProfile = async () => {
       if (!userId) {
-        navigate('/login');
+        navigate('/login?from=profile');
         return;
       }
       try {
@@ -27,20 +35,20 @@ export default function ProfilePage() {
         setUser(json);
       } catch {
         navigate('/login');
-      } finally {
-        setLoading(false);
       }
     };
     fetchUserProfile();
   }, [navigate, userId]);
 
-  if (loading) {
+  if (authLoading || !userId) {
     return (
       <div className='profile-page'>
         <Loader size='xl' color='pink' />
       </div>
     );
   }
+  
+  
   if (!user) {
     return (
       <div className='profile-page'>
@@ -136,6 +144,11 @@ export default function ProfilePage() {
           FAQ
         </Button>
         <hr className='divider' />
+        
+        <Button color="red" variant="light" onClick={logout}>
+          Log Out
+        </Button>
+
       </div>
 
       <Navbar />
