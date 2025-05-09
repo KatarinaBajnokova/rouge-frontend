@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { useNavigate, Link } from 'react-router-dom';
-import { useAuth } from '@/react/hooks/useAuth';
+import { useAuth } from "../../hooks/useAuth.jsx";
 
 import { TextInput, Divider, PasswordInput, Loader } from '@mantine/core';
 import { showNotification } from '@mantine/notifications';

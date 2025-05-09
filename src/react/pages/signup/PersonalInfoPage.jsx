@@ -19,6 +19,8 @@ export default function PersonalInfoPage() {
 
   const [countryOptions, setCountryOptions] = useState([]);
   const [countriesLoading, setCountriesLoading] = useState(false);
+  const navigate = useNavigate();
+
 
   useEffect(() => {
     const cached = sessionStorage.getItem('countries');
@@ -38,15 +40,20 @@ export default function PersonalInfoPage() {
       .finally(() => setCountriesLoading(false));
   }, []);
 
-  const handleConfirm = () => {
-    const address_1 = `${street} ${houseNumber}, ${postalCode}, ${country}`;
-    createUser({
+const handleConfirm = () => {
+  const address_1 = `${street} ${houseNumber}, ${postalCode}, ${country}`;
+  createUser(
+    {
       address_1,
       phone,
       birthdate: birthdate || null,
       country: country || null,
-    });
-  };
+    },
+    () => {
+      navigate('/homescreen', { state: { newUser: true } });
+    }
+  );
+};
 
   return (
     <div className='personal-info-page'>

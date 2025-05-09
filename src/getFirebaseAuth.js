@@ -7,6 +7,7 @@ export const getFirebaseAuth = async () => {
     signInWithPopup,
     signInWithEmailAndPassword,
     createUserWithEmailAndPassword,
+    onAuthStateChanged, // ✅ ADD THIS
   } = await import('firebase/auth');
 
   const firebaseConfig = {
@@ -23,6 +24,7 @@ export const getFirebaseAuth = async () => {
 
   return {
     auth,
+    onAuthStateChanged, // ✅ INCLUDE IT IN RETURN
     googleProvider: new GoogleAuthProvider(),
     facebookProvider: new FacebookAuthProvider(),
     signInWithPopup,

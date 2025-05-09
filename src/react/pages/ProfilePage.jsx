@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
-import { useAuth } from '@/react/hooks/useAuth';
+import { useAuth } from "../hooks/useAuth.jsx";
+import { getFirebaseAuth } from '../../getFirebaseAuth';
 
 import { Title, Text, Group, Avatar, Button, Loader } from '@mantine/core';
 import { useNavigate } from 'react-router-dom';
@@ -13,28 +14,27 @@ export default function ProfilePage() {
   const [user, setUser] = useState(null);
   const [showPersonalInfo, setShowPersonalInfo] = useState(false);
   const { userId, loading: authLoading } = useAuth();  
-  const logout = async () => {
-    await fetch('/api/routes/logout.php', { method: 'POST' });
-    localStorage.clear();
-    document.cookie = 'session_token=; Max-Age=0; path=/';
-    navigate('/login?from=profile');
-  };
-  
+const logout = async () => {
+  const { auth, signOut } = await getFirebaseAuth();
+  await signOut(auth);
+  localStorage.clear(); // optional
+  navigate('/login?from=profile', { replace: true });
+};
 
   useEffect(() => {
     const fetchUserProfile = async () => {
       if (!userId) {
-        navigate('/login?from=profile');
+        navigate('/login?from=profile', { replace: true });
         return;
       }
       try {
-        const res = await fetch(`http://localhost:3000/api/users/${userId}`);
+        const res = await fetch(`http://localhost:3000/api/users/by-firebase-uid?uid=${userId}`);
         const text = await res.text();
         const json = JSON.parse(text);
         if (!res.ok) throw new Error(json.error || 'Failed to fetch profile');
         setUser(json);
       } catch {
-        navigate('/login');
+        navigate('/login?from=profile', { replace: true });
       }
     };
     fetchUserProfile();

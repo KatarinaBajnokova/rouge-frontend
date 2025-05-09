@@ -2,6 +2,7 @@ import React, { Suspense, lazy } from 'react';
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import LoadingSpinner from './react/components/LoadingSpinner';
 import { CheckoutProvider } from './react/contexts/CheckoutContext';
+import { AuthProvider } from './react/hooks/useAuth';
 
 const InitialPage = lazy(() => import('./react/pages/InitialPage'));
 const DesignSystem = lazy(() => import('./react/pages/DesignSystem'));
@@ -10,7 +11,7 @@ const HomeScreen = lazy(() => import('./react/pages/HomeScreen'));
 const ProductDetail = lazy(() => import('./react/pages/ProductDetail'));
 const BasketPage = lazy(() => import('./react/pages/BasketPage'));
 
-const SignUpPage = lazy(() => import('./react/pages/SignUpPage'));
+const SignUpPage = lazy(() => import('./react/pages/signup/SignUpPage'));
 const LoginPage = lazy(() => import('./react/pages/LoginPage'));
 const PersonalLookPage = lazy(() => import('./react/pages/PersonalLookPage'));
 const ProfilePage = lazy(() => import('./react/pages/ProfilePage'));
@@ -32,6 +33,7 @@ import 'react-responsive-carousel/lib/styles/carousel.min.css';
 function App() {
   return (
     <BrowserRouter>
+    <AuthProvider>
       <CheckoutProvider>
         <Suspense fallback={<LoadingSpinner />}>
           <Routes>
@@ -67,6 +69,7 @@ function App() {
           </Routes>
         </Suspense>
       </CheckoutProvider>
+      </AuthProvider>
     </BrowserRouter>
   );
 }

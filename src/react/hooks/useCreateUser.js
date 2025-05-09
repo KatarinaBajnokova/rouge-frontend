@@ -8,7 +8,7 @@ export function useCreateUser() {
   const { data, clear } = useSignUpData();
   const [loading, setLoading] = useState(false);
 
-  async function createUser(overrides = {}) {
+  async function createUser(overrides = {}, onSuccess) {
     setLoading(true);
     try {
       const payload = { ...data, ...overrides };
@@ -21,12 +21,16 @@ export function useCreateUser() {
       if (!res.ok) throw new Error(json.error || 'Signup failed');
 
       clear();
-      showNotification({
-        title: '🎉 Welcome aboard!',
-        message: 'Your account has been created.',
-        color: 'green',
-      });
-      navigate('/homescreen');
+      if (onSuccess) {
+        onSuccess();
+      } else {
+        showNotification({
+          title: '🎉 Welcome aboard!',
+          message: 'Your account has been created.',
+          color: 'green',
+        });
+        navigate('/homescreen');
+      }
     } catch (err) {
       showNotification({
         title: 'Signup error',
