@@ -17,7 +17,7 @@ export default function ProfilePage() {
 const logout = async () => {
   const { auth, signOut } = await getFirebaseAuth();
   await signOut(auth);
-  localStorage.clear(); // optional
+  localStorage.clear();
   navigate('/login?from=profile', { replace: true });
 };
 
