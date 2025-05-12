@@ -7,24 +7,30 @@ export const AuthProvider = ({ children }) => {
   const [userId, setUserId] = useState(null);
   const [loading, setLoading] = useState(true);
 
-  useEffect(() => {
-    const initAuth = async () => {
-      const { auth, onAuthStateChanged } = await getFirebaseAuth();
+useEffect(() => {
+  let unsubscribe;
 
-      const unsubscribe = onAuthStateChanged(auth, async user => {
-        if (user) {
-          setUserId(user.uid);
-        } else {
-          setUserId(null);
-        }
-        setLoading(false);
-      });
+  const init = async () => {
+    const { auth, onAuthStateChanged } = await getFirebaseAuth();
 
-      return unsubscribe;
-    };
+    unsubscribe = onAuthStateChanged(auth, (firebaseUser) => {
+      if (firebaseUser) {
+        setUserId(firebaseUser.uid);
+      } else {
+        setUserId(null);
+      }
+      setLoading(false);
+    });
+  };
 
-    initAuth();
-  }, []);
+  init();
+
+  return () => {
+    if (unsubscribe) unsubscribe();
+  };
+}, []);
+
+
 
   return (
     <AuthContext.Provider value={{ userId, loading }}>

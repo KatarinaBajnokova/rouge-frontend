@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { useAuth } from "../hooks/useAuth.jsx";
 import { getFirebaseAuth } from '../../getFirebaseAuth';
-
 import { Title, Text, Group, Avatar, Button, Loader } from '@mantine/core';
 import { useNavigate } from 'react-router-dom';
 import { BasketButton } from '../components/buttons/BasketButton';
@@ -13,22 +12,26 @@ export default function ProfilePage() {
   const navigate = useNavigate();
   const [user, setUser] = useState(null);
   const [showPersonalInfo, setShowPersonalInfo] = useState(false);
-  const { userId, loading: authLoading } = useAuth();  
-const logout = async () => {
-  const { auth, signOut } = await getFirebaseAuth();
-  await signOut(auth);
-  localStorage.clear();
-  navigate('/login?from=profile', { replace: true });
-};
+  const { userId: firebaseUid, loading: authLoading } = useAuth();  // 🔥 here: get firebaseUid
+
+  const logout = async () => {
+    const { auth, signOut } = await getFirebaseAuth();
+    await signOut(auth);
+    localStorage.clear();
+    navigate('/login?from=profile', { replace: true });
+  };
 
   useEffect(() => {
     const fetchUserProfile = async () => {
-      if (!userId) {
+      if (!firebaseUid) {
         navigate('/login?from=profile', { replace: true });
         return;
       }
+
+      console.log(`👉 Fetching user from /api/users/by-firebase-uid?uid=${firebaseUid}`);
+      
       try {
-        const res = await fetch(`http://localhost:3000/api/users/by-firebase-uid?uid=${userId}`);
+        const res = await fetch(`http://localhost:3000/api/users/by-firebase-uid?uid=${firebaseUid}`);
         const text = await res.text();
         const json = JSON.parse(text);
         if (!res.ok) throw new Error(json.error || 'Failed to fetch profile');
@@ -37,18 +40,18 @@ const logout = async () => {
         navigate('/login?from=profile', { replace: true });
       }
     };
-    fetchUserProfile();
-  }, [navigate, userId]);
 
-  if (authLoading || !userId) {
+    fetchUserProfile();
+  }, [navigate, firebaseUid]);
+
+  if (authLoading) {
     return (
       <div className='profile-page'>
         <Loader size='xl' color='pink' />
       </div>
     );
   }
-  
-  
+
   if (!user) {
     return (
       <div className='profile-page'>
@@ -59,7 +62,7 @@ const logout = async () => {
 
   return (
     <div className='profile-page'>
-      {/* HEADER WITH BACKGROUND SHAPE */}
+      {/* HEADER */}
       <div className='profile-page__header'>
         <img
           src={headerShape}
@@ -68,29 +71,19 @@ const logout = async () => {
           className='profile-page__header-bg'
         />
 
-        {/* Left + Right controls */}
-        <Group
-          className='profile-page__header-content'
-          position='apart'
-          spacing='xl'
-        >
-          <Button
-            className='edit-profile-btn'
-            variant='subtle'
-            onClick={() => navigate('/profile/edit')}
-          >
+        <Group className='profile-page__header-content' position='apart' spacing='xl'>
+          <Button variant='subtle' onClick={() => navigate('/profile/edit')}>
             Edit Profile
           </Button>
           <BasketButton refresh={true} />
         </Group>
 
-        {/* CENTERED USER NAME */}
         <Title order={2} className='profile-page__header-name'>
           {user.first_name}
         </Title>
       </div>
 
-      {/* PROFILE INFO CARD */}
+      {/* INFO */}
       <div className='profile-info'>
         <Avatar
           src={user.profile_image || 'https://via.placeholder.com/150'}
@@ -100,10 +93,7 @@ const logout = async () => {
           mb='md'
         />
 
-        {/* For You */}
-        <Title order={3} className='section-header'>
-          For you
-        </Title>
+        <Title order={3} className='section-header'>For you</Title>
 
         <Title
           order={4}
@@ -122,38 +112,23 @@ const logout = async () => {
           </>
         )}
         <hr className='divider' />
-        <Button onClick={() => navigate('/profile/favorites')}>
-          Favorites
-        </Button>
+
+        <Button onClick={() => navigate('/profile/favorites')}>Favorites</Button>
         <hr className='divider' />
 
         {/* Settings */}
-        <Title order={4} mt='xl' className='section-header'>
-          Settings
-        </Title>
+        <Title order={4} mt='xl' className='section-header'>Settings</Title>
 
-        <Button variant='subtle' onClick={() => navigate('/contact-support')}>
-          Contact Support
-        </Button>
+        <Button variant='subtle' onClick={() => navigate('/contact-support')}>Contact Support</Button>
         <hr className='divider' />
-        <Button variant='subtle' onClick={() => navigate('/terms-of-service')}>
-          Terms of Service
-        </Button>
+        <Button variant='subtle' onClick={() => navigate('/terms-of-service')}>Terms of Service</Button>
         <hr className='divider' />
-        <Button variant='subtle' onClick={() => navigate('/faq')}>
-          FAQ
-        </Button>
+        <Button variant='subtle' onClick={() => navigate('/faq')}>FAQ</Button>
         <hr className='divider' />
         
-<Button
-  variant="light"
-  onClick={logout}
-  className="logout-button"
->
-  Log Out
-</Button>
-
-
+        <Button variant="light" onClick={logout} className="logout-button">
+          Log Out
+        </Button>
       </div>
 
       <Navbar />
