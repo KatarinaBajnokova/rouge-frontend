@@ -5,7 +5,7 @@ const AuthContext = createContext();
 
 export const AuthProvider = ({ children }) => {
   const [userId, setUserId] = useState(null);
-  const [authLoading, setAuthLoading] = useState(true); // rename for clarity
+  const [authLoading, setAuthLoading] = useState(true);
 
   useEffect(() => {
     let unsubscribe;
@@ -19,7 +19,7 @@ export const AuthProvider = ({ children }) => {
         } else {
           setUserId(null);
         }
-        setAuthLoading(false); // ✅ Only after Firebase responds
+        setAuthLoading(false); // Only after Firebase responds
       });
     };
 

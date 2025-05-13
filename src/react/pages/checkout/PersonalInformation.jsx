@@ -31,8 +31,6 @@ export default function PersonalInfoCheckout() {
   const [friendEmail, setFriendEmail] = useState('');
   const [personalNote, setPersonalNote] = useState('');
 
-  const [justSignedUp, setJustSignedUp] = useState(false); // ✅ Add the flag
-
   const navigate = useNavigate();
   const { userId, loading: authLoading } = useAuth();
   const { setPersonalInfo } = useCheckout();
@@ -51,7 +49,6 @@ export default function PersonalInfoCheckout() {
     if (saved.personalNote) setPersonalNote(saved.personalNote);
   }, []);
 
-
   if (authLoading) {
     return (
       <div className="checkout-auth-loading">
@@ -63,47 +60,28 @@ export default function PersonalInfoCheckout() {
   const persistAndContinue = (info) => {
     setPersonalInfo(info);
     localStorage.setItem(STORAGE_KEY, JSON.stringify(info));
-    setJustSignedUp(true); // ✅ Mark that signup just happened
   };
 
-  const handleEmailContinue = async () => {
+  const handleEmailContinue = async (e) => {
+    e.preventDefault(); // 🔥 prevent navigation on error
+
     if (!firstName || !lastName || !email || !password || !confirmPassword) {
-      showNotification({
-        title: 'Missing Fields',
-        message: 'Please fill out all fields.',
-        color: 'red',
-        position: 'top-center',
-      });
+      showNotification({ title: 'Missing Fields', message: 'Please fill out all fields.', color: 'red', position: 'top-center' });
       return;
     }
 
     if (!email.includes('@') || !email.includes('.')) {
-      showNotification({
-        title: 'Invalid Email',
-        message: 'Please enter a valid email address.',
-        color: 'red',
-        position: 'top-center',
-      });
+      showNotification({ title: 'Invalid Email', message: 'Please enter a valid email address.', color: 'red', position: 'top-center' });
       return;
     }
 
     if (password.length < 6) {
-      showNotification({
-        title: 'Weak Password',
-        message: 'Password must be at least 6 characters.',
-        color: 'red',
-        position: 'top-center',
-      });
+      showNotification({ title: 'Weak Password', message: 'Password must be at least 6 characters.', color: 'red', position: 'top-center' });
       return;
     }
 
     if (password !== confirmPassword) {
-      showNotification({
-        title: 'Password Mismatch',
-        message: 'Passwords do not match.',
-        color: 'red',
-        position: 'top-center',
-      });
+      showNotification({ title: 'Password Mismatch', message: 'Passwords do not match.', color: 'red', position: 'top-center' });
       return;
     }
 
@@ -112,32 +90,51 @@ export default function PersonalInfoCheckout() {
       const result = await createUserWithEmailAndPassword(auth, email, password);
       const user = result.user;
 
-      showNotification({
-        title: 'Signed up!',
-        message: `Welcome ${user.displayName || firstName}!`,
-        color: 'green',
-        position: 'top-center',
-      });
+      showNotification({ title: 'Signed up!', message: `Welcome ${user.displayName || firstName}!`, color: 'green', position: 'top-center' });
 
-      persistAndContinue({
-        firstName,
-        lastName,
-        email,
-        companyName,
-        vatNumber,
-        addGiftWrap,
-        addPersonalCard,
-        friendName,
-        friendEmail,
-        personalNote,
-      });
+      try {
+        const backendResponse = await fetch('/api/users', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({
+            first_name: firstName,
+            last_name: lastName,
+            email: email,
+            password: password,
+            firebase_uid: user.uid,
+          }),
+        });
+
+        const backendData = await backendResponse.json();
+
+        if (backendResponse.ok && backendData.user_id) {
+          localStorage.setItem('userId', backendData.user_id);
+          console.log('✅ Backend user created:', backendData.user_id);
+
+          persistAndContinue({
+            firstName,
+            lastName,
+            email,
+            companyName,
+            vatNumber,
+            addGiftWrap,
+            addPersonalCard,
+            friendName,
+            friendEmail,
+            personalNote,
+          });
+
+          navigate('/checkout/friend-info');
+        } else {
+          console.error('❌ Backend signup failed:', backendData.error || 'No ID');
+          showNotification({ title: 'Backend error', message: 'Could not create profile on server.', color: 'red', position: 'top-center' });
+        }
+      } catch (backendErr) {
+        console.error('❌ Backend error during signup', backendErr);
+      }
+
     } catch (err) {
-      showNotification({
-        title: 'Sign-up error',
-        message: err.message,
-        color: 'red',
-        position: 'top-center',
-      });
+      showNotification({ title: 'Sign-up error', message: err.message, color: 'red', position: 'top-center' });
     }
   };
 
@@ -168,13 +165,10 @@ export default function PersonalInfoCheckout() {
         friendEmail: '',
         personalNote: '',
       });
+
+      navigate('/checkout/friend-info');
     } catch (err) {
-      showNotification({
-        title: `${label} sign-in error`,
-        message: err.message,
-        color: 'red',
-        position: 'top-center',
-      });
+      showNotification({ title: `${label} sign-in error`, message: err.message, color: 'red', position: 'top-center' });
     }
   };
 
@@ -187,34 +181,38 @@ export default function PersonalInfoCheckout() {
         <p>Seems like you don't have an account or aren't logged in!</p>
       </div>
 
-      <TextInput label="First Name" placeholder="Your first name" value={firstName} onChange={(e) => setFirstName(e.currentTarget.value)} className="input-field" required />
-      <TextInput label="Last Name" placeholder="Your last name" value={lastName} onChange={(e) => setLastName(e.currentTarget.value)} className="input-field" required />
-      <TextInput label="Email" placeholder="Your email..." value={email} onChange={(e) => setEmail(e.currentTarget.value)} className="input-field" required />
+      {/* 🔥 FORM WRAP */}
+      <form onSubmit={handleEmailContinue}>
+        <TextInput label="First Name" placeholder="Your first name" value={firstName} onChange={(e) => setFirstName(e.currentTarget.value)} className="input-field" required />
+        <TextInput label="Last Name" placeholder="Your last name" value={lastName} onChange={(e) => setLastName(e.currentTarget.value)} className="input-field" required />
+        <TextInput label="Email" placeholder="Your email..." value={email} onChange={(e) => setEmail(e.currentTarget.value)} className="input-field" required />
 
-      <PasswordInput
-        label="Password"
-        placeholder="Enter your password..."
-        visible={passwordVisible}
-        onVisibilityChange={() => setPasswordVisible((v) => !v)}
-        visibilityToggleIcon={({ reveal }) => reveal ? <IconEyeOff size={16} /> : <IconEye size={16} />}
-        value={password}
-        onChange={(e) => setPassword(e.currentTarget.value)}
-        className="input-field"
-        required
-      />
+        <PasswordInput
+          label="Password"
+          placeholder="Enter your password..."
+          visible={passwordVisible}
+          onVisibilityChange={() => setPasswordVisible((v) => !v)}
+          visibilityToggleIcon={({ reveal }) => reveal ? <IconEyeOff size={16} /> : <IconEye size={16} />}
+          value={password}
+          onChange={(e) => setPassword(e.currentTarget.value)}
+          className="input-field"
+          required
+        />
 
-      <PasswordInput
-        label="Confirm Password"
-        placeholder="Confirm your password"
-        value={confirmPassword}
-        onChange={(e) => setConfirmPassword(e.currentTarget.value)}
-        className="input-field"
-        required
-      />
+        <PasswordInput
+          label="Confirm Password"
+          placeholder="Confirm your password"
+          value={confirmPassword}
+          onChange={(e) => setConfirmPassword(e.currentTarget.value)}
+          className="input-field"
+          required
+        />
 
-      <SignUpButton fullWidth onClick={handleEmailContinue}>
-        Continue
-      </SignUpButton>
+        {/* 🔥 Make button type=submit */}
+        <SignUpButton fullWidth type="submit">
+          Continue
+        </SignUpButton>
+      </form>
 
       <div className="social-register-section">
         <Divider className="social-divider" label="Or log in with" labelPosition="center" />

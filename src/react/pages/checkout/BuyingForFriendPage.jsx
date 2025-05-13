@@ -6,12 +6,36 @@ import FinalStepper from '../../components/stepper/Stepper';
 import { BottomBarButton } from '../../components/buttons/RedButtons';
 import { useCheckout } from '../../contexts/CheckoutContext';
 import '@/sass/pages/checkout/_forfriend_page.scss';
+import { useAuth } from "../../hooks/useAuth.jsx";
 
 const STORAGE_KEY = 'personalInfo';
 
 export default function BuyingForFriendPage() {
   const navigate = useNavigate();
   const { friendInfo, setFriendInfo } = useCheckout();
+  const { userId } = useAuth();
+
+  useEffect(() => {
+    const fetchBackendUserId = async () => {
+      if (!userId) return;
+
+      try {
+        const res = await fetch(`/api/users/by-firebase-uid?uid=${userId}`);
+        const data = await res.json();
+
+        if (res.ok && data.id) {
+          localStorage.setItem('userId', data.id);
+          console.log('✅ Updated backend userId in localStorage:', data.id);
+        } else {
+          console.error('❌ Backend fetch failed: ', data.error || 'No ID found');
+        }
+      } catch (err) {
+        console.error('❌ Error fetching backend user ID', err);
+      }
+    };
+
+    fetchBackendUserId();
+  }, [userId]);
 
   const saved = JSON.parse(localStorage.getItem(STORAGE_KEY) || '{}');
   const init = {
