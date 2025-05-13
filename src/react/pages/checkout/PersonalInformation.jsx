@@ -1,18 +1,11 @@
 import React, { useState, useEffect } from 'react';
 import { useNavigate, Link } from 'react-router-dom';
 import { useAuth } from "../../hooks/useAuth.jsx";
-
 import { TextInput, Divider, PasswordInput, Loader } from '@mantine/core';
 import { showNotification } from '@mantine/notifications';
-import { SignUpButton, LogInButton } from '../../components/buttons/RedButtons';
-import {
-  ContinueWithFacebookIconButton,
-  ContinueWithGoogleIconButton,
-  BackIconButton,
-} from '../../components/buttons/IconButtons';
-
+import { SignUpButton } from '../../components/buttons/RedButtons';
+import { ContinueWithFacebookIconButton, ContinueWithGoogleIconButton, BackIconButton } from '../../components/buttons/IconButtons';
 import { getFirebaseAuth } from '../../../getFirebaseAuth';
-
 import { useCheckout } from '../../contexts/CheckoutContext';
 
 import '@/sass/pages/checkout/_personal_information.scss';
@@ -38,6 +31,8 @@ export default function PersonalInfoCheckout() {
   const [friendEmail, setFriendEmail] = useState('');
   const [personalNote, setPersonalNote] = useState('');
 
+  const [justSignedUp, setJustSignedUp] = useState(false); // ✅ Add the flag
+
   const navigate = useNavigate();
   const { userId, loading: authLoading } = useAuth();
   const { setPersonalInfo } = useCheckout();
@@ -50,19 +45,25 @@ export default function PersonalInfoCheckout() {
     if (saved.companyName) setCompanyName(saved.companyName);
     if (saved.vatNumber) setVatNumber(saved.vatNumber);
     if (saved.addGiftWrap != null) setAddGiftWrap(saved.addGiftWrap);
-    if (saved.addPersonalCard != null)
-      setAddPersonalCard(saved.addPersonalCard);
+    if (saved.addPersonalCard != null) setAddPersonalCard(saved.addPersonalCard);
     if (saved.friendName) setFriendName(saved.friendName);
     if (saved.friendEmail) setFriendEmail(saved.friendEmail);
     if (saved.personalNote) setPersonalNote(saved.personalNote);
   }, []);
 
-  const persistAndContinue = info => {
+
+  if (authLoading) {
+    return (
+      <div className="checkout-auth-loading">
+        <Loader size="lg" color="pink" />
+      </div>
+    );
+  }
+
+  const persistAndContinue = (info) => {
     setPersonalInfo(info);
-
     localStorage.setItem(STORAGE_KEY, JSON.stringify(info));
-
-    navigate('/checkout/friend-info');
+    setJustSignedUp(true); // ✅ Mark that signup just happened
   };
 
   const handleEmailContinue = async () => {
@@ -108,11 +109,7 @@ export default function PersonalInfoCheckout() {
 
     try {
       const { auth, createUserWithEmailAndPassword } = await getFirebaseAuth();
-      const result = await createUserWithEmailAndPassword(
-        auth,
-        email,
-        password
-      );
+      const result = await createUserWithEmailAndPassword(auth, email, password);
       const user = result.user;
 
       showNotification({
@@ -144,13 +141,22 @@ export default function PersonalInfoCheckout() {
     }
   };
 
-  const handleSocialSignIn = async (provider, label) => {
+  const handleSocialSignIn = async (providerName, label) => {
     try {
-      const { auth, signInWithPopup } = await getFirebaseAuth();
+      const { auth, signInWithPopup, googleProvider, facebookProvider } = await getFirebaseAuth();
+      const provider = providerName === 'Google' ? googleProvider : facebookProvider;
       const result = await signInWithPopup(auth, provider);
 
       const user = result.user;
-      const info = {
+
+      showNotification({
+        title: `Logged in with ${label}`,
+        message: `Welcome ${user.displayName || 'back'}!`,
+        color: 'green',
+        position: 'top-center',
+      });
+
+      persistAndContinue({
         firstName: user.displayName || '',
         lastName: '',
         email: user.email || '',
@@ -161,14 +167,7 @@ export default function PersonalInfoCheckout() {
         friendName: '',
         friendEmail: '',
         personalNote: '',
-      };
-      showNotification({
-        title: `Logged in with ${label}`,
-        message: `Welcome ${user.displayName || 'back'}!`,
-        color: 'green',
-        position: 'top-center',
       });
-      persistAndContinue(info);
     } catch (err) {
       showNotification({
         title: `${label} sign-in error`,
@@ -179,95 +178,52 @@ export default function PersonalInfoCheckout() {
     }
   };
 
-  if (authLoading || !userId) {
-    return (
-      <div className="checkout-auth-loading">
-        <Loader size="lg" color="pink" />
-      </div>
-    );
-  }
-  
-
   return (
-    <div className='signup-page'>
+    <div className="signup-page">
       <BackIconButton />
-
       <h2>Account</h2>
-      <div className='step-description'>
+      <div className="step-description">
         <p style={{ color: 'red', fontWeight: 'bold' }}>Before proceeding!</p>
         <p>Seems like you don't have an account or aren't logged in!</p>
       </div>
 
-      <TextInput
-        label='First Name'
-        placeholder='Your first name'
-        value={firstName}
-        onChange={e => setFirstName(e.currentTarget.value)}
-        className='input-field'
-        required
-      />
-
-      <TextInput
-        label='Last Name'
-        placeholder='Your last name'
-        value={lastName}
-        onChange={e => setLastName(e.currentTarget.value)}
-        className='input-field'
-        required
-      />
-
-      <TextInput
-        label='Email'
-        placeholder='Your email...'
-        value={email}
-        onChange={e => setEmail(e.currentTarget.value)}
-        className='input-field'
-        required
-      />
+      <TextInput label="First Name" placeholder="Your first name" value={firstName} onChange={(e) => setFirstName(e.currentTarget.value)} className="input-field" required />
+      <TextInput label="Last Name" placeholder="Your last name" value={lastName} onChange={(e) => setLastName(e.currentTarget.value)} className="input-field" required />
+      <TextInput label="Email" placeholder="Your email..." value={email} onChange={(e) => setEmail(e.currentTarget.value)} className="input-field" required />
 
       <PasswordInput
-        label='Password'
-        placeholder='Enter your password...'
+        label="Password"
+        placeholder="Enter your password..."
         visible={passwordVisible}
-        onVisibilityChange={() => setPasswordVisible(!passwordVisible)}
-        visibilityToggleIcon={({ reveal }) =>
-          reveal ? <IconEyeOff size={16} /> : <IconEye size={16} />
-        }
+        onVisibilityChange={() => setPasswordVisible((v) => !v)}
+        visibilityToggleIcon={({ reveal }) => reveal ? <IconEyeOff size={16} /> : <IconEye size={16} />}
         value={password}
-        onChange={e => setPassword(e.currentTarget.value)}
-        className='input-field'
+        onChange={(e) => setPassword(e.currentTarget.value)}
+        className="input-field"
         required
       />
 
       <PasswordInput
-        label='Confirm Password'
-        placeholder='Confirm your password'
+        label="Confirm Password"
+        placeholder="Confirm your password"
         value={confirmPassword}
-        onChange={e => setConfirmPassword(e.currentTarget.value)}
-        className='input-field'
+        onChange={(e) => setConfirmPassword(e.currentTarget.value)}
+        className="input-field"
         required
       />
 
-      <SignUpButton fullWidth onClick={handleEmailContinue}></SignUpButton>
+      <SignUpButton fullWidth onClick={handleEmailContinue}>
+        Continue
+      </SignUpButton>
 
-      <div className='social-register-section'>
-        <Divider
-          className='social-divider'
-          label='Or log in with'
-          labelPosition='center'
-        />
-        <div className='social-buttons'>
-          <ContinueWithFacebookIconButton
-            fullWidth
-            onClick={() => handleSocialSignIn(facebookProvider, 'Facebook')}
-          />
-          <ContinueWithGoogleIconButton
-            fullWidth
-            onClick={() => handleSocialSignIn(googleProvider, 'Google')}
-          />
+      <div className="social-register-section">
+        <Divider className="social-divider" label="Or log in with" labelPosition="center" />
+        <div className="social-buttons">
+          <ContinueWithFacebookIconButton fullWidth onClick={() => handleSocialSignIn('Facebook', 'Facebook')} />
+          <ContinueWithGoogleIconButton fullWidth onClick={() => handleSocialSignIn('Google', 'Google')} />
 
-          <div className='login-link'>
-            <Link to='/login'>Already have an account? Log in</Link>
+          <div className="login-link">
+            <Link to="/login">Already have an account? Log in</Link>
           </div>
         </div>
       </div>

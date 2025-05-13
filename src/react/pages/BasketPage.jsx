@@ -4,6 +4,7 @@ import { CheckoutButton } from '../components/buttons/RedButtons';
 import { BackHeader } from '../components/buttons/IconButtons';
 import emptyBasketIcon from '@/assets/icons/IMG_empty_basket.svg';
 import '@/sass/pages/_basket_page.scss';
+import { useAuth } from '@/react/hooks/useAuth'; 
 import {
   Title,
   Text,
@@ -19,6 +20,7 @@ export default function BasketPage() {
   const [basketItems, setBasketItems] = useState([]);
   const [totalPrice, setTotalPrice] = useState(0);
   const [loading, setLoading] = useState(true);
+  const { userId, loading: authLoading } = useAuth();
   const navigate = useNavigate();
 
   const LOCAL_KEY = 'basket';
@@ -100,6 +102,34 @@ export default function BasketPage() {
       </Group>
     );
   }
+
+const handleCheckout = async () => {
+  if (authLoading) return; // wait
+
+  console.log("Checking checkout logic. Firebase UID:", userId);
+
+  if (!userId) {
+    console.log("❌ No firebase user detected, navigate to personal info.");
+    navigate('/checkout/personal-info');
+    return;
+  }
+
+  // now check backend if user exists
+  try {
+    const res = await fetch(`/api/users/by-firebase-uid?uid=${userId}`);
+    if (res.ok) {
+      console.log("✅ Backend user exists, navigating to friend info");
+      navigate('/checkout/friend-info');
+    } else {
+      console.log("❌ Backend user not found, navigating to personal info");
+      navigate('/checkout/personal-info');
+    }
+  } catch (err) {
+    console.error('❌ Error verifying user in backend:', err);
+    navigate('/checkout/personal-info'); // fallback
+  }
+};
+
 
   return (
     <div className='basket-page'>
@@ -194,19 +224,15 @@ export default function BasketPage() {
                 €{totalWithShipping}
               </Title>
             </div>
-            <CheckoutButton
-              onClick={() => {
-                localStorage.removeItem(LOCAL_KEY);
-                window.dispatchEvent(
-                  new StorageEvent('storage', {
-                    key: LOCAL_KEY,
-                    oldValue: JSON.stringify(basketItems),
-                    newValue: null,
-                  })
-                );
-                navigate('/checkout/personal-info');
-              }}
-            />
+<CheckoutButton
+  disabled={authLoading}
+  onClick={handleCheckout}
+>
+  {authLoading ? <Loader size="xs" color="white" /> : "Checkout"}
+</CheckoutButton>
+
+
+
           </Group>
         </>
       )}

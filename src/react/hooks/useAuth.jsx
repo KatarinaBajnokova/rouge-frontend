@@ -5,35 +5,33 @@ const AuthContext = createContext();
 
 export const AuthProvider = ({ children }) => {
   const [userId, setUserId] = useState(null);
-  const [loading, setLoading] = useState(true);
+  const [authLoading, setAuthLoading] = useState(true); // rename for clarity
 
-useEffect(() => {
-  let unsubscribe;
+  useEffect(() => {
+    let unsubscribe;
 
-  const init = async () => {
-    const { auth, onAuthStateChanged } = await getFirebaseAuth();
+    const init = async () => {
+      const { auth, onAuthStateChanged } = await getFirebaseAuth();
 
-    unsubscribe = onAuthStateChanged(auth, (firebaseUser) => {
-      if (firebaseUser) {
-        setUserId(firebaseUser.uid);
-      } else {
-        setUserId(null);
-      }
-      setLoading(false);
-    });
-  };
+      unsubscribe = onAuthStateChanged(auth, (firebaseUser) => {
+        if (firebaseUser) {
+          setUserId(firebaseUser.uid);
+        } else {
+          setUserId(null);
+        }
+        setAuthLoading(false); // ✅ Only after Firebase responds
+      });
+    };
 
-  init();
+    init();
 
-  return () => {
-    if (unsubscribe) unsubscribe();
-  };
-}, []);
-
-
+    return () => {
+      if (unsubscribe) unsubscribe();
+    };
+  }, []);
 
   return (
-    <AuthContext.Provider value={{ userId, loading }}>
+    <AuthContext.Provider value={{ userId, loading: authLoading }}>
       {children}
     </AuthContext.Provider>
   );
