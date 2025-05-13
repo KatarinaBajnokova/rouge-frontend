@@ -1,15 +1,19 @@
 import React, { useState, useEffect } from 'react';
 import { Title, TextInput, Group, Select, Loader } from '@mantine/core';
-import { BackHeader } from '../../components/buttons/IconButtons';
+import { useNavigate } from 'react-router-dom';
+
 import FinalStepper from '../../components/stepper/Stepper';
+import { useUpdateUser } from '@/react/hooks/useUpdateUser';
+import { BackHeader, BackIconButton } from '../../components/buttons/IconButtons';
 import { BottomBarButton } from '../../components/buttons/RedButtons';
 
-import { useCreateUser } from '../../hooks/useCreateUser';
 import '@/sass/pages/_personal_info.scss';
 
 export default function PersonalInfoPage() {
-  const { createUser, loading } = useCreateUser();
+  const navigate = useNavigate();
+  const { updateUser, loading } = useUpdateUser();
 
+  // form state
   const [country, setCountry] = useState('');
   const [street, setStreet] = useState('');
   const [houseNumber, setHouseNumber] = useState('');
@@ -17,6 +21,7 @@ export default function PersonalInfoPage() {
   const [phone, setPhone] = useState('');
   const [birthdate, setBirthdate] = useState('');
 
+  // country select state
   const [countryOptions, setCountryOptions] = useState([]);
   const [countriesLoading, setCountriesLoading] = useState(false);
 
@@ -26,37 +31,54 @@ export default function PersonalInfoPage() {
       setCountryOptions(JSON.parse(cached));
       return;
     }
+
     setCountriesLoading(true);
     fetch('https://restcountries.com/v3.1/all?fields=name')
       .then(res => res.json())
-      .then(list => {
-        const names = list.map(c => c.name.common).sort();
+      .then(data => {
+        const names = data
+          .map(c => c.name.common)
+          .sort((a, b) => a.localeCompare(b));
         setCountryOptions(names);
         sessionStorage.setItem('countries', JSON.stringify(names));
       })
-      .catch(err => console.error('Failed to fetch countries', err))
-      .finally(() => setCountriesLoading(false));
+      .catch(err => {
+        console.error('Failed to fetch countries', err);
+      })
+      .finally(() => {
+        setCountriesLoading(false);
+      });
   }, []);
 
-  const handleConfirm = () => {
-    const address_1 = `${street} ${houseNumber}, ${postalCode}, ${country}`;
-    createUser({
-      address_1,
-      phone,
-      birthdate: birthdate || null,
-      country: country || null,
-    });
+  // Submit form and navigate to home screen
+  const handleConfirm = async () => {
+    const address1 = `${street} ${houseNumber}, ${postalCode}, ${country}`;
+    try {
+      // updateUser is assumed to return a promise
+      await updateUser({
+        address_1: address1,
+        phone,
+        birthdate: birthdate || null,
+        country: country || null,
+      });
+      // Navigate to HomeScreen route
+      navigate('/homescreen');
+    } catch (error) {
+      console.error('Failed to update user', error);
+      // Optionally handle error (e.g., show a notification)
+    }
   };
 
   return (
     <div className='personal-info-page'>
-      <BackHeader text='Personal Information' />
+      <BackIconButton />
       <FinalStepper active={2} />
-
       <div className='personal-form' style={{ marginTop: '2rem' }}>
-        <Title order={3} mb='sm'>
-          Personal Information
-        </Title>
+        <h2>Personal information</h2>
+        <div className='step-description'>
+          <p>Press "Confirm & Continue" if you wish to skip this part.</p>
+          <p>Your addresses can always be edited in the profile settings.</p>
+        </div>
 
         <Select
           label='Country'
@@ -86,6 +108,7 @@ export default function PersonalInfoPage() {
             onChange={e => setHouseNumber(e.currentTarget.value)}
             mt='md'
           />
+
           <TextInput
             label='Postal Code'
             placeholder='e.g. 1000'
