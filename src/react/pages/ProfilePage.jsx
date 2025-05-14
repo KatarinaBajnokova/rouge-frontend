@@ -12,7 +12,8 @@ export default function ProfilePage() {
   const navigate = useNavigate();
   const [user, setUser] = useState(null);
   const [showPersonalInfo, setShowPersonalInfo] = useState(false);
-  const { userId: firebaseUid, loading: authLoading } = useAuth();  // 🔥 here: get firebaseUid
+  const [fetchingProfile, setFetchingProfile] = useState(true); // ✨ New state
+  const { userId: firebaseUid, loading: authLoading } = useAuth();
 
   const logout = async () => {
     const { auth, signOut } = await getFirebaseAuth();
@@ -23,28 +24,32 @@ export default function ProfilePage() {
 
   useEffect(() => {
     const fetchUserProfile = async () => {
+      if (authLoading) return; // wait for auth to be ready
       if (!firebaseUid) {
         navigate('/login?from=profile', { replace: true });
         return;
       }
 
       console.log(`👉 Fetching user from /api/users/by-firebase-uid?uid=${firebaseUid}`);
-      
+
       try {
         const res = await fetch(`http://localhost:3000/api/users/by-firebase-uid?uid=${firebaseUid}`);
         const text = await res.text();
         const json = JSON.parse(text);
         if (!res.ok) throw new Error(json.error || 'Failed to fetch profile');
         setUser(json);
-      } catch {
+      } catch (error) {
+        console.error('❌ Failed to fetch profile:', error.message);
         navigate('/login?from=profile', { replace: true });
+      } finally {
+        setFetchingProfile(false); // ✅ done fetching attempt
       }
     };
 
     fetchUserProfile();
-  }, [navigate, firebaseUid]);
+  }, [navigate, firebaseUid, authLoading]);
 
-  if (authLoading) {
+  if (authLoading || fetchingProfile) {
     return (
       <div className='profile-page'>
         <Loader size='xl' color='pink' />
@@ -53,11 +58,8 @@ export default function ProfilePage() {
   }
 
   if (!user) {
-    return (
-      <div className='profile-page'>
-        <Text color='red'>❌ Failed to load profile.</Text>
-      </div>
-    );
+    // 🚀 NO NEED: We'll redirect automatically if user not found
+    return null;
   }
 
   return (
@@ -125,7 +127,7 @@ export default function ProfilePage() {
         <hr className='divider' />
         <Button variant='subtle' onClick={() => navigate('/faq')}>FAQ</Button>
         <hr className='divider' />
-        
+
         <Button variant="light" onClick={logout} className="logout-button">
           Log Out
         </Button>

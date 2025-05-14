@@ -16,10 +16,16 @@ export const AuthProvider = ({ children }) => {
       unsubscribe = onAuthStateChanged(auth, (firebaseUser) => {
         if (firebaseUser) {
           setUserId(firebaseUser.uid);
+          localStorage.setItem('firebaseUid', firebaseUser.uid); // 🔥 Save into localStorage always
         } else {
-          setUserId(null);
+          const cachedUid = localStorage.getItem('firebaseUid');
+          if (cachedUid) {
+            setUserId(cachedUid); // 🔥 fallback to cached
+          } else {
+            setUserId(null);
+          }
         }
-        setAuthLoading(false); // Only after Firebase responds
+        setAuthLoading(false);
       });
     };
 
