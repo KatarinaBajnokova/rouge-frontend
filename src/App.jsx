@@ -33,13 +33,15 @@ import 'slick-carousel/slick/slick.css';
 import 'slick-carousel/slick/slick-theme.css';
 import 'react-responsive-carousel/lib/styles/carousel.min.css';
 
+function ProtectedRoutes({ children }) {
+  return (
+    <AuthProvider>
+      {children}
+    </AuthProvider>
+  );
+}
+
 function AppRoutes() {
-  const { loading } = useAuth(); // ✅ Loading handling
-
-  if (loading) {
-    return <LoadingSpinner />;
-  }
-
   return (
     <Suspense fallback={<LoadingSpinner />}>
       <Routes>
@@ -49,21 +51,18 @@ function AppRoutes() {
         <Route path='/animation' element={<AnimationPage />} />
         <Route path='/homescreen' element={<HomeScreen />} />
         <Route path='/item/:id' element={<ProductDetail />} />
-        <Route path='/basket' element={<BasketPage />} />
-
-        {/* Checkout */}
-        <Route path='/checkout/payment-method' element={<PaymentMethodPage />} />
-        <Route path='/checkout/friend-info' element={<BuyingForFriendPage />} />
-        <Route path='/checkout/address' element={<AddressPage />} />
-        <Route path='/checkout/summary' element={<SummaryPage />} />
-        <Route path='/checkout/personal-info' element={<PersonalInformation />} />
-
-        {/* Auth & Profile */}
-        <Route path='/signup' element={<SignUpPage />} />
-        <Route path='/login' element={<LoginPage />} />
-        <Route path='/personal-look' element={<PersonalLookPage />} />
-        <Route path='/personal-info' element={<PersonalInfoPage />} />
-        <Route path='/profile' element={<ProfilePage />} />
+        {/* Protected Routes */}
+        <Route path='/basket' element={<ProtectedRoutes><BasketPage /></ProtectedRoutes>} />
+        <Route path='/checkout/payment-method' element={<ProtectedRoutes><PaymentMethodPage /></ProtectedRoutes>} />
+        <Route path='/checkout/friend-info' element={<ProtectedRoutes><BuyingForFriendPage /></ProtectedRoutes>} />
+        <Route path='/checkout/address' element={<ProtectedRoutes><AddressPage /></ProtectedRoutes>} />
+        <Route path='/checkout/summary' element={<ProtectedRoutes><SummaryPage /></ProtectedRoutes>} />
+        <Route path='/checkout/personal-info' element={<ProtectedRoutes><PersonalInformation /></ProtectedRoutes>} />
+        <Route path='/signup' element={<ProtectedRoutes><SignUpPage /></ProtectedRoutes>} />
+        <Route path='/login' element={<ProtectedRoutes><LoginPage /></ProtectedRoutes>} />
+        <Route path='/personal-look' element={<ProtectedRoutes><PersonalLookPage /></ProtectedRoutes>} />
+        <Route path='/personal-info' element={<ProtectedRoutes><PersonalInfoPage /></ProtectedRoutes>} />
+        <Route path='/profile' element={<ProtectedRoutes><ProfilePage /></ProtectedRoutes>} />
 
             {/* Category listing */}
             <Route path='/all' element={<Categories />} />
@@ -90,14 +89,13 @@ function AppRoutes() {
 
 function App() {
   return (
-    <AuthProvider>
-      <BrowserRouter>
-        <CheckoutProvider>
-          <AppRoutes />
-        </CheckoutProvider>
-      </BrowserRouter>
-    </AuthProvider>
+    <BrowserRouter>
+      <CheckoutProvider>
+        <AppRoutes />
+      </CheckoutProvider>
+    </BrowserRouter>
   );
 }
+
 
 export default App;
