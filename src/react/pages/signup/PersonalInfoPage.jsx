@@ -50,92 +50,104 @@ export default function PersonalInfoPage() {
       });
   }, []);
 
-  // Submit form and navigate to home screen
   const handleConfirm = async () => {
-    const address1 = `${street} ${houseNumber}, ${postalCode}, ${country}`;
+    const backendUserId = localStorage.getItem('backendUserId');
+    if (!backendUserId) {
+      alert('User session expired. Please log in again.');
+      navigate('/login');
+      return;
+    }
+
+    const address1 = `${street.trim()} ${houseNumber.trim()}, ${postalCode.trim()}, ${country.trim()}`;
+
+    // prevent submitting completely empty form (optional based on your preference)
+    if (!street && !houseNumber && !postalCode && !phone && !birthdate && !country) {
+      navigate('/homescreen');
+      return;
+    }
+
     try {
-      // updateUser is assumed to return a promise
       await updateUser({
+        user_id: backendUserId,
         address_1: address1,
-        phone,
+        phone: phone.trim(),
         birthdate: birthdate || null,
         country: country || null,
       });
-      // Navigate to HomeScreen route
       navigate('/homescreen');
     } catch (error) {
       console.error('Failed to update user', error);
-      // Optionally handle error (e.g., show a notification)
+      alert('Something went wrong updating your profile.');
     }
   };
 
   return (
-    <div className='personal-info-page'>
+    <div className="personal-info-page">
       <BackIconButton />
       <FinalStepper active={2} />
-      <div className='personal-form' style={{ marginTop: '2rem' }}>
+      <div className="personal-form" style={{ marginTop: '2rem' }}>
         <h2>Personal information</h2>
-        <div className='step-description'>
+        <div className="step-description">
           <p>Press "Confirm & Continue" if you wish to skip this part.</p>
           <p>Your addresses can always be edited in the profile settings.</p>
         </div>
 
         <Select
-          label='Country'
-          placeholder='Select your country'
+          label="Country"
+          placeholder="Select your country"
           data={countryOptions}
           value={country}
           onChange={setCountry}
           searchable
-          nothingFoundMessage='No country found'
-          rightSection={countriesLoading ? <Loader size='xs' /> : null}
-          mt='md'
+          nothingFoundMessage="No country found"
+          rightSection={countriesLoading ? <Loader size="xs" /> : null}
+          mt="md"
         />
 
         <TextInput
-          label='Street'
-          placeholder='Enter street name'
+          label="Street"
+          placeholder="Enter street name"
           value={street}
-          onChange={e => setStreet(e.currentTarget.value)}
-          mt='md'
+          onChange={(e) => setStreet(e.currentTarget.value)}
+          mt="md"
         />
 
         <Group grow>
           <TextInput
-            label='House Number'
-            placeholder='e.g. 12A'
+            label="House Number"
+            placeholder="e.g. 12A"
             value={houseNumber}
-            onChange={e => setHouseNumber(e.currentTarget.value)}
-            mt='md'
+            onChange={(e) => setHouseNumber(e.currentTarget.value)}
+            mt="md"
           />
 
           <TextInput
-            label='Postal Code'
-            placeholder='e.g. 1000'
+            label="Postal Code"
+            placeholder="e.g. 1000"
             value={postalCode}
-            onChange={e => setPostalCode(e.currentTarget.value)}
-            mt='md'
+            onChange={(e) => setPostalCode(e.currentTarget.value)}
+            mt="md"
           />
         </Group>
 
         <TextInput
-          label='Phone number'
-          placeholder='Enter your phone number'
+          label="Phone number"
+          placeholder="Enter your phone number"
           value={phone}
-          onChange={e => setPhone(e.currentTarget.value)}
-          mt='md'
+          onChange={(e) => setPhone(e.currentTarget.value)}
+          mt="md"
         />
 
         <TextInput
-          label='Date of Birth'
-          type='date'
+          label="Date of Birth"
+          type="date"
           value={birthdate}
-          onChange={e => setBirthdate(e.currentTarget.value)}
-          mt='md'
+          onChange={(e) => setBirthdate(e.currentTarget.value)}
+          mt="md"
         />
 
         <BottomBarButton
-          text='Confirm & Continue'
+          text="Confirm & Continue"
           onClick={handleConfirm}
           loading={loading}
         />
