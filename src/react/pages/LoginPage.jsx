@@ -23,7 +23,10 @@ const LoginPage = () => {
   const [passwordVisible, setPasswordVisible] = useState(false);
   const [loading, setLoading] = useState(false);
   const location = useLocation();
-  const cameFromProfile = new URLSearchParams(location.search).get('from') === 'profile';
+  const params = new URLSearchParams(location.search);
+const cameFromProfile = params.get('from') === 'profile';
+const cameFromCheckout = params.get('from') === 'checkout';
+
 
 
   const navigate = useNavigate();
@@ -51,7 +54,14 @@ const LoginPage = () => {
       color: 'green',
     });
 
-    navigate('/profile'); // or /homescreen
+if (cameFromProfile) {
+  navigate('/homescreen');
+} else if (cameFromCheckout) {
+  navigate('/checkout/friend-info'); // 🛒 continue checkout after login
+} else {
+  navigate('/homescreen');
+}
+
   } catch (err) {
     showNotification({
       title: 'Login error',
@@ -101,13 +111,16 @@ const LoginPage = () => {
 
   return (
     <div className='login-page'>
-      <BackIconButton onClick={() => {
+<BackIconButton onClick={() => {
   if (cameFromProfile) {
     navigate('/homescreen');
+  } else if (cameFromCheckout) {
+    navigate('/basket'); // maybe back to basket if started checkout
   } else {
     navigate(-1);
   }
 }} />
+
 
 
       <FinalStepper active={0} />
