@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { useNavigate, Link } from 'react-router-dom';
+import { useNavigate, Link, useLocation } from 'react-router-dom';
 import { TextInput, PasswordInput, Divider, Button } from '@mantine/core';
 import IconEye from '@tabler/icons-react/dist/esm/icons/iconEye';
 import IconEyeOff from '@tabler/icons-react/dist/esm/icons/iconEyeOff';
@@ -22,62 +22,57 @@ const LoginPage = () => {
   const [password, setPassword] = useState('');
   const [passwordVisible, setPasswordVisible] = useState(false);
   const [loading, setLoading] = useState(false);
+  const location = useLocation();
+  const params = new URLSearchParams(location.search);
+const cameFromProfile = params.get('from') === 'profile';
+const cameFromCheckout = params.get('from') === 'checkout';
+
+
 
   const navigate = useNavigate();
 
   // New helper: authenticate against backend
-  const loginWithBackend = async (email, password) => {
-    try {
-      const res = await fetch('/api/auth/login', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ email, password }),
-      });
-      const data = await res.json();
-      if (!res.ok) throw new Error(data.error || 'Login failed');
-
-      localStorage.setItem('userId', data.user_id);
-      showNotification({
-        title: 'Welcome back!',
-        message: 'You are now logged in.',
-        color: 'green',
-      });
-      navigate('/homescreen');
-    } catch (err) {
-      console.error('❌ Backend login error:', err.message);
-      showNotification({
-        title: 'Login error',
-        message: err.message,
-        color: 'red',
-      });
-    }
-  };
-
+  
   const handleEmailLogin = async () => {
-    if (!email || !password) {
-      showNotification({
-        title: 'Missing credentials',
-        message: 'Please enter both email and password.',
-        color: 'red',
-      });
-      return;
-    }
+  if (!email || !password) {
+    showNotification({
+      title: 'Missing credentials',
+      message: 'Please enter both email and password.',
+      color: 'red',
+    });
+    return;
+  }
 
-    setLoading(true);
-    try {
-      const { auth, signInWithEmailAndPassword } = await getFirebaseAuth();
-      await signInWithEmailAndPassword(auth, email, password);
-      await loginWithBackend(email, password);
-    } catch (err) {
-      showNotification({
-        title: 'Login error',
-        message: err.message,
-        color: 'red',
-      });
-    } finally {
-      setLoading(false);
-    }
-  };
+  setLoading(true);
+  try {
+    const { auth, signInWithEmailAndPassword } = await getFirebaseAuth();
+    await signInWithEmailAndPassword(auth, email, password);
+
+    showNotification({
+      title: 'Welcome back!',
+      message: 'You are now logged in.',
+      color: 'green',
+    });
+
+if (cameFromProfile) {
+  navigate('/homescreen');
+} else if (cameFromCheckout) {
+  navigate('/checkout/friend-info'); // 🛒 continue checkout after login
+} else {
+  navigate('/homescreen');
+}
+
+  } catch (err) {
+    showNotification({
+      title: 'Login error',
+      message: err.message,
+      color: 'red',
+    });
+  } finally {
+    setLoading(false);
+  }
+};
+
 
   const handleGoogleSignIn = async () => {
     setLoading(true);
@@ -116,7 +111,17 @@ const LoginPage = () => {
 
   return (
     <div className='login-page'>
-      <BackIconButton />
+<BackIconButton onClick={() => {
+  if (cameFromProfile) {
+    navigate('/homescreen');
+  } else if (cameFromCheckout) {
+    navigate('/basket'); // maybe back to basket if started checkout
+  } else {
+    navigate(-1);
+  }
+}} />
+
+
 
       <FinalStepper active={0} />
 

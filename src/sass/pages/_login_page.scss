@@ -3,6 +3,12 @@
 @use '@/sass/abstract/typography' as *;
 @use '@/sass/abstract/mixins' as *;
 
+body.login-page,
+html.login-page {
+  margin-bottom: 0 !important;
+}
+
+
 .login-page {
   background-color: $white-background;
   padding: 1.2rem 1.5rem;

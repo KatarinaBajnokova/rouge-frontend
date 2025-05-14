@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { Title, TextInput, Group, Select, Loader } from '@mantine/core';
 import { useNavigate } from 'react-router-dom';
 import { showNotification } from '@mantine/notifications';
+import { useUpdateUser } from '@/react/hooks/useUpdateUser';
 
 import FinalStepper from '../../components/stepper/Stepper';
 import { BackIconButton } from '../../components/buttons/IconButtons';
@@ -13,6 +14,7 @@ const STORAGE_KEY = 'shippingAddress';
 
 export default function AddressPage() {
   const navigate = useNavigate();
+  const { updateUser, loading } = useUpdateUser();
 
   const saved = JSON.parse(localStorage.getItem(STORAGE_KEY) || '{}');
 
@@ -50,19 +52,38 @@ export default function AddressPage() {
       .finally(() => setCountriesLoading(false));
   }, []);
 
-  const handleConfirm = () => {
-    if (!country || !street || !houseNumber || !postalCode || !phone) {
-      showNotification({
-        title: 'Missing Fields',
-        message: 'Please complete all address fields.',
-        color: 'red',
-        position: 'top-center',
-      });
-      return;
-    }
+  const handleConfirm = async () => {
+  if (!country || !street || !houseNumber || !postalCode || !phone) {
+    showNotification({
+      title: 'Missing Fields',
+      message: 'Please complete all address fields.',
+      color: 'red',
+      position: 'top-center',
+    });
+    return;
+  }
+
+  const address1 = `${street} ${houseNumber}, ${postalCode}, ${country}`;
+
+  try {
+    await updateUser({
+      address_1: address1,
+      phone,
+      country,
+    });
 
     navigate('/checkout/payment-method');
-  };
+  } catch (error) {
+    console.error('❌ Failed to update address', error);
+    showNotification({
+      title: 'Error',
+      message: 'Could not save address. Try again.',
+      color: 'red',
+      position: 'top-center',
+    });
+  }
+};
+
 
   return (
     <div className='address-page'>
@@ -121,7 +142,8 @@ export default function AddressPage() {
           required
         />
 
-        <BottomBarButton text='Confirm & Continue' onClick={handleConfirm} />
+        <BottomBarButton text="Confirm & Continue" onClick={handleConfirm} loading={loading} />
+
       </div>
     </div>
   );
