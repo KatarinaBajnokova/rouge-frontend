@@ -1,0 +1,51 @@
+@use 'sass:map';
+@use '@/sass/abstract/colors' as *;
+@use '@/sass/abstract/typography' as *;
+@use '@/sass/abstract/mixins' as *;
+
+// src/sass/pages/_subcategories.scss
+
+.subcategories-page {
+  min-height: 100vh;
+  background: $white-background;
+  display: flex;
+  flex-direction: column;
+}
+
+.subcategories-page .header-wrapper {
+  position: sticky;
+  top: 0;
+  z-index: 10;
+  padding: 0.5rem 1rem;
+  padding-left: 1rem;
+
+  .back-btn {
+    position: absolute;
+    left: 1rem;
+    top: 5rem;
+    background: none;
+    border: none;
+    cursor: pointer;
+  }
+
+  h2 {
+    margin: 1.5rem 0 0;
+    font-size: 2rem;
+    font-weight: 600;
+    text-align: left;
+  }
+}
+
+.subcategories-page .category-list {
+  margin-top: 1rem;
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  margin-left: 1rem;
+}
+
+.subcategories-page .subcategory-item .circle-indicator {
+  width: 30px;
+  height: 30px;
+  margin-right: 1rem;
+}

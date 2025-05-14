@@ -1,9 +1,11 @@
 import React, { Suspense, lazy } from 'react';
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
-import LoadingSpinner from './react/components/LoadingSpinner';
+// Corrected import: use alias to resolve to src/react/components/ui/LoadingSpinner.jsx
+import LoadingSpinner from '@/react/components/ui/LoadingSpinner';
 import { CheckoutProvider } from './react/contexts/CheckoutContext';
 import { AuthProvider, useAuth } from './react/hooks/useAuth';
 
+// Core pages
 const InitialPage = lazy(() => import('./react/pages/InitialPage'));
 const DesignSystem = lazy(() => import('./react/pages/DesignSystem'));
 const AnimationPage = lazy(() => import('./react/pages/AnimationPage'));
@@ -22,7 +24,11 @@ import PersonalInformation from './react/pages/checkout/PersonalInformation';
 import PaymentMethodPage from './react/pages/checkout/PaymentMethod';
 import BuyingForFriendPage from './react/pages/checkout/BuyingForFriendPage';
 import SummaryPage from './react/pages/checkout/SummaryPage';
-import AllPage from './react/pages/AllPage';
+
+// Category drill-down
+const Categories = lazy(() => import('@/react/pages/all/Categories'));
+const Subcategories = lazy(() => import('@/react/pages/all/Subcategories'));
+const ItemsPage = lazy(() => import('@/react/pages/all/ItemsPage'));
 
 import '@mantine/core/styles.css';
 import '@mantine/carousel/styles.css';
