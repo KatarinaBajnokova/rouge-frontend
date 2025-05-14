@@ -91,7 +91,14 @@ const SignUpPage = () => {
         }),
       });
 
-      const backendData = await backendResponse.json();
+      let backendData;
+try {
+  backendData = await backendResponse.json();
+} catch (parseError) {
+  console.error('❌ Failed to parse backend response as JSON');
+  throw new Error('Invalid backend response');
+}
+
 
       if (!backendResponse.ok) {
         throw new Error(

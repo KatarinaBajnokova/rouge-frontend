@@ -32,7 +32,7 @@ useEffect(() => {
 
     console.log(`🔗 Fetching backend user ID using Firebase UID: ${firebaseUid}`);
     try {
-      const res = await fetch(`/api/users/by-firebase-uid?uid=${firebaseUid}`);
+      const res = await fetch(`http://localhost:3000/api/users/by-firebase-uid?uid=${firebaseUid}`);
       const data = await res.json();
 
       if (res.ok && data.id) { // ✅ correct field is "id" not "user_id"
