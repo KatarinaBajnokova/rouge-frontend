@@ -4,16 +4,17 @@ import { useNavigate } from 'react-router-dom';
 
 import FinalStepper from '../../components/stepper/Stepper';
 import { useUpdateUser } from '@/react/hooks/useUpdateUser';
-import { BackHeader, BackIconButton } from '../../components/buttons/IconButtons';
+import { BackIconButton } from '../../components/buttons/IconButtons';
 import { BottomBarButton } from '../../components/buttons/RedButtons';
+import { useAuth } from '@/react/hooks/useAuth'; // ✨ import useAuth
 
 import '@/sass/pages/_personal_info.scss';
 
 export default function PersonalInfoPage() {
   const navigate = useNavigate();
   const { updateUser, loading } = useUpdateUser();
+  const { userId: firebaseUid, loading: authLoading } = useAuth(); // ✨ get firebaseUid
 
-  // form state
   const [country, setCountry] = useState('');
   const [street, setStreet] = useState('');
   const [houseNumber, setHouseNumber] = useState('');
@@ -21,9 +22,36 @@ export default function PersonalInfoPage() {
   const [phone, setPhone] = useState('');
   const [birthdate, setBirthdate] = useState('');
 
-  // country select state
   const [countryOptions, setCountryOptions] = useState([]);
   const [countriesLoading, setCountriesLoading] = useState(false);
+
+  // 🛠️ Auto-fetch backendUserId if missing
+  useEffect(() => {
+    const fetchBackendUserId = async () => {
+      const storedBackendId = localStorage.getItem('backendUserId');
+      if (storedBackendId) return; // already exists ✅
+
+      if (!firebaseUid) return; // still waiting for firebase
+
+      console.log(`🔗 Fetching backend user ID using Firebase UID: ${firebaseUid}`);
+      try {
+        const res = await fetch(`http://localhost:3000/api/users/by-firebase-uid?uid=${firebaseUid}`);
+        const data = await res.json();
+        if (res.ok && data.id) {
+          localStorage.setItem('backendUserId', data.id);
+          console.log('✅ Stored backend user_id in localStorage:', data.id);
+        } else {
+          console.error('❌ Failed to fetch backend user ID:', data.error || 'No ID');
+          navigate('/login');
+        }
+      } catch (error) {
+        console.error('❌ Error fetching backend user ID:', error);
+        navigate('/login');
+      }
+    };
+
+    fetchBackendUserId();
+  }, [firebaseUid, navigate]);
 
   useEffect(() => {
     const cached = sessionStorage.getItem('countries');
@@ -50,6 +78,7 @@ export default function PersonalInfoPage() {
       });
   }, []);
 
+  // ✨ Corrected handleConfirm
   const handleConfirm = async () => {
     const backendUserId = localStorage.getItem('backendUserId');
     if (!backendUserId) {
@@ -60,7 +89,6 @@ export default function PersonalInfoPage() {
 
     const address1 = `${street.trim()} ${houseNumber.trim()}, ${postalCode.trim()}, ${country.trim()}`;
 
-    // prevent submitting completely empty form (optional based on your preference)
     if (!street && !houseNumber && !postalCode && !phone && !birthdate && !country) {
       navigate('/homescreen');
       return;
@@ -68,18 +96,25 @@ export default function PersonalInfoPage() {
 
     try {
       await updateUser({
-        user_id: backendUserId,
         address_1: address1,
         phone: phone.trim(),
         birthdate: birthdate || null,
         country: country || null,
       });
-      navigate('/homescreen');
+      // 🚀 navigation happens inside updateUser, no need to navigate here
     } catch (error) {
       console.error('Failed to update user', error);
       alert('Something went wrong updating your profile.');
     }
   };
+
+  if (authLoading) {
+    return (
+      <div className="personal-info-page">
+        <Loader size="xl" color="pink" />
+      </div>
+    );
+  }
 
   return (
     <div className="personal-info-page">
