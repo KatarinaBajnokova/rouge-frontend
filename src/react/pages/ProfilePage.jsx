@@ -17,19 +17,17 @@ export default function ProfilePage() {
   const { userId: firebaseUid, loading: authLoading } = useAuth();
 
   const logout = async () => {
-  const { auth, signOut } = await getFirebaseAuth();
-  await signOut(auth);
-  localStorage.clear();
-  sessionStorage.clear(); // also clear session if you use it anywhere
+    const { auth, signOut } = await getFirebaseAuth();
+    await signOut(auth);
+    localStorage.clear();
+    sessionStorage.clear();
 
-  navigate('/login?from=profile', { replace: true });
-  
-  // Now force reload to clear everything
-  setTimeout(() => {
-    window.location.reload();
-  }, 100); // slight delay to let react-router navigate first
-};
+    navigate('/login?from=profile', { replace: true });
 
+    setTimeout(() => {
+      window.location.reload();
+    }, 100);
+  };
 
   useEffect(() => {
     const fetchUserProfile = async () => {
@@ -119,13 +117,12 @@ export default function ProfilePage() {
         {showPersonalInfo && (
           <>
             <Text>Email: {user.email || 'N/A'}</Text>
-            <Text>Phone: {user.phone || 'N/A'}</Text>
+            <Text>Phone (profile): {user.phone || 'N/A'}</Text>
             <Text>Birthday: {user.birthdate || 'N/A'}</Text>
             <Text>Country: {user.country || 'N/A'}</Text>
 
             <Title order={5} mt="md">Saved Addresses</Title>
 
-            {/* Include signup address manually */}
             {user.address_1 && (
               <div style={{ marginBottom: '1rem' }}>
                 <Text>Signup address: {user.address_1}</Text>
@@ -133,14 +130,13 @@ export default function ProfilePage() {
               </div>
             )}
 
-            {/* Other addresses */}
             {addresses.length > 0 ? (
               addresses.map((addr, idx) => (
                 <div key={idx} style={{ marginBottom: '1rem' }}>
                   <Text>Address: {addr.address_1 || '-'}</Text>
                   <Text>Postal Code: {addr.postal_code || '-'}</Text>
                   <Text>Country: {addr.country || '-'}</Text>
-                  <Text>Phone: {addr.phone || '-'}</Text>
+                  {addr.phone && <Text>Phone (for this address): {addr.phone}</Text>}
                   <hr className="divider" />
                 </div>
               ))
@@ -149,7 +145,7 @@ export default function ProfilePage() {
             )}
           </>
         )}
-        
+
         <hr className="divider" />
 
         <Button onClick={() => navigate('/profile/favorites')}>Favorites</Button>
