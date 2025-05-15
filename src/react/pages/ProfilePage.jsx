@@ -17,11 +17,19 @@ export default function ProfilePage() {
   const { userId: firebaseUid, loading: authLoading } = useAuth();
 
   const logout = async () => {
-    const { auth, signOut } = await getFirebaseAuth();
-    await signOut(auth);
-    localStorage.clear();
-    navigate('/login?from=profile', { replace: true });
-  };
+  const { auth, signOut } = await getFirebaseAuth();
+  await signOut(auth);
+  localStorage.clear();
+  sessionStorage.clear(); // also clear session if you use it anywhere
+
+  navigate('/login?from=profile', { replace: true });
+  
+  // Now force reload to clear everything
+  setTimeout(() => {
+    window.location.reload();
+  }, 100); // slight delay to let react-router navigate first
+};
+
 
   useEffect(() => {
     const fetchUserProfile = async () => {
@@ -39,6 +47,7 @@ export default function ProfilePage() {
         const json = JSON.parse(text);
         if (!res.ok) throw new Error(json.error || 'Failed to fetch profile');
         setUser(json);
+        localStorage.setItem('backendUserId', json.id);
 
         await fetchAddresses(json.id);
       } catch (error) {

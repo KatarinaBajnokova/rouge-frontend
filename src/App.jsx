@@ -1,8 +1,10 @@
 import React, { Suspense, lazy } from 'react';
-import { BrowserRouter, Routes, Route } from 'react-router-dom';
+import { BrowserRouter, Routes, Route, Navigate } from 'react-router-dom';
 import LoadingSpinner from '@/react/components/ui/LoadingSpinner';
 import { CheckoutProvider } from '@/react/contexts/CheckoutContext';
 import { AuthProvider, useAuth } from '@/react/hooks/useAuth';
+
+
 
 const InitialPage = lazy(() => import('@/react/pages/InitialPage'));
 const DesignSystem = lazy(() => import('@/react/pages/DesignSystem'));
@@ -33,13 +35,25 @@ import 'slick-carousel/slick/slick.css';
 import 'slick-carousel/slick/slick-theme.css';
 import 'react-responsive-carousel/lib/styles/carousel.min.css';
 
-function ProtectedRoutes({ children }) {
-  return (
-    <AuthProvider>
-      {children}
-    </AuthProvider>
-  );
+function ProtectedRoutes({ children, redirectTo = "/login" }) {
+  const { userId, loading } = useAuth();
+
+  if (loading) {
+    return (
+      <div style={{ textAlign: 'center', marginTop: '50px' }}>
+        <p>Checking authentication…</p>
+      </div>
+    );
+  }
+
+  if (!userId) {
+    console.warn(`User not authenticated, redirecting to ${redirectTo}...`);
+    return <Navigate to={redirectTo} replace />;
+  }
+
+  return children;
 }
+
 
 function AppRoutes() {
   return (
@@ -51,19 +65,22 @@ function AppRoutes() {
         <Route path='/animation' element={<AnimationPage />} />
         <Route path='/homescreen' element={<HomeScreen />} />
         <Route path='/item/:id' element={<ProductDetail />} />
+
+        <Route path='/signup' element={<SignUpPage /> } />
+        <Route path='/login' element={<LoginPage />} />
+        <Route path='/basket' element={<BasketPage />} /> 
+        <Route path='/checkout/personal-info' element={<PersonalInformation />} />
+
         {/* Protected Routes */}
-        <Route path='/basket' element={<ProtectedRoutes><BasketPage /></ProtectedRoutes>} />
+
         <Route path='/checkout/payment-method' element={<ProtectedRoutes><PaymentMethodPage /></ProtectedRoutes>} />
         <Route path='/checkout/friend-info' element={<ProtectedRoutes><BuyingForFriendPage /></ProtectedRoutes>} />
         <Route path='/checkout/address' element={<ProtectedRoutes><AddressPage /></ProtectedRoutes>} />
         <Route path='/checkout/summary' element={<ProtectedRoutes><SummaryPage /></ProtectedRoutes>} />
-        <Route path='/checkout/personal-info' element={<ProtectedRoutes><PersonalInformation /></ProtectedRoutes>} />
-        <Route path='/signup' element={<ProtectedRoutes><SignUpPage /></ProtectedRoutes>} />
-        <Route path='/login' element={<ProtectedRoutes><LoginPage /></ProtectedRoutes>} />
+        
         <Route path='/personal-look' element={<ProtectedRoutes><PersonalLookPage /></ProtectedRoutes>} />
         <Route path='/personal-info' element={<ProtectedRoutes><PersonalInfoPage /></ProtectedRoutes>} />
-        <Route path='/profile' element={<ProtectedRoutes><ProfilePage /></ProtectedRoutes>} />
-
+        <Route path='/profile' element={<ProtectedRoutes redirectTo="/login?from=profile"><ProfilePage /></ProtectedRoutes>} />
             {/* Category listing */}
             <Route path='/all' element={<Categories />} />
 
@@ -90,9 +107,11 @@ function AppRoutes() {
 function App() {
   return (
     <BrowserRouter>
+    <AuthProvider>
       <CheckoutProvider>
         <AppRoutes />
       </CheckoutProvider>
+      </AuthProvider>
     </BrowserRouter>
   );
 }

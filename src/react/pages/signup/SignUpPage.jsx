@@ -246,7 +246,10 @@ try {
         required
       />
 
-      <SignUpButton fullWidth onClick={handleEmailSignUp}></SignUpButton>
+      <SignUpButton fullWidth onClick={handleEmailSignUp}>
+  Sign up
+</SignUpButton>
+
 
       <div className='social-register-section'>
         <Divider
