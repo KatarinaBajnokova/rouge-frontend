@@ -63,18 +63,36 @@ export default function AddressPage() {
     return;
   }
 
-  const address1 = `${street} ${houseNumber}, ${postalCode}, ${country}`;
+  const backendUserId = localStorage.getItem('backendUserId');
+  if (!backendUserId) {
+    showNotification({
+      title: 'Session Expired',
+      message: 'Please log in again.',
+      color: 'red',
+      position: 'top-center',
+    });
+    navigate('/login');
+    return;
+  }
 
   try {
-    await updateUser({
-      address_1: address1,
-      phone,
-      country,
+    await fetch('http://localhost:8000/api/users/addresses/add', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        user_id: backendUserId,
+        address_1: `${street} ${houseNumber}`,
+        postal_code: postalCode,
+        country,
+        phone,
+      }),
     });
+
+    console.log('✅ Address saved successfully');
 
     navigate('/checkout/payment-method');
   } catch (error) {
-    console.error('❌ Failed to update address', error);
+    console.error('❌ Failed to save new address', error);
     showNotification({
       title: 'Error',
       message: 'Could not save address. Try again.',
@@ -83,6 +101,7 @@ export default function AddressPage() {
     });
   }
 };
+
 
 
   return (
