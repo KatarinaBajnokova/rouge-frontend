@@ -17,33 +17,41 @@ export default function ProfilePage() {
   const { userId: firebaseUid, loading: authLoading } = useAuth();
 
   const logout = async () => {
-    const { auth, signOut } = await getFirebaseAuth();
-    await signOut(auth);
-    localStorage.clear();
-    sessionStorage.clear();
+    try {
+      const { auth, signOut } = await getFirebaseAuth();
+      await signOut(auth);
 
-    navigate('/login?from=profile', { replace: true });
+      // Clear all cached state
+      localStorage.removeItem('firebaseUid');
+      localStorage.removeItem('backendUserId');
+      sessionStorage.clear();
+      setUser(null);
 
-    setTimeout(() => {
-      window.location.reload();
-    }, 100);
+      // Avoid history confusion (no back nav to stale profile)
+      navigate('/login?from=profile', { replace: true });
+    } catch (err) {
+      console.error('Logout failed:', err);
+    }
   };
 
   useEffect(() => {
     const fetchUserProfile = async () => {
       if (authLoading) return;
-      if (!firebaseUid) {
+
+      const { auth } = await getFirebaseAuth();
+      const currentUser = auth.currentUser;
+
+      // Double-check Firebase actually has a user session
+      if (!firebaseUid || !currentUser) {
         navigate('/login?from=profile', { replace: true });
         return;
       }
 
-      console.log(`👉 Fetching user from /api/users/by-firebase-uid?uid=${firebaseUid}`);
-
       try {
         const res = await fetch(`http://localhost:3000/api/users/by-firebase-uid?uid=${firebaseUid}`);
-        const text = await res.text();
-        const json = JSON.parse(text);
+        const json = await res.json();
         if (!res.ok) throw new Error(json.error || 'Failed to fetch profile');
+
         setUser(json);
         localStorage.setItem('backendUserId', json.id);
 
@@ -59,9 +67,7 @@ export default function ProfilePage() {
     const fetchAddresses = async (userId) => {
       try {
         const res = await fetch(`http://localhost:3000/api/users/${userId}/addresses`);
-        const text = await res.text();
-        const json = JSON.parse(text);
-        console.log('📦 Fetched addresses:', json);
+        const json = await res.json();
         if (!res.ok) throw new Error(json.error || 'Failed to fetch addresses');
         setAddresses(json);
       } catch (error) {
