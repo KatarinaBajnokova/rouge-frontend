@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { TextInput } from '@mantine/core';
-import countryMap from '@/react/data/countryMap'; // ✨ Correct import
+import countryMap from '@/react/data/countryMap';
 
 export default function AddressSearch({ onSelect, selectedCountry }) {
   const [search, setSearch] = useState('');
@@ -56,7 +56,7 @@ export default function AddressSearch({ onSelect, selectedCountry }) {
     if (value.length >= 3) {
       handleAddressSearch(value);
     } else {
-      onSelect(null); // 🧠 If user deletes input, clear selected address
+      onSelect(null);
     }
   };
 
@@ -66,7 +66,6 @@ export default function AddressSearch({ onSelect, selectedCountry }) {
       placeholder='Type your address...'
       value={search}
       onChange={handleInputChange}
-      // Mantine expects loading={true} or loading={false}, not just loading
       loading={loading ? true : false}
       required
     />

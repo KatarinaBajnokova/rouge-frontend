@@ -1,0 +1,1 @@
+.search-results-grid{display:grid;grid-template-columns:repeat(2,1fr);margin:.5rem;gap:.75rem}.search-results-grid .trendingCard{width:100%;transform:scale(.9);transform-origin:top left}

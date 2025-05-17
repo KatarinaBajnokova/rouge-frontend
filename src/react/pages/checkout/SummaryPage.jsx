@@ -11,9 +11,9 @@ import ConfirmationOverlay from './ConfirmationOverlay';
 import '@/sass/pages/checkout/_order_summary.scss';
 import '@/sass/pages/checkout/_last_popup.scss';
 
-export default function CheckoutOverviewPage() {
+export default function SummaryPage() {
   const navigate = useNavigate();
-  const { userId, user: firebaseUid } = useAuth();
+  const { userId: firebaseUid } = useAuth();
   
   const [showFinalScreen, setShowFinalScreen] = useState(false);
   const [backendUser, setBackendUser] = useState(null);
@@ -184,10 +184,11 @@ export default function CheckoutOverviewPage() {
         <div className='checkout-personal-info'>
           <div className='section'>
             <Title order={4}>Personal information</Title>
-            <Text>
-              {(firstName || backendUser?.firstName) ?? '-'} {(lastName || backendUser?.lastName) ?? '-'}
-            </Text>
-            <Text>{(email || backendUser?.email) ?? '-'}</Text>
+<Text>
+  {(firstName || backendUser?.firstName || '-') + ' ' + (lastName || backendUser?.lastName || '-')}
+</Text>
+<Text>{email || backendUser?.email || '-'}</Text>
+
           </div>
 
           <div className='section'>

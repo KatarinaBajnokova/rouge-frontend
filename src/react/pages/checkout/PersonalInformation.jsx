@@ -14,6 +14,10 @@ import '@/sass/components/buttons/_redbuttons.scss';
 import IconEye from '@tabler/icons-react/dist/esm/icons/iconEye';
 import IconEyeOff from '@tabler/icons-react/dist/esm/icons/iconEyeOff';
 
+// NEW helper utils
+const saveBackendUserId = (id) => localStorage.setItem('backendUserId', id);
+const clearBackendUserId = () => localStorage.removeItem('backendUserId');
+
 const STORAGE_KEY = 'personalInfo';
 
 export default function PersonalInfoCheckout() {
@@ -23,16 +27,9 @@ export default function PersonalInfoCheckout() {
   const [password, setPassword] = useState('');
   const [confirmPassword, setConfirmPassword] = useState('');
   const [passwordVisible, setPasswordVisible] = useState(false);
-  const [companyName, setCompanyName] = useState('');
-  const [vatNumber, setVatNumber] = useState('');
-  const [addGiftWrap, setAddGiftWrap] = useState(false);
-  const [addPersonalCard, setAddPersonalCard] = useState(false);
-  const [friendName, setFriendName] = useState('');
-  const [friendEmail, setFriendEmail] = useState('');
-  const [personalNote, setPersonalNote] = useState('');
 
   const navigate = useNavigate();
-  const { userId, loading: authLoading } = useAuth();
+  const { loading: authLoading } = useAuth();
   const { setPersonalInfo } = useCheckout();
 
   useEffect(() => {
@@ -40,13 +37,6 @@ export default function PersonalInfoCheckout() {
     if (saved.firstName) setFirstName(saved.firstName);
     if (saved.lastName) setLastName(saved.lastName);
     if (saved.email) setEmail(saved.email);
-    if (saved.companyName) setCompanyName(saved.companyName);
-    if (saved.vatNumber) setVatNumber(saved.vatNumber);
-    if (saved.addGiftWrap != null) setAddGiftWrap(saved.addGiftWrap);
-    if (saved.addPersonalCard != null) setAddPersonalCard(saved.addPersonalCard);
-    if (saved.friendName) setFriendName(saved.friendName);
-    if (saved.friendEmail) setFriendEmail(saved.friendEmail);
-    if (saved.personalNote) setPersonalNote(saved.personalNote);
   }, []);
 
   if (authLoading) {
@@ -57,84 +47,78 @@ export default function PersonalInfoCheckout() {
     );
   }
 
-  const persistAndContinue = (info) => {
-    setPersonalInfo(info);
-    localStorage.setItem(STORAGE_KEY, JSON.stringify(info));
-  };
-
-  const handleEmailContinue = async (e) => {
-    e.preventDefault(); // 🔥 prevent navigation on error
-
+  const validateInputs = () => {
     if (!firstName || !lastName || !email || !password || !confirmPassword) {
       showNotification({ title: 'Missing Fields', message: 'Please fill out all fields.', color: 'red', position: 'top-center' });
-      return;
+      return false;
     }
-
     if (!email.includes('@') || !email.includes('.')) {
       showNotification({ title: 'Invalid Email', message: 'Please enter a valid email address.', color: 'red', position: 'top-center' });
-      return;
+      return false;
     }
-
     if (password.length < 6) {
       showNotification({ title: 'Weak Password', message: 'Password must be at least 6 characters.', color: 'red', position: 'top-center' });
-      return;
+      return false;
     }
-
     if (password !== confirmPassword) {
       showNotification({ title: 'Password Mismatch', message: 'Passwords do not match.', color: 'red', position: 'top-center' });
+      return false;
+    }
+    return true;
+  };
+
+  const handleEmailContinue = async () => {
+    if (!validateInputs()) {
       return;
     }
 
     try {
-      const { auth, createUserWithEmailAndPassword } = await getFirebaseAuth();
+      const { auth, createUserWithEmailAndPassword, signOut } = await getFirebaseAuth();
       const result = await createUserWithEmailAndPassword(auth, email, password);
       const user = result.user;
 
+      await auth.currentUser.reload();
+      await auth.currentUser.getIdToken(true);
+
       showNotification({ title: 'Signed up!', message: `Welcome ${user.displayName || firstName}!`, color: 'green', position: 'top-center' });
 
-      try {
-        const backendResponse = await fetch('/api/users', {
-          method: 'POST',
-          headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify({
-            first_name: firstName,
-            last_name: lastName,
-            email: email,
-            password: password,
-            firebase_uid: user.uid,
-          }),
+      const backendResponse = await fetch('/api/users', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          first_name: firstName,
+          last_name: lastName,
+          email: email,
+          password: password,
+          firebase_uid: user.uid,
+        }),
+      });
+
+      const backendData = await backendResponse.json();
+      if (backendResponse.ok && backendData.user_id) {
+        saveBackendUserId(backendData.user_id);
+
+        setPersonalInfo({
+          firstName,
+          lastName,
+          email,
         });
 
-        const backendData = await backendResponse.json();
-
-        if (backendResponse.ok && backendData.user_id) {
-          localStorage.setItem('userId', backendData.user_id);
-          console.log('✅ Backend user created:', backendData.user_id);
-
-          persistAndContinue({
-            firstName,
-            lastName,
-            email,
-            companyName,
-            vatNumber,
-            addGiftWrap,
-            addPersonalCard,
-            friendName,
-            friendEmail,
-            personalNote,
-          });
-
-          navigate('/checkout/friend-info');
-        } else {
-          console.error('❌ Backend signup failed:', backendData.error || 'No ID');
-          showNotification({ title: 'Backend error', message: 'Could not create profile on server.', color: 'red', position: 'top-center' });
-        }
-      } catch (backendErr) {
-        console.error('❌ Backend error during signup', backendErr);
+        navigate('/checkout/friend-info');
+      } else {
+        throw new Error(backendData.error || 'Failed to create user on server.');
       }
-
     } catch (err) {
+      console.error('Signup error:', err.message);
       showNotification({ title: 'Sign-up error', message: err.message, color: 'red', position: 'top-center' });
+
+      try {
+        const { auth, signOut } = await getFirebaseAuth();
+        await signOut(auth);
+        clearBackendUserId();
+      } catch (signOutError) {
+        console.warn('Sign-out after error failed', signOutError);
+      }
     }
   };
 
@@ -143,7 +127,6 @@ export default function PersonalInfoCheckout() {
       const { auth, signInWithPopup, googleProvider, facebookProvider } = await getFirebaseAuth();
       const provider = providerName === 'Google' ? googleProvider : facebookProvider;
       const result = await signInWithPopup(auth, provider);
-
       const user = result.user;
 
       showNotification({
@@ -153,17 +136,10 @@ export default function PersonalInfoCheckout() {
         position: 'top-center',
       });
 
-      persistAndContinue({
+      setPersonalInfo({
         firstName: user.displayName || '',
         lastName: '',
         email: user.email || '',
-        companyName: '',
-        vatNumber: '',
-        addGiftWrap: false,
-        addPersonalCard: false,
-        friendName: '',
-        friendEmail: '',
-        personalNote: '',
       });
 
       navigate('/checkout/friend-info');
@@ -181,8 +157,7 @@ export default function PersonalInfoCheckout() {
         <p>Seems like you don't have an account or aren't logged in!</p>
       </div>
 
-      {/* 🔥 FORM WRAP */}
-      <form onSubmit={handleEmailContinue}>
+      <div className="form-wrapper">
         <TextInput label="First Name" placeholder="Your first name" value={firstName} onChange={(e) => setFirstName(e.currentTarget.value)} className="input-field" required />
         <TextInput label="Last Name" placeholder="Your last name" value={lastName} onChange={(e) => setLastName(e.currentTarget.value)} className="input-field" required />
         <TextInput label="Email" placeholder="Your email..." value={email} onChange={(e) => setEmail(e.currentTarget.value)} className="input-field" required />
@@ -208,18 +183,16 @@ export default function PersonalInfoCheckout() {
           required
         />
 
-        {/* 🔥 Make button type=submit */}
-        <SignUpButton fullWidth type="submit">
+        <SignUpButton fullWidth onClick={handleEmailContinue}>
           Continue
         </SignUpButton>
-      </form>
+      </div>
 
       <div className="social-register-section">
         <Divider className="social-divider" label="Or log in with" labelPosition="center" />
         <div className="social-buttons">
           <ContinueWithFacebookIconButton fullWidth onClick={() => handleSocialSignIn('Facebook', 'Facebook')} />
           <ContinueWithGoogleIconButton fullWidth onClick={() => handleSocialSignIn('Google', 'Google')} />
-
           <div className="login-link">
             <Link to="/login">Already have an account? Log in</Link>
           </div>
