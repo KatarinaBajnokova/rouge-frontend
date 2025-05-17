@@ -5,6 +5,7 @@ import { TextInput } from '@mantine/core';
 import { IconSearch } from '@tabler/icons-react';
 
 import SearchResults from '@/react/components/all/SearchResults';
+import FilterModal from '@/react/components/all/FilterModal';
 import { useCategories } from '@/react/hooks/useCategories';
 import { BasketButton } from '@/react/components/buttons/BasketButton';
 import { FilterIconButton } from '@/react/components/buttons/IconButtons';
@@ -53,7 +54,17 @@ function CategoryGroup({ group, search }) {
 }
 
 export default function CategoriesPage() {
+  const navigate = useNavigate();
   const [search, setSearch] = useState('');
+
+  // re-introduce filters state to supply initialValues.priceRange
+  const [isFilterOpen, setIsFilterOpen] = useState(false);
+  const [filters, setFilters] = useState({
+    selectedOccasions: [],
+    selectedDetailed: [],
+    selectedDifficulties: [],
+    priceRange: [0, 100], // default slider bounds
+  });
 
   const {
     data: groups = [],
@@ -69,6 +80,7 @@ export default function CategoriesPage() {
   if (isError)
     return <div className='categories-page'>Error loading groups</div>;
 
+  // Search Mode
   if (search.trim() !== '') {
     return (
       <div className='categories-page'>
@@ -83,11 +95,31 @@ export default function CategoriesPage() {
             size='md'
           />
           <BasketButton />
+          <FilterIconButton onClick={() => setIsFilterOpen(true)} />
         </div>
 
         <SearchResults query={search.trim()} />
 
         <Navbar />
+
+        <FilterModal
+          opened={isFilterOpen}
+          onClose={() => setIsFilterOpen(false)}
+          initialValues={filters}
+          onApply={newFilters => {
+            setFilters(newFilters);
+            setIsFilterOpen(false);
+
+            const qs = new URLSearchParams({
+              occasions: newFilters.selectedOccasions.join(','),
+              detailed: newFilters.selectedDetailed.join(','),
+              difficulties: newFilters.selectedDifficulties.join(','),
+              minPrice: newFilters.priceRange[0],
+              maxPrice: newFilters.priceRange[1],
+            }).toString();
+            navigate(`/filtered?${qs}`);
+          }}
+        />
       </div>
     );
   }
@@ -105,15 +137,33 @@ export default function CategoriesPage() {
           size='md'
         />
         <BasketButton />
+        <FilterIconButton onClick={() => setIsFilterOpen(true)} />
       </div>
-
-      <FilterIconButton />
 
       {groups.map(group => (
         <CategoryGroup key={group.id} group={group} search={search} />
       ))}
 
       <Navbar />
+
+      <FilterModal
+        opened={isFilterOpen}
+        onClose={() => setIsFilterOpen(false)}
+        initialValues={filters}
+        onApply={newFilters => {
+          setFilters(newFilters);
+          setIsFilterOpen(false);
+
+          const qs = new URLSearchParams({
+            occasions: newFilters.selectedOccasions.join(','),
+            detailed: newFilters.selectedDetailed.join(','),
+            difficulties: newFilters.selectedDifficulties.join(','),
+            minPrice: newFilters.priceRange[0],
+            maxPrice: newFilters.priceRange[1],
+          }).toString();
+          navigate(`/filtered?${qs}`);
+        }}
+      />
     </div>
   );
 }

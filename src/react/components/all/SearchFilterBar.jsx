@@ -13,6 +13,7 @@ export default function SearchFilterBar({
   onSearch,
   placeholder = 'Search…',
   showFilter = true,
+  onFilterClick,
 }) {
   const [suggestions, setSuggestions] = useState([]);
   const [loading, setLoading] = useState(false);
@@ -83,7 +84,9 @@ export default function SearchFilterBar({
 
       <BasketButton />
 
-      {showFilter && <FilterIconButton className='filter-button' />}
+      {showFilter && (
+        <FilterIconButton className='filter-button' onClick={onFilterClick} />
+      )}
     </div>
   );
 }
