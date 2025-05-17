@@ -1,11 +1,10 @@
-// src/react/components/SearchFilterBar.jsx
 import React, { useEffect, useState } from 'react';
 import { Autocomplete } from '@mantine/core';
 import { IconSearch } from '@tabler/icons-react';
 import { BasketButton } from '@/react/components/buttons/BasketButton';
 import { FilterIconButton } from '@/react/components/buttons/IconButtons';
 
-import '@/sass/components/_search_filter_bar.scss';
+import '@/sass/components/all/_search_filter_bar.scss';
 
 export default function SearchFilterBar({
   value,
@@ -36,9 +35,7 @@ export default function SearchFilterBar({
         if (!res.ok) throw new Error(res.statusText);
         return res.json();
       })
-      .then(data => {
-        setSuggestions(data.map(item => item.name));
-      })
+      .then(data => setSuggestions(data.map(item => item.name)))
       .catch(() => setSuggestions([]))
       .finally(() => setLoading(false));
   }, [debounced]);
@@ -50,43 +47,43 @@ export default function SearchFilterBar({
     }
   };
 
-  const handleItemSubmit = item => onSearch(item);
-
   return (
     <div className='search-filter-wrapper'>
-      <form
-        className='search-form'
-        onSubmit={e => {
-          e.preventDefault();
-          onSearch(value);
-        }}
-      >
-        <Autocomplete
-          className='search-bar'
-          placeholder={placeholder}
-          value={value}
-          onChange={onChange}
-          data={suggestions}
-          nothingFound='No matches'
-          loading={loading}
-          radius='md'
-          size='md'
-          filter={() => true}
-          leftSection={<IconSearch size={18} color='#888' />}
-          openOnFocus
-          onKeyDown={handleKeyDown}
-          onItemSubmit={({ value: itemValue }) => handleItemSubmit(itemValue)}
-        />
-        <button type='submit' className='search-button'>
-          <IconSearch size={20} />
-        </button>
-      </form>
+      <div className='search-and-filter'>
+        <form
+          className='search-form'
+          onSubmit={e => {
+            e.preventDefault();
+            onSearch(value);
+          }}
+        >
+          <Autocomplete
+            className='search-bar'
+            placeholder={placeholder}
+            value={value}
+            onChange={onChange}
+            data={suggestions}
+            nothingFound='No matches'
+            loading={loading}
+            radius='md'
+            size='md'
+            filter={() => true}
+            leftSection={<IconSearch size={18} color='#888' />}
+            openOnFocus
+            onKeyDown={handleKeyDown}
+            onItemSubmit={({ value: itemValue }) => onSearch(itemValue)}
+          />
+          <button type='submit' className='search-button'>
+            <IconSearch size={20} />
+          </button>
+        </form>
+
+        {showFilter && (
+          <FilterIconButton className='filter-button' onClick={onFilterClick} />
+        )}
+      </div>
 
       <BasketButton />
-
-      {showFilter && (
-        <FilterIconButton className='filter-button' onClick={onFilterClick} />
-      )}
     </div>
   );
 }

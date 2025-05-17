@@ -1,0 +1,53 @@
+// src/sass/components/all/_all_category_item.scss
+
+@use 'sass:map';
+@use '@/sass/abstract/colors' as *;
+@use '@/sass/abstract/typography' as *;
+@use '@/sass/abstract/mixins' as *;
+
+.all-category-item {
+  /* your off-white card background on the content */
+  > .item-content {
+    background-color: $white-background;
+    border-radius: 12px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    width: 100%;
+    padding: 0.75rem 1rem;
+  }
+
+  img {
+    width: 40px;
+    margin-right: 0.75rem;
+  }
+
+  h2 {
+    // was 'medium' before — bump it to 'bold' or even 'black'
+    @include font('category-title', 'bold');
+    color: $black-main;
+    margin-bottom: 0.75rem;
+  }
+
+  p {
+    @include font('category-title', 'bold');
+    margin: 0;
+    flex: 1;
+  }
+
+  svg {
+    flex-shrink: 0;
+  }
+
+  &:hover > .item-content {
+    background-color: lighten($white-background, 3%);
+  }
+
+  /* The divider sits just below .item-content */
+  .mantine-Divider-root {
+    border-color: $light-grey;
+    margin: 0;
+    /* soft shadow underneath the line */
+    box-shadow: 0 5px 10px rgba(0, 0, 0, 0.2);
+  }
+}

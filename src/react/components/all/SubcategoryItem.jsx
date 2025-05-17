@@ -1,10 +1,8 @@
-// src/react/components/SubcategoryItem.jsx
-
 import React from 'react';
 import { Divider } from '@mantine/core';
 import { IconChevronRight } from '@tabler/icons-react';
 
-import '@/sass/components/_subcategory_item.scss';
+import '@/sass/components/all/_subcategory_item.scss';
 
 export default function SubcategoryItem({ label, onClick, color = '#317AFF' }) {
   return (

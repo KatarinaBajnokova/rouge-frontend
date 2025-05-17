@@ -1,3 +1,4 @@
+// src/react/pages/all/ItemsPage.jsx
 import React, { useState } from 'react';
 import { useNavigate, useLocation } from 'react-router-dom';
 import { TextInput } from '@mantine/core';
@@ -14,7 +15,7 @@ import SearchResults from '@/react/components/all/SearchResults';
 import FilterModal from '@/react/components/all/FilterModal';
 import { useItems } from '@/react/hooks/useItems';
 
-import '@/sass/pages/_items_page.scss';
+import '@/sass/pages/all/_items_page.scss';
 
 export default function ItemsPage() {
   const navigate = useNavigate();
@@ -46,30 +47,46 @@ export default function ItemsPage() {
   if (isLoading) return <div className='items-page'>Loading…</div>;
   if (isError) return <div className='items-page'>Error loading items</div>;
 
+  // Common header
+  const Header = () => (
+    <div className='header-wrapper'>
+      <BackIconButton onClick={() => navigate(-1)} />
+      <div className='titles'>
+        <h2>{flatMode ? categoryName : subcategoryName}</h2>
+      </div>
+      <BasketButton />
+    </div>
+  );
+
+  // Common search + filter
+  const SearchRow = () => (
+    <>
+      <div className='search-wrapper'>
+        <TextInput
+          className='search-bar'
+          placeholder='Search…'
+          value={search}
+          onChange={e => setSearch(e.currentTarget.value)}
+          leftSection={!search && <IconSearch size={18} />}
+          radius='md'
+          size='md'
+        />
+        <BasketButton />
+      </div>
+      <div className='filter-row'>
+        <FilterIconButton
+          className='filter-button'
+          onClick={() => setIsFilterOpen(true)}
+        />
+      </div>
+    </>
+  );
+
   if (search.trim() !== '') {
     return (
       <div className='items-page'>
-        <div className='header-wrapper'>
-          <BackIconButton onClick={() => navigate(-1)} />
-          <div className='titles'>
-            <h2>{flatMode ? categoryName : subcategoryName}</h2>
-          </div>
-          <BasketButton />
-        </div>
-
-        <div className='search-wrapper'>
-          <TextInput
-            className='search-bar'
-            placeholder='Search…'
-            value={search}
-            onChange={e => setSearch(e.currentTarget.value)}
-            leftSection={<IconSearch size={18} />}
-            radius='md'
-            size='md'
-          />
-          <BasketButton />
-          <FilterIconButton onClick={() => setIsFilterOpen(true)} />
-        </div>
+        <Header />
+        <SearchRow />
 
         <SearchResults query={search.trim()} />
 
@@ -86,31 +103,11 @@ export default function ItemsPage() {
     );
   }
 
-  const title = flatMode ? categoryName : subcategoryName;
-
+  // the “flat” / normal listing
   return (
     <div className='items-page'>
-      <div className='header-wrapper'>
-        <BackIconButton onClick={() => navigate(-1)} />
-        <div className='titles'>
-          <h2>{title}</h2>
-        </div>
-        <BasketButton />
-      </div>
-
-      <div className='search-wrapper'>
-        <TextInput
-          className='search-bar'
-          placeholder='Search…'
-          value={search}
-          onChange={e => setSearch(e.currentTarget.value)}
-          leftSection={!search && <IconSearch size={18} />}
-          radius='md'
-          size='md'
-        />
-        <BasketButton />
-        <FilterIconButton onClick={() => setIsFilterOpen(true)} />
-      </div>
+      <Header />
+      <SearchRow />
 
       <FilterModal
         opened={isFilterOpen}
