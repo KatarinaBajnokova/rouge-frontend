@@ -97,16 +97,18 @@ export default function CategoriesPage() {
               radius='md'
               size='md'
             />
-            <BasketButton />
+            {!isFilterOpen && <BasketButton />}
           </div>
-          <FilterIconButton
-            className='filter-button'
-            onClick={() => setIsFilterOpen(true)}
-          />
+          {!isFilterOpen && (
+            <FilterIconButton
+              className='filter-button'
+              onClick={() => setIsFilterOpen(true)}
+            />
+          )}
         </div>
 
         <SearchResults query={search.trim()} />
-        <Navbar />
+        {!isFilterOpen && <Navbar />}
 
         <FilterModal
           opened={isFilterOpen}
@@ -143,19 +145,21 @@ export default function CategoriesPage() {
             radius='md'
             size='md'
           />
-          <BasketButton />
+          {!isFilterOpen && <BasketButton />}
         </div>
-        <FilterIconButton
-          className='filter-button'
-          onClick={() => setIsFilterOpen(true)}
-        />
+        {!isFilterOpen && (
+          <FilterIconButton
+            className='filter-button'
+            onClick={() => setIsFilterOpen(true)}
+          />
+        )}
       </div>
 
       {groups.map(group => (
         <CategoryGroup key={group.id} group={group} search={search} />
       ))}
 
-      <Navbar />
+      {!isFilterOpen && <Navbar />}
 
       <FilterModal
         opened={isFilterOpen}

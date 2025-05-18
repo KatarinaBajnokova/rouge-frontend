@@ -1,0 +1,25 @@
+@use '@/sass/abstract/colors' as *;
+@use '@/sass/abstract/typography' as *;
+@use '@/sass/abstract/mixins' as mixin;
+
+.pill {
+  @include mixin.font('text', 'regular');
+  background: $white-elements;
+  border: 1px solid $light-grey;
+  border-radius: 9999px;
+  padding: 0.25rem 1rem;
+  margin-bottom: 0.5rem;
+  cursor: pointer;
+  transition:
+    background 150ms,
+    color 150ms,
+    border-color 150ms;
+  display: inline-block;
+  color: $black-main;
+
+  &--checked {
+    background: $magenta;
+    border-color: $magenta;
+    color: $white-background;
+  }
+}

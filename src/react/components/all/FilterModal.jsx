@@ -1,16 +1,28 @@
-import React, { useState, useEffect } from 'react';
+import React, { useEffect, useState, useCallback, useMemo } from 'react';
 import {
   Drawer,
-  Chip,
   Group,
   RangeSlider,
-  Button,
   ScrollArea,
   Text,
   Loader,
   Center,
 } from '@mantine/core';
+import PropTypes from 'prop-types';
 import { useFilterOptions } from '@/react/hooks/useFilterOptions';
+import {
+  BackHeader,
+  FilterIconButton,
+} from '@/react/components/buttons/IconButtons';
+import Pill from './Pill';
+import '@/sass/components/all/_filter_modal.scss';
+
+const DIFF_COLORS = {
+  easy: '#00ac70',
+  moderate: '#005bc3',
+  advanced: '#aa1da4',
+  expert: '#ac003e',
+};
 
 export default function FilterModal({
   opened,
@@ -18,40 +30,27 @@ export default function FilterModal({
   onApply,
   initialValues = {},
 }) {
-  const { data: opts, isLoading } = useFilterOptions();
-  const [selOcc, setSelOcc] = useState(initialValues.selectedOccasions || []);
-  const [selDet, setSelDet] = useState(initialValues.selectedDetailed || []);
-  const [selDiff, setSelDiff] = useState(
-    initialValues.selectedDifficulties || []
-  );
-  const [price, setPrice] = useState(initialValues.priceRange || [0, 100]);
+  const { data: opts = {}, isLoading } = useFilterOptions();
+  const {
+    selectedOccasions = [],
+    selectedDetailed = [],
+    selectedDifficulties = [],
+    priceRange = [0, 100],
+  } = initialValues;
+
+  const [selOcc, setSelOcc] = useState(selectedOccasions);
+  const [selDet, setSelDet] = useState(selectedDetailed);
+  const [selDiff, setSelDiff] = useState(selectedDifficulties);
+  const [price, setPrice] = useState(priceRange);
 
   useEffect(() => {
-    setSelOcc(initialValues.selectedOccasions || []);
-    setSelDet(initialValues.selectedDetailed || []);
-    setSelDiff(initialValues.selectedDifficulties || []);
-    if (initialValues.priceRange) {
-      setPrice(initialValues.priceRange);
-    }
-  }, [initialValues]);
+    setSelOcc(selectedOccasions);
+    setSelDet(selectedDetailed);
+    setSelDiff(selectedDifficulties);
+    setPrice(priceRange);
+  }, [selectedOccasions, selectedDetailed, selectedDifficulties, priceRange]);
 
-  if (isLoading) {
-    return (
-      <Drawer
-        opened={opened}
-        onClose={onClose}
-        title='Filter'
-        size='sm'
-        padding='md'
-      >
-        <Center style={{ height: 200 }}>
-          <Loader />
-        </Center>
-      </Drawer>
-    );
-  }
-
-  const apply = () => {
+  const handleApply = useCallback(() => {
     onApply({
       selectedOccasions: selOcc,
       selectedDetailed: selDet,
@@ -59,93 +58,138 @@ export default function FilterModal({
       priceRange: price,
     });
     onClose();
-  };
+  }, [onApply, onClose, selOcc, selDet, selDiff, price]);
+
+  const toggleItem = (item, list, setList) =>
+    setList(prev =>
+      prev.includes(item) ? prev.filter(x => x !== item) : [...prev, item]
+    );
+
+  const renderPills = (items, selected, setSelected) =>
+    items?.map(item => {
+      const checked = selected.includes(item);
+      return (
+        <Pill
+          key={item}
+          checked={checked}
+          onClick={() => toggleItem(item, selected, setSelected)}
+        >
+          {item}
+        </Pill>
+      );
+    });
+
+  const difficultyPills = useMemo(
+    () =>
+      opts.difficulties?.map(d => {
+        const key = d.toLowerCase();
+        const checked = selDiff.includes(d);
+        const color = DIFF_COLORS[key] ?? DIFF_COLORS.advanced;
+        const style = checked
+          ? { background: color, borderColor: color, color: '#fff' }
+          : {};
+        return (
+          <Pill
+            key={d}
+            checked={checked}
+            onClick={() => toggleItem(d, selDiff, setSelDiff)}
+            style={style}
+          >
+            {d}
+          </Pill>
+        );
+      }),
+    [opts.difficulties, selDiff]
+  );
 
   return (
     <Drawer
+      className='filter-drawer'
       opened={opened}
       onClose={onClose}
-      title={<Text weight={600}>Filter</Text>}
+      title={null}
       size='sm'
       padding='md'
     >
-      <ScrollArea style={{ height: '80vh' }}>
-        {/* Occasions */}
-        <Text weight={500}>Select occasion</Text>
-        <Group spacing='xs' mb='md'>
-          {opts.occasions.map(o => (
-            <Chip
-              key={o}
-              checked={selOcc.includes(o)}
-              onChange={() =>
-                setSelOcc(prev =>
-                  prev.includes(o) ? prev.filter(x => x !== o) : [...prev, o]
-                )
-              }
+      <BackHeader
+        text='Filter'
+        onBack={onClose}
+        backButtonStyle={{ marginRight: '1rem' }}
+      />
+
+      {isLoading ? (
+        <Center style={{ height: '80vh' }}>
+          <Loader />
+        </Center>
+      ) : (
+        <div className='filter-body'>
+          <ScrollArea className='filter-scroll'>
+            <Text className='filter-section-title'>Select occasion</Text>
+            <Group spacing='xs' mb='md'>
+              {renderPills(opts.occasions, selOcc, setSelOcc)}
+            </Group>
+
+            <Text className='filter-section-title'>Select more detailed</Text>
+            <Group spacing='xs' mb='md'>
+              {renderPills(opts.detailedOccasions, selDet, setSelDet)}
+            </Group>
+
+            <Text className='filter-section-title'>Select difficulty</Text>
+            <Group spacing='xs' mb='md'>
+              {difficultyPills}
+            </Group>
+
+            <Text className='filter-section-title'>
+              Select your price range
+            </Text>
+            <RangeSlider
+              className='filter-slider'
+              value={price}
+              onChange={setPrice}
+              min={priceRange[0]}
+              max={priceRange[1]}
+              step={0.01}
+              marks={[
+                { value: priceRange[0], label: `€${priceRange[0]}` },
+                { value: priceRange[1], label: `€${priceRange[1]}` },
+              ]}
+              mb='md'
+              styles={{
+                track: { backgroundColor: 'rgba(170,29,164,0.2)' },
+                bar: { backgroundColor: '#aa1da4' },
+                thumb: {
+                  backgroundColor: '#aa1da4',
+                  border: '2px solid #fbfbfb',
+                  width: 16,
+                  height: 16,
+                },
+              }}
+            />
+          </ScrollArea>
+
+          <div className='filter-footer'>
+            <FilterIconButton
+              fullWidth
+              onClick={handleApply}
+              classNames={{ root: 'filter-apply-btn' }}
             >
-              {o}
-            </Chip>
-          ))}
-        </Group>
-
-        <Text weight={500}>Select more detailed</Text>
-        <Group spacing='xs' mb='md'>
-          {opts.detailedOccasions.map(d => (
-            <Chip
-              key={d}
-              checked={selDet.includes(d)}
-              onChange={() =>
-                setSelDet(prev =>
-                  prev.includes(d) ? prev.filter(x => x !== d) : [...prev, d]
-                )
-              }
-            >
-              {d}
-            </Chip>
-          ))}
-        </Group>
-
-        <Text weight={500}>Select difficulty</Text>
-        <Group spacing='xs' mb='md'>
-          {opts.difficulties.map(d => (
-            <Chip
-              key={d}
-              checked={selDiff.includes(d)}
-              onChange={() =>
-                setSelDiff(prev =>
-                  prev.includes(d) ? prev.filter(x => x !== d) : [...prev, d]
-                )
-              }
-            >
-              {d}
-            </Chip>
-          ))}
-        </Group>
-
-        <Text weight={500}>Select your price range</Text>
-        <RangeSlider
-          value={price}
-          onChange={setPrice}
-          min={initialValues.priceRange?.[0] ?? 0}
-          max={initialValues.priceRange?.[1] ?? 100}
-          step={0.01}
-          marks={[
-            {
-              value: initialValues.priceRange?.[0] ?? 0,
-              label: `€${initialValues.priceRange?.[0] ?? 0}`,
-            },
-            {
-              value: initialValues.priceRange?.[1] ?? 100,
-              label: `€${initialValues.priceRange?.[1] ?? 100}`,
-            },
-          ]}
-          mb='md'
-        />
-
-        <Button fullWidth onClick={apply}>
-          Filter
-        </Button>
-      </ScrollArea>
+              Filter
+            </FilterIconButton>
+          </div>
+        </div>
+      )}
     </Drawer>
   );
 }
+
+FilterModal.propTypes = {
+  opened: PropTypes.bool.isRequired,
+  onClose: PropTypes.func.isRequired,
+  onApply: PropTypes.func.isRequired,
+  initialValues: PropTypes.shape({
+    selectedOccasions: PropTypes.arrayOf(PropTypes.string),
+    selectedDetailed: PropTypes.arrayOf(PropTypes.string),
+    selectedDifficulties: PropTypes.arrayOf(PropTypes.string),
+    priceRange: PropTypes.arrayOf(PropTypes.number),
+  }),
+};
