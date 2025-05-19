@@ -25,7 +25,7 @@ import {
   ContinueWithAppleIconButton,
 } from '../components/buttons/IconButtons';
 import { BasketButton } from '../components/buttons/BasketButton';
-import AllCategoryItem from '../components/AllCategoryItem';
+import AllCategoryItem from '../components/all/AllCategoryItem';
 
 import iconEveryday from '@/assets/icons/all_categories/IMG_Everyday.svg';
 

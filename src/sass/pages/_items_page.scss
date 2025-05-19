@@ -1,0 +1,60 @@
+.items-page {
+  padding: 1rem;
+
+  .header-wrapper {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 1rem;
+
+    .titles {
+      flex: 1;
+      text-align: center;
+
+      h2 {
+        margin: 0;
+        font-size: 1.5rem;
+      }
+      .subtitle {
+        font-size: 1rem;
+        color: #666;
+      }
+    }
+  }
+
+  .search-filter-wrapper {
+    display: flex;
+    gap: 0.5rem;
+    margin-bottom: 1rem;
+
+    .search-bar {
+      flex: 1;
+    }
+    .filter-button {
+      flex-shrink: 0;
+    }
+  }
+
+  .items-section {
+    margin-bottom: 1.5rem;
+
+    .section-title {
+      font-size: 1.25rem;
+      font-weight: bold;
+      margin-bottom: 0.5rem;
+    }
+
+    .section-list {
+      display: flex;
+      gap: 0.75rem;
+      overflow-x: auto;
+      padding-bottom: 0.5rem;
+    }
+  }
+
+  .no-items {
+    text-align: center;
+    color: #999;
+    margin-top: 2rem;
+  }
+}

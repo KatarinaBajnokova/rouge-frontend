@@ -78,6 +78,7 @@ const SignUpPage = () => {
 
       const user = result.user;
       console.log('✅ Firebase sign-up success:', user);
+      localStorage.setItem('firebaseUid', user.uid);
 
       const backendResponse = await fetch('http://localhost:3000/api/users', {
         method: 'POST',
@@ -91,7 +92,14 @@ const SignUpPage = () => {
         }),
       });
 
-      const backendData = await backendResponse.json();
+      let backendData;
+try {
+  backendData = await backendResponse.json();
+} catch (parseError) {
+  console.error('❌ Failed to parse backend response as JSON');
+  throw new Error('Invalid backend response');
+}
+
 
       if (!backendResponse.ok) {
         throw new Error(
@@ -238,7 +246,10 @@ const SignUpPage = () => {
         required
       />
 
-      <SignUpButton fullWidth onClick={handleEmailSignUp}></SignUpButton>
+      <SignUpButton fullWidth onClick={handleEmailSignUp}>
+  Sign up
+</SignUpButton>
+
 
       <div className='social-register-section'>
         <Divider
