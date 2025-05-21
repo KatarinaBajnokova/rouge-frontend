@@ -19,6 +19,11 @@
     padding: 0.75rem 1rem;
   }
 
+    svg {
+      flex-shrink: 0;
+      color: $light-grey;
+    }
+
   img {
     width: 40px;
     margin-right: 0.75rem;
@@ -46,12 +51,9 @@
   margin-bottom: 10px;
   height: 1px;
   min-height: 1px;
-  background-color: $light-grey;
+  background-color: #bababa;
   width: 100%;
   border: none;
   display: block;
 }
-
-
-
 }

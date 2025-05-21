@@ -10,13 +10,8 @@
   flex-direction: column;
 
   .header-wrapper {
-    position: sticky;
-    top: 0;
-    z-index: 10;
-    background-color: $white-background;
-    display: flex;
-    flex-direction: column;
     padding: 1rem;
+    padding-bottom: 0;
 
     .header-controls {
       display: flex;
@@ -39,7 +34,7 @@
   .category-list {
     display: flex;
     flex-direction: column;
-    gap: 1rem;
     padding: 1rem;
+    padding-top: 0;
   }
 }
