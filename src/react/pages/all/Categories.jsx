@@ -1,5 +1,3 @@
-// src/react/pages/all/Categories.jsx
-
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useQuery } from '@tanstack/react-query';
@@ -59,7 +57,6 @@ export default function CategoriesPage() {
   const navigate = useNavigate();
   const [search, setSearch] = useState('');
 
-  // filter drawer state
   const [isFilterOpen, setIsFilterOpen] = useState(false);
   const [filters, setFilters] = useState({
     selectedOccasions: [],
@@ -78,9 +75,21 @@ export default function CategoriesPage() {
     staleTime: 300_000,
   });
 
+  const renderSearchBar = () => (
+    <div className="custom-search-bar">
+      <IconSearch size={18} className="search-icon" />
+      <TextInput
+        value={search}
+        onChange={e => setSearch(e.currentTarget.value)}
+        placeholder="Search…"
+        variant="unstyled"
+        className="bare-input"
+      />
+    </div>
+  );
+
   if (isLoading) return <div className='categories-page'>Loading…</div>;
-  if (isError)
-    return <div className='categories-page'>Error loading groups</div>;
+  if (isError) return <div className='categories-page'>Error loading groups</div>;
 
   // ─── Search Mode ────────────────────────────────────────────────
   if (search.trim() !== '') {
@@ -88,15 +97,7 @@ export default function CategoriesPage() {
       <div className='categories-page'>
         <div className='search-wrapper'>
           <div className='search-row'>
-            <TextInput
-              className='search-bar'
-              placeholder='Search…'
-              value={search}
-              onChange={e => setSearch(e.currentTarget.value)}
-              leftSection={<IconSearch size={18} />}
-              radius='md'
-              size='md'
-            />
+            {renderSearchBar()}
             {!isFilterOpen && <BasketButton />}
           </div>
           {!isFilterOpen && (
@@ -136,15 +137,7 @@ export default function CategoriesPage() {
     <div className='categories-page'>
       <div className='search-wrapper'>
         <div className='search-row'>
-          <TextInput
-            className='search-bar'
-            placeholder='Search…'
-            value={search}
-            onChange={e => setSearch(e.currentTarget.value)}
-            leftSection={!search && <IconSearch size={18} />}
-            radius='md'
-            size='md'
-          />
+          {renderSearchBar()}
           {!isFilterOpen && <BasketButton />}
         </div>
         {!isFilterOpen && (

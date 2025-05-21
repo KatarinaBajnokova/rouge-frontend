@@ -1,12 +1,10 @@
-import React from 'react';
 import { IconChevronRight } from '@tabler/icons-react';
 import { Divider } from '@mantine/core';
 import '@/sass/components/all/_all_category_item.scss';
 
-export default function AllCategoryItem({ iconUrl, label, onClick }) {
+export default function AllCategoryItem({ iconUrl, label, onClick, isLastItem = false }) {
   const handleImgError = e => {
     e.currentTarget.onerror = null;
-    e.currentTarget.src = defaultIcon;
   };
 
   return (
@@ -19,9 +17,11 @@ export default function AllCategoryItem({ iconUrl, label, onClick }) {
           loading='lazy'
         />
         <p>{label}</p>
-        <IconChevronRight size={24} stroke={2} />
+        <IconChevronRight size={30} stroke={2} />
       </div>
-      <Divider />
+    
+<Divider className="category-divider" />
+
     </div>
   );
 }

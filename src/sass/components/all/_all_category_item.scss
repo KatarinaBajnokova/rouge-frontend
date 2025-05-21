@@ -1,14 +1,16 @@
-// src/sass/components/all/_all_category_item.scss
-
 @use 'sass:map';
+@use 'sass:color';
 @use '@/sass/abstract/colors' as *;
 @use '@/sass/abstract/typography' as *;
 @use '@/sass/abstract/mixins' as *;
 
 .all-category-item {
-  /* your off-white card background on the content */
-  > .item-content {
-    background-color: $white-background;
+  background-color: transparent;
+  display: flex;
+  flex-direction: column;
+
+   .item-content {
+    background-color: transparent;
     border-radius: 12px;
     display: flex;
     align-items: center;
@@ -35,19 +37,21 @@
     flex: 1;
   }
 
-  svg {
-    flex-shrink: 0;
-  }
-
   &:hover > .item-content {
-    background-color: lighten($white-background, 3%);
+  background-color: color.adjust($white-background, $lightness: 3%);
   }
 
-  /* The divider sits just below .item-content */
-  .mantine-Divider-root {
-    border-color: $light-grey;
-    margin: 0;
-    /* soft shadow underneath the line */
-    box-shadow: 0 5px 10px rgba(0, 0, 0, 0.2);
-  }
+.mantine-Divider-root,
+.category-divider {
+  margin-bottom: 10px;
+  height: 1px;
+  min-height: 1px;
+  background-color: $light-grey;
+  width: 100%;
+  border: none;
+  display: block;
+}
+
+
+
 }
