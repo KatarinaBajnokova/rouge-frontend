@@ -9,6 +9,9 @@ const DesignSystem = lazy(() => import('@/react/pages/DesignSystem'));
 const AnimationPage = lazy(() => import('@/react/pages/AnimationPage'));
 const HomeScreen = lazy(() => import('@/react/pages/HomeScreen'));
 const ProductDetail = lazy(() => import('@/react/pages/ProductDetail'));
+const ReviewsPage = lazy(
+  () => import('@/react/pages/product_detail/ReviewsPage')
+);
 const BasketPage = lazy(() => import('@/react/pages/BasketPage'));
 
 const SignUpPage = lazy(() => import('@/react/pages/signup/SignUpPage'));
@@ -65,6 +68,7 @@ function AppRoutes() {
         <Route path='/animation' element={<AnimationPage />} />
         <Route path='/homescreen' element={<HomeScreen />} />
         <Route path='/item/:id' element={<ProductDetail />} />
+        <Route path='/item/:id/reviews' element={<ReviewsPage />} />
 
         <Route path='/signup' element={<SignUpPage />} />
         <Route path='/login' element={<LoginPage />} />
