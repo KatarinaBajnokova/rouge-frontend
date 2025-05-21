@@ -5,13 +5,12 @@ import {
   useLocation,
   Navigate,
 } from 'react-router-dom';
-
 import { useSubcategories } from '@/react/hooks/useSubcategories';
 import { BasketButton } from '@/react/components/buttons/BasketButton';
 import { BackIconButton } from '@/react/components/buttons/IconButtons';
 import SubcategoryItem from '@/react/components/all/SubcategoryItem';
 
-import '@/sass/pages/_subcategories.scss';
+import '@/sass/pages/all/_subcategories.scss';
 
 export default function SubcategoriesPage() {
   const nav = useNavigate();
@@ -37,6 +36,7 @@ export default function SubcategoriesPage() {
       <div className='subcategories-page'>Error loading subcategories</div>
     );
 
+  // if no subs, go straight to items
   if (subs.length === 0) {
     return (
       <Navigate
@@ -50,17 +50,22 @@ export default function SubcategoriesPage() {
   return (
     <div className='subcategories-page'>
       <div className='header-wrapper'>
-        <BackIconButton onClick={() => nav(-1)} />
+        {/* row 1: back + basket */}
+        <div className='header-controls'>
+          <BackIconButton onClick={() => nav(-1)} />
+          <BasketButton />
+        </div>
+        {/* row 2: title */}
         <h2>{categoryName}</h2>
-        <BasketButton />
       </div>
+
       <div className='category-list'>
         {subs.map(sub => (
           <SubcategoryItem
             key={sub.id}
             label={sub.name}
             color={circleColor}
-            onClick={() => {
+            onClick={() =>
               nav(`/categories/${categoryId}/subcategories/${sub.id}/items`, {
                 state: {
                   categoryId,
@@ -68,8 +73,8 @@ export default function SubcategoriesPage() {
                   subcategoryId: sub.id,
                   subcategoryName: sub.name,
                 },
-              });
-            }}
+              })
+            }
           />
         ))}
       </div>

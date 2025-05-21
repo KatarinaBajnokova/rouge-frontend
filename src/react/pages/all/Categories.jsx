@@ -1,3 +1,5 @@
+// src/react/pages/all/Categories.jsx
+
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useQuery } from '@tanstack/react-query';
@@ -5,13 +7,14 @@ import { TextInput } from '@mantine/core';
 import { IconSearch } from '@tabler/icons-react';
 
 import SearchResults from '@/react/components/all/SearchResults';
+import FilterModal from '@/react/components/all/FilterModal';
 import { useCategories } from '@/react/hooks/useCategories';
 import { BasketButton } from '@/react/components/buttons/BasketButton';
 import { FilterIconButton } from '@/react/components/buttons/IconButtons';
 import Navbar from '@/react/components/navbar/Navbar';
 import AllCategoryItem from '@/react/components/all/AllCategoryItem';
 
-import '@/sass/pages/_all_page.scss';
+import '@/sass/pages/all/_categories.scss';
 
 async function fetchGroups() {
   const res = await fetch('/api/category-groups');
@@ -53,7 +56,17 @@ function CategoryGroup({ group, search }) {
 }
 
 export default function CategoriesPage() {
+  const navigate = useNavigate();
   const [search, setSearch] = useState('');
+
+  // filter drawer state
+  const [isFilterOpen, setIsFilterOpen] = useState(false);
+  const [filters, setFilters] = useState({
+    selectedOccasions: [],
+    selectedDetailed: [],
+    selectedDifficulties: [],
+    priceRange: [0, 100],
+  });
 
   const {
     data: groups = [],
@@ -69,51 +82,102 @@ export default function CategoriesPage() {
   if (isError)
     return <div className='categories-page'>Error loading groups</div>;
 
+  // ─── Search Mode ────────────────────────────────────────────────
   if (search.trim() !== '') {
     return (
       <div className='categories-page'>
         <div className='search-wrapper'>
+          <div className='search-row'>
+            <TextInput
+              className='search-bar'
+              placeholder='Search…'
+              value={search}
+              onChange={e => setSearch(e.currentTarget.value)}
+              leftSection={<IconSearch size={18} />}
+              radius='md'
+              size='md'
+            />
+            {!isFilterOpen && <BasketButton />}
+          </div>
+          {!isFilterOpen && (
+            <FilterIconButton
+              className='filter-button'
+              onClick={() => setIsFilterOpen(true)}
+            />
+          )}
+        </div>
+
+        <SearchResults query={search.trim()} />
+        {!isFilterOpen && <Navbar />}
+
+        <FilterModal
+          opened={isFilterOpen}
+          onClose={() => setIsFilterOpen(false)}
+          initialValues={filters}
+          onApply={newFilters => {
+            setFilters(newFilters);
+            setIsFilterOpen(false);
+            const qs = new URLSearchParams({
+              occasions: newFilters.selectedOccasions.join(','),
+              detailed: newFilters.selectedDetailed.join(','),
+              difficulties: newFilters.selectedDifficulties.join(','),
+              minPrice: newFilters.priceRange[0],
+              maxPrice: newFilters.priceRange[1],
+            }).toString();
+            navigate(`/filtered?${qs}`);
+          }}
+        />
+      </div>
+    );
+  }
+
+  // ─── Default Grid View ──────────────────────────────────────────
+  return (
+    <div className='categories-page'>
+      <div className='search-wrapper'>
+        <div className='search-row'>
           <TextInput
             className='search-bar'
             placeholder='Search…'
             value={search}
             onChange={e => setSearch(e.currentTarget.value)}
-            leftSection={<IconSearch size={18} />}
+            leftSection={!search && <IconSearch size={18} />}
             radius='md'
             size='md'
           />
-          <BasketButton />
+          {!isFilterOpen && <BasketButton />}
         </div>
-
-        <SearchResults query={search.trim()} />
-
-        <Navbar />
+        {!isFilterOpen && (
+          <FilterIconButton
+            className='filter-button'
+            onClick={() => setIsFilterOpen(true)}
+          />
+        )}
       </div>
-    );
-  }
-
-  return (
-    <div className='categories-page'>
-      <div className='search-wrapper'>
-        <TextInput
-          className='search-bar'
-          placeholder='Search…'
-          value={search}
-          onChange={e => setSearch(e.currentTarget.value)}
-          leftSection={!search && <IconSearch size={18} />}
-          radius='md'
-          size='md'
-        />
-        <BasketButton />
-      </div>
-
-      <FilterIconButton />
 
       {groups.map(group => (
         <CategoryGroup key={group.id} group={group} search={search} />
       ))}
 
-      <Navbar />
+      {!isFilterOpen && <Navbar />}
+
+      <FilterModal
+        opened={isFilterOpen}
+        onClose={() => setIsFilterOpen(false)}
+        initialValues={filters}
+        onApply={newFilters => {
+          setFilters(newFilters);
+          setIsFilterOpen(false);
+          const qs = new URLSearchParams({
+            occasions: newFilters.selectedOccasions.join(','),
+            detailed: newFilters.selectedDetailed.join(','),
+            difficulties: newFilters.selectedDifficulties.join(','),
+            minPrice: newFilters.priceRange[0],
+            maxPrice: newFilters.priceRange[1],
+          }).toString();
+          navigate(`/filtered?${qs}`);
+        }}
+      />
     </div>
   );
 }

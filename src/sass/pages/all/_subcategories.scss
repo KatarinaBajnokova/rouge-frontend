@@ -1,0 +1,45 @@
+@use 'sass:map';
+@use '@/sass/abstract/colors' as *;
+@use '@/sass/abstract/typography' as *;
+@use '@/sass/abstract/mixins' as mixin;
+
+.subcategories-page {
+  background-color: $white-background;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+
+  .header-wrapper {
+    position: sticky;
+    top: 0;
+    z-index: 10;
+    background-color: $white-background;
+    display: flex;
+    flex-direction: column;
+    padding: 1rem;
+
+    .header-controls {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 0.75rem;
+
+      .basket-button {
+        flex-shrink: 0;
+      }
+    }
+
+    h2 {
+      @include mixin.font('section-title', 'bold');
+      color: $black-main;
+      margin: 0;
+    }
+  }
+
+  .category-list {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+    padding: 1rem;
+  }
+}

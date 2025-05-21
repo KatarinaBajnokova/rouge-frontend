@@ -35,7 +35,7 @@ export function AddToBasketIconButton({ onClick, ...props }) {
   );
 }
 
-export function SeeReviewsIconButton(props) {
+export function SeeReviewsIconButton({ onClick, ...props }) {
   return (
     <Button
       classNames={{ root: 'see-reviews-icon-button' }}
@@ -48,6 +48,7 @@ export function SeeReviewsIconButton(props) {
           height={16}
         />
       }
+      onClick={onClick}
       {...props}
     >
       See reviews
@@ -55,7 +56,7 @@ export function SeeReviewsIconButton(props) {
   );
 }
 
-export function FilterIconButton(props) {
+export function FilterIconButton({ onClick, ...props }) {
   return (
     <Button
       classNames={{ root: 'filter-icon-button' }}
@@ -68,6 +69,7 @@ export function FilterIconButton(props) {
           height={25}
         />
       }
+      onClick={onClick}
       {...props}
     >
       Filter
@@ -75,7 +77,7 @@ export function FilterIconButton(props) {
   );
 }
 
-export function LeaveAReviewIconButton(props) {
+export function LeaveAReviewIconButton({ onClick, ...props }) {
   return (
     <Button
       classNames={{ root: 'leave-a-review-icon-button' }}
@@ -88,6 +90,7 @@ export function LeaveAReviewIconButton(props) {
           height={16}
         />
       }
+      onClick={onClick}
       {...props}
     >
       Leave a review
@@ -95,7 +98,7 @@ export function LeaveAReviewIconButton(props) {
   );
 }
 
-export function RepurchaseIconButton(props) {
+export function RepurchaseIconButton({ onClick, ...props }) {
   return (
     <Button
       classNames={{ root: 'repurchase-icon-button' }}
@@ -108,6 +111,7 @@ export function RepurchaseIconButton(props) {
           height={16}
         />
       }
+      onClick={onClick}
       {...props}
     >
       Repurchase
@@ -115,7 +119,7 @@ export function RepurchaseIconButton(props) {
   );
 }
 
-export function ContinueWithFacebookIconButton(props) {
+export function ContinueWithFacebookIconButton({ onClick, ...props }) {
   return (
     <Button
       classNames={{ root: 'continue-with-facebook-icon-button' }}
@@ -128,6 +132,7 @@ export function ContinueWithFacebookIconButton(props) {
           height={16}
         />
       }
+      onClick={onClick}
       {...props}
     >
       Continue with Facebook
@@ -135,7 +140,7 @@ export function ContinueWithFacebookIconButton(props) {
   );
 }
 
-export function ContinueWithGoogleIconButton(props) {
+export function ContinueWithGoogleIconButton({ onClick, ...props }) {
   return (
     <Button
       classNames={{ root: 'continue-with-google-icon-button' }}
@@ -148,6 +153,7 @@ export function ContinueWithGoogleIconButton(props) {
           height={16}
         />
       }
+      onClick={onClick}
       {...props}
     >
       Continue with Google
@@ -155,7 +161,7 @@ export function ContinueWithGoogleIconButton(props) {
   );
 }
 
-export function ContinueWithAppleIconButton(props) {
+export function ContinueWithAppleIconButton({ onClick, ...props }) {
   return (
     <Button
       classNames={{ root: 'continue-with-apple-icon-button' }}
@@ -168,6 +174,7 @@ export function ContinueWithAppleIconButton(props) {
           height={16}
         />
       }
+      onClick={onClick}
       {...props}
     >
       Continue with Apple
@@ -175,9 +182,13 @@ export function ContinueWithAppleIconButton(props) {
   );
 }
 
-export function SeeMoreButton(props) {
+export function SeeMoreButton({ onClick, ...props }) {
   return (
-    <Button classNames={{ root: 'see-more-button' }} {...props}>
+    <Button
+      classNames={{ root: 'see-more-button' }}
+      onClick={onClick}
+      {...props}
+    >
       See more &gt;
     </Button>
   );

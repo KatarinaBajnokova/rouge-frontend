@@ -1,0 +1,50 @@
+@use 'sass:map';
+@use '@/sass/abstract/colors' as *;
+@use '@/sass/abstract/typography' as t;
+@use '@/sass/abstract/mixins' as mixin;
+
+.subcategory-item {
+  display: flex;
+  flex-direction: column;
+  background-color: $white-background;
+  border-radius: 8px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+  overflow: hidden;
+  cursor: pointer;
+  transition: box-shadow 0.2s ease;
+
+  &:hover {
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  }
+
+  .item-content {
+    display: flex;
+    align-items: center;
+    padding: 0.75rem 1rem;
+
+    .circle-indicator {
+      width: 30px;
+      height: 30px;
+      border-radius: 50%;
+      flex-shrink: 0;
+    }
+
+    p {
+      @include mixin.font('category-title', 'medium');
+      color: $black-main;
+      margin: 0 1rem;
+      flex: 1;
+    }
+
+    svg {
+      flex-shrink: 0;
+      color: $light-grey;
+    }
+  }
+
+  .mantine-Divider-root {
+    margin: 0;
+    border-color: $light-grey;
+    height: 1px;
+  }
+}
