@@ -1,29 +1,44 @@
-import React from 'react';
-import { Button, Group } from '@mantine/core';
+import React, { useCallback } from 'react';
+import { Button, Group, Title } from '@mantine/core';
 import { useNavigate } from 'react-router-dom';
 import '@/sass/pages/_initial_page.scss';
 
-const InitialPage = () => {
+export default function InitialPage() {
   const navigate = useNavigate();
 
+  const handleGoToDesign = useCallback(() => {
+    navigate('/design-system');
+  }, [navigate]);
+
+  const handleGoToPrototype = useCallback(() => {
+    navigate('/animation');
+  }, [navigate]);
+
   return (
-    <main className='initial-page'>
-      <h1>Rouge</h1>
-      <Group position='center' spacing='xl' className='button-group'>
+    <main className='initial-page' role='main'>
+      <Title order={1}>Rouge</Title>
+
+      <Group
+        className='button-group'
+        position='center'
+        spacing='xl'
+        aria-label='Choose navigation'
+      >
         <Button
           type='button'
           variant='filled'
           className='design-system-btn'
-          onClick={() => navigate('/design-system')}
+          onClick={handleGoToDesign}
           aria-label='Go to design system page'
         >
           Design System
         </Button>
+
         <Button
           type='button'
           variant='filled'
           className='prototype-btn'
-          onClick={() => navigate('/animation')}
+          onClick={handleGoToPrototype}
           aria-label='Go to prototype animation page'
         >
           Prototype
@@ -31,6 +46,4 @@ const InitialPage = () => {
       </Group>
     </main>
   );
-};
-
-export default InitialPage;
+}
