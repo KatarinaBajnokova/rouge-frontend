@@ -1,10 +1,10 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
+import { useAuth } from '../../hooks/useAuth';
 import {
   Modal,
   Group,
   Button,
-  TextInput,
   Textarea,
   Rating,
   Stack,
@@ -17,16 +17,39 @@ export default function ReviewModal({
   itemId,
   onReviewSubmitted,
 }) {
-  const [author, setAuthor] = useState('');
+  const { userId: firebaseUid } = useAuth();
+  const [userName, setUserName] = useState('');
+  const [backendUserId, setBackendUserId] = useState(null);
   const [rating, setRating] = useState(0);
   const [comment, setComment] = useState('');
   const [submitting, setSubmitting] = useState(false);
 
+  useEffect(() => {
+    const fetchNameAndId = async () => {
+      if (!firebaseUid) return;
+
+      try {
+        const res = await fetch(`/api/users/by-firebase-uid?uid=${firebaseUid}`);
+        const data = await res.json();
+        if (res.ok) {
+          setUserName(`${data.first_name} ${data.last_name}`);
+          setBackendUserId(data.id);
+        } else {
+          throw new Error('Failed to fetch user');
+        }
+      } catch (err) {
+        console.error('⚠️ Failed to fetch user info:', err.message);
+      }
+    };
+
+    fetchNameAndId();
+  }, [firebaseUid]);
+
   const handleSubmit = async () => {
-    if (!author.trim() || rating < 1 || !comment.trim()) {
+    if (!userName || rating < 1 || !comment.trim()) {
       notifications.show({
         title: 'Missing fields',
-        message: 'Please enter your name, a rating, and a comment.',
+        message: 'Please enter a rating and a comment.',
         color: 'red',
       });
       return;
@@ -37,19 +60,34 @@ export default function ReviewModal({
       const res = await fetch('/api/reviews', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ item_id: itemId, author, rating, comment }),
+        body: JSON.stringify({
+          item_id: itemId,
+          author: userName,
+          rating,
+          comment,
+          user_id: backendUserId, // ✅ Now included
+        }),
       });
+
       const data = await res.json();
       if (!res.ok) throw new Error(data.error || 'Failed to submit review');
 
-      const newReview = { id: data.review_id, author, rating, comment };
+      const newReview = {
+        id: data.review_id,
+        author: userName,
+        rating,
+        comment,
+        created_at: new Date().toISOString(),
+      };
+
       notifications.show({
         title: 'Thank you!',
         message: 'Your review has been submitted.',
         color: 'grape',
       });
+
+      console.log('✅ Review submitted:', newReview);
       onReviewSubmitted(newReview);
-      setAuthor('');
       setRating(0);
       setComment('');
     } catch (err) {
@@ -67,36 +105,28 @@ export default function ReviewModal({
     <Modal
       opened={opened}
       onClose={onClose}
-      title='Leave a Review'
+      title="Leave a Review"
       centered
       overlayOpacity={0.5}
       overlayBlur={3}
     >
-      <Stack spacing='md'>
-        <TextInput
-          label='Your Name'
-          placeholder='e.g. Jane Doe'
-          value={author}
-          onChange={e => setAuthor(e.currentTarget.value)}
-          required
-        />
-
-        <Group spacing='xs'>
+      <Stack spacing="md">
+        <Group spacing="xs">
           <div>Your Rating:</div>
           <Rating value={rating} onChange={setRating} fractions={1} />
         </Group>
 
         <Textarea
-          label='Your Comment'
-          placeholder='Tell us what you think...'
+          label="Your Comment"
+          placeholder="Tell us what you think..."
           minRows={4}
           value={comment}
-          onChange={e => setComment(e.currentTarget.value)}
+          onChange={(e) => setComment(e.currentTarget.value)}
           required
         />
 
-        <Group position='right' mt='md'>
-          <Button variant='default' onClick={onClose} disabled={submitting}>
+        <Group position="right" mt="md">
+          <Button variant="default" onClick={onClose} disabled={submitting}>
             Cancel
           </Button>
           <Button onClick={handleSubmit} loading={submitting}>
