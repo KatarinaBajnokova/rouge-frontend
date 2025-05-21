@@ -1,7 +1,7 @@
 import React from 'react';
-import '@/sass/components/_all_category_item.scss';
 import { IconChevronRight } from '@tabler/icons-react';
 import { Divider } from '@mantine/core';
+import '@/sass/components/all/_all_category_item.scss';
 
 export default function AllCategoryItem({ iconUrl, label, onClick }) {
   const handleImgError = e => {

@@ -1,0 +1,81 @@
+// src/sass/pages/all/_categories.scss
+
+@use 'sass:map';
+@use '@/sass/abstract/colors' as *;
+@use '@/sass/abstract/typography' as *;
+@use '@/sass/abstract/mixins' as *;
+
+.categories-page {
+  background-color: $white-background;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+
+  // ─── Search + Filter Area ──────────────────────────────────────
+  .search-wrapper {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+    padding: 1rem;
+    background-color: $white-background;
+
+    // top row: search input + basket
+    .search-row {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+
+      .search-bar {
+        /* fixed width, but responsive */
+        width: 300px;
+        max-width: 100%;
+
+        /* bold border */
+        border: none;
+        border-radius: 8px;
+
+        /* lift it off the page */
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.5);
+
+        /* override Mantine wrapper’s own background/border */
+        .mantine-Input-wrapper {
+          background: transparent;
+          border: none;
+        }
+        /* and make the inner <input> transparent too */
+        .mantine-Input-input {
+          background: transparent !important;
+        }
+      }
+
+      .basket-button {
+        flex-shrink: 0;
+      }
+    }
+
+    .filter-button {
+      align-self: flex-start;
+    }
+  }
+
+  .category-section {
+    padding: 0 1rem;
+    margin-top: 1.5rem;
+
+    h2 {
+      @include font('category-title', 'bold');
+      color: $black-main;
+      margin-bottom: 0.75rem;
+    }
+
+    .category-list {
+      background-color: $white-elements;
+      border-radius: 0.5rem;
+      overflow: hidden;
+    }
+  }
+
+  > nav {
+    margin-top: auto;
+  }
+}

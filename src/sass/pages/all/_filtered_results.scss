@@ -1,0 +1,108 @@
+@use 'sass:map';
+@use '@/sass/abstract/colors' as *;
+@use '@/sass/abstract/typography' as *;
+@use '@/sass/abstract/mixins' as mixin;
+
+.filtered-results-page {
+  background-color: $white-background;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  padding: 1rem;
+
+  .header-wrapper {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 1rem;
+    background-color: $white-background;
+    height: 4rem;
+    padding: 0 1rem;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+
+    .back-icon-button {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      height: 100%;
+      padding: 0;
+      margin: 0;
+    }
+
+    .titles {
+      flex: 1;
+      margin-left: 1rem;
+
+      h2 {
+        @include mixin.font('section-title', 'bold');
+        color: $black-main;
+        margin: 0;
+        line-height: 4rem;
+      }
+    }
+  }
+
+  .search-wrapper {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    margin-bottom: 0.5rem;
+
+    .search-bar {
+      flex: 1;
+      background-color: $white-elements;
+      border-radius: 8px;
+      box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+
+      .mantine-Input-wrapper {
+        background: transparent;
+        border: none;
+      }
+
+      .mantine-Input-input {
+        background: transparent !important;
+      }
+    }
+  }
+
+  .filter-row {
+    display: flex;
+    justify-content: flex-start;
+    gap: 2rem;
+    margin-bottom: 1rem;
+  }
+
+  .no-items {
+    @include mixin.font('section-description', 'regular');
+    color: $light-grey;
+    text-align: center;
+    margin-top: 2rem;
+  }
+
+  .items-list {
+    display: flex;
+    flex-direction: column;
+    gap: 2.5rem;
+    margin: 1rem 0 2rem;
+  }
+
+  .items-section {
+    .section-title {
+      @include mixin.font('section-title', 'bold');
+      color: $black-main;
+      margin-bottom: 1rem;
+    }
+
+    .section-list {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 1.5rem;
+      padding-bottom: 1.5rem;
+    }
+
+    .section-list > * {
+      flex: 0 0 140px;
+    }
+  }
+}
