@@ -21,14 +21,6 @@
     border-radius: 8px;
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
 
-    .back-icon-button {
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      height: 100%;
-      padding: 0;
-      margin: 0;
-    }
 
     .titles {
       flex: 1;
@@ -42,35 +34,49 @@
       }
     }
   }
+.search-wrapper {
+  margin-top: 0.5rem;
+  display: flex;
+  align-items: center;
+  margin-bottom: 0.5rem;
 
-  .search-wrapper {
-    display: flex;
+  .search-row {
+    display: grid;
+    grid-template-columns: 1fr auto;
+    column-gap: 1.5rem;
     align-items: center;
-    gap: 0.5rem;
-    margin-bottom: 0.5rem;
+    width: 100%;
 
-    .search-bar {
+    .custom-search-bar {
       flex: 1;
+      display: flex;
+      align-items: center;
       background-color: $white-elements;
-      border-radius: 8px;
-      box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+      padding: 0.2rem 1rem;
+      border-radius: 2rem;
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    }
 
-      .mantine-Input-wrapper {
-        background: transparent;
-        border: none;
-      }
+    .search-icon {
+      margin-right: 0.5rem;
+      flex-shrink: 0;
+    }
 
-      .mantine-Input-input {
-        background: transparent !important;
-      }
+    .bare-input {
+      flex: 1;
+      font-size: 1rem;
+      background: transparent;
+      border: none;
+      outline: none;
+      color: $black-main;
     }
   }
+}
+
 
   .filter-row {
     display: flex;
     justify-content: flex-start;
-    gap: 2rem;
-    margin-bottom: 1rem;
   }
 
   .no-items {
@@ -83,8 +89,6 @@
   .items-list {
     display: flex;
     flex-direction: column;
-    gap: 2.5rem;
-    margin: 1rem 0 2rem;
   }
 
   .items-section {
@@ -94,15 +98,16 @@
       margin-bottom: 1rem;
     }
 
-    .section-list {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 1.5rem;
-      padding-bottom: 1.5rem;
-    }
+.section-list {
+  display: flex;
+  gap: 0.75rem;
+  overflow-x: auto;
+  padding-bottom: 0.5rem;
+}
 
-    .section-list > * {
-      flex: 0 0 140px;
-    }
+.section-list > * {
+  flex: 0 0 auto;
+}
+
   }
 }
