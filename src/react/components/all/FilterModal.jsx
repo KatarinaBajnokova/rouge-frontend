@@ -167,28 +167,39 @@ export default function FilterModal({
                 Select your price range
               </Text>
               <RangeSlider
-                className='filter-slider'
-                value={price}
-                onChange={setPrice}
-                min={priceRange[0]}
-                max={priceRange[1]}
-                step={0.01}
-                marks={[
-                  { value: priceRange[0], label: `€${priceRange[0]}` },
-                  { value: priceRange[1], label: `€${priceRange[1]}` },
-                ]}
-                mb='md'
-                styles={{
-                  track: { backgroundColor: 'rgba(170,29,164,0.2)' },
-                  bar: { backgroundColor: '#aa1da4' },
-                  thumb: {
-                    backgroundColor: '#aa1da4',
-                    border: '2px solid #fbfbfb',
-                    width: 16,
-                    height: 16,
-                  },
-                }}
-              />
+  className='filter-slider'
+  value={price}
+  onChange={setPrice}
+  min={priceRange[0]}
+  max={priceRange[1]}
+  step={0.01}
+  marks={[
+    { value: priceRange[0], label: `€${priceRange[0]}` },
+    { value: priceRange[1], label: `€${priceRange[1]}` },
+  ]}
+  mb='md'
+  styles={{
+    track: {
+      backgroundColor: 'rgba(170,29,164,0.2)',
+      height: 10, // increased height
+    },
+    bar: {
+      backgroundColor: '#aa1da4',
+      height: 10, // match track height
+    },
+    thumb: {
+      backgroundColor: '#aa1da4',
+      border: '3px solid #fbfbfb',
+      width: 24, // larger circle
+      height: 24,
+    },
+    markLabel: {
+      fontSize: '1rem', // bigger labels
+      fontWeight: 'bold',
+    },
+  }}
+/>
+
             </div>
           </ScrollArea>
 

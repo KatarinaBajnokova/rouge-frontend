@@ -18,6 +18,13 @@
   display: inline-block;
   color: $black-main;
 
+  transition:
+    background 220ms ease,
+    color 220ms ease,
+    border-color 220ms ease,
+    font-weight 220ms ease,
+    transform 220ms ease;
+
   &--checked {
     background: $magenta;
     border-color: $magenta;

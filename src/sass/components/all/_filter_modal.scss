@@ -15,6 +15,7 @@
     display: flex;
     flex-direction: column;
     padding: 0;
+    background-color: $white-elements;
   }
 
   .filter-body {
@@ -27,6 +28,7 @@
     flex: 1;
     overflow: auto;
     padding: 1rem;
+    margin-bottom: 0.5rem;
 
       .filter-section {
     margin-bottom: 1.5rem;
@@ -113,7 +115,7 @@
 
   .filter-slider {
     width: 80%;
-    margin: 0 auto 1rem;
+    margin: 1.5rem auto 1rem;
   }
 
   .filter-footer .filter-apply-btn img {
