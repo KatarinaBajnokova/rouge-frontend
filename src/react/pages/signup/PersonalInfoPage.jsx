@@ -33,15 +33,22 @@ export default function PersonalInfoPage() {
 
       if (!firebaseUid) return; // still waiting for firebase
 
-      console.log(`🔗 Fetching backend user ID using Firebase UID: ${firebaseUid}`);
+      console.log(
+        `🔗 Fetching backend user ID using Firebase UID: ${firebaseUid}`
+      );
       try {
-        const res = await fetch(`http://localhost:3000/api/users/by-firebase-uid?uid=${firebaseUid}`);
+        const res = await fetch(
+          `http://localhost:3000/api/users/by-firebase-uid?uid=${firebaseUid}`
+        );
         const data = await res.json();
         if (res.ok && data.id) {
           localStorage.setItem('backendUserId', data.id);
           console.log('✅ Stored backend user_id in localStorage:', data.id);
         } else {
-          console.error('❌ Failed to fetch backend user ID:', data.error || 'No ID');
+          console.error(
+            '❌ Failed to fetch backend user ID:',
+            data.error || 'No ID'
+          );
           navigate('/login');
         }
       } catch (error) {
@@ -89,7 +96,14 @@ export default function PersonalInfoPage() {
 
     const address1 = `${street.trim()} ${houseNumber.trim()}, ${postalCode.trim()}, ${country.trim()}`;
 
-    if (!street && !houseNumber && !postalCode && !phone && !birthdate && !country) {
+    if (
+      !street &&
+      !houseNumber &&
+      !postalCode &&
+      !phone &&
+      !birthdate &&
+      !country
+    ) {
       navigate('/homescreen');
       return;
     }
@@ -110,79 +124,79 @@ export default function PersonalInfoPage() {
 
   if (authLoading) {
     return (
-      <div className="personal-info-page">
-        <Loader size="xl" color="pink" />
+      <div className='personal-info-page'>
+        <Loader size='xl' color='pink' />
       </div>
     );
   }
 
   return (
-    <div className="personal-info-page">
+    <div className='personal-info-page'>
       <BackIconButton />
       <FinalStepper active={2} />
-      <div className="personal-form" style={{ marginTop: '2rem' }}>
+      <div className='personal-form' style={{ marginTop: '2rem' }}>
         <h2>Personal information</h2>
-        <div className="step-description">
+        <div className='step-description'>
           <p>Press "Confirm & Continue" if you wish to skip this part.</p>
           <p>Your addresses can always be edited in the profile settings.</p>
         </div>
 
         <Select
-          label="Country"
-          placeholder="Select your country"
+          label='Country'
+          placeholder='Select your country'
           data={countryOptions}
           value={country}
           onChange={setCountry}
           searchable
-          nothingFoundMessage="No country found"
-          rightSection={countriesLoading ? <Loader size="xs" /> : null}
-          mt="md"
+          nothingFoundMessage='No country found'
+          rightSection={countriesLoading ? <Loader size='xs' /> : null}
+          mt='md'
         />
 
         <TextInput
-          label="Street"
-          placeholder="Enter street name"
+          label='Street'
+          placeholder='Enter street name'
           value={street}
-          onChange={(e) => setStreet(e.currentTarget.value)}
-          mt="md"
+          onChange={e => setStreet(e.currentTarget.value)}
+          mt='md'
         />
 
         <Group grow>
           <TextInput
-            label="House Number"
-            placeholder="e.g. 12A"
+            label='House Number'
+            placeholder='e.g. 12A'
             value={houseNumber}
-            onChange={(e) => setHouseNumber(e.currentTarget.value)}
-            mt="md"
+            onChange={e => setHouseNumber(e.currentTarget.value)}
+            mt='md'
           />
 
           <TextInput
-            label="Postal Code"
-            placeholder="e.g. 1000"
+            label='Postal Code'
+            placeholder='e.g. 1000'
             value={postalCode}
-            onChange={(e) => setPostalCode(e.currentTarget.value)}
-            mt="md"
+            onChange={e => setPostalCode(e.currentTarget.value)}
+            mt='md'
           />
         </Group>
 
         <TextInput
-          label="Phone number"
-          placeholder="Enter your phone number"
+          label='Phone number'
+          placeholder='Enter your phone number'
           value={phone}
-          onChange={(e) => setPhone(e.currentTarget.value)}
-          mt="md"
+          onChange={e => setPhone(e.currentTarget.value)}
+          mt='md'
         />
 
         <TextInput
-          label="Date of Birth"
-          type="date"
+          label='Date of Birth'
+          type='date'
           value={birthdate}
-          onChange={(e) => setBirthdate(e.currentTarget.value)}
-          mt="md"
+          onChange={e => setBirthdate(e.currentTarget.value)}
+          mt='md'
         />
 
         <BottomBarButton
-          text="Confirm & Continue"
+          text='Confirm & Continue'
           onClick={handleConfirm}
           loading={loading}
         />

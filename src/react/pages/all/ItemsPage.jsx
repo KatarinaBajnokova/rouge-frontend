@@ -44,42 +44,38 @@ export default function ItemsPage() {
     isError,
   } = useItems(categoryId, flatMode ? undefined : subcategoryId, filters);
 
-const mappedItems = filteredItems.map(item => ({
-  ...item,
-  title: item.name || item.title || 'Untitled',
-}));
-
-
+  const mappedItems = filteredItems.map(item => ({
+    ...item,
+    title: item.name || item.title || 'Untitled',
+  }));
 
   if (isLoading) return <div className='items-page'>Loading…</div>;
   if (isError) return <div className='items-page'>Error loading items</div>;
 
   // Common header
   const Header = () => (
-<div className="header-with-basket">
-  <BackHeader text={flatMode ? categoryName : subcategoryName} />
-  <BasketButton />
-</div>
-
+    <div className='header-with-basket'>
+      <BackHeader text={flatMode ? categoryName : subcategoryName} />
+      <BasketButton />
+    </div>
   );
 
   // Common search + filter
   const SearchRow = () => (
     <>
       <div className='search-wrapper'>
-        <div className="search-row">
-  <div className="custom-search-bar">
-    <IconSearch size={18} className="search-icon" />
-    <TextInput
-      value={search}
-      onChange={e => setSearch(e.currentTarget.value)}
-      placeholder="Search…"
-      variant="unstyled"
-      className="bare-input"
-    />
-  </div>
-</div>
-
+        <div className='search-row'>
+          <div className='custom-search-bar'>
+            <IconSearch size={18} className='search-icon' />
+            <TextInput
+              value={search}
+              onChange={e => setSearch(e.currentTarget.value)}
+              placeholder='Search…'
+              variant='unstyled'
+              className='bare-input'
+            />
+          </div>
+        </div>
       </div>
       <div className='filter-row'>
         <FilterIconButton

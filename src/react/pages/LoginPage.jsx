@@ -24,55 +24,51 @@ const LoginPage = () => {
   const [loading, setLoading] = useState(false);
   const location = useLocation();
   const params = new URLSearchParams(location.search);
-const cameFromProfile = params.get('from') === 'profile';
-const cameFromCheckout = params.get('from') === 'checkout';
-
-
+  const cameFromProfile = params.get('from') === 'profile';
+  const cameFromCheckout = params.get('from') === 'checkout';
 
   const navigate = useNavigate();
 
   // New helper: authenticate against backend
-  
+
   const handleEmailLogin = async () => {
-  if (!email || !password) {
-    showNotification({
-      title: 'Missing credentials',
-      message: 'Please enter both email and password.',
-      color: 'red',
-    });
-    return;
-  }
+    if (!email || !password) {
+      showNotification({
+        title: 'Missing credentials',
+        message: 'Please enter both email and password.',
+        color: 'red',
+      });
+      return;
+    }
 
-  setLoading(true);
-  try {
-    const { auth, signInWithEmailAndPassword } = await getFirebaseAuth();
-    await signInWithEmailAndPassword(auth, email, password);
+    setLoading(true);
+    try {
+      const { auth, signInWithEmailAndPassword } = await getFirebaseAuth();
+      await signInWithEmailAndPassword(auth, email, password);
 
-    showNotification({
-      title: 'Welcome back!',
-      message: 'You are now logged in.',
-      color: 'green',
-    });
+      showNotification({
+        title: 'Welcome back!',
+        message: 'You are now logged in.',
+        color: 'green',
+      });
 
-if (cameFromProfile) {
-  navigate('/homescreen');
-} else if (cameFromCheckout) {
-  navigate('/checkout/friend-info'); // 🛒 continue checkout after login
-} else {
-  navigate('/homescreen');
-}
-
-  } catch (err) {
-    showNotification({
-      title: 'Login error',
-      message: err.message,
-      color: 'red',
-    });
-  } finally {
-    setLoading(false);
-  }
-};
-
+      if (cameFromProfile) {
+        navigate('/homescreen');
+      } else if (cameFromCheckout) {
+        navigate('/checkout/friend-info'); // 🛒 continue checkout after login
+      } else {
+        navigate('/homescreen');
+      }
+    } catch (err) {
+      showNotification({
+        title: 'Login error',
+        message: err.message,
+        color: 'red',
+      });
+    } finally {
+      setLoading(false);
+    }
+  };
 
   const handleGoogleSignIn = async () => {
     setLoading(true);
@@ -111,17 +107,17 @@ if (cameFromProfile) {
 
   return (
     <div className='login-page'>
-<BackIconButton onClick={() => {
-  if (cameFromProfile) {
-    navigate('/homescreen');
-  } else if (cameFromCheckout) {
-    navigate('/basket'); // maybe back to basket if started checkout
-  } else {
-    navigate(-1);
-  }
-}} />
-
-
+      <BackIconButton
+        onClick={() => {
+          if (cameFromProfile) {
+            navigate('/homescreen');
+          } else if (cameFromCheckout) {
+            navigate('/basket'); // maybe back to basket if started checkout
+          } else {
+            navigate(-1);
+          }
+        }}
+      />
 
       <FinalStepper active={0} />
 

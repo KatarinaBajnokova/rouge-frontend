@@ -21,7 +21,6 @@
     border-radius: 8px;
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
 
-
     .titles {
       flex: 1;
       margin-left: 1rem;
@@ -34,45 +33,44 @@
       }
     }
   }
-.search-wrapper {
-  margin-top: 0.5rem;
-  display: flex;
-  align-items: center;
-  margin-bottom: 0.5rem;
-
-  .search-row {
-    display: grid;
-    grid-template-columns: 1fr auto;
-    column-gap: 1.5rem;
+  .search-wrapper {
+    margin-top: 0.5rem;
+    display: flex;
     align-items: center;
-    width: 100%;
+    margin-bottom: 0.5rem;
 
-    .custom-search-bar {
-      flex: 1;
-      display: flex;
+    .search-row {
+      display: grid;
+      grid-template-columns: 1fr auto;
+      column-gap: 1.5rem;
       align-items: center;
-      background-color: $white-elements;
-      padding: 0.2rem 1rem;
-      border-radius: 2rem;
-      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
-    }
+      width: 100%;
 
-    .search-icon {
-      margin-right: 0.5rem;
-      flex-shrink: 0;
-    }
+      .custom-search-bar {
+        flex: 1;
+        display: flex;
+        align-items: center;
+        background-color: $white-elements;
+        padding: 0.2rem 1rem;
+        border-radius: 2rem;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+      }
 
-    .bare-input {
-      flex: 1;
-      font-size: 1rem;
-      background: transparent;
-      border: none;
-      outline: none;
-      color: $black-main;
+      .search-icon {
+        margin-right: 0.5rem;
+        flex-shrink: 0;
+      }
+
+      .bare-input {
+        flex: 1;
+        font-size: 1rem;
+        background: transparent;
+        border: none;
+        outline: none;
+        color: $black-main;
+      }
     }
   }
-}
-
 
   .filter-row {
     display: flex;
@@ -98,16 +96,15 @@
       margin-bottom: 1rem;
     }
 
-.section-list {
-  display: flex;
-  gap: 0.75rem;
-  overflow-x: auto;
-  padding-bottom: 0.5rem;
-}
+    .section-list {
+      display: flex;
+      gap: 0.75rem;
+      overflow-x: auto;
+      padding-bottom: 0.5rem;
+    }
 
-.section-list > * {
-  flex: 0 0 auto;
-}
-
+    .section-list > * {
+      flex: 0 0 auto;
+    }
   }
 }

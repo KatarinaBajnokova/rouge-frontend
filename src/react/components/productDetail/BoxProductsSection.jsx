@@ -12,21 +12,20 @@ export default function BoxProductsSection({ boxProducts }) {
       <div className='box-products-list'>
         {boxProducts.map(box => (
           <div key={box.id} className='box-product-card'>
-  <div className='box-product-card__img-wrapper'>
-    <img
-      src={box.image_url}
-      alt={box.description}
-      className='box-product-card__img'
-    />
-  </div>
-  <div className='box-product-card__body'>
-    <Text fw={700}>{box.title}</Text>
-    <Text size='sm' color='dimmed' mt='xs'>
-      {box.description}
-    </Text>
-  </div>
-</div>
-
+            <div className='box-product-card__img-wrapper'>
+              <img
+                src={box.image_url}
+                alt={box.description}
+                className='box-product-card__img'
+              />
+            </div>
+            <div className='box-product-card__body'>
+              <Text fw={700}>{box.title}</Text>
+              <Text size='sm' color='dimmed' mt='xs'>
+                {box.description}
+              </Text>
+            </div>
+          </div>
         ))}
       </div>
     </section>

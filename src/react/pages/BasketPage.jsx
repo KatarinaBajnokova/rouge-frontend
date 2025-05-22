@@ -4,7 +4,7 @@ import { CheckoutButton } from '../components/buttons/RedButtons';
 import { BackHeader } from '../components/buttons/IconButtons';
 import emptyBasketIcon from '@/assets/icons/IMG_empty_basket.svg';
 import '@/sass/pages/_basket_page.scss';
-import { useAuth } from '@/react/hooks/useAuth'; 
+import { useAuth } from '@/react/hooks/useAuth';
 import { getFirebaseAuth } from '../../getFirebaseAuth'; // ✅ import here
 
 import {
@@ -25,10 +25,13 @@ async function syncBackendUserId() {
 
   if (firebaseUser) {
     try {
-      const res = await fetch(`/api/users/by-firebase-uid?uid=${firebaseUser.uid}`);
+      const res = await fetch(
+        `/api/users/by-firebase-uid?uid=${firebaseUser.uid}`
+      );
       const data = await res.json();
 
-      if (!res.ok) throw new Error(data.error || 'Failed fetching backend user');
+      if (!res.ok)
+        throw new Error(data.error || 'Failed fetching backend user');
 
       console.log('✅ Synced backendUserId:', data.user_id);
       localStorage.setItem('backendUserId', data.user_id);
@@ -137,10 +140,10 @@ export default function BasketPage() {
   const handleCheckout = async () => {
     if (authLoading) return; // wait
 
-    console.log("Checking checkout logic. Firebase UID:", userId);
+    console.log('Checking checkout logic. Firebase UID:', userId);
 
     if (!userId) {
-      console.log("❌ No firebase user detected, navigate to personal info.");
+      console.log('❌ No firebase user detected, navigate to personal info.');
       navigate('/checkout/personal-info');
       return;
     }
@@ -148,10 +151,10 @@ export default function BasketPage() {
     try {
       const res = await fetch(`/api/users/by-firebase-uid?uid=${userId}`);
       if (res.ok) {
-        console.log("✅ Backend user exists, navigating to friend info");
+        console.log('✅ Backend user exists, navigating to friend info');
         navigate('/checkout/friend-info');
       } else {
-        console.log("❌ Backend user not found, navigating to personal info");
+        console.log('❌ Backend user not found, navigating to personal info');
         navigate('/checkout/personal-info');
       }
     } catch (err) {
@@ -182,27 +185,51 @@ export default function BasketPage() {
                 <div className='basket-card__info'>
                   <div className='basket-card__text'>
                     <Text fw={700}>{item.name}</Text>
-                    <Text size='sm' c='dimmed'>{item.category}</Text>
-                    <Text size='xs' c='green'>{item.level}</Text>
+                    <Text size='sm' c='dimmed'>
+                      {item.category}
+                    </Text>
+                    <Text size='xs' c='green'>
+                      {item.level}
+                    </Text>
                   </div>
 
-                  <ActionIcon className='trash-icon' onClick={() => removeItem(item.id)}>
+                  <ActionIcon
+                    className='trash-icon'
+                    onClick={() => removeItem(item.id)}
+                  >
                     <IconTrash size={18} />
                   </ActionIcon>
 
                   <div className='basket-card__buttons'>
                     <div className='basket-card__price'>
                       <Text fw={700}>
-                        €{(item.price * item.quantity).toFixed(2).replace('.', ',')}
+                        €
+                        {(item.price * item.quantity)
+                          .toFixed(2)
+                          .replace('.', ',')}
                       </Text>
                     </div>
                     <div className='basket-card__quantity'>
                       <Group spacing={6}>
-                        <ActionIcon variant='default' radius='xl' onClick={() => updateQuantity(item.id, item.quantity - 1)} disabled={item.quantity <= 1}>
+                        <ActionIcon
+                          variant='default'
+                          radius='xl'
+                          onClick={() =>
+                            updateQuantity(item.id, item.quantity - 1)
+                          }
+                          disabled={item.quantity <= 1}
+                        >
                           <IconMinus size={14} />
                         </ActionIcon>
                         <Text fw={500}>{item.quantity}</Text>
-                        <ActionIcon variant='default' radius='xl' onClick={() => updateQuantity(item.id, item.quantity + 1)} disabled={item.quantity >= 10}>
+                        <ActionIcon
+                          variant='default'
+                          radius='xl'
+                          onClick={() =>
+                            updateQuantity(item.id, item.quantity + 1)
+                          }
+                          disabled={item.quantity >= 10}
+                        >
                           <IconPlus size={14} />
                         </ActionIcon>
                       </Group>
@@ -215,14 +242,22 @@ export default function BasketPage() {
 
           <Group className='basket-footer' position='apart' align='flex-end'>
             <div className='basket-footer__left'>
-              <Text size='16px' fw={500}>Shipping:</Text>
-              <Text size='20px' mt='xs' c='dimmed'>€{shipping.toFixed(2).replace('.', ',')}</Text>
-              <Text mt='xs' fw={700}>Total:</Text>
-              <Title order={2} mt={-6}>€{totalWithShipping}</Title>
+              <Text size='16px' fw={500}>
+                Shipping:
+              </Text>
+              <Text size='20px' mt='xs' c='dimmed'>
+                €{shipping.toFixed(2).replace('.', ',')}
+              </Text>
+              <Text mt='xs' fw={700}>
+                Total:
+              </Text>
+              <Title order={2} mt={-6}>
+                €{totalWithShipping}
+              </Title>
             </div>
 
             <CheckoutButton disabled={authLoading} onClick={handleCheckout}>
-              {authLoading ? <Loader size="xs" color="white" /> : "Checkout"}
+              {authLoading ? <Loader size='xs' color='white' /> : 'Checkout'}
             </CheckoutButton>
           </Group>
         </>

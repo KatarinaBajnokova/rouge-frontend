@@ -2,7 +2,12 @@ import { IconChevronRight } from '@tabler/icons-react';
 import { Divider } from '@mantine/core';
 import '@/sass/components/all/_all_category_item.scss';
 
-export default function AllCategoryItem({ iconUrl, label, onClick, isLastItem = false }) {
+export default function AllCategoryItem({
+  iconUrl,
+  label,
+  onClick,
+  isLastItem = false,
+}) {
   const handleImgError = e => {
     e.currentTarget.onerror = null;
   };
@@ -19,9 +24,8 @@ export default function AllCategoryItem({ iconUrl, label, onClick, isLastItem = 
         <p>{label}</p>
         <IconChevronRight size={30} stroke={2} />
       </div>
-    
-<Divider className="category-divider" />
 
+      <Divider className='category-divider' />
     </div>
   );
 }

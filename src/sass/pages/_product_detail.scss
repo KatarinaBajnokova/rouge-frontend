@@ -10,7 +10,7 @@
 
 @use './product-detail/purchase-banner';
 
-body{
+body {
   font-family: $font-family;
 }
 
@@ -19,12 +19,10 @@ body{
   font-family: inherit !important;
 }
 
-
 .detail-description,
 .detail-description .mantine-Text-root {
   font-family: inherit !important;
 }
-
 
 .product-detail {
   position: relative;

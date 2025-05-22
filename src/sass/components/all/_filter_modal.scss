@@ -2,7 +2,6 @@
 @use '@/sass/abstract/typography' as *;
 @use '@/sass/abstract/mixins' as mixin;
 
-
 .filter-drawer {
   .mantine-Drawer-header {
     display: none;
@@ -30,14 +29,14 @@
     padding: 1rem;
     margin-bottom: 0.5rem;
 
-      .filter-section {
-    margin-bottom: 1.5rem;
+    .filter-section {
+      margin-bottom: 1.5rem;
 
-    .mantine-Group-root {
-      --group-gap: 0.5rem !important;
+      .mantine-Group-root {
+        --group-gap: 0.5rem !important;
+      }
+    }
   }
-  }
-}
 
   .back-header {
     display: flex;
@@ -119,7 +118,6 @@
   }
 
   .filter-footer .filter-apply-btn img {
-  filter: brightness(0) invert(1) !important;
-}
-
+    filter: brightness(0) invert(1) !important;
+  }
 }

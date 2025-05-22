@@ -1,14 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
 import { useAuth } from '../../hooks/useAuth';
-import {
-  Modal,
-  Group,
-  Button,
-  Textarea,
-  Rating,
-  Stack,
-} from '@mantine/core';
+import { Modal, Group, Button, Textarea, Rating, Stack } from '@mantine/core';
 import { notifications } from '@mantine/notifications';
 
 export default function ReviewModal({
@@ -29,7 +22,9 @@ export default function ReviewModal({
       if (!firebaseUid) return;
 
       try {
-        const res = await fetch(`/api/users/by-firebase-uid?uid=${firebaseUid}`);
+        const res = await fetch(
+          `/api/users/by-firebase-uid?uid=${firebaseUid}`
+        );
         const data = await res.json();
         if (res.ok) {
           setUserName(`${data.first_name} ${data.last_name}`);
@@ -105,28 +100,28 @@ export default function ReviewModal({
     <Modal
       opened={opened}
       onClose={onClose}
-      title="Leave a Review"
+      title='Leave a Review'
       centered
       overlayOpacity={0.5}
       overlayBlur={3}
     >
-      <Stack spacing="md">
-        <Group spacing="xs">
+      <Stack spacing='md'>
+        <Group spacing='xs'>
           <div>Your Rating:</div>
           <Rating value={rating} onChange={setRating} fractions={1} />
         </Group>
 
         <Textarea
-          label="Your Comment"
-          placeholder="Tell us what you think..."
+          label='Your Comment'
+          placeholder='Tell us what you think...'
           minRows={4}
           value={comment}
-          onChange={(e) => setComment(e.currentTarget.value)}
+          onChange={e => setComment(e.currentTarget.value)}
           required
         />
 
-        <Group position="right" mt="md">
-          <Button variant="default" onClick={onClose} disabled={submitting}>
+        <Group position='right' mt='md'>
+          <Button variant='default' onClick={onClose} disabled={submitting}>
             Cancel
           </Button>
           <Button onClick={handleSubmit} loading={submitting}>

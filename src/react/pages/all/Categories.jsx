@@ -76,20 +76,21 @@ export default function CategoriesPage() {
   });
 
   const renderSearchBar = () => (
-    <div className="custom-search-bar">
-      <IconSearch size={18} className="search-icon" />
+    <div className='custom-search-bar'>
+      <IconSearch size={18} className='search-icon' />
       <TextInput
         value={search}
         onChange={e => setSearch(e.currentTarget.value)}
-        placeholder="Search…"
-        variant="unstyled"
-        className="bare-input"
+        placeholder='Search…'
+        variant='unstyled'
+        className='bare-input'
       />
     </div>
   );
 
   if (isLoading) return <div className='categories-page'>Loading…</div>;
-  if (isError) return <div className='categories-page'>Error loading groups</div>;
+  if (isError)
+    return <div className='categories-page'>Error loading groups</div>;
 
   // ─── Search Mode ────────────────────────────────────────────────
   if (search.trim() !== '') {

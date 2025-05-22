@@ -2,7 +2,7 @@
 @use '/src/sass/abstract/colors' as *;
 @use '/src/sass/abstract/typography' as *;
 
-body{
+body {
   background-color: $grey-background-elements;
 }
 
@@ -15,7 +15,7 @@ body{
   overflow-x: hidden;
   margin-top: 0;
 
-   &__header {
+  &__header {
     text-align: center;
     position: relative;
     overflow: hidden; // Prevent background image overflow
@@ -110,10 +110,10 @@ body{
   }
 
   .profile-page__header-bg {
-  width: 100%;
-  object-fit: cover;
-  height: auto;
-}
+    width: 100%;
+    object-fit: cover;
+    height: auto;
+  }
 }
 
 .logout-button {

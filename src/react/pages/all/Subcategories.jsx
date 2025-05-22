@@ -54,7 +54,6 @@ export default function SubcategoriesPage() {
         <div className='header-controls'>
           <BasketButton />
         </div>
-
       </div>
 
       <div className='category-list'>

@@ -17,7 +17,7 @@ export default function ReviewsPage() {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
   const [modalOpen, setModalOpen] = useState(false);
-  const { userId: firebaseUid } = useAuth(); 
+  const { userId: firebaseUid } = useAuth();
 
   useEffect(() => {
     fetch(`/api/reviews/${id}`)
@@ -57,19 +57,18 @@ export default function ReviewsPage() {
 
         <Group position='center' style={{ marginTop: '1rem' }}>
           <LeaveAReviewIconButton
-  onClick={() => {
-    if (!firebaseUid) {
-      notifications.show({
-        title: 'Login Required',
-        message: 'Please log in to leave a review.',
-        color: 'red',
-      });
-    } else {
-      setModalOpen(true);
-    }
-  }}
-/>
-
+            onClick={() => {
+              if (!firebaseUid) {
+                notifications.show({
+                  title: 'Login Required',
+                  message: 'Please log in to leave a review.',
+                  color: 'red',
+                });
+              } else {
+                setModalOpen(true);
+              }
+            }}
+          />
         </Group>
       </Card>
 
