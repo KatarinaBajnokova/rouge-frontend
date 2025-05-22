@@ -85,17 +85,26 @@ export default function FilterModal({
         const key = d.toLowerCase();
         const checked = selDiff.includes(d);
         const color = DIFF_COLORS[key] ?? DIFF_COLORS.advanced;
-        const style = checked
-          ? { background: color, borderColor: color, color: '#fff' }
-          : {};
+
+        const baseStyle = {
+          borderColor: color,
+          color: color,
+        };
+
+        const selectedStyle = {
+          background: color,
+          borderColor: color,
+          color: '#fff',
+        };
+
         return (
           <Pill
             key={d}
             checked={checked}
             onClick={() => toggleItem(d, selDiff, setSelDiff)}
-            style={style}
+            style={checked ? selectedStyle : baseStyle}
           >
-            {d}
+            ✦ {d}
           </Pill>
         );
       }),
@@ -123,54 +132,54 @@ export default function FilterModal({
       ) : (
         <div className='filter-body'>
           <ScrollArea className='filter-scroll'>
-<div className='filter-section'>
-  <Text className='filter-section-title'>Select occasion</Text>
-  <Group>
-    {renderPills(opts.occasions, selOcc, setSelOcc)}
-  </Group>
-</div>
+            <div className='filter-section'>
+              <Text className='filter-section-title'>Select occasion</Text>
+              <Group>
+                {renderPills(opts.occasions, selOcc, setSelOcc)}
+              </Group>
+            </div>
 
-<div className='filter-section'>
-  <Text className='filter-section-title'>Select more detailed</Text>
-  <Group>
-    {renderPills(opts.detailedOccasions, selDet, setSelDet)}
-  </Group>
-</div>
+            <div className='filter-section'>
+              <Text className='filter-section-title'>Select more detailed</Text>
+              <Group>
+                {renderPills(opts.detailedOccasions, selDet, setSelDet)}
+              </Group>
+            </div>
 
-<div className='filter-section'>
-  <Text className='filter-section-title'>Select difficulty</Text>
-  <Group>
-    {difficultyPills}
-  </Group>
-</div>
+            <div className='filter-section'>
+              <Text className='filter-section-title'>Select difficulty</Text>
+              <Group>
+                {difficultyPills}
+              </Group>
+            </div>
 
-<div className='filter-section'>
-            <Text className='filter-section-title'>
-              Select your price range
-            </Text>
-            <RangeSlider
-              className='filter-slider'
-              value={price}
-              onChange={setPrice}
-              min={priceRange[0]}
-              max={priceRange[1]}
-              step={0.01}
-              marks={[
-                { value: priceRange[0], label: `€${priceRange[0]}` },
-                { value: priceRange[1], label: `€${priceRange[1]}` },
-              ]}
-              mb='md'
-              styles={{
-                track: { backgroundColor: 'rgba(170,29,164,0.2)' },
-                bar: { backgroundColor: '#aa1da4' },
-                thumb: {
-                  backgroundColor: '#aa1da4',
-                  border: '2px solid #fbfbfb',
-                  width: 16,
-                  height: 16,
-                },
-              }}
-            />
+            <div className='filter-section'>
+              <Text className='filter-section-title'>
+                Select your price range
+              </Text>
+              <RangeSlider
+                className='filter-slider'
+                value={price}
+                onChange={setPrice}
+                min={priceRange[0]}
+                max={priceRange[1]}
+                step={0.01}
+                marks={[
+                  { value: priceRange[0], label: `€${priceRange[0]}` },
+                  { value: priceRange[1], label: `€${priceRange[1]}` },
+                ]}
+                mb='md'
+                styles={{
+                  track: { backgroundColor: 'rgba(170,29,164,0.2)' },
+                  bar: { backgroundColor: '#aa1da4' },
+                  thumb: {
+                    backgroundColor: '#aa1da4',
+                    border: '2px solid #fbfbfb',
+                    width: 16,
+                    height: 16,
+                  },
+                }}
+              />
             </div>
           </ScrollArea>
 
