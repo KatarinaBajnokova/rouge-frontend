@@ -34,3 +34,14 @@
     }
   }
 }
+
+.product-detail {
+  .detail-instructions {
+    .instruction-step__body {
+      .instruction-step__text {
+        color: $light-grey !important;
+      }
+    }
+  }
+}
+

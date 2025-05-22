@@ -14,13 +14,14 @@
 
       .box-product-card {
         display: flex;
-        height: 8rem;
+        height: 9rem;
         border-radius: 1rem;
         overflow: hidden;
         box-shadow: 0 4px 12px rgba($black-main, 0.1);
+        
 
         .box-product-card__img-wrapper {
-          width: 5rem;
+          width:6rem;
           height: 100%;
           background: white;
           display: flex;
