@@ -24,7 +24,7 @@ export default function InfoSection({ item, expanded, setExpanded }) {
         variant='light'
         mt='xs'
       >
-        {item.level}
+         ✦ {item.level}
       </Badge>
 
       {item.tags?.length > 0 && (
