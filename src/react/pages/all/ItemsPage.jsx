@@ -44,6 +44,13 @@ export default function ItemsPage() {
     isError,
   } = useItems(categoryId, flatMode ? undefined : subcategoryId, filters);
 
+const mappedItems = filteredItems.map(item => ({
+  ...item,
+  title: item.name || item.title || 'Untitled',
+}));
+
+
+
   if (isLoading) return <div className='items-page'>Loading…</div>;
   if (isError) return <div className='items-page'>Error loading items</div>;
 
@@ -122,7 +129,7 @@ export default function ItemsPage() {
 
       <div className='items-list'>
         {['natural', 'classic', 'bold'].map(key => {
-          const group = filteredItems.filter(
+          const group = mappedItems.filter(
             i => i.category.toLowerCase() === key
           );
           if (!group.length) return null;
@@ -139,7 +146,7 @@ export default function ItemsPage() {
           );
         })}
 
-        {filteredItems.length === 0 && (
+        {mappedItems.length === 0 && (
           <div className='no-items'>
             {flatMode
               ? `No items found in ${categoryName}.`

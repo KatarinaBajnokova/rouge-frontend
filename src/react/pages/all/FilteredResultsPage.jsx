@@ -44,12 +44,19 @@ export default function FilteredResultsPage() {
 
   const { data: items = [], isLoading, isError } = useItems(undefined, undefined, filters);
 
+  const mappedItems = items.map(item => ({
+  ...item,
+  title: item.name || item.title || 'Untitled',
+}));
+
+
   const categories = useMemo(() => ['natural', 'classic', 'bold'], []);
-  const grouped = useMemo(() =>
-    categories.map(key => {
-      const list = items.filter(i => i.category.toLowerCase() === key);
-      return { key, label: key[0].toUpperCase() + key.slice(1), list };
-    }), [items, categories]);
+const grouped = useMemo(() =>
+  categories.map(key => {
+    const list = mappedItems.filter(i => i.category.toLowerCase() === key);
+    return { key, label: key[0].toUpperCase() + key.slice(1), list };
+  }), [mappedItems, categories]);
+
 
   const Header = () => (
     <div className="header-with-basket">
