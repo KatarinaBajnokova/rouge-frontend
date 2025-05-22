@@ -24,6 +24,14 @@ const DIFF_COLORS = {
   expert: '#ac003e',
 };
 
+// Gradient config for occasion/detailed selections
+const GRADIENT_STYLE = {
+  background: 'linear-gradient(to top, rgba(170, 29, 163, 0.9), rgba(170, 29, 163, 0.07))',
+  borderColor: '#aa1da4',
+  color: '#fff',
+};
+
+
 export default function FilterModal({
   opened,
   onClose,
@@ -73,6 +81,7 @@ export default function FilterModal({
           key={item}
           checked={checked}
           onClick={() => toggleItem(item, selected, setSelected)}
+          style={checked ? GRADIENT_STYLE : {}}
         >
           {item}
         </Pill>
