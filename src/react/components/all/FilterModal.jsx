@@ -114,7 +114,6 @@ export default function FilterModal({
       <BackHeader
         text='Filter'
         onBack={onClose}
-        backButtonStyle={{ marginRight: '1rem' }}
       />
 
       {isLoading ? (
@@ -124,21 +123,28 @@ export default function FilterModal({
       ) : (
         <div className='filter-body'>
           <ScrollArea className='filter-scroll'>
-            <Text className='filter-section-title'>Select occasion</Text>
-            <Group spacing='xs' mb='md'>
-              {renderPills(opts.occasions, selOcc, setSelOcc)}
-            </Group>
+<div className='filter-section'>
+  <Text className='filter-section-title'>Select occasion</Text>
+  <Group>
+    {renderPills(opts.occasions, selOcc, setSelOcc)}
+  </Group>
+</div>
 
-            <Text className='filter-section-title'>Select more detailed</Text>
-            <Group spacing='xs' mb='md'>
-              {renderPills(opts.detailedOccasions, selDet, setSelDet)}
-            </Group>
+<div className='filter-section'>
+  <Text className='filter-section-title'>Select more detailed</Text>
+  <Group>
+    {renderPills(opts.detailedOccasions, selDet, setSelDet)}
+  </Group>
+</div>
 
-            <Text className='filter-section-title'>Select difficulty</Text>
-            <Group spacing='xs' mb='md'>
-              {difficultyPills}
-            </Group>
+<div className='filter-section'>
+  <Text className='filter-section-title'>Select difficulty</Text>
+  <Group>
+    {difficultyPills}
+  </Group>
+</div>
 
+<div className='filter-section'>
             <Text className='filter-section-title'>
               Select your price range
             </Text>
@@ -165,6 +171,7 @@ export default function FilterModal({
                 },
               }}
             />
+            </div>
           </ScrollArea>
 
           <div className='filter-footer'>

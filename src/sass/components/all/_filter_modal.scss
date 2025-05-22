@@ -2,6 +2,7 @@
 @use '@/sass/abstract/typography' as *;
 @use '@/sass/abstract/mixins' as mixin;
 
+
 .filter-drawer {
   .mantine-Drawer-header {
     display: none;
@@ -26,7 +27,15 @@
     flex: 1;
     overflow: auto;
     padding: 1rem;
+
+      .filter-section {
+    margin-bottom: 1.5rem;
+
+    .mantine-Group-root {
+      --group-gap: 0.5rem !important;
   }
+  }
+}
 
   .back-header {
     display: flex;
@@ -34,6 +43,14 @@
     height: 3rem;
     padding: 0 1rem;
     margin: 1rem 0 0;
+
+    .back-icon-button {
+      background-color: $black-main;
+
+      svg {
+        color: white;
+      }
+    }
 
     h2 {
       @include mixin.font('section-title', 'bold');
@@ -46,7 +63,7 @@
   .filter-section-title {
     @include mixin.font('section-description', 'bold');
     color: $black-main;
-    margin: 1rem 0 0.5rem;
+    margin: 0.5rem 0 0.7rem;
   }
 
   .filter-chip-group {
@@ -90,6 +107,7 @@
       @include mixin.font('button', 'medium');
       border-radius: 15px;
       margin: 0;
+      font-weight: bold;
     }
   }
 
@@ -97,4 +115,9 @@
     width: 80%;
     margin: 0 auto 1rem;
   }
+
+  .filter-footer .filter-apply-btn img {
+  filter: brightness(0) invert(1) !important;
+}
+
 }
