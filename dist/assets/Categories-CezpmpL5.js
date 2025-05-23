@@ -1,0 +1,121 @@
+import { J as g, r as h, j as e, K as l, n as f } from './react-BNfDklOQ.js';
+import { S as x } from './SearchResults-BD_-qxBO.js';
+import { B as d } from './BasketButton-r1-1MTRa.js';
+import { F as p } from './index-Cd1dwsJR.js';
+import { N as m } from './Navbar-BcSH3E9D.js';
+import { A as j } from './AllCategoryItem-fQmfVpNW.js';
+import { b as u } from './mantine-BDZ4NO2A.js';
+import './vendor-DRc0kkrK.js';
+import './TrendingCard-ClgaopvH.js';
+async function v(r) {
+  const a = await fetch(`/api/categories?groupId=${r}`);
+  if (!a.ok) throw new Error('Failed to load categories');
+  return a.json();
+}
+function y(r) {
+  return g({
+    queryKey: ['categories', r],
+    queryFn: () => v(r),
+    staleTime: 3e5,
+    enabled: !!r,
+  });
+}
+async function N() {
+  const r = await fetch('/api/category-groups');
+  if (!r.ok) throw new Error(r.statusText);
+  return r.json();
+}
+function w({ group: r, search: a }) {
+  const i = f(),
+    { data: o = [], isLoading: n, isError: s } = y(r.id);
+  if (n) return e.jsxs('div', { children: ['Loading ', r.name, '…'] });
+  if (s) return e.jsxs('div', { children: ['Error loading ', r.name] });
+  const c = o.filter(t => t.name.toLowerCase().includes(a.toLowerCase()));
+  return c.length
+    ? e.jsxs('div', {
+        className: 'category-section',
+        children: [
+          e.jsx('h2', { children: r.name }),
+          e.jsx('div', {
+            className: 'category-list',
+            children: c.map(t =>
+              e.jsx(
+                j,
+                {
+                  iconUrl: t.icon_url,
+                  label: t.name,
+                  onClick: () =>
+                    i(`/categories/${t.id}`, {
+                      state: { categoryName: t.name },
+                    }),
+                },
+                t.id
+              )
+            ),
+          }),
+        ],
+      })
+    : null;
+}
+function k() {
+  const [r, a] = h.useState(''),
+    {
+      data: i = [],
+      isLoading: o,
+      isError: n,
+    } = g({ queryKey: ['categoryGroups'], queryFn: N, staleTime: 3e5 });
+  return o
+    ? e.jsx('div', { className: 'categories-page', children: 'Loading…' })
+    : n
+      ? e.jsx('div', {
+          className: 'categories-page',
+          children: 'Error loading groups',
+        })
+      : r.trim() !== ''
+        ? e.jsxs('div', {
+            className: 'categories-page',
+            children: [
+              e.jsxs('div', {
+                className: 'search-wrapper',
+                children: [
+                  e.jsx(u, {
+                    className: 'search-bar',
+                    placeholder: 'Search…',
+                    value: r,
+                    onChange: s => a(s.currentTarget.value),
+                    leftSection: e.jsx(l, { size: 18 }),
+                    radius: 'md',
+                    size: 'md',
+                  }),
+                  e.jsx(d, {}),
+                ],
+              }),
+              e.jsx(x, { query: r.trim() }),
+              e.jsx(m, {}),
+            ],
+          })
+        : e.jsxs('div', {
+            className: 'categories-page',
+            children: [
+              e.jsxs('div', {
+                className: 'search-wrapper',
+                children: [
+                  e.jsx(u, {
+                    className: 'search-bar',
+                    placeholder: 'Search…',
+                    value: r,
+                    onChange: s => a(s.currentTarget.value),
+                    leftSection: !r && e.jsx(l, { size: 18 }),
+                    radius: 'md',
+                    size: 'md',
+                  }),
+                  e.jsx(d, {}),
+                ],
+              }),
+              e.jsx(p, {}),
+              i.map(s => e.jsx(w, { group: s, search: r }, s.id)),
+              e.jsx(m, {}),
+            ],
+          });
+}
+export { k as default };

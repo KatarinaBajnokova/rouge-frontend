@@ -1,0 +1,59 @@
+@use 'sass:map';
+@use 'sass:color';
+@use '@/sass/abstract/colors' as *;
+@use '@/sass/abstract/typography' as *;
+@use '@/sass/abstract/mixins' as *;
+
+.all-category-item {
+  background-color: transparent;
+  display: flex;
+  flex-direction: column;
+
+  .item-content {
+    background-color: transparent;
+    border-radius: 12px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    width: 100%;
+    padding: 0.75rem 1rem;
+  }
+
+  svg {
+    flex-shrink: 0;
+    color: $light-grey;
+  }
+
+  img {
+    width: 40px;
+    margin-right: 0.75rem;
+  }
+
+  h2 {
+    // was 'medium' before — bump it to 'bold' or even 'black'
+    @include font('category-title', 'bold');
+    color: $black-main;
+    margin-bottom: 0.75rem;
+  }
+
+  p {
+    @include font('category-title', 'bold');
+    margin: 0;
+    flex: 1;
+  }
+
+  &:hover > .item-content {
+    background-color: color.adjust($white-background, $lightness: 3%);
+  }
+
+  .mantine-Divider-root,
+  .category-divider {
+    margin-bottom: 10px;
+    height: 1px;
+    min-height: 1px;
+    background-color: #bababa;
+    width: 100%;
+    border: none;
+    display: block;
+  }
+}

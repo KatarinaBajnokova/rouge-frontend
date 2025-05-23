@@ -1,21 +1,25 @@
 import React, { useState, useEffect } from 'react';
-import { Title, Text, Divider, Button } from '@mantine/core';
+import { Title, Text, Divider } from '@mantine/core';
 import { useNavigate } from 'react-router-dom';
 import { showNotification } from '@mantine/notifications';
+import { useAuth } from '@/react/hooks/useAuth';
 
-import {
-  BackHeader,
-  BackIconButton,
-} from '../../components/buttons/IconButtons';
+import { BackIconButton } from '../../components/buttons/IconButtons';
 import { BottomBarButton } from '../../components/buttons/RedButtons';
 
 import ConfirmationOverlay from './ConfirmationOverlay';
 import '@/sass/pages/checkout/_order_summary.scss';
 import '@/sass/pages/checkout/_last_popup.scss';
 
-export default function CheckoutOverviewPage() {
+export default function SummaryPage() {
   const navigate = useNavigate();
+  const { userId: firebaseUid } = useAuth();
+
   const [showFinalScreen, setShowFinalScreen] = useState(false);
+  const [backendUser, setBackendUser] = useState(null);
+  const [basketItems, setBasketItems] = useState([]);
+  const [basketTotal, setBasketTotal] = useState(0);
+  const [buttonLoading, setButtonLoading] = useState(false);
 
   const savedPersonal = JSON.parse(
     localStorage.getItem('personalInfo') || '{}'
@@ -43,9 +47,6 @@ export default function CheckoutOverviewPage() {
   const { country, street, houseNumber, postalCode, phone } = savedAddress;
   const { method, cardName, cardNumber } = savedPayment;
 
-  const [basketItems, setBasketItems] = useState([]);
-  const [basketTotal, setBasketTotal] = useState(0);
-
   const SHIPPING_COST = 5.0;
   const GIFT_WRAP_COST = addGiftWrap ? 3.99 : 0;
   const PERSONAL_CARD_COST = addPersonalCard ? 2.99 : 0;
@@ -58,6 +59,13 @@ export default function CheckoutOverviewPage() {
     .toFixed(2)
     .replace('.', ',');
 
+  const paymentLabels = {
+    card: 'Credit / Debit card',
+    paypal: 'PayPal',
+    klarna: 'Klarna',
+    applepay: 'Apple Pay',
+  };
+
   useEffect(() => {
     fetch('http://localhost:8000/api/basket')
       .then(res => res.json())
@@ -66,17 +74,38 @@ export default function CheckoutOverviewPage() {
         setBasketTotal(data.total_price || 0);
       })
       .catch(err => console.error('Failed to fetch basket:', err));
-  }, []);
 
-  const paymentLabels = {
-    card: 'Credit / Debit card',
-    paypal: 'PayPal',
-    klarna: 'Klarna',
-    applepay: 'Apple Pay',
-  };
+    if (!savedPersonal.firstName && firebaseUid) {
+      fetch(`/api/users/by-firebase-uid?uid=${firebaseUid}`)
+        .then(res => res.json())
+        .then(user => {
+          if (user && user.first_name && user.last_name && user.email) {
+            setBackendUser({
+              firstName: user.first_name,
+              lastName: user.last_name,
+              email: user.email,
+            });
+            localStorage.setItem(
+              'personalInfo',
+              JSON.stringify({
+                firstName: user.first_name,
+                lastName: user.last_name,
+                email: user.email,
+              })
+            ); // 🔥 Add this caching
+          }
+        })
+        .catch(err => console.error('Failed to fetch user info', err));
+    }
+  }, [firebaseUid]);
+  // ✅ Correct dependencies
 
   const handleConfirm = async () => {
-    if (!firstName || !lastName || !email) {
+    const resolvedFirstName = firstName || backendUser?.firstName;
+    const resolvedLastName = lastName || backendUser?.lastName;
+    const resolvedEmail = email || backendUser?.email;
+
+    if (!resolvedFirstName || !resolvedLastName || !resolvedEmail) {
       showNotification({
         title: 'Missing info',
         message: 'Personal info incomplete',
@@ -107,9 +136,10 @@ export default function CheckoutOverviewPage() {
       quantity: i.quantity,
       price: i.price,
     }));
+
     const payload = {
-      full_name: `${firstName} ${lastName}`,
-      email,
+      full_name: `${resolvedFirstName} ${resolvedLastName}`,
+      email: resolvedEmail,
       phone,
       address_1: `${street} ${houseNumber}`,
       address_2: '',
@@ -133,6 +163,8 @@ export default function CheckoutOverviewPage() {
         body: JSON.stringify(payload),
       });
       if (!res.ok) throw new Error(`Server responded ${res.status}`);
+
+      await fetch('/api/basket/clear', { method: 'POST' });
 
       localStorage.removeItem('personalInfo');
       localStorage.removeItem('shippingAddress');
@@ -168,9 +200,11 @@ export default function CheckoutOverviewPage() {
           <div className='section'>
             <Title order={4}>Personal information</Title>
             <Text>
-              {firstName} {lastName}
+              {(firstName || backendUser?.firstName || '-') +
+                ' ' +
+                (lastName || backendUser?.lastName || '-')}
             </Text>
-            <Text>{email}</Text>
+            <Text>{email || backendUser?.email || '-'}</Text>
           </div>
 
           <div className='section'>
@@ -230,7 +264,7 @@ export default function CheckoutOverviewPage() {
                 </Text>
                 <Text>
                   <span className='subtitle-text'>Card number:</span> **** ****
-                  **** {cardNumber.slice(-4)}
+                  **** {cardNumber?.slice(-4)}
                 </Text>
               </>
             )}
@@ -278,6 +312,7 @@ export default function CheckoutOverviewPage() {
 
         <BottomBarButton
           fullWidth
+          loading={buttonLoading}
           onClick={handleConfirm}
           text='Finalize purchase'
         />

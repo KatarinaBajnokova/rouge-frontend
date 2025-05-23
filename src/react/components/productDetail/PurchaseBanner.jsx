@@ -1,5 +1,5 @@
 import React from 'react';
-import { Text } from '@mantine/core';
+import { Text, Title } from '@mantine/core';
 import { AddToBasketIconButton } from '../buttons/IconButtons';
 
 export default function PurchaseBanner({ item, handleAddToBasket }) {
@@ -7,13 +7,14 @@ export default function PurchaseBanner({ item, handleAddToBasket }) {
     <div className='purchase-banner'>
       <div className='purchase-banner__content'>
         <div className='purchase-banner__price'>
-          <Text fw={500} size='sm'>
+          <Text  fw={700}>
             Price:
           </Text>
-          <Text fw={900} size='lg'>
+          <Title order={2} mt={-6}>
             €{item.price.toFixed(2).replace('.', ',')}
-          </Text>
+          </Title>
         </div>
+
         <AddToBasketIconButton onClick={handleAddToBasket} />
       </div>
     </div>

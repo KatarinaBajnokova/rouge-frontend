@@ -1,0 +1,140 @@
+import {
+  r as n,
+  A as I,
+  n as y,
+  j as s,
+  p as L,
+  q as C,
+  L as N,
+} from './react-BNfDklOQ.js';
+import {
+  B as S,
+  j as W,
+  L as E,
+  e as F,
+  f as B,
+  k as g,
+} from './index-Cd1dwsJR.js';
+import { b as T, P as A, D, s as i } from './mantine-BDZ4NO2A.js';
+import './vendor-DRc0kkrK.js';
+const O = () => {
+  const [r, p] = n.useState(''),
+    [l, x] = n.useState(''),
+    [d, b] = n.useState(!1),
+    [c, o] = n.useState(!1),
+    j = I(),
+    m = new URLSearchParams(j.search),
+    h = m.get('from') === 'profile',
+    f = m.get('from') === 'checkout',
+    a = y(),
+    w = async () => {
+      if (!r || !l) {
+        i({
+          title: 'Missing credentials',
+          message: 'Please enter both email and password.',
+          color: 'red',
+        });
+        return;
+      }
+      o(!0);
+      try {
+        const { auth: e, signInWithEmailAndPassword: t } = await g();
+        await t(e, r, l),
+          i({
+            title: 'Welcome back!',
+            message: 'You are now logged in.',
+            color: 'green',
+          }),
+          a(h ? '/homescreen' : f ? '/checkout/friend-info' : '/homescreen');
+      } catch (e) {
+        i({ title: 'Login error', message: e.message, color: 'red' });
+      } finally {
+        o(!1);
+      }
+    },
+    k = async () => {
+      o(!0);
+      try {
+        const { auth: e, googleProvider: t, signInWithPopup: u } = await g(),
+          P = await u(e, t);
+        a('/homescreen');
+      } catch (e) {
+        i({ title: 'Google sign-in error', message: e.message, color: 'red' });
+      } finally {
+        o(!1);
+      }
+    },
+    v = async () => {
+      o(!0);
+      try {
+        const { auth: e, facebookProvider: t, signInWithPopup: u } = await g(),
+          P = await u(e, t);
+        a('/homescreen');
+      } catch (e) {
+        i({
+          title: 'Facebook sign-in error',
+          message: e.message,
+          color: 'red',
+        });
+      } finally {
+        o(!1);
+      }
+    };
+  return s.jsxs('div', {
+    className: 'login-page',
+    children: [
+      s.jsx(S, {
+        onClick: () => {
+          a(h ? '/homescreen' : f ? '/basket' : -1);
+        },
+      }),
+      s.jsx(W, { active: 0 }),
+      s.jsx('h2', { children: 'Log in' }),
+      s.jsx('p', { children: 'Welcome back' }),
+      s.jsx(T, {
+        label: 'Email',
+        placeholder: 'Your email...',
+        value: r,
+        onChange: e => p(e.currentTarget.value),
+        className: 'input-field',
+      }),
+      s.jsx(A, {
+        label: 'Password',
+        placeholder: 'Your password...',
+        visible: d,
+        onVisibilityChange: () => b(!d),
+        visibilityToggleIcon: ({ reveal: e }) =>
+          e ? s.jsx(L, { size: 16 }) : s.jsx(C, { size: 16 }),
+        value: l,
+        onChange: e => x(e.currentTarget.value),
+        className: 'input-field',
+      }),
+      s.jsx(E, { onClick: w, loading: c }),
+      s.jsxs('div', {
+        className: 'social-register-section',
+        children: [
+          s.jsx(D, {
+            className: 'social-divider',
+            label: 'Or continue with',
+            labelPosition: 'center',
+          }),
+          s.jsxs('div', {
+            className: 'social-buttons',
+            children: [
+              s.jsx(F, { fullWidth: !0, onClick: v, loading: c }),
+              s.jsx(B, { fullWidth: !0, onClick: k, loading: c }),
+            ],
+          }),
+          s.jsx('div', {
+            className: 'login-link',
+            children: s.jsx(N, {
+              to: '/signup',
+              children: "Don't have an account? Sign up",
+            }),
+          }),
+        ],
+      }),
+    ],
+  });
+};
+export { O as default };

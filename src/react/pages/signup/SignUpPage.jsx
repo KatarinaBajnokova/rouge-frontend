@@ -10,17 +10,11 @@ import {
   BackIconButton,
 } from '../../components/buttons/IconButtons';
 
-import {
-  auth,
-  googleProvider,
-  facebookProvider,
-  signInWithPopup,
-} from '@/firebase';
-import { createUserWithEmailAndPassword } from 'firebase/auth';
+import { getFirebaseAuth } from '../../../getFirebaseAuth';
+
 import IconEye from '@tabler/icons-react/dist/esm/icons/iconEye';
 import IconEyeOff from '@tabler/icons-react/dist/esm/icons/iconEyeOff';
 
-import { useSignUpData } from '../../hooks/useSignUpData';
 import '@/sass/pages/_signup_page.scss';
 
 const SignUpPage = () => {
@@ -31,7 +25,6 @@ const SignUpPage = () => {
   const [confirmPassword, setConfirmPassword] = useState('');
   const [passwordVisible, setPasswordVisible] = useState(false);
 
-  const { save } = useSignUpData();
   const navigate = useNavigate();
 
   const handleEmailSignUp = async () => {
@@ -44,6 +37,7 @@ const SignUpPage = () => {
       });
       return;
     }
+
     if (!email.includes('@') || !email.includes('.')) {
       showNotification({
         title: 'Invalid Email',
@@ -53,6 +47,7 @@ const SignUpPage = () => {
       });
       return;
     }
+
     if (password.length < 6) {
       showNotification({
         title: 'Weak Password',
@@ -62,6 +57,7 @@ const SignUpPage = () => {
       });
       return;
     }
+
     if (password !== confirmPassword) {
       showNotification({
         title: 'Password Mismatch',
@@ -73,34 +69,61 @@ const SignUpPage = () => {
     }
 
     try {
+      const { auth, createUserWithEmailAndPassword } = await getFirebaseAuth();
       const result = await createUserWithEmailAndPassword(
         auth,
         email,
         password
       );
+
       const user = result.user;
       console.log('✅ Firebase sign-up success:', user);
+      localStorage.setItem('firebaseUid', user.uid);
 
-      save({
-        firstName,
-        lastName,
-        email,
-        password,
-        firebaseUid: user.uid,
+      const backendResponse = await fetch('http://localhost:3000/api/users', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          first_name: firstName,
+          last_name: lastName,
+          email: email,
+          password: password,
+          firebase_uid: user.uid,
+        }),
       });
+
+      let backendData;
+      try {
+        backendData = await backendResponse.json();
+      } catch (parseError) {
+        console.error('❌ Failed to parse backend response as JSON');
+        throw new Error('Invalid backend response');
+      }
+
+      if (!backendResponse.ok) {
+        throw new Error(
+          backendData.error || 'Failed to create user in backend.'
+        );
+      }
+
+      console.log('✅ User created in backend:', backendData);
 
       showNotification({
-        title: 'Onward!',
-        message: 'Let’s keep personalizing your profile…',
+        title: 'Signed up!',
+        message: 'Continue personalizing your profile.',
         color: 'green',
       });
-      navigate('/personal-look');
+
+      navigate('/personal-look', {
+        state: { newUser: true },
+      });
     } catch (err) {
       console.error('❌ Sign-up error:', err.message);
+
       if (err.message.includes('email-already-in-use')) {
         showNotification({
           title: 'Email already exists',
-          message: 'Use a different email or log in.',
+          message: 'Please use a different email or login instead.',
           color: 'red',
         });
       } else {
@@ -113,33 +136,51 @@ const SignUpPage = () => {
     }
   };
 
-  const handleSocialSignIn = async providerName => {
+  const handleGoogleSignIn = async () => {
     try {
-      let provider =
-        providerName === 'google' ? googleProvider : facebookProvider;
-      const result = await signInWithPopup(auth, provider);
-      const user = result.user;
-      console.log(`✅ ${providerName} sign-in success:`, user);
+      const { auth, googleProvider, signInWithPopup } = await getFirebaseAuth();
+      const result = await signInWithPopup(auth, googleProvider);
 
-      const [first, ...rest] = (user.displayName || '').split(' ');
-      save({
-        firstName: first || '',
-        lastName: rest.join(' ') || '',
-        email: user.email || '',
-        firebaseUid: user.uid,
-        provider: providerName,
-      });
+      const user = result.user;
+      console.log('✅ Google sign-in success:', user);
 
       showNotification({
-        title: `Logged in with ${providerName}`,
-        message: `Welcome ${first || 'back'}!`,
+        title: 'Logged in with Google',
+        message: `Welcome ${user.displayName || 'back'}!`,
         color: 'green',
       });
+
       navigate('/personal-look');
     } catch (err) {
-      console.error(`❌ ${providerName} sign-in error:`, err.message);
+      console.error('❌ Google sign-in error:', err.message);
       showNotification({
-        title: `${providerName} sign-in error`,
+        title: 'Google sign-in error',
+        message: err.message,
+        color: 'red',
+      });
+    }
+  };
+
+  const handleFacebookSignIn = async () => {
+    try {
+      const { auth, facebookProvider, signInWithPopup } =
+        await getFirebaseAuth();
+      const result = await signInWithPopup(auth, facebookProvider);
+
+      const user = result.user;
+      console.log('✅ Facebook sign-in success:', user);
+
+      showNotification({
+        title: 'Logged in with Facebook',
+        message: `Welcome ${user.displayName || 'back'}!`,
+        color: 'green',
+      });
+
+      navigate('/personal-look');
+    } catch (err) {
+      console.error('❌ Facebook sign-in error:', err.message);
+      showNotification({
+        title: 'Facebook sign-in error',
         message: err.message,
         color: 'red',
       });
@@ -149,6 +190,7 @@ const SignUpPage = () => {
   return (
     <div className='signup-page'>
       <BackIconButton />
+
       <FinalStepper active={0} />
 
       <h2>Sign-up</h2>
@@ -185,7 +227,7 @@ const SignUpPage = () => {
         label='Password'
         placeholder='Enter your password...'
         visible={passwordVisible}
-        onVisibilityChange={() => setPasswordVisible(v => !v)}
+        onVisibilityChange={() => setPasswordVisible(!passwordVisible)}
         visibilityToggleIcon={({ reveal }) =>
           reveal ? <IconEyeOff size={16} /> : <IconEye size={16} />
         }
@@ -204,19 +246,26 @@ const SignUpPage = () => {
         required
       />
 
-      <SignUpButton fullWidth onClick={handleEmailSignUp} />
+      <SignUpButton fullWidth onClick={handleEmailSignUp}>
+        Sign up
+      </SignUpButton>
 
       <div className='social-register-section'>
-        <Divider label='Or register with' labelPosition='center' />
+        <Divider
+          className='social-divider'
+          label='Or register with'
+          labelPosition='center'
+        />
 
         <div className='social-buttons'>
           <ContinueWithFacebookIconButton
             fullWidth
-            onClick={() => handleSocialSignIn('facebook')}
+            onClick={handleFacebookSignIn}
           />
+
           <ContinueWithGoogleIconButton
             fullWidth
-            onClick={() => handleSocialSignIn('google')}
+            onClick={handleGoogleSignIn}
           />
         </div>
 

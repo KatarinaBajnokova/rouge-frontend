@@ -45,11 +45,9 @@ export function WhiteLogInButton(props) {
 
 export function SignUpButton(props) {
   return (
-    <Link to='/signup' prefetch='intent' style={{ textDecoration: 'none' }}>
-      <Button classNames={{ root: 'sign-up-button' }} {...props}>
-        Sign up
-      </Button>
-    </Link>
+    <Button classNames={{ root: 'sign-up-button' }} {...props}>
+      {props.children || 'Sign up'}
+    </Button>
   );
 }
 

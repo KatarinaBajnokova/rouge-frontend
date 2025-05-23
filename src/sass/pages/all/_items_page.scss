@@ -1,0 +1,107 @@
+@use 'sass:map';
+@use '@/sass/abstract/colors' as *;
+@use '@/sass/abstract/typography' as *;
+@use '@/sass/abstract/mixins' as mixin;
+
+.items-page {
+  background-color: $white-background;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  padding: 1rem;
+
+  .header-wrapper {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 1rem;
+    background-color: $white-background;
+    height: 4rem;
+    padding: 0 1rem;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+
+    .titles {
+      flex: 1;
+      margin-left: 1rem;
+
+      h2 {
+        @include mixin.font('section-title', 'bold');
+        color: $black-main;
+        margin: 0;
+
+        line-height: 4rem;
+      }
+    }
+  }
+
+  .search-wrapper {
+    margin-top: 0.5rem;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    margin-bottom: 0.5rem;
+  }
+
+  .search-row {
+    display: grid;
+    grid-template-columns: 1fr auto;
+    column-gap: 1.5rem;
+    align-items: center;
+    width: 100%;
+
+    .custom-search-bar {
+      flex: 1;
+      display: flex;
+      align-items: center;
+      background-color: $white-elements;
+      padding: 0.2rem 1rem;
+      border-radius: 2rem;
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    }
+
+    .search-icon {
+      margin-right: 0.5rem;
+      flex-shrink: 0;
+    }
+
+    .bare-input {
+      flex: 1;
+      font-size: 1rem;
+      background: transparent;
+      border: none;
+      outline: none;
+      color: $black-main;
+    }
+  }
+
+  .filter-row {
+    display: flex;
+    justify-content: flex-start;
+    margin-bottom: 1rem;
+  }
+
+  .items-section {
+    margin-bottom: 1.5rem;
+
+    .section-title {
+      @include mixin.font('section-title', 'bold');
+      color: $black-main;
+      margin: 0 0 0.5rem;
+    }
+
+    .section-list {
+      display: flex;
+      gap: 0.75rem;
+      overflow-x: auto;
+      padding-bottom: 0.5rem;
+    }
+  }
+
+  .no-items {
+    text-align: center;
+    color: $light-grey;
+    margin-top: 2rem;
+    @include mixin.font('section-description', 'regular');
+  }
+}

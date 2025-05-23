@@ -1,0 +1,129 @@
+const __vite__mapDeps = (
+  i,
+  m = __vite__mapDeps,
+  d = m.f ||
+    (m.f = [
+      'assets/index-Cd1dwsJR.js',
+      'assets/react-BNfDklOQ.js',
+      'assets/vendor-DRc0kkrK.js',
+      'assets/vendor-2d6kTBOk.css',
+      'assets/react-h0EPuWW_.css',
+      'assets/mantine-BDZ4NO2A.js',
+      'assets/mantine-D9CoEoAS.css',
+      'assets/index-BEf6yGuh.css',
+    ])
+) => i.map(i => d[i]);
+import { r as c, n as h, _ as f, j as o } from './react-BNfDklOQ.js';
+import { u as m, B as I, j as b, i as j } from './index-Cd1dwsJR.js';
+import './vendor-DRc0kkrK.js';
+import './mantine-BDZ4NO2A.js';
+const L = '/assets/1look-MkZSByLH.png',
+  x = '/assets/2look-p3rcBxAE.png',
+  y = '/assets/3look-DBJAwkg1.png',
+  S = '/assets/4look-O5fj23vt.png',
+  D = [
+    { id: 1, src: L, alt: 'Look 1' },
+    { id: 2, src: x, alt: 'Look 2' },
+    { id: 3, src: y, alt: 'Look 3' },
+    { id: 4, src: S, alt: 'Look 4' },
+  ];
+function v() {
+  const [a, d] = c.useState(null),
+    [i, l] = c.useState(!1),
+    r = h(),
+    { userId: n, loading: u } = m();
+  c.useEffect(() => {
+    (async () => {
+      if (n) {
+        console.log(`🔗 Fetching backend user ID using Firebase UID: ${n}`);
+        try {
+          const s = await fetch(`/api/users/by-firebase-uid?uid=${n}`),
+            t = await s.json();
+          s.ok && t.id
+            ? (localStorage.setItem('userId', t.id),
+              console.log('✅ Stored backend user_id in localStorage:', t.id))
+            : (console.error(
+                '❌ Failed to fetch backend user ID:',
+                t.error || 'No ID'
+              ),
+              r('/login'));
+        } catch (s) {
+          console.error('❌ Error fetching backend user ID:', s);
+        }
+      }
+    })();
+  }, [n, r]),
+    c.useEffect(() => {
+      f(
+        () => import('./index-Cd1dwsJR.js').then(e => e.P),
+        __vite__mapDeps([0, 1, 2, 3, 4, 5, 6, 7])
+      )
+        .then(() => console.log('✅ PersonalInfoPage chunk ready'))
+        .catch(e => console.error('❌ preload failed', e));
+    }, []);
+  const g = e => d(e),
+    k = async () => {
+      if (!a) {
+        alert('Please select a look before continuing.');
+        return;
+      }
+      const e = localStorage.getItem('backendUserId');
+      if (!e) {
+        alert('User ID not found. Please log in again.'), r('/login');
+        return;
+      }
+      try {
+        l(!0), console.time('UPDATE_LOOK');
+        const s = await fetch('/api/users/update', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ user_id: e, look_id: a }),
+        });
+        if ((console.timeEnd('UPDATE_LOOK'), !s.ok)) {
+          let t = 'Failed to update look.';
+          try {
+            t = (await s.json()).error || t;
+          } catch {
+            console.warn('⚠️ No JSON body returned');
+          }
+          throw new Error(t);
+        }
+        console.log('✅ Look ID updated in backend'), r('/personal-info');
+      } catch (s) {
+        console.error('❌ Error updating look:', s.message),
+          alert('Failed to update look. Please try again.');
+      } finally {
+        l(!1);
+      }
+    };
+  return u
+    ? o.jsx('div', { children: 'Loading...' })
+    : o.jsxs('div', {
+        className: 'personal-look-page',
+        children: [
+          o.jsx(I, {}),
+          o.jsx(b, { active: 1 }),
+          o.jsx('h2', { children: 'Select a picture that resembles you' }),
+          o.jsx('p', {
+            children:
+              'This will help us show products that match your appearance.',
+          }),
+          o.jsx('div', {
+            className: 'image-grid',
+            children: D.map(e =>
+              o.jsx(
+                'div',
+                {
+                  className: `image-box ${a === e.id ? 'selected' : ''}`,
+                  onClick: () => g(e.id),
+                  children: o.jsx('img', { src: e.src, alt: e.alt }),
+                },
+                e.id
+              )
+            ),
+          }),
+          o.jsx(j, { onClick: k, disabled: !a || i, loading: i }),
+        ],
+      });
+}
+export { v as default };

@@ -1,0 +1,1933 @@
+const __vite__mapDeps = (
+  i,
+  m = __vite__mapDeps,
+  d = m.f ||
+    (m.f = [
+      'assets/firebase-C6mhkFyO.js',
+      'assets/vendor-DRc0kkrK.js',
+      'assets/react-BNfDklOQ.js',
+      'assets/react-h0EPuWW_.css',
+      'assets/vendor-2d6kTBOk.css',
+      'assets/InitialPage-BmL2ArDI.js',
+      'assets/mantine-BDZ4NO2A.js',
+      'assets/mantine-D9CoEoAS.css',
+      'assets/InitialPage-AzX4qPBb.css',
+      'assets/DesignSystem-C0A1_lRi.js',
+      'assets/BasketButton-r1-1MTRa.js',
+      'assets/BasketButton-_2yz_fQ4.css',
+      'assets/AllCategoryItem-fQmfVpNW.js',
+      'assets/AllCategoryItem-COP_WHln.css',
+      'assets/AnimationPage-CUG_Vn9f.js',
+      'assets/AnimationPage-qDI3wFLg.css',
+      'assets/HomeScreen-_AmmVh_E.js',
+      'assets/TrendingCard-ClgaopvH.js',
+      'assets/TrendingCard-DLctm8PC.css',
+      'assets/Navbar-BcSH3E9D.js',
+      'assets/Navbar-BXye-pq0.css',
+      'assets/HomeScreen-CnogHGTv.css',
+      'assets/_detail_carousel-D7NSymJF.css',
+      'assets/ProductDetail-DkNMdxeq.js',
+      'assets/ProductDetail-B3uUYryN.css',
+      'assets/BasketPage-BDNqwaYF.js',
+      'assets/BasketPage-9R2LK7RM.css',
+      'assets/SignUpPage-pNylTEKx.js',
+      'assets/SignUpPage-DVtozowm.css',
+      'assets/LoginPage-BiXTBm4G.js',
+      'assets/LoginPage-Cv9Q8G1S.css',
+      'assets/PersonalLookPage-m5mXLsGL.js',
+      'assets/PersonalLookPage-DgeUpvIJ.css',
+      'assets/ProfilePage-D_8P33JW.js',
+      'assets/ProfilePage-gCVFUFXH.css',
+      'assets/Categories-CezpmpL5.js',
+      'assets/SearchResults-BD_-qxBO.js',
+      'assets/SearchResults-CtRj-B7K.css',
+      'assets/Categories-BOeS6BqW.css',
+      'assets/Subcategories-6tY0DkLM.js',
+      'assets/Subcategories-WvkffnyX.css',
+      'assets/ItemsPage-CTwfjXpR.js',
+      'assets/ItemsPage-C0Sysajb.css',
+    ])
+) => i.map(i => d[i]);
+import {
+  j as e,
+  r as t,
+  _ as A,
+  n as V,
+  I as Ie,
+  L as je,
+  p as Ee,
+  q as Ae,
+  t as de,
+  v as Be,
+  w as De,
+  B as Oe,
+  x as Fe,
+  y as C,
+  z as Te,
+  R as Le,
+  Q as Me,
+} from './react-BNfDklOQ.js';
+import {
+  C as Ve,
+  L as K,
+  S as se,
+  s as w,
+  B as b,
+  T as M,
+  a as Ce,
+  b as y,
+  G as oe,
+  P as ue,
+  D as Y,
+  c as he,
+  d as Re,
+  e as g,
+  M as We,
+  f as me,
+  g as Ge,
+  h as He,
+  N as ze,
+} from './mantine-BDZ4NO2A.js';
+import { B as Je } from './vendor-DRc0kkrK.js';
+(function () {
+  const a = document.createElement('link').relList;
+  if (a && a.supports && a.supports('modulepreload')) return;
+  for (const s of document.querySelectorAll('link[rel="modulepreload"]')) u(s);
+  new MutationObserver(s => {
+    for (const n of s)
+      if (n.type === 'childList')
+        for (const l of n.addedNodes)
+          l.tagName === 'LINK' && l.rel === 'modulepreload' && u(l);
+  }).observe(document, { childList: !0, subtree: !0 });
+  function i(s) {
+    const n = {};
+    return (
+      s.integrity && (n.integrity = s.integrity),
+      s.referrerPolicy && (n.referrerPolicy = s.referrerPolicy),
+      s.crossOrigin === 'use-credentials'
+        ? (n.credentials = 'include')
+        : s.crossOrigin === 'anonymous'
+          ? (n.credentials = 'omit')
+          : (n.credentials = 'same-origin'),
+      n
+    );
+  }
+  function u(s) {
+    if (s.ep) return;
+    s.ep = !0;
+    const n = i(s);
+    fetch(s.href, n);
+  }
+})();
+function $e() {
+  return e.jsx(Ve, {
+    style: { height: '100vh' },
+    children: e.jsx(K, { size: 'xl' }),
+  });
+}
+const ve = t.createContext();
+function Ze({ children: o }) {
+  const [a, i] = t.useState(
+      () => JSON.parse(localStorage.getItem('checkout_personal')) || {}
+    ),
+    [u, s] = t.useState(
+      () => JSON.parse(localStorage.getItem('checkout_friend')) || {}
+    ),
+    [n, l] = t.useState(
+      () => JSON.parse(localStorage.getItem('checkout_address')) || {}
+    ),
+    [x, m] = t.useState(
+      () => JSON.parse(localStorage.getItem('checkout_payment')) || {}
+    );
+  return (
+    t.useEffect(() => {
+      localStorage.setItem('checkout_personal', JSON.stringify(a));
+    }, [a]),
+    t.useEffect(() => {
+      localStorage.setItem('checkout_friend', JSON.stringify(u));
+    }, [u]),
+    t.useEffect(() => {
+      localStorage.setItem('checkout_address', JSON.stringify(n));
+    }, [n]),
+    t.useEffect(() => {
+      localStorage.setItem('checkout_payment', JSON.stringify(x));
+    }, [x]),
+    e.jsx(ve.Provider, {
+      value: {
+        personalInfo: a,
+        setPersonalInfo: i,
+        friendInfo: u,
+        setFriendInfo: s,
+        addressInfo: n,
+        setAddressInfo: l,
+        paymentMethod: x,
+        setPaymentMethod: m,
+      },
+      children: o,
+    })
+  );
+}
+function ye() {
+  const o = t.useContext(ve);
+  if (!o) throw new Error('useCheckout must be used within a CheckoutProvider');
+  return o;
+}
+const le = async () => {
+    const { initializeApp: o } = await A(
+        async () => {
+          const { initializeApp: j } = await import(
+            './firebase-C6mhkFyO.js'
+          ).then(S => S.i);
+          return { initializeApp: j };
+        },
+        __vite__mapDeps([0, 1, 2, 3, 4])
+      ),
+      {
+        getAuth: a,
+        GoogleAuthProvider: i,
+        FacebookAuthProvider: u,
+        signInWithPopup: s,
+        signInWithEmailAndPassword: n,
+        createUserWithEmailAndPassword: l,
+        onAuthStateChanged: x,
+        signOut: m,
+      } = await A(
+        async () => {
+          const {
+            getAuth: j,
+            GoogleAuthProvider: S,
+            FacebookAuthProvider: _,
+            signInWithPopup: P,
+            signInWithEmailAndPassword: I,
+            createUserWithEmailAndPassword: E,
+            onAuthStateChanged: p,
+            signOut: d,
+          } = await import('./firebase-C6mhkFyO.js').then(c => c.a);
+          return {
+            getAuth: j,
+            GoogleAuthProvider: S,
+            FacebookAuthProvider: _,
+            signInWithPopup: P,
+            signInWithEmailAndPassword: I,
+            createUserWithEmailAndPassword: E,
+            onAuthStateChanged: p,
+            signOut: d,
+          };
+        },
+        __vite__mapDeps([0, 1, 2, 3, 4])
+      ),
+      v = o({
+        apiKey: 'AIzaSyCB6zO-qCX0B92sHgh1FI8_2iZ3pTERYzQ',
+        authDomain: 'rouge-e249d.firebaseapp.com',
+        projectId: 'rouge-e249d',
+        storageBucket: 'rouge-e249d.appspot.com',
+        messagingSenderId: '227400891514',
+        appId: '1:227400891514:web:40db4c3e1576d060f74fc3',
+      });
+    return {
+      auth: a(v),
+      onAuthStateChanged: x,
+      signOut: m,
+      googleProvider: new i(),
+      facebookProvider: new u(),
+      signInWithPopup: s,
+      signInWithEmailAndPassword: n,
+      createUserWithEmailAndPassword: l,
+    };
+  },
+  Ne = t.createContext(),
+  qe = ({ children: o }) => {
+    const [a, i] = t.useState(null),
+      [u, s] = t.useState(!0);
+    return (
+      t.useEffect(() => {
+        let n;
+        return (
+          (async () => {
+            const { auth: x, onAuthStateChanged: m } = await le();
+            n = m(x, N => {
+              i(N ? N.uid : null), s(!1);
+            });
+          })(),
+          () => {
+            n && n();
+          }
+        );
+      }, []),
+      e.jsx(Ne.Provider, { value: { userId: a, loading: u }, children: o })
+    );
+  },
+  ce = () => t.useContext(Ne);
+function ae({ active: o }) {
+  return e.jsxs(se, {
+    active: o,
+    className: 'custom-stepper',
+    classNames: {
+      separator: 'custom-stepper-separator',
+      stepIcon: 'custom-step-icon',
+      step: 'custom-step',
+    },
+    children: [e.jsx(se.Step, {}), e.jsx(se.Step, {}), e.jsx(se.Step, {})],
+  });
+}
+function Se() {
+  const o = V(),
+    [a, i] = t.useState(!1);
+  async function u(s) {
+    const n = localStorage.getItem('userId');
+    if (!n) throw new Error('Not logged in');
+    i(!0);
+    try {
+      const l = await fetch('/api/users/update', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ user_id: n, ...s }),
+        }),
+        x = await l.json();
+      if (!l.ok) throw new Error(x.error || 'Update failed');
+      o('/profile');
+    } catch (l) {
+      w({
+        title: 'Update failed',
+        message: l.message,
+        color: 'red',
+        position: 'top-center',
+      });
+    } finally {
+      i(!1);
+    }
+  }
+  return { updateUser: u, loading: a };
+}
+const we =
+    "data:image/svg+xml,%3csvg%20width='29'%20height='32'%20viewBox='0%200%2029%2032'%20fill='none'%20xmlns='http://www.w3.org/2000/svg'%3e%3cpath%20d='M24.2437%2028.2341H5.58233C5.29597%2028.2358%205.0191%2028.1314%204.80518%2027.941C4.59126%2027.7506%204.45546%2027.4878%204.42396%2027.2031L3.50886%2013.4707C3.50403%2013.3173%203.53069%2013.1645%203.58719%2013.0218C3.6437%2012.879%203.72885%2012.7494%203.83739%2012.6409C3.94593%2012.5323%204.07557%2012.4472%204.21829%2012.3907C4.36101%2012.3342%204.5138%2012.3075%204.66723%2012.3123H25.3499C25.6571%2012.3123%2025.9518%2012.4344%2026.169%2012.6516C26.3863%2012.8688%2026.5083%2013.1635%2026.5083%2013.4707L25.4021%2027.2147C25.3679%2027.4973%2025.2309%2027.7573%2025.0173%2027.9453C24.8036%2028.1334%2024.5283%2028.2361%2024.2437%2028.2341Z'%20fill='%23FBFBFB'%20stroke='%23FBFBFB'%20stroke-width='2.40407'%20stroke-linecap='round'%20stroke-linejoin='round'/%3e%3cpath%20d='M9.21387%2016.0713V9.70029C9.21387%208.1642%209.82409%206.69102%2010.9103%205.60483C11.9965%204.51865%2013.4696%203.90845%2015.0057%203.90845C16.5418%203.90845%2018.015%204.51865%2019.1012%205.60483C20.1874%206.69102%2020.7976%208.1642%2020.7976%209.70029V16.0713'%20stroke='%23FBFBFB'%20stroke-width='2.40407'%20stroke-linecap='round'%20stroke-linejoin='round'/%3e%3c/svg%3e",
+  Ye =
+    "data:image/svg+xml,%3csvg%20width='8'%20height='13'%20viewBox='0%200%208%2013'%20fill='none'%20xmlns='http://www.w3.org/2000/svg'%3e%3crect%20width='8'%20height='13'%20fill='%231E1E1E'/%3e%3cg%20id='Scenario%202%20-%20Buy%20a%20look'%3e%3cpath%20d='M-1845%20-4156C-1845%20-4157.1%20-1844.1%20-4158%20-1843%20-4158H6467C6468.1%20-4158%206469%20-4157.1%206469%20-4156V1781C6469%201782.1%206468.1%201783%206467%201783H-1843C-1844.1%201783%20-1845%201782.1%20-1845%201781V-4156Z'%20fill='%23444444'/%3e%3cpath%20d='M-1843%20-4157H6467V-4159H-1843V-4157ZM6468%20-4156V1781H6470V-4156H6468ZM6467%201782H-1843V1784H6467V1782ZM-1844%201781V-4156H-1846V1781H-1844ZM-1843%201782C-1843.55%201782%20-1844%201781.55%20-1844%201781H-1846C-1846%201782.66%20-1844.66%201784%20-1843%201784V1782ZM6468%201781C6468%201781.55%206467.55%201782%206467%201782V1784C6468.66%201784%206470%201782.66%206470%201781H6468ZM6467%20-4157C6467.55%20-4157%206468%20-4156.55%206468%20-4156H6470C6470%20-4157.66%206468.66%20-4159%206467%20-4159V-4157ZM-1843%20-4159C-1844.66%20-4159%20-1846%20-4157.66%20-1846%20-4156H-1844C-1844%20-4156.55%20-1843.55%20-4157%20-1843%20-4157V-4159Z'%20fill='white'%20fill-opacity='0.1'/%3e%3cg%20id='Look%20page'%20clip-path='url(%23clip0_874_4709)'%3e%3crect%20width='412'%20height='2143'%20transform='translate(-370%20-2081)'%20fill='%23E5DFDF'/%3e%3cg%20id='whole%20page'%3e%3cg%20id='everything'%3e%3cg%20id='Body'%3e%3cg%20id='Reviews'%3e%3cg%20id='Frame%20117'%3e%3cg%20id='Frame%20116'%20filter='url(%23filter0_d_874_4709)'%3e%3crect%20x='-109'%20y='-11'%20width='129'%20height='34'%20rx='17'%20fill='%23AA1DA4'/%3e%3cg%20id='Frame%2061'%3e%3cg%20id='Chevron'%3e%3cg%20id='Frame%20318'%3e%3cg%20id='Next'%3e%3cg%20id='Group'%3e%3cpath%20id='Vector'%20d='M1.34985%2011.3003L6.65004%206.28008L1.48398%201.22998'%20stroke='%23FBFBFB'%20stroke-width='2.07523'%20stroke-linecap='round'%20stroke-linejoin='round'/%3e%3c/g%3e%3c/g%3e%3c/g%3e%3c/g%3e%3c/g%3e%3c/g%3e%3c/g%3e%3c/g%3e%3c/g%3e%3c/g%3e%3c/g%3e%3c/g%3e%3c/g%3e%3cdefs%3e%3cfilter%20id='filter0_d_874_4709'%20x='-113'%20y='-11'%20width='137'%20height='42'%20filterUnits='userSpaceOnUse'%20color-interpolation-filters='sRGB'%3e%3cfeFlood%20flood-opacity='0'%20result='BackgroundImageFix'/%3e%3cfeColorMatrix%20in='SourceAlpha'%20type='matrix'%20values='0%200%200%200%200%200%200%200%200%200%200%200%200%200%200%200%200%200%20127%200'%20result='hardAlpha'/%3e%3cfeOffset%20dy='4'/%3e%3cfeGaussianBlur%20stdDeviation='2'/%3e%3cfeComposite%20in2='hardAlpha'%20operator='out'/%3e%3cfeColorMatrix%20type='matrix'%20values='0%200%200%200%200%200%200%200%200%200%200%200%200%200%200%200%200%200%200.18%200'/%3e%3cfeBlend%20mode='normal'%20in2='BackgroundImageFix'%20result='effect1_dropShadow_874_4709'/%3e%3cfeBlend%20mode='normal'%20in='SourceGraphic'%20in2='effect1_dropShadow_874_4709'%20result='shape'/%3e%3c/filter%3e%3cclipPath%20id='clip0_874_4709'%3e%3crect%20width='412'%20height='2143'%20fill='white'%20transform='translate(-370%20-2081)'/%3e%3c/clipPath%3e%3c/defs%3e%3c/svg%3e",
+  Ke =
+    "data:image/svg+xml,%3csvg%20width='38'%20height='38'%20viewBox='0%200%2038%2038'%20fill='none'%20xmlns='http://www.w3.org/2000/svg'%3e%3cpath%20d='M26.7787%208.73774H33.0001'%20stroke='%232D2D2D'%20stroke-width='2.48889'%20stroke-linecap='round'%20stroke-linejoin='round'/%3e%3cpath%20d='M5%208.73774H17.8795'%20stroke='%232D2D2D'%20stroke-width='2.48889'%20stroke-linecap='round'%20stroke-linejoin='round'/%3e%3cpath%20d='M25.1445%2010.4755C26.0872%2010.4755%2026.8515%209.69751%2026.8515%208.73776C26.8515%207.77801%2026.0872%206.99998%2025.1445%206.99998C24.2017%206.99998%2023.4375%207.77801%2023.4375%208.73776C23.4375%209.69751%2024.2017%2010.4755%2025.1445%2010.4755Z'%20fill='%232D2D2D'%20stroke='%232D2D2D'%20stroke-width='3.59562'%20stroke-linecap='round'%20stroke-linejoin='round'/%3e%3cpath%20d='M26.7787%2030.1511H33.0001'%20stroke='%232D2D2D'%20stroke-width='2.48889'%20stroke-linecap='round'%20stroke-linejoin='round'/%3e%3cpath%20d='M5%2030.1511H17.8795'%20stroke='%232D2D2D'%20stroke-width='2.48889'%20stroke-linecap='round'%20stroke-linejoin='round'/%3e%3cpath%20d='M25.1445%2031.8889C26.0872%2031.8889%2026.8515%2031.1108%2026.8515%2030.1511C26.8515%2029.1913%2026.0872%2028.4133%2025.1445%2028.4133C24.2017%2028.4133%2023.4375%2029.1913%2023.4375%2030.1511C23.4375%2031.1108%2024.2017%2031.8889%2025.1445%2031.8889Z'%20fill='%232D2D2D'%20stroke='%232D2D2D'%20stroke-width='3.59562'%20stroke-linecap='round'%20stroke-linejoin='round'/%3e%3cpath%20d='M11.2213%2019.4444H5'%20stroke='%232D2D2D'%20stroke-width='2.48889'%20stroke-linecap='round'%20stroke-linejoin='round'/%3e%3cpath%20d='M33.0001%2019.4444H20.1205'%20stroke='%232D2D2D'%20stroke-width='2.48889'%20stroke-linecap='round'%20stroke-linejoin='round'/%3e%3cpath%20d='M12.8555%2021.1822C13.7983%2021.1822%2014.5625%2020.4042%2014.5625%2019.4444C14.5625%2018.4847%2013.7983%2017.7067%2012.8555%2017.7067C11.9128%2017.7067%2011.1485%2018.4847%2011.1485%2019.4444C11.1485%2020.4042%2011.9128%2021.1822%2012.8555%2021.1822Z'%20fill='%232D2D2D'%20stroke='%232D2D2D'%20stroke-width='3.59562'%20stroke-linecap='round'%20stroke-linejoin='round'/%3e%3c/svg%3e",
+  Ue =
+    "data:image/svg+xml,%3csvg%20width='38'%20height='38'%20viewBox='0%200%2038%2038'%20fill='none'%20xmlns='http://www.w3.org/2000/svg'%3e%3cpath%20d='M14.4657%2029.8149L7%2030.3939L8.14433%2023.4728L23.3722%208.30695C24.2098%207.47009%2025.3454%207%2026.5295%207C27.7135%207%2028.8491%207.47009%2029.6867%208.30695V8.30695C30.103%208.72137%2030.4332%209.21391%2030.6586%209.75631C30.884%2010.2987%2031%2010.8803%2031%2011.4677C31%2012.055%2030.884%2012.6366%2030.6586%2013.179C30.4332%2013.7214%2030.103%2014.2139%2029.6867%2014.6283L14.4657%2029.8149Z'%20stroke='%232D2D2D'%20stroke-width='3.44678'%20stroke-linecap='round'%20stroke-linejoin='round'/%3e%3cpath%20d='M21.897%2010.2234L27.7427%2016.0691'%20stroke='%232D2D2D'%20stroke-width='3.44678'%20stroke-linecap='round'%20stroke-linejoin='round'/%3e%3c/svg%3e",
+  Qe =
+    "data:image/svg+xml,%3csvg%20width='26'%20height='26'%20viewBox='0%200%2026%2026'%20fill='none'%20xmlns='http://www.w3.org/2000/svg'%3e%3cg%20id='Facebook'%3e%3crect%20width='26'%20height='26'%20rx='13'%20fill='%231877F2'/%3e%3cpath%20id='Vector'%20d='M18.0604%2016.7578L18.6367%2013H15.0312V10.5625C15.0312%209.53418%2015.534%208.53125%2017.1488%208.53125H18.7891V5.33203C18.7891%205.33203%2017.3012%205.07812%2015.8793%205.07812C12.9086%205.07812%2010.9688%206.87832%2010.9688%2010.1359V13H7.66797V16.7578H10.9688V25.8426C11.6314%2025.9467%2012.3094%2026%2013%2026C13.6906%2026%2014.3686%2025.9467%2015.0312%2025.8426V16.7578H18.0604Z'%20fill='white'/%3e%3c/g%3e%3c/svg%3e",
+  Xe =
+    "data:image/svg+xml,%3csvg%20width='26'%20height='26'%20viewBox='0%200%2026%2026'%20fill='none'%20xmlns='http://www.w3.org/2000/svg'%3e%3cg%20id='Google'%20clip-path='url(%23clip0_881_5703)'%3e%3cg%20id='Group'%3e%3cpath%20id='Shape'%20fill-rule='evenodd'%20clip-rule='evenodd'%20d='M25.48%2013.2955C25.48%2012.3737%2025.3973%2011.4873%2025.2436%2010.6364H13V15.665H19.9964C19.695%2017.29%2018.7791%2018.6668%2017.4023%2019.5887V22.8505H21.6036C24.0618%2020.5873%2025.48%2017.2546%2025.48%2013.2955Z'%20fill='%234285F4'/%3e%3cpath%20id='Shape_2'%20fill-rule='evenodd'%20clip-rule='evenodd'%20d='M13.0001%2026C16.5101%2026%2019.4528%2024.8359%2021.6037%2022.8505L17.4024%2019.5886C16.2383%2020.3686%2014.7492%2020.8295%2013.0001%2020.8295C9.61418%2020.8295%206.74827%2018.5427%205.72599%2015.47H1.38281V18.8382C3.5219%2023.0868%207.91827%2026%2013.0001%2026Z'%20fill='%2334A853'/%3e%3cpath%20id='Shape_3'%20fill-rule='evenodd'%20clip-rule='evenodd'%20d='M5.72591%2015.47C5.46591%2014.69%205.31818%2013.8568%205.31818%2013C5.31818%2012.1432%205.46591%2011.31%205.72591%2010.53V7.16183H1.38273C0.502273%208.91683%200%2010.9023%200%2013C0%2015.0977%200.502273%2017.0832%201.38273%2018.8382L5.72591%2015.47Z'%20fill='%23FBBC05'/%3e%3cpath%20id='Shape_4'%20fill-rule='evenodd'%20clip-rule='evenodd'%20d='M13.0001%205.17045C14.9087%205.17045%2016.6224%205.82636%2017.9696%207.11455L21.6983%203.38591C19.4469%201.28818%2016.5042%200%2013.0001%200C7.91827%200%203.5219%202.91318%201.38281%207.16182L5.72599%2010.53C6.74827%207.45727%209.61418%205.17045%2013.0001%205.17045Z'%20fill='%23EA4335'/%3e%3c/g%3e%3c/g%3e%3cdefs%3e%3cclipPath%20id='clip0_881_5703'%3e%3crect%20width='26'%20height='26'%20fill='white'/%3e%3c/clipPath%3e%3c/defs%3e%3c/svg%3e",
+  et =
+    "data:image/svg+xml,%3csvg%20width='21'%20height='26'%20viewBox='0%200%2021%2026'%20fill='none'%20xmlns='http://www.w3.org/2000/svg'%3e%3cg%20id='Icon%20/%20Apple'%3e%3cpath%20id='&%23239;&%23163;&%23191;'%20d='M10.0395%205.7C11.1211%205.7%2012.477%204.94628%2013.2844%203.94132C14.0156%203.03058%2014.5488%201.75868%2014.5488%200.486776C14.5488%200.314049%2014.5336%200.141322%2014.5031%200C13.2996%200.0471075%2011.8523%200.832231%2010.984%201.8843C10.2984%202.68512%209.67383%203.94132%209.67383%205.22893C9.67383%205.41736%209.7043%205.60579%209.71953%205.6686C9.7957%205.6843%209.91758%205.7%2010.0395%205.7ZM6.23086%2024.7C7.70859%2024.7%208.36367%2023.6793%2010.207%2023.6793C12.0809%2023.6793%2012.4922%2024.6686%2014.1375%2024.6686C15.7523%2024.6686%2016.834%2023.1298%2017.8547%2021.6223C18.9973%2019.895%2019.4695%2018.1992%2019.5%2018.1207C19.3934%2018.0893%2016.3008%2016.786%2016.3008%2013.1273C16.3008%209.95537%2018.7383%208.52645%2018.8754%208.41653C17.2605%206.02975%2014.8078%205.96694%2014.1375%205.96694C12.3246%205.96694%2010.8469%207.09752%209.91758%207.09752C8.91211%207.09752%207.58672%206.02975%206.01758%206.02975C3.03164%206.02975%200%208.57355%200%2013.3785C0%2016.362%201.12734%2019.5182%202.51367%2021.5595C3.70195%2023.2868%204.73789%2024.7%206.23086%2024.7Z'%20fill='%230B0B0B'/%3e%3c/g%3e%3c/svg%3e";
+function Pt({ onClick: o, ...a }) {
+  return e.jsx(b, {
+    classNames: { root: 'add-to-basket-icon-button' },
+    leftSection: e.jsx('img', {
+      src: we,
+      alt: '',
+      'aria-hidden': 'true',
+      width: 16,
+      height: 16,
+    }),
+    onClick: o,
+    ...a,
+    children: 'Add to basket',
+  });
+}
+function It(o) {
+  return e.jsx(b, {
+    classNames: { root: 'see-reviews-icon-button' },
+    leftSection: e.jsx('img', {
+      src: Ye,
+      alt: '',
+      'aria-hidden': 'true',
+      width: 16,
+      height: 16,
+    }),
+    ...o,
+    children: 'See reviews',
+  });
+}
+function Et(o) {
+  return e.jsx(b, {
+    classNames: { root: 'filter-icon-button' },
+    leftSection: e.jsx('img', {
+      src: Ke,
+      alt: '',
+      'aria-hidden': 'true',
+      width: 25,
+      height: 25,
+    }),
+    ...o,
+    children: 'Filter',
+  });
+}
+function At(o) {
+  return e.jsx(b, {
+    classNames: { root: 'leave-a-review-icon-button' },
+    leftSection: e.jsx('img', {
+      src: Ue,
+      alt: '',
+      'aria-hidden': 'true',
+      width: 16,
+      height: 16,
+    }),
+    ...o,
+    children: 'Leave a review',
+  });
+}
+function Bt(o) {
+  return e.jsx(b, {
+    classNames: { root: 'repurchase-icon-button' },
+    leftSection: e.jsx('img', {
+      src: we,
+      alt: '',
+      'aria-hidden': 'true',
+      width: 16,
+      height: 16,
+    }),
+    ...o,
+    children: 'Repurchase',
+  });
+}
+function tt(o) {
+  return e.jsx(b, {
+    classNames: { root: 'continue-with-facebook-icon-button' },
+    leftSection: e.jsx('img', {
+      src: Qe,
+      alt: '',
+      'aria-hidden': 'true',
+      width: 16,
+      height: 16,
+    }),
+    ...o,
+    children: 'Continue with Facebook',
+  });
+}
+function st(o) {
+  return e.jsx(b, {
+    classNames: { root: 'continue-with-google-icon-button' },
+    leftSection: e.jsx('img', {
+      src: Xe,
+      alt: '',
+      'aria-hidden': 'true',
+      width: 16,
+      height: 16,
+    }),
+    ...o,
+    children: 'Continue with Google',
+  });
+}
+function Dt(o) {
+  return e.jsx(b, {
+    classNames: { root: 'continue-with-apple-icon-button' },
+    leftSection: e.jsx('img', {
+      src: et,
+      alt: '',
+      'aria-hidden': 'true',
+      width: 16,
+      height: 16,
+    }),
+    ...o,
+    children: 'Continue with Apple',
+  });
+}
+function G({ onClick: o, ...a }) {
+  const i = V(),
+    u = s => {
+      o ? o(s) : i(-1);
+    };
+  return e.jsx('button', {
+    className: 'back-icon-button',
+    onClick: u,
+    'aria-label': 'Go back',
+    ...a,
+    children: e.jsx(Ie, { size: 33, stroke: 2 }),
+  });
+}
+function Ot({ text: o, onBack: a, backButtonStyle: i }) {
+  return e.jsxs('div', {
+    className: 'back-header',
+    children: [
+      e.jsx(G, { onClick: a, style: i }),
+      e.jsx(M, { order: 2, children: o }),
+    ],
+  });
+}
+function Ft(o) {
+  return e.jsx(b, {
+    type: 'button',
+    classNames: { root: 'checkout-button' },
+    ...o,
+    children: 'Check-out',
+  });
+}
+function Tt(o) {
+  return e.jsx(b, {
+    type: 'button',
+    classNames: { root: 'confirm-purchase-button' },
+    ...o,
+    children: 'Confirm Purchase',
+  });
+}
+function Lt(o) {
+  return e.jsx(b, {
+    type: 'button',
+    classNames: { root: 'log-in-button' },
+    ...o,
+    children: 'Log in',
+  });
+}
+function Mt(o) {
+  return e.jsx(b, {
+    type: 'button',
+    classNames: { root: 'white-log-in-button' },
+    ...o,
+    children: 'Log in',
+  });
+}
+function ot(o) {
+  return e.jsx(je, {
+    to: '/signup',
+    prefetch: 'intent',
+    style: { textDecoration: 'none' },
+    children: e.jsx(b, {
+      classNames: { root: 'sign-up-button' },
+      ...o,
+      children: 'Sign up',
+    }),
+  });
+}
+function be({ text: o = 'Continue', ...a }) {
+  return e.jsx(b, {
+    type: 'button',
+    classNames: { root: 'continue-button' },
+    ...a,
+    children: o,
+  });
+}
+function Vt(o) {
+  return e.jsx(b, {
+    type: 'button',
+    classNames: { root: 'more-info-button' },
+    ...o,
+    children: 'More info',
+  });
+}
+function U(o) {
+  return e.jsx('div', {
+    className: 'bottom-bar',
+    children: e.jsx(be, { ...o }),
+  });
+}
+function ke() {
+  const o = V(),
+    { updateUser: a, loading: i } = Se(),
+    [u, s] = t.useState(''),
+    [n, l] = t.useState(''),
+    [x, m] = t.useState(''),
+    [N, v] = t.useState(''),
+    [k, j] = t.useState(''),
+    [S, _] = t.useState(''),
+    [P, I] = t.useState([]),
+    [E, p] = t.useState(!1);
+  t.useEffect(() => {
+    const c = sessionStorage.getItem('countries');
+    if (c) {
+      I(JSON.parse(c));
+      return;
+    }
+    p(!0),
+      fetch('https://restcountries.com/v3.1/all?fields=name')
+        .then(f => f.json())
+        .then(f => {
+          const B = f
+            .map(O => O.name.common)
+            .sort((O, H) => O.localeCompare(H));
+          I(B), sessionStorage.setItem('countries', JSON.stringify(B));
+        })
+        .catch(f => {
+          console.error('Failed to fetch countries', f);
+        })
+        .finally(() => {
+          p(!1);
+        });
+  }, []);
+  const d = async () => {
+    const c = `${n} ${x}, ${N}, ${u}`;
+    try {
+      await a({
+        address_1: c,
+        phone: k,
+        birthdate: S || null,
+        country: u || null,
+      }),
+        o('/homescreen');
+    } catch (f) {
+      console.error('Failed to update user', f);
+    }
+  };
+  return e.jsxs('div', {
+    className: 'personal-info-page',
+    children: [
+      e.jsx(G, {}),
+      e.jsx(ae, { active: 2 }),
+      e.jsxs('div', {
+        className: 'personal-form',
+        style: { marginTop: '2rem' },
+        children: [
+          e.jsx('h2', { children: 'Personal information' }),
+          e.jsxs('div', {
+            className: 'step-description',
+            children: [
+              e.jsx('p', {
+                children:
+                  'Press "Confirm & Continue" if you wish to skip this part.',
+              }),
+              e.jsx('p', {
+                children:
+                  'Your addresses can always be edited in the profile settings.',
+              }),
+            ],
+          }),
+          e.jsx(Ce, {
+            label: 'Country',
+            placeholder: 'Select your country',
+            data: P,
+            value: u,
+            onChange: s,
+            searchable: !0,
+            nothingFoundMessage: 'No country found',
+            rightSection: E ? e.jsx(K, { size: 'xs' }) : null,
+            mt: 'md',
+          }),
+          e.jsx(y, {
+            label: 'Street',
+            placeholder: 'Enter street name',
+            value: n,
+            onChange: c => l(c.currentTarget.value),
+            mt: 'md',
+          }),
+          e.jsxs(oe, {
+            grow: !0,
+            children: [
+              e.jsx(y, {
+                label: 'House Number',
+                placeholder: 'e.g. 12A',
+                value: x,
+                onChange: c => m(c.currentTarget.value),
+                mt: 'md',
+              }),
+              e.jsx(y, {
+                label: 'Postal Code',
+                placeholder: 'e.g. 1000',
+                value: N,
+                onChange: c => v(c.currentTarget.value),
+                mt: 'md',
+              }),
+            ],
+          }),
+          e.jsx(y, {
+            label: 'Phone number',
+            placeholder: 'Enter your phone number',
+            value: k,
+            onChange: c => j(c.currentTarget.value),
+            mt: 'md',
+          }),
+          e.jsx(y, {
+            label: 'Date of Birth',
+            type: 'date',
+            value: S,
+            onChange: c => _(c.currentTarget.value),
+            mt: 'md',
+          }),
+          e.jsx(U, { text: 'Confirm & Continue', onClick: d, loading: i }),
+        ],
+      }),
+    ],
+  });
+}
+const Rt = Object.freeze(
+    Object.defineProperty(
+      { __proto__: null, default: ke },
+      Symbol.toStringTag,
+      { value: 'Module' }
+    )
+  ),
+  pe = 'shippingAddress';
+function at() {
+  const o = V(),
+    { updateUser: a, loading: i } = Se(),
+    u = JSON.parse(localStorage.getItem(pe) || '{}'),
+    [s, n] = t.useState(u.country || ''),
+    [l, x] = t.useState(u.street || ''),
+    [m, N] = t.useState(u.houseNumber || ''),
+    [v, k] = t.useState(u.postalCode || ''),
+    [j, S] = t.useState(u.phone || ''),
+    [_, P] = t.useState([]),
+    [I, E] = t.useState(!1);
+  t.useEffect(() => {
+    const d = {
+      country: s,
+      street: l,
+      houseNumber: m,
+      postalCode: v,
+      phone: j,
+    };
+    localStorage.setItem(pe, JSON.stringify(d));
+  }, [s, l, m, v, j]),
+    t.useEffect(() => {
+      const d = sessionStorage.getItem('countries');
+      if (d) {
+        P(JSON.parse(d));
+        return;
+      }
+      E(!0),
+        fetch('https://restcountries.com/v3.1/all?fields=name')
+          .then(c => c.json())
+          .then(c => {
+            const f = c
+              .map(B => B.name.common)
+              .sort((B, O) => B.localeCompare(O));
+            P(f), sessionStorage.setItem('countries', JSON.stringify(f));
+          })
+          .catch(c => console.error('Failed to fetch countries', c))
+          .finally(() => E(!1));
+    }, []);
+  const p = async () => {
+    if (!s || !l || !m || !v || !j) {
+      w({
+        title: 'Missing Fields',
+        message: 'Please complete all address fields.',
+        color: 'red',
+        position: 'top-center',
+      });
+      return;
+    }
+    const d = `${l} ${m}, ${v}, ${s}`;
+    try {
+      await a({ address_1: d, phone: j, country: s }),
+        o('/checkout/payment-method');
+    } catch (c) {
+      console.error('❌ Failed to update address', c),
+        w({
+          title: 'Error',
+          message: 'Could not save address. Try again.',
+          color: 'red',
+          position: 'top-center',
+        });
+    }
+  };
+  return e.jsxs('div', {
+    className: 'address-page',
+    children: [
+      e.jsx(G, {}),
+      e.jsx(ae, { active: 1 }),
+      e.jsxs('div', {
+        className: 'personal-form',
+        children: [
+          e.jsx(M, { order: 3, children: 'Shipping Address' }),
+          e.jsx(Ce, {
+            label: 'Country',
+            placeholder: 'Select your country',
+            data: _,
+            value: s,
+            onChange: n,
+            searchable: !0,
+            nothingFoundMessage: 'No country found',
+            rightSection: I ? e.jsx(K, { size: 'xs' }) : null,
+            mt: 'md',
+            required: !0,
+          }),
+          e.jsx(y, {
+            label: 'Street',
+            placeholder: 'Enter street name',
+            value: l,
+            onChange: d => x(d.currentTarget.value),
+            mt: 'md',
+            required: !0,
+          }),
+          e.jsxs(oe, {
+            grow: !0,
+            children: [
+              e.jsx(y, {
+                label: 'House Number',
+                placeholder: 'e.g. 12A',
+                value: m,
+                onChange: d => N(d.currentTarget.value),
+                mt: 'md',
+                required: !0,
+              }),
+              e.jsx(y, {
+                label: 'Postal Code',
+                placeholder: 'e.g. 1000',
+                value: v,
+                onChange: d => k(d.currentTarget.value),
+                mt: 'md',
+                required: !0,
+              }),
+            ],
+          }),
+          e.jsx(y, {
+            label: 'Phone number',
+            placeholder: 'Enter your phone number',
+            value: j,
+            onChange: d => S(d.currentTarget.value),
+            mt: 'md',
+            required: !0,
+          }),
+          e.jsx(U, { text: 'Confirm & Continue', onClick: p, loading: i }),
+        ],
+      }),
+    ],
+  });
+}
+const ge = 'personalInfo';
+function rt() {
+  const [o, a] = t.useState(''),
+    [i, u] = t.useState(''),
+    [s, n] = t.useState(''),
+    [l, x] = t.useState(''),
+    [m, N] = t.useState(''),
+    [v, k] = t.useState(!1),
+    [j, S] = t.useState(''),
+    [_, P] = t.useState(''),
+    [I, E] = t.useState(!1),
+    [p, d] = t.useState(!1),
+    [c, f] = t.useState(''),
+    [B, O] = t.useState(''),
+    [H, Q] = t.useState(''),
+    z = V(),
+    { userId: X, loading: ee } = ce(),
+    { setPersonalInfo: q } = ye();
+  if (
+    (t.useEffect(() => {
+      const r = JSON.parse(localStorage.getItem(ge) || '{}');
+      r.firstName && a(r.firstName),
+        r.lastName && u(r.lastName),
+        r.email && n(r.email),
+        r.companyName && S(r.companyName),
+        r.vatNumber && P(r.vatNumber),
+        r.addGiftWrap != null && E(r.addGiftWrap),
+        r.addPersonalCard != null && d(r.addPersonalCard),
+        r.friendName && f(r.friendName),
+        r.friendEmail && O(r.friendEmail),
+        r.personalNote && Q(r.personalNote);
+    }, []),
+    ee)
+  )
+    return e.jsx('div', {
+      className: 'checkout-auth-loading',
+      children: e.jsx(K, { size: 'lg', color: 'pink' }),
+    });
+  const W = r => {
+      q(r), localStorage.setItem(ge, JSON.stringify(r));
+    },
+    re = async r => {
+      if ((r.preventDefault(), !o || !i || !s || !l || !m)) {
+        w({
+          title: 'Missing Fields',
+          message: 'Please fill out all fields.',
+          color: 'red',
+          position: 'top-center',
+        });
+        return;
+      }
+      if (!s.includes('@') || !s.includes('.')) {
+        w({
+          title: 'Invalid Email',
+          message: 'Please enter a valid email address.',
+          color: 'red',
+          position: 'top-center',
+        });
+        return;
+      }
+      if (l.length < 6) {
+        w({
+          title: 'Weak Password',
+          message: 'Password must be at least 6 characters.',
+          color: 'red',
+          position: 'top-center',
+        });
+        return;
+      }
+      if (l !== m) {
+        w({
+          title: 'Password Mismatch',
+          message: 'Passwords do not match.',
+          color: 'red',
+          position: 'top-center',
+        });
+        return;
+      }
+      try {
+        const { auth: F, createUserWithEmailAndPassword: T } = await le(),
+          $ = (await T(F, s, l)).user;
+        w({
+          title: 'Signed up!',
+          message: `Welcome ${$.displayName || o}!`,
+          color: 'green',
+          position: 'top-center',
+        });
+        try {
+          const R = await fetch('/api/users', {
+              method: 'POST',
+              headers: { 'Content-Type': 'application/json' },
+              body: JSON.stringify({
+                first_name: o,
+                last_name: i,
+                email: s,
+                password: l,
+                firebase_uid: $.uid,
+              }),
+            }),
+            h = await R.json();
+          R.ok && h.user_id
+            ? (localStorage.setItem('userId', h.user_id),
+              console.log('✅ Backend user created:', h.user_id),
+              W({
+                firstName: o,
+                lastName: i,
+                email: s,
+                companyName: j,
+                vatNumber: _,
+                addGiftWrap: I,
+                addPersonalCard: p,
+                friendName: c,
+                friendEmail: B,
+                personalNote: H,
+              }),
+              z('/checkout/friend-info'))
+            : (console.error('❌ Backend signup failed:', h.error || 'No ID'),
+              w({
+                title: 'Backend error',
+                message: 'Could not create profile on server.',
+                color: 'red',
+                position: 'top-center',
+              }));
+        } catch (R) {
+          console.error('❌ Backend error during signup', R);
+        }
+      } catch (F) {
+        w({
+          title: 'Sign-up error',
+          message: F.message,
+          color: 'red',
+          position: 'top-center',
+        });
+      }
+    },
+    J = async (r, F) => {
+      try {
+        const {
+            auth: T,
+            signInWithPopup: te,
+            googleProvider: $,
+            facebookProvider: R,
+          } = await le(),
+          Z = (await te(T, r === 'Google' ? $ : R)).user;
+        w({
+          title: `Logged in with ${F}`,
+          message: `Welcome ${Z.displayName || 'back'}!`,
+          color: 'green',
+          position: 'top-center',
+        }),
+          W({
+            firstName: Z.displayName || '',
+            lastName: '',
+            email: Z.email || '',
+            companyName: '',
+            vatNumber: '',
+            addGiftWrap: !1,
+            addPersonalCard: !1,
+            friendName: '',
+            friendEmail: '',
+            personalNote: '',
+          }),
+          z('/checkout/friend-info');
+      } catch (T) {
+        w({
+          title: `${F} sign-in error`,
+          message: T.message,
+          color: 'red',
+          position: 'top-center',
+        });
+      }
+    };
+  return e.jsxs('div', {
+    className: 'signup-page',
+    children: [
+      e.jsx(G, {}),
+      e.jsx('h2', { children: 'Account' }),
+      e.jsxs('div', {
+        className: 'step-description',
+        children: [
+          e.jsx('p', {
+            style: { color: 'red', fontWeight: 'bold' },
+            children: 'Before proceeding!',
+          }),
+          e.jsx('p', {
+            children:
+              "Seems like you don't have an account or aren't logged in!",
+          }),
+        ],
+      }),
+      e.jsxs('form', {
+        onSubmit: re,
+        children: [
+          e.jsx(y, {
+            label: 'First Name',
+            placeholder: 'Your first name',
+            value: o,
+            onChange: r => a(r.currentTarget.value),
+            className: 'input-field',
+            required: !0,
+          }),
+          e.jsx(y, {
+            label: 'Last Name',
+            placeholder: 'Your last name',
+            value: i,
+            onChange: r => u(r.currentTarget.value),
+            className: 'input-field',
+            required: !0,
+          }),
+          e.jsx(y, {
+            label: 'Email',
+            placeholder: 'Your email...',
+            value: s,
+            onChange: r => n(r.currentTarget.value),
+            className: 'input-field',
+            required: !0,
+          }),
+          e.jsx(ue, {
+            label: 'Password',
+            placeholder: 'Enter your password...',
+            visible: v,
+            onVisibilityChange: () => k(r => !r),
+            visibilityToggleIcon: ({ reveal: r }) =>
+              r ? e.jsx(Ee, { size: 16 }) : e.jsx(Ae, { size: 16 }),
+            value: l,
+            onChange: r => x(r.currentTarget.value),
+            className: 'input-field',
+            required: !0,
+          }),
+          e.jsx(ue, {
+            label: 'Confirm Password',
+            placeholder: 'Confirm your password',
+            value: m,
+            onChange: r => N(r.currentTarget.value),
+            className: 'input-field',
+            required: !0,
+          }),
+          e.jsx(ot, { fullWidth: !0, type: 'submit', children: 'Continue' }),
+        ],
+      }),
+      e.jsxs('div', {
+        className: 'social-register-section',
+        children: [
+          e.jsx(Y, {
+            className: 'social-divider',
+            label: 'Or log in with',
+            labelPosition: 'center',
+          }),
+          e.jsxs('div', {
+            className: 'social-buttons',
+            children: [
+              e.jsx(tt, {
+                fullWidth: !0,
+                onClick: () => J('Facebook', 'Facebook'),
+              }),
+              e.jsx(st, {
+                fullWidth: !0,
+                onClick: () => J('Google', 'Google'),
+              }),
+              e.jsx('div', {
+                className: 'login-link',
+                children: e.jsx(je, {
+                  to: '/login',
+                  children: 'Already have an account? Log in',
+                }),
+              }),
+            ],
+          }),
+        ],
+      }),
+    ],
+  });
+}
+const fe = 'paymentMethod';
+function nt() {
+  const o = V(),
+    a = JSON.parse(localStorage.getItem(fe) || '{}'),
+    [i, u] = t.useState(a.method || ''),
+    [s, n] = t.useState(a.cardName || ''),
+    [l, x] = t.useState(a.cardNumber || ''),
+    [m, N] = t.useState(a.cvc || ''),
+    [v, k] = t.useState(!1);
+  t.useEffect(() => {
+    const p = { method: i, cardName: s, cardNumber: l, cvc: m };
+    localStorage.setItem(fe, JSON.stringify(p));
+  }, [i, s, l, m]);
+  const j = [
+      {
+        value: 'card',
+        label: 'Credit / Debit Card',
+        icon: e.jsx(de, { size: 24 }),
+      },
+      { value: 'paypal', label: 'PayPal', icon: e.jsx(Be, { size: 24 }) },
+      { value: 'klarna', label: 'Klarna', icon: e.jsx(de, { size: 24 }) },
+      { value: 'applepay', label: 'Apple Pay', icon: e.jsx(De, { size: 24 }) },
+    ],
+    S = p => {
+      p === 'card' ? (k(!1), u(d => (d === p ? '' : p))) : (u(p), k(!0));
+    },
+    _ = () => {
+      k(!1), o('/checkout/summary');
+    },
+    P = () => {
+      i && ((i === 'card' && (!s || !l || !m)) || o('/checkout/summary'));
+    },
+    I = {
+      paypal: 'Pay with PayPal',
+      klarna: 'Pay with Klarna',
+      applepay: 'Pay with Apple Pay',
+    },
+    E = {
+      paypal: 'You will be redirected to PayPal to complete your purchase.',
+      klarna: 'Proceed with Klarna to complete your payment.',
+      applepay: 'Use Face ID or Touch ID to complete the payment.',
+    };
+  return e.jsxs(e.Fragment, {
+    children: [
+      e.jsxs('div', {
+        className: 'payment-method-page',
+        children: [
+          e.jsx(G, {}),
+          e.jsx(ae, { active: 2 }),
+          e.jsx('h2', { children: 'Choose your payment method' }),
+          e.jsxs(he, {
+            className: 'payment-method-form',
+            children: [
+              e.jsx(oe, {
+                direction: 'row',
+                spacing: 'sm',
+                children: j.map(({ value: p, label: d, icon: c }) =>
+                  e.jsxs(
+                    Re,
+                    {
+                      withBorder: !0,
+                      radius: 'md',
+                      className: `payment-option ${i === p ? 'selected' : ''}`,
+                      onClick: () => S(p),
+                      children: [c, e.jsx(g, { children: d })],
+                    },
+                    p
+                  )
+                ),
+              }),
+              i === 'card' &&
+                e.jsxs(he, {
+                  className: 'card-details',
+                  children: [
+                    e.jsx(y, {
+                      label: 'Cardholder Name',
+                      placeholder: 'John Doe',
+                      value: s,
+                      onChange: p => n(p.currentTarget.value),
+                      mb: 'sm',
+                    }),
+                    e.jsx(y, {
+                      label: 'Card Number',
+                      placeholder: '1234 5678 9012 3456',
+                      value: l,
+                      onChange: p => x(p.currentTarget.value),
+                      mb: 'sm',
+                    }),
+                    e.jsx(y, {
+                      label: 'CVC',
+                      placeholder: '123',
+                      value: m,
+                      onChange: p => N(p.currentTarget.value),
+                      mb: 'sm',
+                    }),
+                  ],
+                }),
+              e.jsx(U, {
+                text: 'Continue',
+                fullWidth: !0,
+                disabled: !i || (i === 'card' && (!s || !l || !m)),
+                onClick: P,
+              }),
+            ],
+          }),
+        ],
+      }),
+      e.jsxs(We, {
+        opened: v,
+        onClose: () => k(!1),
+        title: I[i] || '',
+        children: [
+          e.jsx(g, { mb: 'md', children: E[i] || '' }),
+          e.jsx(be, { fullWidth: !0, onClick: _, text: 'Authenticate' }),
+        ],
+      }),
+    ],
+  });
+}
+const ie = 'personalInfo';
+function it() {
+  const o = V(),
+    { friendInfo: a, setFriendInfo: i } = ye(),
+    { userId: u } = ce();
+  t.useEffect(() => {
+    (async () => {
+      if (u)
+        try {
+          const c = await fetch(`/api/users/by-firebase-uid?uid=${u}`),
+            f = await c.json();
+          c.ok && f.id
+            ? (localStorage.setItem('userId', f.id),
+              console.log('✅ Updated backend userId in localStorage:', f.id))
+            : console.error(
+                '❌ Backend fetch failed: ',
+                f.error || 'No ID found'
+              );
+        } catch (c) {
+          console.error('❌ Error fetching backend user ID', c);
+        }
+    })();
+  }, [u]);
+  const s = JSON.parse(localStorage.getItem(ie) || '{}'),
+    n = {
+      addGiftWrap: s.addGiftWrap ?? a.addGiftWrap ?? !1,
+      addPersonalCard: s.addPersonalCard ?? a.addPersonalCard ?? !1,
+      friendName: s.friendName ?? a.friendName ?? '',
+      friendEmail: s.friendEmail ?? a.friendEmail ?? '',
+      personalNote: s.personalNote ?? a.personalNote ?? '',
+    },
+    [l, x] = t.useState(n.addGiftWrap),
+    [m, N] = t.useState(n.addPersonalCard),
+    [v, k] = t.useState(n.friendName),
+    [j, S] = t.useState(n.friendEmail),
+    [_, P] = t.useState(n.personalNote),
+    I = 3.99,
+    E = 2.99;
+  t.useEffect(() => {
+    const d = {
+      addGiftWrap: l,
+      addPersonalCard: m,
+      friendName: v,
+      friendEmail: j,
+      personalNote: _,
+    };
+    i(d);
+    const c = JSON.parse(localStorage.getItem(ie) || '{}');
+    localStorage.setItem(ie, JSON.stringify({ ...c, ...d }));
+  }, [l, m, v, j, _]);
+  const p = () => {
+    o('/checkout/address');
+  };
+  return e.jsxs('div', {
+    className: 'forfriend-page',
+    children: [
+      e.jsx(G, {}),
+      e.jsx(ae, { active: 0 }),
+      e.jsxs('div', {
+        className: 'checkout-summary',
+        children: [
+          e.jsx('h2', { children: 'Buying for a friend' }),
+          e.jsx('p', {
+            children: "If you're buying for a friend fillout these.",
+          }),
+          e.jsx(y, {
+            className: 'checkout-form',
+            label: 'Name',
+            placeholder: "Friend's name...",
+            value: v,
+            onChange: d => k(d.currentTarget.value),
+            mt: 'sm',
+          }),
+          e.jsx(y, {
+            className: 'checkout-form',
+            label: 'Email',
+            placeholder: "Friend's email...",
+            type: 'email',
+            value: j,
+            onChange: d => S(d.currentTarget.value),
+            mt: 'sm',
+          }),
+        ],
+      }),
+      e.jsxs('div', {
+        className: 'additional',
+        children: [
+          e.jsx('h3', { children: 'Additional' }),
+          e.jsxs('div', {
+            className: 'checkboxes-part',
+            children: [
+              e.jsx(me, {
+                label: `🎁 Gift wrapping (€${I.toFixed(2)})`,
+                mt: 'md',
+                checked: l,
+                onChange: d => x(d.currentTarget.checked),
+              }),
+              e.jsx(me, {
+                label: `✉️ Personal card (€${E.toFixed(2)})`,
+                mt: 'md',
+                checked: m,
+                onChange: d => N(d.currentTarget.checked),
+              }),
+            ],
+          }),
+          m &&
+            e.jsx(Ge, {
+              className: 'my-custom-textarea',
+              label: 'Personal Note',
+              placeholder: 'Write a message...',
+              value: _,
+              onChange: d => P(d.currentTarget.value),
+              minRows: 3,
+              autosize: !0,
+              mt: 'sm',
+            }),
+          e.jsx(U, { onClick: p }),
+        ],
+      }),
+    ],
+  });
+}
+function lt() {
+  const o = V(),
+    [a, i] = t.useState(!0);
+  t.useEffect(() => {
+    fetch('/api/basket', { method: 'DELETE' })
+      .catch(console.error)
+      .then(() => {
+        localStorage.removeItem('basket'),
+          localStorage.removeItem('personalInfo'),
+          localStorage.removeItem('shippingAddress'),
+          localStorage.removeItem('paymentMethod'),
+          localStorage.setItem('resetBasket', 'true'),
+          window.dispatchEvent(
+            new StorageEvent('storage', { key: 'basket', newValue: null })
+          );
+      })
+      .finally(() => i(!1));
+  }, []);
+  const u = () => {
+    localStorage.setItem('basketRefresh', Date.now().toString()),
+      o('/homescreen', { replace: !0 }),
+      window.location.reload();
+  };
+  return e.jsx('div', {
+    className: 'order-confirmation-screen',
+    children: e.jsx('div', {
+      className: 'confirmation-bubble',
+      children: a
+        ? e.jsxs(oe, {
+            direction: 'column',
+            align: 'center',
+            spacing: 'md',
+            children: [
+              e.jsx(K, {}),
+              e.jsx(g, { children: 'Finalizing your order…' }),
+            ],
+          })
+        : e.jsxs(e.Fragment, {
+            children: [
+              e.jsx(M, { order: 3, children: 'Thank you for your order!' }),
+              e.jsx(g, {
+                children:
+                  'Your order has been received and is currently being processed.',
+              }),
+              e.jsxs(g, {
+                children: [
+                  'You will receive an ',
+                  e.jsx('strong', { children: 'email confirmation' }),
+                  ' with tracking information soon.',
+                ],
+              }),
+              e.jsx(b, {
+                className: 'continue-button',
+                onClick: u,
+                children: 'Continue shopping',
+              }),
+            ],
+          }),
+    }),
+  });
+}
+function ct() {
+  V();
+  const { userId: o, user: a } = ce(),
+    [i, u] = t.useState(!1),
+    [s, n] = t.useState(null),
+    [l, x] = t.useState([]),
+    [m, N] = t.useState(0),
+    [v, k] = t.useState(!1),
+    j = JSON.parse(localStorage.getItem('personalInfo') || '{}'),
+    S = JSON.parse(localStorage.getItem('shippingAddress') || '{}'),
+    _ = JSON.parse(localStorage.getItem('paymentMethod') || '{}'),
+    {
+      firstName: P,
+      lastName: I,
+      email: E,
+      companyName: p,
+      vatNumber: d,
+      addGiftWrap: c,
+      addPersonalCard: f,
+      friendName: B,
+      friendEmail: O,
+      personalNote: H,
+    } = j,
+    { country: Q, street: z, houseNumber: X, postalCode: ee, phone: q } = S,
+    { method: W, cardName: re, cardNumber: J } = _,
+    r = 5,
+    F = c ? 3.99 : 0,
+    T = f ? 2.99 : 0,
+    te = (m + r + F + T).toFixed(2).replace('.', ','),
+    $ = {
+      card: 'Credit / Debit card',
+      paypal: 'PayPal',
+      klarna: 'Klarna',
+      applepay: 'Apple Pay',
+    };
+  t.useEffect(() => {
+    fetch('http://localhost:8000/api/basket')
+      .then(h => h.json())
+      .then(h => {
+        x(h.items || []), N(h.total_price || 0);
+      })
+      .catch(h => console.error('Failed to fetch basket:', h)),
+      !j.firstName &&
+        a &&
+        fetch(`/api/users/by-firebase-uid?uid=${a}`)
+          .then(h => h.json())
+          .then(h => {
+            h &&
+              h.first_name &&
+              h.last_name &&
+              h.email &&
+              (n({
+                firstName: h.first_name,
+                lastName: h.last_name,
+                email: h.email,
+              }),
+              localStorage.setItem(
+                'personalInfo',
+                JSON.stringify({
+                  firstName: h.first_name,
+                  lastName: h.last_name,
+                  email: h.email,
+                })
+              ));
+          })
+          .catch(h => console.error('Failed to fetch user info', h));
+  }, [a]);
+  const R = async () => {
+    const h = P || (s == null ? void 0 : s.firstName),
+      ne = I || (s == null ? void 0 : s.lastName),
+      Z = E || (s == null ? void 0 : s.email);
+    if (!h || !ne || !Z) {
+      w({
+        title: 'Missing info',
+        message: 'Personal info incomplete',
+        color: 'red',
+      });
+      return;
+    }
+    if (!Q || !z || !X || !ee || !q) {
+      w({ title: 'Missing info', message: 'Address incomplete', color: 'red' });
+      return;
+    }
+    if (!W) {
+      w({
+        title: 'Missing info',
+        message: 'Payment method not selected',
+        color: 'red',
+      });
+      return;
+    }
+    const _e = l.map(L => ({
+        id: L.id,
+        name: L.name,
+        quantity: L.quantity,
+        price: L.price,
+      })),
+      Pe = {
+        full_name: `${h} ${ne}`,
+        email: Z,
+        phone: q,
+        address_1: `${z} ${X}`,
+        address_2: '',
+        company_name: p || '',
+        vat_number: d || '',
+        payment_method: W,
+        is_gift: c ? 1 : 0,
+        friend_name: B || null,
+        friend_email: O || null,
+        personal_note: H || null,
+        items: _e,
+        shipping_cost: r,
+        gift_wrap_cost: F,
+        card_cost: T,
+      };
+    try {
+      const L = await fetch('http://localhost:8000/api/checkout', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(Pe),
+      });
+      if (!L.ok) throw new Error(`Server responded ${L.status}`);
+      await fetch('/api/basket/clear', { method: 'POST' }),
+        localStorage.removeItem('personalInfo'),
+        localStorage.removeItem('shippingAddress'),
+        localStorage.removeItem('paymentMethod'),
+        u(!0);
+    } catch (L) {
+      console.error(L),
+        w({
+          title: 'Order failed',
+          message: 'Could not submit order. Please try again.',
+          color: 'red',
+        });
+    }
+  };
+  return i
+    ? e.jsx(lt, {})
+    : e.jsxs('div', {
+        className: 'summary-page',
+        children: [
+          e.jsx(G, {}),
+          e.jsxs('div', {
+            className: 'summary-top',
+            children: [
+              e.jsx('h2', { children: 'Review Your Order' }),
+              e.jsx('p', {
+                children:
+                  'Before finalizing the purchase check if your information is correct!',
+              }),
+            ],
+          }),
+          e.jsxs('div', {
+            className: 'checkout-overview',
+            children: [
+              e.jsxs('div', {
+                className: 'checkout-personal-info',
+                children: [
+                  e.jsxs('div', {
+                    className: 'section',
+                    children: [
+                      e.jsx(M, { order: 4, children: 'Personal information' }),
+                      e.jsxs(g, {
+                        children: [
+                          (P || (s == null ? void 0 : s.firstName)) ?? '-',
+                          ' ',
+                          (I || (s == null ? void 0 : s.lastName)) ?? '-',
+                        ],
+                      }),
+                      e.jsx(g, {
+                        children: (E || (s == null ? void 0 : s.email)) ?? '-',
+                      }),
+                    ],
+                  }),
+                  e.jsxs('div', {
+                    className: 'section',
+                    children: [
+                      e.jsx(M, { order: 4, children: 'Buying for a friend' }),
+                      e.jsxs('div', {
+                        className: 'friend-additional',
+                        children: [
+                          e.jsx(g, {
+                            children: c
+                              ? '🎁 Gift wrapping added'
+                              : 'No gift wrapping',
+                          }),
+                          e.jsx(g, {
+                            children: f
+                              ? '✉️ Personal card added'
+                              : 'No personal card',
+                          }),
+                        ],
+                      }),
+                      (c || f) &&
+                        e.jsxs(e.Fragment, {
+                          children: [
+                            e.jsx(Y, {}),
+                            e.jsxs(g, {
+                              children: [
+                                e.jsx('span', {
+                                  className: 'subtitle-text',
+                                  children: 'Name:',
+                                }),
+                                ' ',
+                                B || '-',
+                              ],
+                            }),
+                            e.jsxs(g, {
+                              children: [
+                                e.jsx('span', {
+                                  className: 'subtitle-text',
+                                  children: 'Email:',
+                                }),
+                                ' ',
+                                O || '-',
+                              ],
+                            }),
+                            f &&
+                              e.jsxs(g, {
+                                children: [
+                                  e.jsx('span', {
+                                    className: 'subtitle-text',
+                                    children: 'Note:',
+                                  }),
+                                  ' ',
+                                  H || '-',
+                                ],
+                              }),
+                          ],
+                        }),
+                    ],
+                  }),
+                  e.jsxs('div', {
+                    className: 'section',
+                    children: [
+                      e.jsx(M, { order: 4, children: 'Shipping information' }),
+                      e.jsxs(g, {
+                        children: [
+                          e.jsx('span', {
+                            className: 'subtitle-text',
+                            children: 'Address:',
+                          }),
+                          ' ',
+                          z,
+                          ' ',
+                          X,
+                          ', ',
+                          ee,
+                          ', ',
+                          Q,
+                        ],
+                      }),
+                      e.jsxs(g, {
+                        children: [
+                          e.jsx('span', {
+                            className: 'subtitle-text',
+                            children: 'Phone:',
+                          }),
+                          ' ',
+                          q,
+                        ],
+                      }),
+                      e.jsx(Y, {}),
+                      e.jsx(M, { order: 4, children: 'Payment method' }),
+                      e.jsxs(g, {
+                        children: [
+                          e.jsx('span', {
+                            className: 'subtitle-text',
+                            children: 'Method:',
+                          }),
+                          ' ',
+                          $[W] || '-',
+                        ],
+                      }),
+                      W === 'card' &&
+                        e.jsxs(e.Fragment, {
+                          children: [
+                            e.jsxs(g, {
+                              children: [
+                                e.jsx('span', {
+                                  className: 'subtitle-text',
+                                  children: 'Cardholder:',
+                                }),
+                                ' ',
+                                re,
+                              ],
+                            }),
+                            e.jsxs(g, {
+                              children: [
+                                e.jsx('span', {
+                                  className: 'subtitle-text',
+                                  children: 'Card number:',
+                                }),
+                                ' **** **** **** ',
+                                J == null ? void 0 : J.slice(-4),
+                              ],
+                            }),
+                          ],
+                        }),
+                    ],
+                  }),
+                ],
+              }),
+              e.jsxs('div', {
+                className: 'checkout-order-info',
+                children: [
+                  e.jsx(M, { order: 4, children: 'Order summary' }),
+                  l.map(h =>
+                    e.jsxs(
+                      'div',
+                      {
+                        className: 'summary-line',
+                        children: [
+                          e.jsxs(g, { children: [h.name, ' x', h.quantity] }),
+                          e.jsxs(g, {
+                            children: [
+                              '€',
+                              (h.price * h.quantity)
+                                .toFixed(2)
+                                .replace('.', ','),
+                            ],
+                          }),
+                        ],
+                      },
+                      h.id
+                    )
+                  ),
+                  e.jsx(Y, { my: 'sm' }),
+                  e.jsx(M, { order: 4, children: 'Costs' }),
+                  e.jsxs('div', {
+                    className: 'summary-line',
+                    children: [
+                      e.jsx(g, { children: 'Shipping' }),
+                      e.jsxs(g, {
+                        children: ['€', r.toFixed(2).replace('.', ',')],
+                      }),
+                    ],
+                  }),
+                  c &&
+                    e.jsxs('div', {
+                      className: 'summary-line',
+                      children: [
+                        e.jsx(g, { children: '🎁 Gift wrapping' }),
+                        e.jsxs(g, {
+                          children: ['€', F.toFixed(2).replace('.', ',')],
+                        }),
+                      ],
+                    }),
+                  f &&
+                    e.jsxs('div', {
+                      className: 'summary-line',
+                      children: [
+                        e.jsx(g, { children: '✉️ Personal card' }),
+                        e.jsxs(g, {
+                          children: ['€', T.toFixed(2).replace('.', ',')],
+                        }),
+                      ],
+                    }),
+                  e.jsx(Y, { my: 'sm' }),
+                  e.jsxs('div', {
+                    className: 'summary-line-total',
+                    children: [
+                      e.jsx(g, {
+                        className: 'total-text',
+                        children: 'Final total',
+                      }),
+                      e.jsxs(g, {
+                        className: 'total-text',
+                        children: ['€', te],
+                      }),
+                    ],
+                  }),
+                ],
+              }),
+              e.jsx(U, {
+                fullWidth: !0,
+                loading: v,
+                onClick: R,
+                text: 'Finalize purchase',
+              }),
+            ],
+          }),
+        ],
+      });
+}
+const dt = t.lazy(() =>
+    A(
+      () => import('./InitialPage-BmL2ArDI.js'),
+      __vite__mapDeps([5, 2, 1, 4, 3, 6, 7, 8])
+    )
+  ),
+  ut = t.lazy(() =>
+    A(
+      () => import('./DesignSystem-C0A1_lRi.js'),
+      __vite__mapDeps([9, 2, 1, 4, 3, 10, 11, 12, 6, 7, 13])
+    )
+  ),
+  ht = t.lazy(() =>
+    A(
+      () => import('./AnimationPage-CUG_Vn9f.js'),
+      __vite__mapDeps([14, 2, 1, 4, 3, 6, 7, 15])
+    )
+  ),
+  mt = t.lazy(() =>
+    A(
+      () => import('./HomeScreen-_AmmVh_E.js'),
+      __vite__mapDeps([16, 2, 1, 4, 3, 10, 11, 17, 18, 19, 6, 7, 20, 21, 22])
+    )
+  ),
+  pt = t.lazy(() =>
+    A(
+      () => import('./ProductDetail-DkNMdxeq.js'),
+      __vite__mapDeps([23, 2, 1, 4, 3, 10, 11, 6, 7, 24, 22])
+    )
+  ),
+  gt = t.lazy(() =>
+    A(
+      () => import('./BasketPage-BDNqwaYF.js'),
+      __vite__mapDeps([25, 2, 1, 4, 3, 6, 7, 26])
+    )
+  ),
+  ft = t.lazy(() =>
+    A(
+      () => import('./SignUpPage-pNylTEKx.js'),
+      __vite__mapDeps([27, 2, 1, 4, 3, 6, 7, 28])
+    )
+  ),
+  xt = t.lazy(() =>
+    A(
+      () => import('./LoginPage-BiXTBm4G.js'),
+      __vite__mapDeps([29, 2, 1, 4, 3, 6, 7, 30])
+    )
+  ),
+  jt = t.lazy(() =>
+    A(
+      () => import('./PersonalLookPage-m5mXLsGL.js'),
+      __vite__mapDeps([31, 2, 1, 4, 3, 6, 7, 32])
+    )
+  ),
+  Ct = t.lazy(() =>
+    A(
+      () => import('./ProfilePage-D_8P33JW.js'),
+      __vite__mapDeps([33, 2, 1, 4, 3, 10, 11, 19, 6, 7, 20, 34])
+    )
+  ),
+  vt = t.lazy(() =>
+    A(
+      () => import('./Categories-CezpmpL5.js'),
+      __vite__mapDeps([
+        35, 2, 1, 4, 3, 36, 17, 18, 37, 10, 11, 19, 6, 7, 20, 12, 13, 38,
+      ])
+    )
+  ),
+  yt = t.lazy(() =>
+    A(
+      () => import('./Subcategories-6tY0DkLM.js'),
+      __vite__mapDeps([39, 2, 1, 4, 3, 10, 11, 6, 7, 40])
+    )
+  ),
+  xe = t.lazy(() =>
+    A(
+      () => import('./ItemsPage-CTwfjXpR.js'),
+      __vite__mapDeps([41, 2, 1, 4, 3, 10, 11, 17, 18, 36, 37, 6, 7, 42])
+    )
+  );
+function D({ children: o }) {
+  return e.jsx(qe, { children: o });
+}
+function Nt() {
+  return e.jsx(t.Suspense, {
+    fallback: e.jsx($e, {}),
+    children: e.jsxs(Fe, {
+      children: [
+        e.jsx(C, { path: '/', element: e.jsx(dt, {}) }),
+        e.jsx(C, { path: '/design-system', element: e.jsx(ut, {}) }),
+        e.jsx(C, { path: '/animation', element: e.jsx(ht, {}) }),
+        e.jsx(C, { path: '/homescreen', element: e.jsx(mt, {}) }),
+        e.jsx(C, { path: '/item/:id', element: e.jsx(pt, {}) }),
+        e.jsx(C, {
+          path: '/basket',
+          element: e.jsx(D, { children: e.jsx(gt, {}) }),
+        }),
+        e.jsx(C, {
+          path: '/checkout/payment-method',
+          element: e.jsx(D, { children: e.jsx(nt, {}) }),
+        }),
+        e.jsx(C, {
+          path: '/checkout/friend-info',
+          element: e.jsx(D, { children: e.jsx(it, {}) }),
+        }),
+        e.jsx(C, {
+          path: '/checkout/address',
+          element: e.jsx(D, { children: e.jsx(at, {}) }),
+        }),
+        e.jsx(C, {
+          path: '/checkout/summary',
+          element: e.jsx(D, { children: e.jsx(ct, {}) }),
+        }),
+        e.jsx(C, {
+          path: '/checkout/personal-info',
+          element: e.jsx(D, { children: e.jsx(rt, {}) }),
+        }),
+        e.jsx(C, {
+          path: '/signup',
+          element: e.jsx(D, { children: e.jsx(ft, {}) }),
+        }),
+        e.jsx(C, {
+          path: '/login',
+          element: e.jsx(D, { children: e.jsx(xt, {}) }),
+        }),
+        e.jsx(C, {
+          path: '/personal-look',
+          element: e.jsx(D, { children: e.jsx(jt, {}) }),
+        }),
+        e.jsx(C, {
+          path: '/personal-info',
+          element: e.jsx(D, { children: e.jsx(ke, {}) }),
+        }),
+        e.jsx(C, {
+          path: '/profile',
+          element: e.jsx(D, { children: e.jsx(Ct, {}) }),
+        }),
+        e.jsx(C, { path: '/all', element: e.jsx(vt, {}) }),
+        e.jsx(C, {
+          path: '/categories/:categoryId/items',
+          element: e.jsx(xe, {}),
+        }),
+        e.jsx(C, { path: '/categories/:categoryId', element: e.jsx(yt, {}) }),
+        e.jsx(C, {
+          path: '/categories/:categoryId/subcategories/:subcategoryId/items',
+          element: e.jsx(xe, {}),
+        }),
+      ],
+    }),
+  });
+}
+function St() {
+  return e.jsx(Oe, { children: e.jsx(Ze, { children: e.jsx(Nt, {}) }) });
+}
+const wt = new Je();
+Te.createRoot(document.getElementById('root')).render(
+  e.jsx(Le.StrictMode, {
+    children: e.jsx(Me, {
+      client: wt,
+      children: e.jsxs(He, {
+        withGlobalStyles: !0,
+        withNormalizeCSS: !0,
+        children: [
+          e.jsx(ze, { position: 'top-center', zIndex: 1e3 }),
+          e.jsx(St, {}),
+        ],
+      }),
+    }),
+  })
+);
+export {
+  Pt as A,
+  G as B,
+  Ft as C,
+  Et as F,
+  Lt as L,
+  Vt as M,
+  Rt as P,
+  Bt as R,
+  ot as S,
+  Mt as W,
+  Tt as a,
+  be as b,
+  It as c,
+  At as d,
+  tt as e,
+  st as f,
+  Dt as g,
+  Ot as h,
+  U as i,
+  ae as j,
+  le as k,
+  we as l,
+  ce as u,
+};

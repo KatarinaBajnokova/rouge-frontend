@@ -27,7 +27,7 @@
       font-size: map.get($font-sizes, 'icon-title');
 
       &:hover {
-        background: lighten($white-elements, 5%);
+        background-color: color.adjust($white-elements, $lightness: 5%);
       }
     }
   }

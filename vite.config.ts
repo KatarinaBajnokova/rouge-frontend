@@ -34,9 +34,13 @@ export default defineConfig({
   build: {
     rollupOptions: {
       output: {
-        manualChunks: {
-          mantine: ['@mantine/core', '@mantine/hooks'],
-          react: ['react', 'react-dom'], // optional: also split React
+        manualChunks(id) {
+          if (id.includes('node_modules')) {
+            if (id.includes('firebase')) return 'firebase';
+            if (id.includes('@mantine')) return 'mantine';
+            if (id.includes('react')) return 'react';
+            return 'vendor'; // everything else
+          }
         },
       },
     },

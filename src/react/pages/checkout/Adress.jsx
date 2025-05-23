@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { Title, TextInput, Group, Select, Loader } from '@mantine/core';
 import { useNavigate } from 'react-router-dom';
 import { showNotification } from '@mantine/notifications';
+import { useUpdateUser } from '@/react/hooks/useUpdateUser';
 
 import FinalStepper from '../../components/stepper/Stepper';
 import { BackIconButton } from '../../components/buttons/IconButtons';
@@ -13,6 +14,7 @@ const STORAGE_KEY = 'shippingAddress';
 
 export default function AddressPage() {
   const navigate = useNavigate();
+  const { updateUser, loading } = useUpdateUser();
 
   const saved = JSON.parse(localStorage.getItem(STORAGE_KEY) || '{}');
 
@@ -25,17 +27,20 @@ export default function AddressPage() {
   const [countryOptions, setCountryOptions] = useState([]);
   const [countriesLoading, setCountriesLoading] = useState(false);
 
+  // Save address form progress locally
   useEffect(() => {
     const address = { country, street, houseNumber, postalCode, phone };
     localStorage.setItem(STORAGE_KEY, JSON.stringify(address));
   }, [country, street, houseNumber, postalCode, phone]);
 
+  // Fetch country list
   useEffect(() => {
     const cached = sessionStorage.getItem('countries');
     if (cached) {
       setCountryOptions(JSON.parse(cached));
       return;
     }
+
     setCountriesLoading(true);
     fetch('https://restcountries.com/v3.1/all?fields=name')
       .then(res => res.json())
@@ -46,11 +51,25 @@ export default function AddressPage() {
         setCountryOptions(names);
         sessionStorage.setItem('countries', JSON.stringify(names));
       })
-      .catch(err => console.error('Failed to fetch countries', err))
+      .catch(err => console.error('❌ Failed to fetch countries:', err))
       .finally(() => setCountriesLoading(false));
   }, []);
 
-  const handleConfirm = () => {
+  const handleConfirm = async () => {
+    const backendUserId = localStorage.getItem('backendUserId');
+    console.log('backendUserId from localStorage:', backendUserId);
+
+    if (!backendUserId) {
+      showNotification({
+        title: 'Session Expired',
+        message: 'Please log in again.',
+        color: 'red',
+        position: 'top-center',
+      });
+      navigate('/login');
+      return;
+    }
+
     if (!country || !street || !houseNumber || !postalCode || !phone) {
       showNotification({
         title: 'Missing Fields',
@@ -61,7 +80,38 @@ export default function AddressPage() {
       return;
     }
 
-    navigate('/checkout/payment-method');
+    try {
+      const response = await fetch(
+        'http://localhost:8000/api/users/addresses/add',
+        {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({
+            user_id: backendUserId,
+            address_1: `${street} ${houseNumber}`,
+            postal_code: postalCode,
+            country,
+            phone,
+          }),
+        }
+      );
+
+      if (!response.ok) {
+        const errorData = await response.json().catch(() => ({}));
+        throw new Error(errorData.error || 'Failed to save address');
+      }
+
+      console.log('✅ Address saved successfully');
+      navigate('/checkout/payment-method');
+    } catch (error) {
+      console.error('❌ Failed to save new address:', error.message);
+      showNotification({
+        title: 'Error',
+        message: error.message || 'Could not save address. Try again.',
+        color: 'red',
+        position: 'top-center',
+      });
+    }
   };
 
   return (
@@ -121,7 +171,11 @@ export default function AddressPage() {
           required
         />
 
-        <BottomBarButton text='Confirm & Continue' onClick={handleConfirm} />
+        <BottomBarButton
+          text='Confirm & Continue'
+          onClick={handleConfirm}
+          loading={loading}
+        />
       </div>
     </div>
   );

@@ -1,4 +1,4 @@
-import React, { useState, useRef, useEffect } from 'react';
+import React, { useState, useRef, useEffect, useCallback } from 'react';
 import { useNavigate } from 'react-router-dom';
 import {
   SignUpButton,
@@ -6,40 +6,49 @@ import {
 } from '../components/buttons/RedButtons';
 import '@/sass/pages/_animation_page.scss';
 
-const AnimationPage = () => {
+export default function AnimationPage() {
   const videoRef = useRef(null);
   const [showUI, setShowUI] = useState(false);
   const navigate = useNavigate();
 
-  const handleVideoEnded = () => {
+  const handleVideoEnded = useCallback(() => {
     setShowUI(true);
-  };
+  }, []);
 
-  const handleSkip = () => {
+  const handleSkip = useCallback(() => {
     if (videoRef.current) {
       videoRef.current.pause();
     }
     navigate('/homescreen');
-  };
+  }, [navigate]);
+
+  const goToSignUp = useCallback(() => {
+    navigate('/signup');
+  }, [navigate]);
+
+  const goToLogin = useCallback(() => {
+    navigate('/login');
+  }, [navigate]);
 
   useEffect(() => {
-    if (videoRef.current) {
-      videoRef.current.play().catch(() => {
-        videoRef.current.muted = true;
-        videoRef.current.play();
-      });
-    }
+    const vid = videoRef.current;
+    if (!vid) return;
+
+    vid.play().catch(() => {
+      vid.muted = true;
+      vid.play();
+    });
   }, []);
 
   return (
     <div className='animation-page'>
       <video
-        className={`animation-video ${showUI ? 'video-moved' : ''}`}
         ref={videoRef}
+        className={`animation-video ${showUI ? 'video-moved' : ''}`}
         onEnded={handleVideoEnded}
-        controls={false}
         muted
         playsInline
+        aria-label='Intro animation'
       >
         <source src='/video/animation.mp4' type='video/mp4' />
         Your browser does not support the video tag.
@@ -55,16 +64,19 @@ const AnimationPage = () => {
           </div>
 
           <div className='button-group'>
-            <SignUpButton onClick={() => navigate('/signup')} />
-            <WhiteLogInButton onClick={() => navigate('/login')} />
+            <SignUpButton onClick={goToSignUp} />
+            <WhiteLogInButton onClick={goToLogin} />
           </div>
-          <button className='skip-button' onClick={handleSkip}>
+          <button
+            type='button'
+            className='skip-button'
+            onClick={handleSkip}
+            aria-label='Skip intro'
+          >
             Skip
           </button>
         </div>
       )}
     </div>
   );
-};
-
-export default AnimationPage;
+}

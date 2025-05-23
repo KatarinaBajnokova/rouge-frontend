@@ -3,6 +3,10 @@
 @use '/src/sass/abstract/typography' as *;
 @use '/src/sass/abstract/mixins' as *;
 
+.home-screen {
+  margin-bottom: 65px; //navbar height
+}
+
 .home-screen,
 .home-screen * {
   max-width: 100%;
@@ -18,12 +22,6 @@
   .section-desc {
     margin-left: 1rem;
   }
-}
-
-html,
-body {
-  overflow-x: hidden;
-  margin-bottom: 65px; //navbar height
 }
 
 .card-scroll-wrapper {

@@ -4,6 +4,9 @@ import { CheckoutButton } from '../components/buttons/RedButtons';
 import { BackHeader } from '../components/buttons/IconButtons';
 import emptyBasketIcon from '@/assets/icons/IMG_empty_basket.svg';
 import '@/sass/pages/_basket_page.scss';
+import { useAuth } from '@/react/hooks/useAuth';
+import { getFirebaseAuth } from '../../getFirebaseAuth'; // ✅ import here
+
 import {
   Title,
   Text,
@@ -15,10 +18,36 @@ import {
 } from '@mantine/core';
 import { IconTrash, IconMinus, IconPlus } from '@tabler/icons-react';
 
+// ✅ Define this function at the top
+async function syncBackendUserId() {
+  const { auth } = await getFirebaseAuth();
+  const firebaseUser = auth.currentUser;
+
+  if (firebaseUser) {
+    try {
+      const res = await fetch(
+        `/api/users/by-firebase-uid?uid=${firebaseUser.uid}`
+      );
+      const data = await res.json();
+
+      if (!res.ok)
+        throw new Error(data.error || 'Failed fetching backend user');
+
+      console.log('✅ Synced backendUserId:', data.user_id);
+      localStorage.setItem('backendUserId', data.user_id);
+    } catch (err) {
+      console.error('❌ Error syncing backend user ID', err.message);
+    }
+  } else {
+    console.warn('No Firebase user found while syncing backendUserId');
+  }
+}
+
 export default function BasketPage() {
   const [basketItems, setBasketItems] = useState([]);
   const [totalPrice, setTotalPrice] = useState(0);
   const [loading, setLoading] = useState(true);
+  const { userId, loading: authLoading } = useAuth();
   const navigate = useNavigate();
 
   const LOCAL_KEY = 'basket';
@@ -72,6 +101,13 @@ export default function BasketPage() {
     return () => window.removeEventListener('storage', onStorage);
   }, []);
 
+  // ✅ Add another useEffect ONLY for syncing backendUserId
+  useEffect(() => {
+    if (!authLoading) {
+      syncBackendUserId();
+    }
+  }, [authLoading]);
+
   const removeItem = async basketId => {
     await fetch(`/api/basket/${basketId}`, { method: 'DELETE' });
     fetchBasket();
@@ -101,6 +137,32 @@ export default function BasketPage() {
     );
   }
 
+  const handleCheckout = async () => {
+    if (authLoading) return; // wait
+
+    console.log('Checking checkout logic. Firebase UID:', userId);
+
+    if (!userId) {
+      console.log('❌ No firebase user detected, navigate to personal info.');
+      navigate('/checkout/personal-info');
+      return;
+    }
+
+    try {
+      const res = await fetch(`/api/users/by-firebase-uid?uid=${userId}`);
+      if (res.ok) {
+        console.log('✅ Backend user exists, navigating to friend info');
+        navigate('/checkout/friend-info');
+      } else {
+        console.log('❌ Backend user not found, navigating to personal info');
+        navigate('/checkout/personal-info');
+      }
+    } catch (err) {
+      console.error('❌ Error verifying user in backend:', err);
+      navigate('/checkout/personal-info'); // fallback
+    }
+  };
+
   return (
     <div className='basket-page'>
       <BackHeader text='Shopping Basket' />
@@ -108,7 +170,6 @@ export default function BasketPage() {
       {basketItems.length === 0 ? (
         <div className='empty-basket'>
           <img src={emptyBasketIcon} alt='Empty basket' />
-
           <p>Your basket is empty.</p>
         </div>
       ) : (
@@ -194,19 +255,10 @@ export default function BasketPage() {
                 €{totalWithShipping}
               </Title>
             </div>
-            <CheckoutButton
-              onClick={() => {
-                localStorage.removeItem(LOCAL_KEY);
-                window.dispatchEvent(
-                  new StorageEvent('storage', {
-                    key: LOCAL_KEY,
-                    oldValue: JSON.stringify(basketItems),
-                    newValue: null,
-                  })
-                );
-                navigate('/checkout/personal-info');
-              }}
-            />
+
+            <CheckoutButton disabled={authLoading} onClick={handleCheckout}>
+              {authLoading ? <Loader size='xs' color='white' /> : 'Checkout'}
+            </CheckoutButton>
           </Group>
         </>
       )}
