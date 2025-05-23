@@ -1,4 +1,3 @@
-// src/react/pages/product_detail/ReviewsPage.jsx
 import React, { useEffect, useState } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
 import { Text, Loader, Stack, Card, Rating, Group } from '@mantine/core';
@@ -12,8 +11,9 @@ import ReviewModal from './ReviewModal';
 
 import '@/sass/pages/product-detail/_review_page.scss';
 
-// **Import** the default avatar so your bundler can resolve it
-import DefaultAvatar from '@/assets/avatar/default.png';
+// Import your bundled default avatar
+import DefaultAvatar from '../../../assets/avatar/default.png';
+// (If you're using a path alias like '@', adjust to '@/assets/avatar/default.png')
 
 export default function ReviewsPage() {
   const { id } = useParams();
@@ -22,7 +22,8 @@ export default function ReviewsPage() {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
   const [modalOpen, setModalOpen] = useState(false);
-  const { userId: firebaseUid } = useAuth();
+
+  // Only one destructure here
   const { userId: firebaseUid } = useAuth();
 
   useEffect(() => {
@@ -100,13 +101,7 @@ export default function ReviewsPage() {
       <Stack spacing='md'>
         {count > 0 ? (
           reviews.map(
-            ({
-              id: reviewId,
-              author,
-              comment,
-              rating,
-              avatar_url, // comes from your API
-            }) => (
+            ({ id: reviewId, author, comment, rating, avatar_url }) => (
               <Card
                 key={reviewId}
                 shadow='sm'
@@ -150,7 +145,6 @@ export default function ReviewsPage() {
         onClose={() => setModalOpen(false)}
         itemId={Number(id)}
         onReviewSubmitted={newReview => {
-          // Expect newReview to include avatar_url
           setReviews([newReview, ...reviews]);
           setModalOpen(false);
         }}
