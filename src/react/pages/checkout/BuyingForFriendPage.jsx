@@ -6,7 +6,7 @@ import FinalStepper from '../../components/stepper/Stepper';
 import { BottomBarButton } from '../../components/buttons/RedButtons';
 import { useCheckout } from '../../contexts/CheckoutContext';
 import '@/sass/pages/checkout/_forfriend_page.scss';
-import { useAuth } from "../../hooks/useAuth.jsx";
+import { useAuth } from '../../hooks/useAuth.jsx';
 
 const STORAGE_KEY = 'personalInfo';
 
@@ -27,7 +27,10 @@ export default function BuyingForFriendPage() {
           localStorage.setItem('userId', data.id);
           console.log('✅ Updated backend userId in localStorage:', data.id);
         } else {
-          console.error('❌ Backend fetch failed: ', data.error || 'No ID found');
+          console.error(
+            '❌ Backend fetch failed: ',
+            data.error || 'No ID found'
+          );
         }
       } catch (err) {
         console.error('❌ Error fetching backend user ID', err);

@@ -23,6 +23,7 @@ export default function ReviewsPage() {
   const [error, setError] = useState(null);
   const [modalOpen, setModalOpen] = useState(false);
   const { userId: firebaseUid } = useAuth();
+  const { userId: firebaseUid } = useAuth();
 
   useEffect(() => {
     fetch(`/api/reviews/${id}`)

@@ -7,7 +7,7 @@ import {
 } from 'react-router-dom';
 import { useSubcategories } from '@/react/hooks/useSubcategories';
 import { BasketButton } from '@/react/components/buttons/BasketButton';
-import { BackIconButton } from '@/react/components/buttons/IconButtons';
+import { BackHeader } from '@/react/components/buttons/IconButtons';
 import SubcategoryItem from '@/react/components/all/SubcategoryItem';
 
 import '@/sass/pages/all/_subcategories.scss';
@@ -50,13 +50,10 @@ export default function SubcategoriesPage() {
   return (
     <div className='subcategories-page'>
       <div className='header-wrapper'>
-        {/* row 1: back + basket */}
+        <BackHeader text={categoryName} />
         <div className='header-controls'>
-          <BackIconButton onClick={() => nav(-1)} />
           <BasketButton />
         </div>
-        {/* row 2: title */}
-        <h2>{categoryName}</h2>
       </div>
 
       <div className='category-list'>

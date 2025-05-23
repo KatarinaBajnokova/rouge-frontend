@@ -1,1 +1,48 @@
-.navbar{position:fixed;bottom:0;left:0;width:100%;background-color:#fbfbfb;border-top:1px solid #e0e0e0;box-shadow:0 -2px 8px #0000001a;z-index:1000;display:flex;justify-content:space-around;align-items:center;padding:.5rem}.navbar .nav-item{display:flex;flex-direction:column;align-items:center;text-decoration:none;color:#666}.navbar .nav-item .nav-icon-container{height:29px;width:34px;display:flex;justify-content:center;align-items:center;margin-bottom:.25rem;overflow:hidden}.navbar .nav-item .nav-icon{max-width:100%;max-height:100%;object-fit:contain;display:block}.navbar .nav-item .nav-label{font-size:.75rem}.navbar .nav-item.active{color:#ac003e}.navbar .nav-item.active .nav-icon{filter:none}.navbar .nav-item.active .nav-label{font-weight:700}
+.navbar {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  background-color: #fbfbfb;
+  border-top: 1px solid #e0e0e0;
+  box-shadow: 0 -2px 8px #0000001a;
+  z-index: 1000;
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  padding: 0.5rem;
+}
+.navbar .nav-item {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-decoration: none;
+  color: #666;
+}
+.navbar .nav-item .nav-icon-container {
+  height: 29px;
+  width: 34px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-bottom: 0.25rem;
+  overflow: hidden;
+}
+.navbar .nav-item .nav-icon {
+  max-width: 100%;
+  max-height: 100%;
+  object-fit: contain;
+  display: block;
+}
+.navbar .nav-item .nav-label {
+  font-size: 0.75rem;
+}
+.navbar .nav-item.active {
+  color: #ac003e;
+}
+.navbar .nav-item.active .nav-icon {
+  filter: none;
+}
+.navbar .nav-item.active .nav-label {
+  font-weight: 700;
+}

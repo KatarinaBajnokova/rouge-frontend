@@ -10,8 +10,21 @@
 
 @use './product-detail/purchase-banner';
 
+body {
+  font-family: $font-family;
+}
+
+  .back-icon-button {
+    margin-top: 0;
+  }
+
 .product-detail,
 .product-detail * {
+  font-family: inherit !important;
+}
+
+.detail-description,
+.detail-description .mantine-Text-root {
   font-family: inherit !important;
 }
 
@@ -22,13 +35,6 @@
   padding-bottom: 6rem;
   color: $grey-background-elements;
   min-height: 100dvh;
-}
-
-.detail-tags {
-  margin-top: 0.9rem;
-  display: flex;
-  flex-wrap: wrap;
-  gap: 0.5rem;
 }
 
 .toggle-desc-btn {

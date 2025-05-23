@@ -1,1 +1,53 @@
-import{j as e,L as s,P as i}from"./react-BNfDklOQ.js";const n=({look:a,showHeart:r=!1})=>e.jsx(s,{to:`/item/${a.id}`,className:"card-link",children:e.jsxs("div",{className:"trendingCard",children:[e.jsxs("div",{className:"trendingCard__imageContainer",children:[e.jsx("img",{src:a.image_url,alt:a.title,className:"trendingCard__image"}),r&&e.jsx("div",{className:"trendingCard__heartIcon",children:e.jsx(i,{size:20,color:"#C8102E"})})]}),e.jsxs("div",{className:"trendingCard__content",children:[e.jsx("div",{className:"trendingCard__title",children:a.title}),e.jsx("div",{className:"trendingCard__category",children:a.category}),e.jsxs("div",{className:"trendingCard__footer",children:[e.jsxs("div",{className:`trendingCard__badge badge--${a.level.toLowerCase()}`,children:["✦ ",a.level]}),e.jsxs("div",{className:"trendingCard__price",children:["€",a.price]})]})]})]})});export{n as T};
+import { j as e, L as s, P as i } from './react-BNfDklOQ.js';
+const n = ({ look: a, showHeart: r = !1 }) =>
+  e.jsx(s, {
+    to: `/item/${a.id}`,
+    className: 'card-link',
+    children: e.jsxs('div', {
+      className: 'trendingCard',
+      children: [
+        e.jsxs('div', {
+          className: 'trendingCard__imageContainer',
+          children: [
+            e.jsx('img', {
+              src: a.image_url,
+              alt: a.title,
+              className: 'trendingCard__image',
+            }),
+            r &&
+              e.jsx('div', {
+                className: 'trendingCard__heartIcon',
+                children: e.jsx(i, { size: 20, color: '#C8102E' }),
+              }),
+          ],
+        }),
+        e.jsxs('div', {
+          className: 'trendingCard__content',
+          children: [
+            e.jsx('div', {
+              className: 'trendingCard__title',
+              children: a.title,
+            }),
+            e.jsx('div', {
+              className: 'trendingCard__category',
+              children: a.category,
+            }),
+            e.jsxs('div', {
+              className: 'trendingCard__footer',
+              children: [
+                e.jsxs('div', {
+                  className: `trendingCard__badge badge--${a.level.toLowerCase()}`,
+                  children: ['✦ ', a.level],
+                }),
+                e.jsxs('div', {
+                  className: 'trendingCard__price',
+                  children: ['€', a.price],
+                }),
+              ],
+            }),
+          ],
+        }),
+      ],
+    }),
+  });
+export { n as T };

@@ -15,7 +15,7 @@ export default function InstructionsSection({ instructions }) {
             <span className='instruction-step__number'>{idx + 1}.</span>
             <div className='instruction-step__body'>
               <Text fw={500}>{step.title}</Text>
-              <Text size='sm' color='dimmed' mt={2}>
+              <Text className='instruction-step__text' size='sm' mt={2}>
                 {step.text}
               </Text>
             </div>

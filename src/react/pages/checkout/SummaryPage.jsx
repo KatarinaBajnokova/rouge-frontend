@@ -14,17 +14,22 @@ import '@/sass/pages/checkout/_last_popup.scss';
 export default function SummaryPage() {
   const navigate = useNavigate();
   const { userId: firebaseUid } = useAuth();
-  
+
   const [showFinalScreen, setShowFinalScreen] = useState(false);
   const [backendUser, setBackendUser] = useState(null);
   const [basketItems, setBasketItems] = useState([]);
   const [basketTotal, setBasketTotal] = useState(0);
   const [buttonLoading, setButtonLoading] = useState(false);
 
-
-  const savedPersonal = JSON.parse(localStorage.getItem('personalInfo') || '{}');
-  const savedAddress = JSON.parse(localStorage.getItem('shippingAddress') || '{}');
-  const savedPayment = JSON.parse(localStorage.getItem('paymentMethod') || '{}');
+  const savedPersonal = JSON.parse(
+    localStorage.getItem('personalInfo') || '{}'
+  );
+  const savedAddress = JSON.parse(
+    localStorage.getItem('shippingAddress') || '{}'
+  );
+  const savedPayment = JSON.parse(
+    localStorage.getItem('paymentMethod') || '{}'
+  );
 
   const {
     firstName,
@@ -45,7 +50,12 @@ export default function SummaryPage() {
   const SHIPPING_COST = 5.0;
   const GIFT_WRAP_COST = addGiftWrap ? 3.99 : 0;
   const PERSONAL_CARD_COST = addPersonalCard ? 2.99 : 0;
-  const finalTotal = (basketTotal + SHIPPING_COST + GIFT_WRAP_COST + PERSONAL_CARD_COST)
+  const finalTotal = (
+    basketTotal +
+    SHIPPING_COST +
+    GIFT_WRAP_COST +
+    PERSONAL_CARD_COST
+  )
     .toFixed(2)
     .replace('.', ',');
 
@@ -57,35 +67,38 @@ export default function SummaryPage() {
   };
 
   useEffect(() => {
-  fetch('http://localhost:8000/api/basket')
-    .then(res => res.json())
-    .then(data => {
-      setBasketItems(data.items || []);
-      setBasketTotal(data.total_price || 0);
-    })
-    .catch(err => console.error('Failed to fetch basket:', err));
-
-  if (!savedPersonal.firstName && firebaseUid) {
-    fetch(`/api/users/by-firebase-uid?uid=${firebaseUid}`)
+    fetch('http://localhost:8000/api/basket')
       .then(res => res.json())
-      .then(user => {
-        if (user && user.first_name && user.last_name && user.email) {
-          setBackendUser({
-            firstName: user.first_name,
-            lastName: user.last_name,
-            email: user.email,
-          });
-          localStorage.setItem('personalInfo', JSON.stringify({
-            firstName: user.first_name,
-            lastName: user.last_name,
-            email: user.email,
-          })); // 🔥 Add this caching
-        }
+      .then(data => {
+        setBasketItems(data.items || []);
+        setBasketTotal(data.total_price || 0);
       })
-      .catch(err => console.error('Failed to fetch user info', err));
-  }
-}, [firebaseUid]);
-// ✅ Correct dependencies
+      .catch(err => console.error('Failed to fetch basket:', err));
+
+    if (!savedPersonal.firstName && firebaseUid) {
+      fetch(`/api/users/by-firebase-uid?uid=${firebaseUid}`)
+        .then(res => res.json())
+        .then(user => {
+          if (user && user.first_name && user.last_name && user.email) {
+            setBackendUser({
+              firstName: user.first_name,
+              lastName: user.last_name,
+              email: user.email,
+            });
+            localStorage.setItem(
+              'personalInfo',
+              JSON.stringify({
+                firstName: user.first_name,
+                lastName: user.last_name,
+                email: user.email,
+              })
+            ); // 🔥 Add this caching
+          }
+        })
+        .catch(err => console.error('Failed to fetch user info', err));
+    }
+  }, [firebaseUid]);
+  // ✅ Correct dependencies
 
   const handleConfirm = async () => {
     const resolvedFirstName = firstName || backendUser?.firstName;
@@ -177,33 +190,51 @@ export default function SummaryPage() {
       <BackIconButton />
       <div className='summary-top'>
         <h2>Review Your Order</h2>
-        <p>Before finalizing the purchase check if your information is correct!</p>
+        <p>
+          Before finalizing the purchase check if your information is correct!
+        </p>
       </div>
 
       <div className='checkout-overview'>
         <div className='checkout-personal-info'>
           <div className='section'>
             <Title order={4}>Personal information</Title>
-<Text>
-  {(firstName || backendUser?.firstName || '-') + ' ' + (lastName || backendUser?.lastName || '-')}
-</Text>
-<Text>{email || backendUser?.email || '-'}</Text>
-
+            <Text>
+              {(firstName || backendUser?.firstName || '-') +
+                ' ' +
+                (lastName || backendUser?.lastName || '-')}
+            </Text>
+            <Text>{email || backendUser?.email || '-'}</Text>
           </div>
 
           <div className='section'>
             <Title order={4}>Buying for a friend</Title>
             <div className='friend-additional'>
-              <Text>{addGiftWrap ? '🎁 Gift wrapping added' : 'No gift wrapping'}</Text>
-              <Text>{addPersonalCard ? '✉️ Personal card added' : 'No personal card'}</Text>
+              <Text>
+                {addGiftWrap ? '🎁 Gift wrapping added' : 'No gift wrapping'}
+              </Text>
+              <Text>
+                {addPersonalCard
+                  ? '✉️ Personal card added'
+                  : 'No personal card'}
+              </Text>
             </div>
             {(addGiftWrap || addPersonalCard) && (
               <>
                 <Divider />
-                <Text><span className='subtitle-text'>Name:</span> {friendName || '-'}</Text>
-                <Text><span className='subtitle-text'>Email:</span> {friendEmail || '-'}</Text>
+                <Text>
+                  <span className='subtitle-text'>Name:</span>{' '}
+                  {friendName || '-'}
+                </Text>
+                <Text>
+                  <span className='subtitle-text'>Email:</span>{' '}
+                  {friendEmail || '-'}
+                </Text>
                 {addPersonalCard && (
-                  <Text><span className='subtitle-text'>Note:</span> {personalNote || '-'}</Text>
+                  <Text>
+                    <span className='subtitle-text'>Note:</span>{' '}
+                    {personalNote || '-'}
+                  </Text>
                 )}
               </>
             )}
@@ -211,17 +242,30 @@ export default function SummaryPage() {
 
           <div className='section'>
             <Title order={4}>Shipping information</Title>
-            <Text><span className='subtitle-text'>Address:</span> {street} {houseNumber}, {postalCode}, {country}</Text>
-            <Text><span className='subtitle-text'>Phone:</span> {phone}</Text>
+            <Text>
+              <span className='subtitle-text'>Address:</span> {street}{' '}
+              {houseNumber}, {postalCode}, {country}
+            </Text>
+            <Text>
+              <span className='subtitle-text'>Phone:</span> {phone}
+            </Text>
 
             <Divider />
 
             <Title order={4}>Payment method</Title>
-            <Text><span className='subtitle-text'>Method:</span> {paymentLabels[method] || '-'}</Text>
+            <Text>
+              <span className='subtitle-text'>Method:</span>{' '}
+              {paymentLabels[method] || '-'}
+            </Text>
             {method === 'card' && (
               <>
-                <Text><span className='subtitle-text'>Cardholder:</span> {cardName}</Text>
-                <Text><span className='subtitle-text'>Card number:</span> **** **** **** {cardNumber?.slice(-4)}</Text>
+                <Text>
+                  <span className='subtitle-text'>Cardholder:</span> {cardName}
+                </Text>
+                <Text>
+                  <span className='subtitle-text'>Card number:</span> **** ****
+                  **** {cardNumber?.slice(-4)}
+                </Text>
               </>
             )}
           </div>
@@ -231,8 +275,12 @@ export default function SummaryPage() {
           <Title order={4}>Order summary</Title>
           {basketItems.map(item => (
             <div className='summary-line' key={item.id}>
-              <Text>{item.name} x{item.quantity}</Text>
-              <Text>€{(item.price * item.quantity).toFixed(2).replace('.', ',')}</Text>
+              <Text>
+                {item.name} x{item.quantity}
+              </Text>
+              <Text>
+                €{(item.price * item.quantity).toFixed(2).replace('.', ',')}
+              </Text>
             </div>
           ))}
 
@@ -262,8 +310,12 @@ export default function SummaryPage() {
           </div>
         </div>
 
-        <BottomBarButton fullWidth loading={buttonLoading} onClick={handleConfirm} text='Finalize purchase' />
-
+        <BottomBarButton
+          fullWidth
+          loading={buttonLoading}
+          onClick={handleConfirm}
+          text='Finalize purchase'
+        />
       </div>
     </div>
   );

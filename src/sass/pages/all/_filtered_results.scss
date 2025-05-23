@@ -21,15 +21,6 @@
     border-radius: 8px;
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
 
-    .back-icon-button {
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      height: 100%;
-      padding: 0;
-      margin: 0;
-    }
-
     .titles {
       flex: 1;
       margin-left: 1rem;
@@ -42,26 +33,41 @@
       }
     }
   }
-
   .search-wrapper {
+    margin-top: 0.5rem;
     display: flex;
     align-items: center;
-    gap: 0.5rem;
     margin-bottom: 0.5rem;
 
-    .search-bar {
-      flex: 1;
-      background-color: $white-elements;
-      border-radius: 8px;
-      box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    .search-row {
+      display: grid;
+      grid-template-columns: 1fr auto;
+      column-gap: 1.5rem;
+      align-items: center;
+      width: 100%;
 
-      .mantine-Input-wrapper {
-        background: transparent;
-        border: none;
+      .custom-search-bar {
+        flex: 1;
+        display: flex;
+        align-items: center;
+        background-color: $white-elements;
+        padding: 0.2rem 1rem;
+        border-radius: 2rem;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
       }
 
-      .mantine-Input-input {
-        background: transparent !important;
+      .search-icon {
+        margin-right: 0.5rem;
+        flex-shrink: 0;
+      }
+
+      .bare-input {
+        flex: 1;
+        font-size: 1rem;
+        background: transparent;
+        border: none;
+        outline: none;
+        color: $black-main;
       }
     }
   }
@@ -69,8 +75,6 @@
   .filter-row {
     display: flex;
     justify-content: flex-start;
-    gap: 2rem;
-    margin-bottom: 1rem;
   }
 
   .no-items {
@@ -83,8 +87,6 @@
   .items-list {
     display: flex;
     flex-direction: column;
-    gap: 2.5rem;
-    margin: 1rem 0 2rem;
   }
 
   .items-section {
@@ -96,13 +98,13 @@
 
     .section-list {
       display: flex;
-      flex-wrap: wrap;
-      gap: 1.5rem;
-      padding-bottom: 1.5rem;
+      gap: 0.75rem;
+      overflow-x: auto;
+      padding-bottom: 0.5rem;
     }
 
     .section-list > * {
-      flex: 0 0 140px;
+      flex: 0 0 auto;
     }
   }
 }

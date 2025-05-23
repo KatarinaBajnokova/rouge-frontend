@@ -27,7 +27,7 @@ export function useUpdateUser() {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
-          'Authorization': `Bearer ${token}`, // ✨ Authorization header
+          Authorization: `Bearer ${token}`, // ✨ Authorization header
         },
         body: JSON.stringify({ user_id: backendUserId, ...data }), // 🔥 backendUserId, not userId
       });

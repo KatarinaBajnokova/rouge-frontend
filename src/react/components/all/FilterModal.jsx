@@ -24,6 +24,14 @@ const DIFF_COLORS = {
   expert: '#ac003e',
 };
 
+// Gradient config for occasion/detailed selections
+const GRADIENT_STYLE = {
+  background:
+    'linear-gradient(to top, rgba(170, 29, 163, 0.9), rgba(170, 29, 163, 0.07))',
+  borderColor: '#aa1da4',
+  color: '#fff',
+};
+
 export default function FilterModal({
   opened,
   onClose,
@@ -73,6 +81,7 @@ export default function FilterModal({
           key={item}
           checked={checked}
           onClick={() => toggleItem(item, selected, setSelected)}
+          style={checked ? GRADIENT_STYLE : {}}
         >
           {item}
         </Pill>
@@ -85,17 +94,26 @@ export default function FilterModal({
         const key = d.toLowerCase();
         const checked = selDiff.includes(d);
         const color = DIFF_COLORS[key] ?? DIFF_COLORS.advanced;
-        const style = checked
-          ? { background: color, borderColor: color, color: '#fff' }
-          : {};
+
+        const baseStyle = {
+          borderColor: color,
+          color: color,
+        };
+
+        const selectedStyle = {
+          background: color,
+          borderColor: color,
+          color: '#fff',
+        };
+
         return (
           <Pill
             key={d}
             checked={checked}
             onClick={() => toggleItem(d, selDiff, setSelDiff)}
-            style={style}
+            style={checked ? selectedStyle : baseStyle}
           >
-            {d}
+            ✦ {d}
           </Pill>
         );
       }),
@@ -111,11 +129,7 @@ export default function FilterModal({
       size='sm'
       padding='md'
     >
-      <BackHeader
-        text='Filter'
-        onBack={onClose}
-        backButtonStyle={{ marginRight: '1rem' }}
-      />
+      <BackHeader text='Filter' onBack={onClose} />
 
       {isLoading ? (
         <Center style={{ height: '80vh' }}>
@@ -124,47 +138,61 @@ export default function FilterModal({
       ) : (
         <div className='filter-body'>
           <ScrollArea className='filter-scroll'>
-            <Text className='filter-section-title'>Select occasion</Text>
-            <Group spacing='xs' mb='md'>
-              {renderPills(opts.occasions, selOcc, setSelOcc)}
-            </Group>
+            <div className='filter-section'>
+              <Text className='filter-section-title'>Select occasion</Text>
+              <Group>{renderPills(opts.occasions, selOcc, setSelOcc)}</Group>
+            </div>
 
-            <Text className='filter-section-title'>Select more detailed</Text>
-            <Group spacing='xs' mb='md'>
-              {renderPills(opts.detailedOccasions, selDet, setSelDet)}
-            </Group>
+            <div className='filter-section'>
+              <Text className='filter-section-title'>Select more detailed</Text>
+              <Group>
+                {renderPills(opts.detailedOccasions, selDet, setSelDet)}
+              </Group>
+            </div>
 
-            <Text className='filter-section-title'>Select difficulty</Text>
-            <Group spacing='xs' mb='md'>
-              {difficultyPills}
-            </Group>
+            <div className='filter-section'>
+              <Text className='filter-section-title'>Select difficulty</Text>
+              <Group>{difficultyPills}</Group>
+            </div>
 
-            <Text className='filter-section-title'>
-              Select your price range
-            </Text>
-            <RangeSlider
-              className='filter-slider'
-              value={price}
-              onChange={setPrice}
-              min={priceRange[0]}
-              max={priceRange[1]}
-              step={0.01}
-              marks={[
-                { value: priceRange[0], label: `€${priceRange[0]}` },
-                { value: priceRange[1], label: `€${priceRange[1]}` },
-              ]}
-              mb='md'
-              styles={{
-                track: { backgroundColor: 'rgba(170,29,164,0.2)' },
-                bar: { backgroundColor: '#aa1da4' },
-                thumb: {
-                  backgroundColor: '#aa1da4',
-                  border: '2px solid #fbfbfb',
-                  width: 16,
-                  height: 16,
-                },
-              }}
-            />
+            <div className='filter-section'>
+              <Text className='filter-section-title'>
+                Select your price range
+              </Text>
+              <RangeSlider
+                className='filter-slider'
+                value={price}
+                onChange={setPrice}
+                min={priceRange[0]}
+                max={priceRange[1]}
+                step={0.01}
+                marks={[
+                  { value: priceRange[0], label: `€${priceRange[0]}` },
+                  { value: priceRange[1], label: `€${priceRange[1]}` },
+                ]}
+                mb='md'
+                styles={{
+                  track: {
+                    backgroundColor: 'rgba(170,29,164,0.2)',
+                    height: 10, // increased height
+                  },
+                  bar: {
+                    backgroundColor: '#aa1da4',
+                    height: 10, // match track height
+                  },
+                  thumb: {
+                    backgroundColor: '#aa1da4',
+                    border: '3px solid #fbfbfb',
+                    width: 24, // larger circle
+                    height: 24,
+                  },
+                  markLabel: {
+                    fontSize: '1rem', // bigger labels
+                    fontWeight: 'bold',
+                  },
+                }}
+              />
+            </div>
           </ScrollArea>
 
           <div className='filter-footer'>

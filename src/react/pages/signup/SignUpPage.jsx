@@ -93,13 +93,12 @@ const SignUpPage = () => {
       });
 
       let backendData;
-try {
-  backendData = await backendResponse.json();
-} catch (parseError) {
-  console.error('❌ Failed to parse backend response as JSON');
-  throw new Error('Invalid backend response');
-}
-
+      try {
+        backendData = await backendResponse.json();
+      } catch (parseError) {
+        console.error('❌ Failed to parse backend response as JSON');
+        throw new Error('Invalid backend response');
+      }
 
       if (!backendResponse.ok) {
         throw new Error(
@@ -116,7 +115,8 @@ try {
       });
 
       navigate('/personal-look', {
-      state: { newUser: true },});
+        state: { newUser: true },
+      });
     } catch (err) {
       console.error('❌ Sign-up error:', err.message);
 
@@ -247,9 +247,8 @@ try {
       />
 
       <SignUpButton fullWidth onClick={handleEmailSignUp}>
-  Sign up
-</SignUpButton>
-
+        Sign up
+      </SignUpButton>
 
       <div className='social-register-section'>
         <Divider

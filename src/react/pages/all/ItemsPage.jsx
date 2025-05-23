@@ -7,7 +7,7 @@ import { IconSearch } from '@tabler/icons-react';
 import { BasketButton } from '@/react/components/buttons/BasketButton';
 import {
   FilterIconButton,
-  BackIconButton,
+  BackHeader,
 } from '@/react/components/buttons/IconButtons';
 
 import TrendingCard from '@/react/components/cards/TrendingCard';
@@ -44,16 +44,18 @@ export default function ItemsPage() {
     isError,
   } = useItems(categoryId, flatMode ? undefined : subcategoryId, filters);
 
+  const mappedItems = filteredItems.map(item => ({
+    ...item,
+    title: item.name || item.title || 'Untitled',
+  }));
+
   if (isLoading) return <div className='items-page'>Loading…</div>;
   if (isError) return <div className='items-page'>Error loading items</div>;
 
   // Common header
   const Header = () => (
-    <div className='header-wrapper'>
-      <BackIconButton onClick={() => navigate(-1)} />
-      <div className='titles'>
-        <h2>{flatMode ? categoryName : subcategoryName}</h2>
-      </div>
+    <div className='header-with-basket'>
+      <BackHeader text={flatMode ? categoryName : subcategoryName} />
       <BasketButton />
     </div>
   );
@@ -62,16 +64,18 @@ export default function ItemsPage() {
   const SearchRow = () => (
     <>
       <div className='search-wrapper'>
-        <TextInput
-          className='search-bar'
-          placeholder='Search…'
-          value={search}
-          onChange={e => setSearch(e.currentTarget.value)}
-          leftSection={!search && <IconSearch size={18} />}
-          radius='md'
-          size='md'
-        />
-        <BasketButton />
+        <div className='search-row'>
+          <div className='custom-search-bar'>
+            <IconSearch size={18} className='search-icon' />
+            <TextInput
+              value={search}
+              onChange={e => setSearch(e.currentTarget.value)}
+              placeholder='Search…'
+              variant='unstyled'
+              className='bare-input'
+            />
+          </div>
+        </div>
       </div>
       <div className='filter-row'>
         <FilterIconButton
@@ -121,7 +125,7 @@ export default function ItemsPage() {
 
       <div className='items-list'>
         {['natural', 'classic', 'bold'].map(key => {
-          const group = filteredItems.filter(
+          const group = mappedItems.filter(
             i => i.category.toLowerCase() === key
           );
           if (!group.length) return null;
@@ -138,7 +142,7 @@ export default function ItemsPage() {
           );
         })}
 
-        {filteredItems.length === 0 && (
+        {mappedItems.length === 0 && (
           <div className='no-items'>
             {flatMode
               ? `No items found in ${categoryName}.`

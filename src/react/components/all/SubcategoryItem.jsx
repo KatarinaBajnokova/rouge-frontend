@@ -1,7 +1,5 @@
-import React from 'react';
 import { Divider } from '@mantine/core';
 import { IconChevronRight } from '@tabler/icons-react';
-
 import '@/sass/components/all/_subcategory_item.scss';
 
 export default function SubcategoryItem({ label, onClick, color = '#317AFF' }) {
@@ -10,9 +8,9 @@ export default function SubcategoryItem({ label, onClick, color = '#317AFF' }) {
       <div className='item-content'>
         <span className='circle-indicator' style={{ backgroundColor: color }} />
         <p>{label}</p>
-        <IconChevronRight size={24} stroke={2} />
+        <IconChevronRight size={30} stroke={2} />
       </div>
-      <Divider />
+      <Divider className='category-divider' />
     </div>
   );
 }

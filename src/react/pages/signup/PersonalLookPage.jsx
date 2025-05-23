@@ -38,34 +38,41 @@ export default function PersonalLookPage() {
   const handleSelect = id => setSelected(id);
 
   useEffect(() => {
-  const fetchBackendUserId = async () => {
-    const firebaseUid = localStorage.getItem('firebaseUid'); // ← you MUST store this at sign-up
-    if (!firebaseUid) {
-      console.error('No Firebase UID found.');
-      navigate('/login');
-      return;
-    }
+    const fetchBackendUserId = async () => {
+      const firebaseUid = localStorage.getItem('firebaseUid'); // ← you MUST store this at sign-up
+      if (!firebaseUid) {
+        console.error('No Firebase UID found.');
+        navigate('/login');
+        return;
+      }
 
-    console.log(`🔗 Fetching backend user ID using Firebase UID: ${firebaseUid}`);
-    try {
-      const res = await fetch(`http://localhost:3000/api/users/by-firebase-uid?uid=${firebaseUid}`);
-      const data = await res.json();
+      console.log(
+        `🔗 Fetching backend user ID using Firebase UID: ${firebaseUid}`
+      );
+      try {
+        const res = await fetch(
+          `http://localhost:3000/api/users/by-firebase-uid?uid=${firebaseUid}`
+        );
+        const data = await res.json();
 
-      if (res.ok && data.id) {
-        localStorage.setItem('backendUserId', data.id);
-        console.log('✅ Stored backend user_id in localStorage:', data.id);
-      } else {
-        console.error('❌ Failed to fetch backend user ID:', data.error || 'No ID');
+        if (res.ok && data.id) {
+          localStorage.setItem('backendUserId', data.id);
+          console.log('✅ Stored backend user_id in localStorage:', data.id);
+        } else {
+          console.error(
+            '❌ Failed to fetch backend user ID:',
+            data.error || 'No ID'
+          );
+          navigate('/login');
+        }
+      } catch (error) {
+        console.error('❌ Error fetching backend user ID:', error);
         navigate('/login');
       }
-    } catch (error) {
-      console.error('❌ Error fetching backend user ID:', error);
-      navigate('/login');
-    }
-  };
+    };
 
-  fetchBackendUserId();
-}, [navigate]);
+    fetchBackendUserId();
+  }, [navigate]);
 
   const handleContinue = async () => {
     if (!selected) {
