@@ -82,7 +82,7 @@ export default function ProductDetail() {
   return (
     <div className='product-detail'>
       <div className='detail-header-buttons'>
-        <BackIconButton style={{ position: 'fixed' }} />
+        <BackIconButton/>
         <BasketButton refresh={basketRefresh} />
       </div>
 
