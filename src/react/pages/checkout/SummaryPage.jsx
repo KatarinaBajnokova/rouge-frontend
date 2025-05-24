@@ -3,6 +3,7 @@ import { Title, Text, Divider } from '@mantine/core';
 import { useNavigate } from 'react-router-dom';
 import { showNotification } from '@mantine/notifications';
 import { useAuth } from '@/react/hooks/useAuth';
+import { safeJsonFetch } from '@/react/utils/fetchUtils';
 
 import { BackIconButton } from '../../components/buttons/IconButtons';
 import { BottomBarButton } from '../../components/buttons/RedButtons';
@@ -67,13 +68,12 @@ export default function SummaryPage() {
   };
 
   useEffect(() => {
-    fetch('http://localhost:8000/api/basket')
-      .then(res => res.json())
-      .then(data => {
-        setBasketItems(data.items || []);
-        setBasketTotal(data.total_price || 0);
-      })
-      .catch(err => console.error('Failed to fetch basket:', err));
+safeJsonFetch('http://localhost:8000/api/basket')
+  .then(data => {
+    setBasketItems(data.items || []);
+    setBasketTotal(data.total_price || 0);
+  })
+  .catch(err => console.error('Failed to fetch basket:', err));
 
     if (!savedPersonal.firstName && firebaseUid) {
       fetch(`/api/users/by-firebase-uid?uid=${firebaseUid}`)
@@ -131,7 +131,8 @@ export default function SummaryPage() {
     }
 
     const items = basketItems.map(i => ({
-      id: i.id,
+      item_id: i.item_id,
+      quantity: i.quantity,
       name: i.name,
       quantity: i.quantity,
       price: i.price,
@@ -160,11 +161,15 @@ export default function SummaryPage() {
       const res = await fetch('http://localhost:8000/api/checkout', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
+        credentials: 'include',
         body: JSON.stringify(payload),
       });
       if (!res.ok) throw new Error(`Server responded ${res.status}`);
 
-      await fetch('/api/basket/clear', { method: 'POST' });
+      await fetch('/api/basket/clear', {
+  method: 'POST',
+  credentials: 'include', // ✅ Required for sending session cookie
+});
 
       localStorage.removeItem('personalInfo');
       localStorage.removeItem('shippingAddress');

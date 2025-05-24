@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { Title, Text, Button, Group, Loader } from '@mantine/core';
 import { useNavigate } from 'react-router-dom';
+import { safeJsonFetch } from '@/react/utils/fetchUtils';
 import '@/sass/pages/checkout/_last_popup.scss';
 
 export default function ConfirmationOverlay() {
@@ -8,26 +9,19 @@ export default function ConfirmationOverlay() {
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    // 1. clear server-side basket
-    fetch('/api/basket', { method: 'DELETE' })
-      .catch(console.error)
-      .then(() => {
-        // 2. clear client-side cache
-        localStorage.removeItem('basket');
-        localStorage.removeItem('personalInfo');
-        localStorage.removeItem('shippingAddress');
-        localStorage.removeItem('paymentMethod');
+  safeJsonFetch('/api/basket', { method: 'DELETE' })
+    .catch(console.error)
+    .then(() => {
+      localStorage.removeItem('basket');
+      localStorage.removeItem('personalInfo');
+      localStorage.removeItem('shippingAddress');
+      localStorage.removeItem('paymentMethod');
+      localStorage.setItem('resetBasket', 'true');
+      window.dispatchEvent(new StorageEvent('storage', { key: 'basket', newValue: null }));
+    })
+    .finally(() => setLoading(false));
+}, []);
 
-        // ✅ Flag to signal basket reset in this tab
-        localStorage.setItem('resetBasket', 'true');
-
-        // 3. notify other tabs/components to refresh
-        window.dispatchEvent(
-          new StorageEvent('storage', { key: 'basket', newValue: null })
-        );
-      })
-      .finally(() => setLoading(false));
-  }, []);
 
   const handleContinue = () => {
     // Force reload and make sure basket button updates

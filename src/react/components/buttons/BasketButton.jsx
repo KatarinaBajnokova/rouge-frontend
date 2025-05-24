@@ -1,5 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
+import { safeJsonFetch } from '@/react/utils/fetchUtils';
+
 import basketIcon from '@/assets/icons/icon_basket_active.svg';
 import '@/sass/components/buttons/_basketbutton.scss';
 
@@ -9,9 +11,7 @@ export function BasketButton({ refresh }) {
 
   const fetchBasketCount = async () => {
     try {
-      const res = await fetch('/api/basket');
-      if (!res.ok) throw new Error(`Status ${res.status}`);
-      const data = await res.json();
+const data = await safeJsonFetch('/api/basket');
       const count = Array.isArray(data.items)
         ? data.items.reduce((sum, item) => sum + (item.quantity || 0), 0)
         : 0;

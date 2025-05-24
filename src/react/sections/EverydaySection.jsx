@@ -1,5 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import TrendingCard from '../components/cards/TrendingCard';
+import { safeJsonFetch } from '@/react/utils/fetchUtils';
+
 import '@/sass/components/cards/_trending_cards.scss';
 import '@/sass/sections/_everyday_section.scss';
 
@@ -9,28 +11,25 @@ const EverydaySection = () => {
   const [error, setError] = useState(null);
 
   useEffect(() => {
-    fetch('/api/items?category_group=everyday')
-      .then(res => {
-        if (!res.ok) throw new Error('Failed to fetch everyday looks');
-        return res.json();
-      })
-      .then(data => {
-        const formatted = data.map(item => ({
-          id: item.id,
-          title: item.name,
-          category: item.category,
-          level: item.level,
-          price: item.price,
-          image_url: item.image_url,
-        }));
-        setLooks(formatted);
-      })
-      .catch(err => {
-        console.error(err);
-        setError(err.message);
-      })
-      .finally(() => setLoading(false));
-  }, []);
+  safeJsonFetch('/api/items?category_group=everyday')
+    .then(data => {
+      const formatted = data.map(item => ({
+        id: item.id,
+        title: item.name,
+        category: item.category,
+        level: item.level,
+        price: item.price,
+        image_url: item.image_url,
+      }));
+      setLooks(formatted);
+    })
+    .catch(err => {
+      console.error(err);
+      setError(err.message);
+    })
+    .finally(() => setLoading(false));
+}, []);
+
 
   return (
     <section className='home-section section-everyday'>
