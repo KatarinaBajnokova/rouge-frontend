@@ -1,0 +1,48 @@
+.header {
+  position: relative;
+  background: linear-gradient(135deg, #d4145a, #fbb03b);
+  padding: 1.5rem 1rem 3rem;
+  text-align: center;
+  color: #fff;
+}
+.btn {
+  position: absolute;
+  top: 1rem;
+  left: 1rem;
+  background: transparent;
+  border: none;
+  color: #fff;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+.basket {
+  position: absolute;
+  top: 1rem;
+  right: 1rem;
+  background: transparent;
+  border: none;
+  color: #fff;
+  font-size: 1.2rem;
+}
+.title {
+  margin: 0;
+  font-size: 1.8rem;
+}
+.avatarWrapper {
+  position: absolute;
+  bottom: -40px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 80px;
+  height: 80px;
+  border: 4px solid #121212;
+  border-radius: 50%;
+  background: #fff;
+  overflow: hidden;
+}
+.avatar {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}

@@ -1,0 +1,40 @@
+@use '@/sass/abstract/colors' as *;
+@use '@/sass/abstract/typography' as *;
+@use '@/sass/abstract/mixins' as *;
+
+.modalContent {
+  background: $white-background;
+  border-radius: 8px;
+  padding: 1.5rem;
+}
+
+.modalHeader {
+  background: none !important;
+  padding: 0; /* remove default padding if any */
+  display: flex;
+  justify-content: center;
+}
+
+.modalTitle {
+  color: $red;
+  @include font('section-title', 'bold');
+  font-size: 1.75rem;
+  text-align: center;
+  margin: 0;
+  width: 100%;
+}
+
+.body {
+  padding: 1rem 1.5rem;
+  @include font('section-description');
+  color: $black-main;
+}
+
+.confirmButton {
+  @include font('section-description', 'bold');
+  background: $red;
+  color: $white-elements;
+  width: 100%;
+  margin-top: 1rem;
+  border-radius: 24px;
+}
