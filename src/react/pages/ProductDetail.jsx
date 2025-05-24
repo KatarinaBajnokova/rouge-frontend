@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { useParams, useNavigate } from 'react-router-dom';
+import { useParams } from 'react-router-dom';
 import { Text } from '@mantine/core';
 import { notifications } from '@mantine/notifications';
 
@@ -11,7 +11,7 @@ import InfoSection from '../components/productDetail/InfoSection';
 import BoxProductsSection from '../components/productDetail/BoxProductsSection';
 import TutorialSection from '../components/productDetail/TutorialSection';
 import InstructionsSection from '../components/productDetail/InstructionsSection';
-import ReviewsSection from '../components/productDetail/ReviewsSection';
+import ReviewsSection from '../pages/product_detail/ReviewsSection';
 import PurchaseBanner from '../components/productDetail/PurchaseBanner';
 
 import '@/sass/pages/_product_detail.scss';
@@ -19,14 +19,11 @@ import '@/sass/pages/_product_detail.scss';
 export default function ProductDetail() {
   const { id } = useParams();
   const itemId = Number(id);
-  const navigate = useNavigate();
 
   const [item, setItem] = useState(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
   const [expanded, setExpanded] = useState(false);
-  const [showReviews, setShowReviews] = useState(false);
-
   const [basketRefresh, setBasketRefresh] = useState(0);
 
   useEffect(() => {
@@ -50,6 +47,7 @@ export default function ProductDetail() {
 
   const handleAddToBasket = async () => {
     if (!item) return;
+
     try {
       const res = await fetch('/api/basket', {
         method: 'POST',
@@ -68,7 +66,7 @@ export default function ProductDetail() {
       });
 
       setBasketRefresh(x => x + 1);
-    } catch (err) {
+    } catch {
       notifications.show({
         title: 'Error',
         message: 'Could not add item to basket.',
@@ -83,14 +81,11 @@ export default function ProductDetail() {
 
   return (
     <div className='product-detail'>
-      {/* Header Buttons */}
       <div className='detail-header-buttons'>
-        <BackIconButton style={{ position: 'fixed' }} />
-
+        <BackIconButton/>
         <BasketButton refresh={basketRefresh} />
       </div>
 
-      {/* Product Sections */}
       <CarouselSection itemId={itemId} />
       <InfoSection item={item} expanded={expanded} setExpanded={setExpanded} />
       <BoxProductsSection boxProducts={item.boxProducts} />
@@ -99,13 +94,9 @@ export default function ProductDetail() {
         poster={item.images?.[0]}
       />
       <InstructionsSection instructions={item.instructions} />
-      <ReviewsSection
-        reviews={item.reviews}
-        showReviews={showReviews}
-        setShowReviews={setShowReviews}
-      />
 
-      {/* Fixed bottom "Add to basket" bar */}
+      <ReviewsSection reviews={item.reviews} />
+
       <PurchaseBanner item={item} handleAddToBasket={handleAddToBasket} />
     </div>
   );

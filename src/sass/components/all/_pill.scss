@@ -1,3 +1,4 @@
+@use 'sass:map';
 @use '@/sass/abstract/colors' as *;
 @use '@/sass/abstract/typography' as *;
 @use '@/sass/abstract/mixins' as mixin;
@@ -17,9 +18,17 @@
   display: inline-block;
   color: $black-main;
 
+  transition:
+    background 220ms ease,
+    color 220ms ease,
+    border-color 220ms ease,
+    font-weight 220ms ease,
+    transform 220ms ease;
+
   &--checked {
     background: $magenta;
     border-color: $magenta;
     color: $white-background;
+    font-weight: map.get($font-weights, medium);
   }
 }

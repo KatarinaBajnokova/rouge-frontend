@@ -6,7 +6,7 @@ import { IconSearch } from '@tabler/icons-react';
 
 import { BasketButton } from '@/react/components/buttons/BasketButton';
 import {
-  BackIconButton,
+  BackHeader,
   FilterIconButton,
 } from '@/react/components/buttons/IconButtons';
 import TrendingCard from '@/react/components/cards/TrendingCard';
@@ -15,13 +15,14 @@ import SearchResults from '@/react/components/all/SearchResults';
 import { useItems } from '@/react/hooks/useItems';
 
 import '@/sass/pages/all/_filtered_results.scss';
-
 export default function FilteredResultsPage() {
   const navigate = useNavigate();
   const { search: rawSearch, pathname } = useLocation();
   const params = useMemo(() => new URLSearchParams(rawSearch), [rawSearch]);
 
   const [isFilterOpen, setFilterOpen] = useState(false);
+  const [search, setSearch] = useState(params.get('q') ?? '');
+
   const initialFilters = useMemo(
     () => ({
       selectedOccasions:
@@ -39,7 +40,6 @@ export default function FilteredResultsPage() {
   );
 
   const [filters, setFilters] = useState(initialFilters);
-  const [search, setSearch] = useState(params.get('q') ?? '');
 
   const handleSearch = useCallback(
     value => {
@@ -57,14 +57,51 @@ export default function FilteredResultsPage() {
     isError,
   } = useItems(undefined, undefined, filters);
 
+  const mappedItems = items.map(item => ({
+    ...item,
+    title: item.name || item.title || 'Untitled',
+  }));
+
   const categories = useMemo(() => ['natural', 'classic', 'bold'], []);
   const grouped = useMemo(
     () =>
       categories.map(key => {
-        const list = items.filter(i => i.category.toLowerCase() === key);
+        const list = mappedItems.filter(i => i.category.toLowerCase() === key);
         return { key, label: key[0].toUpperCase() + key.slice(1), list };
       }),
-    [items, categories]
+    [mappedItems, categories]
+  );
+
+  const Header = () => (
+    <div className='header-with-basket'>
+      <BackHeader text='Filter' />
+      <BasketButton />
+    </div>
+  );
+
+  const SearchRow = () => (
+    <>
+      <div className='search-wrapper'>
+        <div className='search-row'>
+          <div className='custom-search-bar'>
+            <IconSearch size={18} className='search-icon' />
+            <TextInput
+              value={search}
+              onChange={e => handleSearch(e.currentTarget.value)}
+              placeholder='Search…'
+              variant='unstyled'
+              className='bare-input'
+            />
+          </div>
+        </div>
+      </div>
+      <div className='filter-row'>
+        <FilterIconButton
+          className='filter-button'
+          onClick={() => setFilterOpen(true)}
+        />
+      </div>
+    </>
   );
 
   if (isLoading) {
@@ -86,27 +123,9 @@ export default function FilteredResultsPage() {
   if (search.trim()) {
     return (
       <div className='filtered-results-page'>
-        <header className='header-wrapper'>
-          <BackIconButton onClick={() => navigate(-1)} />
-          <h2 className='titles'>Filter</h2>
-          <BasketButton />
-        </header>
-
-        <div className='search-wrapper'>
-          <TextInput
-            className='search-bar'
-            placeholder='Search…'
-            value={search}
-            onChange={e => handleSearch(e.currentTarget.value)}
-            leftSection={!search && <IconSearch size={18} />}
-            radius='md'
-            size='md'
-          />
-          <BasketButton />
-        </div>
-
+        <Header />
+        <SearchRow />
         <SearchResults query={search.trim()} />
-
         <FilterModal
           opened={isFilterOpen}
           onClose={() => setFilterOpen(false)}
@@ -122,29 +141,8 @@ export default function FilteredResultsPage() {
 
   return (
     <div className='filtered-results-page'>
-      <header className='header-wrapper'>
-        <BackIconButton onClick={() => navigate(-1)} />
-        <h2 className='titles'>Filter</h2>
-        <BasketButton />
-      </header>
-
-      <div className='search-wrapper'>
-        <TextInput
-          className='search-bar'
-          placeholder='Search…'
-          value={search}
-          onChange={e => handleSearch(e.currentTarget.value)}
-          leftSection={!search && <IconSearch size={18} />}
-          radius='md'
-          size='md'
-        />
-        <BasketButton />
-      </div>
-
-      <div className='filter-row'>
-        <FilterIconButton onClick={() => setFilterOpen(true)} />
-      </div>
-
+      <Header />
+      <SearchRow />
       <FilterModal
         opened={isFilterOpen}
         onClose={() => setFilterOpen(false)}

@@ -45,7 +45,9 @@ export default function AddressPage() {
     fetch('https://restcountries.com/v3.1/all?fields=name')
       .then(res => res.json())
       .then(data => {
-        const names = data.map(c => c.name.common).sort((a, b) => a.localeCompare(b));
+        const names = data
+          .map(c => c.name.common)
+          .sort((a, b) => a.localeCompare(b));
         setCountryOptions(names);
         sessionStorage.setItem('countries', JSON.stringify(names));
       })
@@ -79,17 +81,20 @@ export default function AddressPage() {
     }
 
     try {
-      const response = await fetch('http://localhost:8000/api/users/addresses/add', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({
-          user_id: backendUserId,
-          address_1: `${street} ${houseNumber}`,
-          postal_code: postalCode,
-          country,
-          phone,
-        }),
-      });
+      const response = await fetch(
+        'http://localhost:8000/api/users/addresses/add',
+        {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({
+            user_id: backendUserId,
+            address_1: `${street} ${houseNumber}`,
+            postal_code: postalCode,
+            country,
+            phone,
+          }),
+        }
+      );
 
       if (!response.ok) {
         const errorData = await response.json().catch(() => ({}));
@@ -110,63 +115,67 @@ export default function AddressPage() {
   };
 
   return (
-    <div className="address-page">
+    <div className='address-page'>
       <BackIconButton />
       <FinalStepper active={1} />
-      <div className="personal-form">
+      <div className='personal-form'>
         <Title order={3}>Shipping Address</Title>
 
         <Select
-          label="Country"
-          placeholder="Select your country"
+          label='Country'
+          placeholder='Select your country'
           data={countryOptions}
           value={country}
           onChange={setCountry}
           searchable
-          nothingFoundMessage="No country found"
-          rightSection={countriesLoading ? <Loader size="xs" /> : null}
-          mt="md"
+          nothingFoundMessage='No country found'
+          rightSection={countriesLoading ? <Loader size='xs' /> : null}
+          mt='md'
           required
         />
 
         <TextInput
-          label="Street"
-          placeholder="Enter street name"
+          label='Street'
+          placeholder='Enter street name'
           value={street}
           onChange={e => setStreet(e.currentTarget.value)}
-          mt="md"
+          mt='md'
           required
         />
 
         <Group grow>
           <TextInput
-            label="House Number"
-            placeholder="e.g. 12A"
+            label='House Number'
+            placeholder='e.g. 12A'
             value={houseNumber}
             onChange={e => setHouseNumber(e.currentTarget.value)}
-            mt="md"
+            mt='md'
             required
           />
           <TextInput
-            label="Postal Code"
-            placeholder="e.g. 1000"
+            label='Postal Code'
+            placeholder='e.g. 1000'
             value={postalCode}
             onChange={e => setPostalCode(e.currentTarget.value)}
-            mt="md"
+            mt='md'
             required
           />
         </Group>
 
         <TextInput
-          label="Phone number"
-          placeholder="Enter your phone number"
+          label='Phone number'
+          placeholder='Enter your phone number'
           value={phone}
           onChange={e => setPhone(e.currentTarget.value)}
-          mt="md"
+          mt='md'
           required
         />
 
-        <BottomBarButton text="Confirm & Continue" onClick={handleConfirm} loading={loading} />
+        <BottomBarButton
+          text='Confirm & Continue'
+          onClick={handleConfirm}
+          loading={loading}
+        />
       </div>
     </div>
   );

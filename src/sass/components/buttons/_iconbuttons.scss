@@ -25,10 +25,10 @@ button.mantine-Button-root.add-to-basket-icon-button {
 button.mantine-Button-root.see-reviews-icon-button {
   background-color: $magenta;
   color: $white-elements;
-  font-weight: bold;
-  font-size: 1.1rem;
-  width: 200px;
-  height: 50px;
+  font-weight: 500;
+  font-size: 0.8rem;
+  width: 120px;
+  height: 25px;
   padding: 0.2rem 1rem;
   border-radius: 2rem;
   transition:
@@ -214,7 +214,7 @@ button.mantine-Button-root.see-more-button {
   display: flex;
   align-items: center;
   gap: 1.5rem;
-  margin-bottom: 2rem;
+  margin-bottom: 1.8rem;
 
   .back-icon-button {
     margin-top: 0 !important;

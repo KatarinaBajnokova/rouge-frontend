@@ -1,1 +1,150 @@
-.section-carousel{position:relative;width:100%}.carousel-container{width:100%;display:flex;flex-direction:column}.basket-wrapper{position:absolute;top:1rem;z-index:1100}.simple-carousel img{display:block;width:100%;height:auto;margin:0;padding:0}.section-two{background:#0b0b0b;color:#fbfbfb}.section-two .section-header{margin-left:1rem}.section-two .section-header h1{font-family:Montserrat,sans-serif;font-size:25px;font-weight:700;margin-bottom:.3rem;margin-top:1rem}.section-two .section-header p{font-family:Montserrat,sans-serif;font-size:16px;font-weight:400;margin:0}.section-everyday{background:#f3eded;color:#0b0b0b}.section-everyday .section-header{margin-left:1rem}.section-everyday .section-header h1{font-family:Montserrat,sans-serif;font-size:25px;font-weight:700;margin-bottom:.3rem;margin-top:1rem}.section-everyday .section-header p{font-family:Montserrat,sans-serif;font-size:16px;font-weight:400;margin:0}.section-formal{background:#f3eded;color:#0b0b0b}.section-formal .section-header{margin-left:1rem}.section-formal .section-header h1{font-family:Montserrat,sans-serif;font-size:25px;font-weight:700;margin-bottom:.3rem;margin-top:1rem}.section-formal .section-header p{font-family:Montserrat,sans-serif;font-size:16px;font-weight:400;margin:0}.section-reorder{background:#ac003e;color:#fbfbfb}.section-reorder .section-header{margin-left:1rem}.section-reorder .section-header h1{font-family:Montserrat,sans-serif;font-size:25px;font-weight:700;margin-bottom:.3rem;margin-top:1rem}.section-reorder .section-header p{font-family:Montserrat,sans-serif;font-size:16px;font-weight:400;margin:0}.home-screen{margin-bottom:65px}.home-screen,.home-screen *{max-width:100%;overflow-x:hidden}.section-everyday,.section-reorder,.section-two,.section-formal{padding:.5rem}.section-everyday .section-desc,.section-reorder .section-desc,.section-two .section-desc,.section-formal .section-desc{margin-left:1rem}.card-scroll-wrapper{display:flex;overflow-x:auto;overflow-y:hidden;scroll-snap-type:x mandatory;gap:1.5rem;padding-inline:1.5rem;margin-block-start:1.5rem;padding-block-end:1rem;scroll-padding-inline:1.5rem;touch-action:pan-y}.card-scroll-wrapper::-webkit-scrollbar{display:none}.card-scroll-wrapper>*{flex:0 0 auto;scroll-snap-align:start;max-width:15rem}.card-scroll-wrapper.non-trending-wrapper>*{width:15rem;height:15rem}.card-scroll-wrapper.non-trending-wrapper>* .mantine-Card-root{display:flex;flex-direction:column;height:100%}
+.section-carousel {
+  position: relative;
+  width: 100%;
+}
+.carousel-container {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+}
+.basket-wrapper {
+  position: absolute;
+  top: 1rem;
+  z-index: 1100;
+}
+.simple-carousel img {
+  display: block;
+  width: 100%;
+  height: auto;
+  margin: 0;
+  padding: 0;
+}
+.section-two {
+  background: #0b0b0b;
+  color: #fbfbfb;
+}
+.section-two .section-header {
+  margin-left: 1rem;
+}
+.section-two .section-header h1 {
+  font-family: Montserrat, sans-serif;
+  font-size: 25px;
+  font-weight: 700;
+  margin-bottom: 0.3rem;
+  margin-top: 1rem;
+}
+.section-two .section-header p {
+  font-family: Montserrat, sans-serif;
+  font-size: 16px;
+  font-weight: 400;
+  margin: 0;
+}
+.section-everyday {
+  background: #f3eded;
+  color: #0b0b0b;
+}
+.section-everyday .section-header {
+  margin-left: 1rem;
+}
+.section-everyday .section-header h1 {
+  font-family: Montserrat, sans-serif;
+  font-size: 25px;
+  font-weight: 700;
+  margin-bottom: 0.3rem;
+  margin-top: 1rem;
+}
+.section-everyday .section-header p {
+  font-family: Montserrat, sans-serif;
+  font-size: 16px;
+  font-weight: 400;
+  margin: 0;
+}
+.section-formal {
+  background: #f3eded;
+  color: #0b0b0b;
+}
+.section-formal .section-header {
+  margin-left: 1rem;
+}
+.section-formal .section-header h1 {
+  font-family: Montserrat, sans-serif;
+  font-size: 25px;
+  font-weight: 700;
+  margin-bottom: 0.3rem;
+  margin-top: 1rem;
+}
+.section-formal .section-header p {
+  font-family: Montserrat, sans-serif;
+  font-size: 16px;
+  font-weight: 400;
+  margin: 0;
+}
+.section-reorder {
+  background: #ac003e;
+  color: #fbfbfb;
+}
+.section-reorder .section-header {
+  margin-left: 1rem;
+}
+.section-reorder .section-header h1 {
+  font-family: Montserrat, sans-serif;
+  font-size: 25px;
+  font-weight: 700;
+  margin-bottom: 0.3rem;
+  margin-top: 1rem;
+}
+.section-reorder .section-header p {
+  font-family: Montserrat, sans-serif;
+  font-size: 16px;
+  font-weight: 400;
+  margin: 0;
+}
+.home-screen {
+  margin-bottom: 65px;
+}
+.home-screen,
+.home-screen * {
+  max-width: 100%;
+  overflow-x: hidden;
+}
+.section-everyday,
+.section-reorder,
+.section-two,
+.section-formal {
+  padding: 0.5rem;
+}
+.section-everyday .section-desc,
+.section-reorder .section-desc,
+.section-two .section-desc,
+.section-formal .section-desc {
+  margin-left: 1rem;
+}
+.card-scroll-wrapper {
+  display: flex;
+  overflow-x: auto;
+  overflow-y: hidden;
+  scroll-snap-type: x mandatory;
+  gap: 1.5rem;
+  padding-inline: 1.5rem;
+  margin-block-start: 1.5rem;
+  padding-block-end: 1rem;
+  scroll-padding-inline: 1.5rem;
+  touch-action: pan-y;
+}
+.card-scroll-wrapper::-webkit-scrollbar {
+  display: none;
+}
+.card-scroll-wrapper > * {
+  flex: 0 0 auto;
+  scroll-snap-align: start;
+  max-width: 15rem;
+}
+.card-scroll-wrapper.non-trending-wrapper > * {
+  width: 15rem;
+  height: 15rem;
+}
+.card-scroll-wrapper.non-trending-wrapper > * .mantine-Card-root {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+}

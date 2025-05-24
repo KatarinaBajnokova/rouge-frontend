@@ -6,7 +6,7 @@ export default function InfoSection({ item, expanded, setExpanded }) {
   if (!item) return null;
 
   const fullDesc = item.description || '';
-  const shortDesc = fullDesc.slice(0, 180) + (fullDesc.length > 180 ? '…' : '');
+  const shortDesc = fullDesc.slice(0, 100) + (fullDesc.length > 100 ? '…' : '');
 
   return (
     <section className='detail-info'>
@@ -24,7 +24,7 @@ export default function InfoSection({ item, expanded, setExpanded }) {
         variant='light'
         mt='xs'
       >
-        {item.level}
+         ✦ {item.level}
       </Badge>
 
       {item.tags?.length > 0 && (
