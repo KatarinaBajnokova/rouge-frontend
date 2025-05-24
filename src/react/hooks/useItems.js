@@ -30,3 +30,10 @@ async function fetchItems({ queryKey }) {
 
   return safeJsonFetch(`/api/item-filters?${params.toString()}`);
 }
+
+export function useItems(categoryId, subcategoryId, filters) {
+  return useQuery({
+    queryKey: ['items', { categoryId, subcategoryId, filters }],
+    queryFn: fetchItems,
+  });
+}

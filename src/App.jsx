@@ -19,6 +19,9 @@ const LoginPage = lazy(() => import('@/react/pages/LoginPage'));
 const PersonalLookPage = lazy(
   () => import('@/react/pages/signup/PersonalLookPage')
 );
+
+const MyLooksPage = lazy(() => import('@/react/pages/MyLooksPage'));
+
 const ProfilePage = lazy(() => import('@/react/pages/profile/ProfilePage'));
 
 const Categories = lazy(() => import('@/react/pages/all/Categories'));
@@ -128,6 +131,17 @@ function AppRoutes() {
             </ProtectedRoutes>
           }
         />
+
+<Route
+  path='/my-looks'
+  element={
+    <ProtectedRoutes redirectTo='/login?from=my-looks'>
+      <MyLooksPage />
+    </ProtectedRoutes>
+  }
+/>
+
+
         <Route
           path='/profile'
           element={

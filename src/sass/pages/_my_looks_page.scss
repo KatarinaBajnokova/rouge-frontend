@@ -1,0 +1,29 @@
+@use 'sass:map';
+@use '/src/sass/abstract/colors' as *;
+@use '/src/sass/abstract/typography' as *;
+
+.my-looks-page {
+background-color: $grey-background-elements;
+  padding: 2rem;
+  min-height: 100vh;
+
+  h1 {
+    text-align: center;
+    margin-bottom: 2rem;
+  }
+
+  .looks-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+    gap: 1.5rem;
+  }
+
+  .centered {
+    text-align: center;
+    margin-top: 3rem;
+  }
+
+  .error {
+    color: red;
+  }
+}
