@@ -33,7 +33,7 @@ const ReorderSection = () => {
     return (
       <div className='card-scroll-wrapper'>
         {looks.map(look => (
-          <TrendingCard key={look.id} look={look} showHeart={false} />
+          <TrendingCard key={look.id} look={look} showHeart={true} />
         ))}
       </div>
     );

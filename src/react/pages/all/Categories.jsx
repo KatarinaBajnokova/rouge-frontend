@@ -7,7 +7,7 @@ import { IconSearch } from '@tabler/icons-react';
 import SearchResults from '@/react/components/all/SearchResults';
 import FilterModal from '@/react/components/all/FilterModal';
 import { useCategories } from '@/react/hooks/useCategories';
-import { BasketButton } from '@/react/components/buttons/BasketButton';
+import { BasketButton } from '@/react/components/buttons/basketbutton/BasketButton';
 import { FilterIconButton } from '@/react/components/buttons/IconButtons';
 import Navbar from '@/react/components/navbar/Navbar';
 import AllCategoryItem from '@/react/components/all/AllCategoryItem';

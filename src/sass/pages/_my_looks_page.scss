@@ -65,7 +65,7 @@
 
   .looks-grid {
   display: grid;
-  grid-template-columns: repeat(2, 1fr); // exact match
+  grid-template-columns: repeat(2, 1fr);
   column-gap: 1rem;
   row-gap: 1.5rem;
   padding: 1rem;

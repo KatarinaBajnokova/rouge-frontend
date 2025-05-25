@@ -4,7 +4,7 @@ import { useNavigate, useLocation } from 'react-router-dom';
 import { TextInput } from '@mantine/core';
 import { IconSearch } from '@tabler/icons-react';
 
-import { BasketButton } from '@/react/components/buttons/BasketButton';
+import { BasketButton } from '@/react/components/buttons/basketbutton/BasketButton';
 import {
   FilterIconButton,
   BackHeader,
@@ -135,7 +135,7 @@ export default function ItemsPage() {
               <h3 className='section-title'>{label}</h3>
               <div className='section-list'>
                 {group.map(item => (
-                  <TrendingCard key={item.id} look={item} showHeart={false} />
+                  <TrendingCard key={item.id} look={item} showHeart={true} />
                 ))}
               </div>
             </div>
