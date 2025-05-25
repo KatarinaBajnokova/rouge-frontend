@@ -1,0 +1,42 @@
+@use '@/sass/abstract/colors' as colors;
+
+.customStepper {
+  max-width: 260px;
+  min-width: 260px;
+  margin: 0 auto;
+  margin-bottom: 1.2rem !important;
+}
+
+.customStepperSeparator {
+  height: 3px;
+  background-color: colors.$light-grey;
+  border-radius: 100px;
+}
+
+.customStep {
+  font-weight: bold;
+}
+
+.customStepperSeparator[data-active='true'] {
+  background-color: colors.$magenta;
+}
+
+.customStep[data-completed='true'] .customStepIcon {
+  background-color: colors.$magenta;
+  border-color: colors.$magenta;
+  color: colors.$white-elements;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.15);
+}
+
+.customStep[data-progress='true'] .customStepIcon {
+  background-color: colors.$magenta;
+  border: 2px solid colors.$magenta;
+  color: colors.$white-elements;
+  font-weight: bold;
+}
+
+.customStep:not([data-completed]):not([data-progress]) .customStepIcon {
+  background-color: colors.$white-elements;
+  border: 2px solid colors.$light-grey;
+  color: colors.$light-grey;
+}
