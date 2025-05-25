@@ -2,7 +2,7 @@
 import React, { memo, useState } from 'react';
 import styles from './ProfileHeader.module.scss';
 import { FiEdit2 } from 'react-icons/fi';
-import { BasketButton } from '@/react/components/buttons/BasketButton';
+import { BasketButton } from '@/react/components/buttons/basketbutton/BasketButton';
 import { EditProfileModal } from '@/react/components/profile/modal/EditProfileModal';
 import headerShape from '@/assets/header-shape.png';
 import defaultAvatar from '@/assets/avatar/default.png';

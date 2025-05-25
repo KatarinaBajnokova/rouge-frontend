@@ -22,3 +22,14 @@
     opacity: 0.5;
   }
 }
+
+.carousel-wrapper {
+  position: relative;
+}
+
+.carousel-heart {
+  position: absolute;
+  bottom: 1rem;
+  right: 1.1rem;
+  z-index: 2;
+}
