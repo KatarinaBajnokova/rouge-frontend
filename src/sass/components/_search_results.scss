@@ -5,35 +5,4 @@
   row-gap: 1.5rem;
   padding: 1rem;
   box-sizing: border-box;
-
-  .trendingCard {
-    width: 100%;
-    max-width: none;
-    height: auto;
-    display: flex;
-    flex-direction: column;
-    overflow: hidden;
-  }
-
-  .trendingCard__imageContainer {
-    height: 180px;
-  }
-
-  .trendingCard__content {
-    padding-top: 0.25rem;
-    gap: 0.25rem;
-  }
-
-  .trendingCard__content > .trendingCard__title {
-    font-size: 1rem !important; // slightly smaller text
-  }
-
-  .trendingCard__content > .trendingCard__footer {
-    padding: 0 1rem !important;
-    margin-bottom: 0.5rem;
-  }
-
-  .trendingCard__price {
-    font-size: 0.875rem !important;
-  }
 }

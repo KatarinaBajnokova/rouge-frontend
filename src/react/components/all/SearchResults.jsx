@@ -39,7 +39,7 @@ export default function SearchResults({ query }) {
           description: item.description,
           tutorial_url: item.tutorial_url,
         };
-        return <TrendingCard key={item.id} look={look} />;
+        return <TrendingCard key={item.id} look={look} showHeart={true} variant="compact" />;
       })}
     </div>
   );

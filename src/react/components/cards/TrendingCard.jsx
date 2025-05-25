@@ -24,6 +24,7 @@ const TrendingCard = ({ look, showHeart = false, variant = 'default' }) => {
             className={styles.image}
           />
         </div>
+
         <div
           className={`${styles.content} ${
             isCompact ? styles.compactContent : ''
@@ -36,15 +37,28 @@ const TrendingCard = ({ look, showHeart = false, variant = 'default' }) => {
           >
             {look.title}
           </div>
-          <div className={styles.category}>{look.category}</div>
+
+          <div
+            className={`${styles.category} ${
+              isCompact ? styles.compactCategory : ''
+            }`}
+          >
+            {look.category}
+          </div>
+
           <div
             className={`${styles.footer} ${
               isCompact ? styles.compactFooter : ''
             }`}
           >
-            <div className={`${styles.badge} ${badgeClass}`}>
+            <div
+              className={`${styles.badge} ${badgeClass} ${
+                isCompact ? styles.compactBadge : ''
+              }`}
+            >
               ✦ {look.level}
             </div>
+
             <div
               className={`${styles.price} ${
                 isCompact ? styles.compactPrice : ''
