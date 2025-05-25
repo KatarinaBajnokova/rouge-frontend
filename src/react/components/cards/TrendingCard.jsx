@@ -4,7 +4,7 @@ import IconHeart from '@tabler/icons-react/dist/esm/icons/iconHeart';
 import IconHeartFilled from '@tabler/icons-react/dist/esm/icons/iconHeartFilled';
 import { useFavorites } from '@/react/hooks/useFavorites';
 import { useAuth } from '@/react/hooks/useAuth';
-import '@/sass/components/cards/_trending_cards.scss';
+import styles from './TrendingCard.module.scss';
 
 const TrendingCard = ({ look, showHeart = false }) => {
   const { favorites = [], toggleFavorite } = useFavorites();
@@ -24,36 +24,30 @@ const TrendingCard = ({ look, showHeart = false }) => {
     toggleFavorite(look.id);
   };
 
+  const badgeClass = styles[look.level.toLowerCase()] || '';
+
   return (
-    <div className='trendingCard'>
-      {/* Entire card is clickable to item detail */}
-      <Link to={`/item/${look.id}`} className='card-link'>
-        <div className='trendingCard__imageContainer'>
-          <img
-            src={look.image_url}
-            alt={look.title}
-            className='trendingCard__image'
-          />
+    <div className={styles.trendingCard}>
+      <Link to={`/item/${look.id}`} className={styles.cardLink}>
+        <div className={styles.imageContainer}>
+          <img src={look.image_url} alt={look.title} className={styles.image} />
         </div>
-        <div className='trendingCard__content'>
-          <div className='trendingCard__title'>{look.title}</div>
-          <div className='trendingCard__category'>{look.category}</div>
-          <div className='trendingCard__footer'>
-            <div
-              className={`trendingCard__badge badge--${look.level.toLowerCase()}`}
-            >
+        <div className={styles.content}>
+          <div className={styles.title}>{look.title}</div>
+          <div className={styles.category}>{look.category}</div>
+          <div className={styles.footer}>
+            <div className={`${styles.badge} ${badgeClass}`}>
               ✦ {look.level}
             </div>
-            <div className='trendingCard__price'>€{look.price}</div>
+            <div className={styles.price}>€{look.price}</div>
           </div>
         </div>
       </Link>
 
-      {/* Heart icon sits *outside* the card-link */}
       {showHeart && (
         <button
           type='button'
-          className='trendingCard__heartIcon'
+          className={styles.heartIcon}
           onClick={onHeartClick}
           aria-label={
             !userId
