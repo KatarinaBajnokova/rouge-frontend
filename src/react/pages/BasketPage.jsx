@@ -189,9 +189,10 @@ export default function BasketPage() {
                     <Text size='sm' c='dimmed'>
                       {item.category}
                     </Text>
-                    <Text size='xs' c='green'>
-                      {item.level}
-                    </Text>
+<Text size='xs' className={item.level?.toLowerCase()}>
+  ✦ {item.level}
+</Text>
+
                   </div>
 
                   <ActionIcon

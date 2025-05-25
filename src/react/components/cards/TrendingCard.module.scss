@@ -132,3 +132,23 @@
     text-decoration: none !important;
   }
 }
+
+.easy {
+  color: colors.$green !important;
+}
+
+.moderate {
+  color: colors.$blue !important;
+}
+
+.beginner {
+  color: colors.$magenta !important;
+}
+
+.expert {
+  color: colors.$red !important;
+}
+
+.advanced {
+  color: colors.$red !important;
+}

@@ -10,3 +10,21 @@ $blue: #005bc3;
 $black-review: #141414;
 $black-main: #0b0b0b;
 $light-magenta: #ffdcfd;
+
+.easy {
+  color: $green !important;
+}
+
+.moderate {
+  color: $blue !important;
+}
+
+.beginner {
+  color: $magenta !important;
+}
+
+.expert,
+.advanced {
+  color: $red !important;
+}
+
