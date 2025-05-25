@@ -2,6 +2,7 @@ import React, { memo } from 'react';
 import { Text, Title, Divider, Image, Button } from '@mantine/core';
 import { useNavigate } from 'react-router-dom';
 import { getFirebaseAuth } from '@/getFirebaseAuth';
+import { useFavorites } from '@/react/hooks/useFavorites'; // ← import your hook
 import Look1 from '@/assets/yourlook/1look.png';
 import Look2 from '@/assets/yourlook/2look.png';
 import Look3 from '@/assets/yourlook/3look.png';
@@ -25,14 +26,34 @@ const InfoRow = memo(({ label, value }) => (
 export function PersonalInfo({ user, addresses }) {
   const navigate = useNavigate();
   const chosenLook = lookMap[user.look_id];
+  const { clearFavorites } = useFavorites(); // ← grab clearFavorites()
 
   const handleLogout = async () => {
     try {
       const { auth, signOut } = await getFirebaseAuth();
       await signOut(auth);
+
+      // 1) clear favorites immediately on logout
+      clearFavorites();
+
+      // 2) clear app storage
       localStorage.removeItem('firebaseUid');
       localStorage.removeItem('backendUserId');
       sessionStorage.clear();
+
+      // 3) clear all browser caches (service-worker & fetch caches)
+      if ('caches' in window) {
+        caches.keys().then(names => names.forEach(name => caches.delete(name)));
+      }
+
+      // 4) expire all cookies for current domain
+      document.cookie.split(';').forEach(cookie => {
+        const eqPos = cookie.indexOf('=');
+        const name = eqPos > -1 ? cookie.substr(0, eqPos) : cookie;
+        document.cookie = `${name}=;expires=${new Date(0).toUTCString()};path=/`;
+      });
+
+      // finally redirect to login
       navigate('/login?from=profile', { replace: true });
     } catch (err) {
       console.error('Logout failed:', err);

@@ -1,8 +1,5 @@
 import React, { useState, useEffect } from 'react';
 import TrendingCard from '../components/cards/TrendingCard';
-import { safeJsonFetch } from '@/react/utils/fetchUtils';
-
-import '@/sass/components/cards/_trending_cards.scss';
 import '@/sass/sections/_formal_section.scss';
 
 const FormalSection = () => {
@@ -11,25 +8,28 @@ const FormalSection = () => {
   const [error, setError] = useState(null);
 
   useEffect(() => {
-  safeJsonFetch('/api/items?category_group=formal')
-    .then(data => {
-      const formatted = data.map(item => ({
-        id: item.id,
-        title: item.name,
-        category: item.category,
-        level: item.level,
-        price: item.price,
-        image_url: item.image_url,
-      }));
-      setLooks(formatted);
-    })
-    .catch(err => {
-      console.error(err);
-      setError(err.message);
-    })
-    .finally(() => setLoading(false));
-}, []);
-
+    fetch('/api/items?category_group=formal')
+      .then(res => {
+        if (!res.ok) throw new Error('Failed to fetch formal looks');
+        return res.json();
+      })
+      .then(data => {
+        const formatted = data.map(item => ({
+          id: item.id,
+          title: item.name,
+          category: item.category,
+          level: item.level,
+          price: item.price,
+          image_url: item.image_url,
+        }));
+        setLooks(formatted);
+      })
+      .catch(err => {
+        console.error(err);
+        setError(err.message);
+      })
+      .finally(() => setLoading(false));
+  }, []);
 
   return (
     <section className='home-section section-formal'>
@@ -44,7 +44,7 @@ const FormalSection = () => {
       {!loading && !error && (
         <div className='card-scroll-wrapper'>
           {looks.map(look => (
-            <TrendingCard key={look.id} look={look} showHeart={false} />
+            <TrendingCard key={look.id} look={look} showHeart={true} />
           ))}
         </div>
       )}
