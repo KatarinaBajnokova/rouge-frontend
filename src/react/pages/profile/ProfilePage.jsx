@@ -38,37 +38,20 @@ export default function ProfilePage() {
     setDrawerOpened(true);
   };
 
- const logout = async () => {
-  try {
-    const { auth, signOut } = await getFirebaseAuth();
-    await signOut(auth);
-
-    // 1. Clear backend session
-    await fetch('http://localhost:3000/api/users/logout', {
-      method: 'POST',
-      credentials: 'include',
-    });
-
-    // 2. Clear client session
-    localStorage.removeItem('firebaseUid');
-    localStorage.removeItem('backendUserId');
-    sessionStorage.clear();
-    setUser(null);
-
-    // 3. Optional debug
-    const sessionStatus = await fetch('http://localhost:3000/api/session/debug', {
-      credentials: 'include',
-    }).then(res => res.json());
-
-    console.log('🔍 Backend session after logout:', sessionStatus);
-
-    // ✅ 4. Only now: redirect
-    window.location.href = '/login?from=profile';
-  } catch (err) {
-    console.error('Logout failed:', err);
-  }
-};
-
+  // logout identical to old page (function remains in case used elsewhere)
+  const logout = async () => {
+    try {
+      const { auth, signOut } = await getFirebaseAuth();
+      await signOut(auth);
+      localStorage.removeItem('firebaseUid');
+      localStorage.removeItem('backendUserId');
+      sessionStorage.clear();
+      setUser(null);
+      navigate('/login?from=profile', { replace: true });
+    } catch (err) {
+      console.error('Logout failed:', err);
+    }
+  };
 
   // fetch profile & addresses, redirect if not authed
   useEffect(() => {
