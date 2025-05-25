@@ -1,136 +1,116 @@
-// src/react/pages/AnimationPage/AnimationPage.module.scss
 @use 'sass:color';
-@use 'sass:map';
 @use '@/sass/abstract/colors' as colors;
 @use '@/sass/abstract/typography' as typography;
 @use '@/sass/abstract/mixins' as mixins;
 
-.animationPage {
-  min-height: 100vh;
-  background-color: colors.$white-elements; // using design token
+.trendingCard {
   display: flex;
   flex-direction: column;
-  align-items: center;
-  justify-content: center;
+  background: colors.$white-elements;
+  border-radius: 0.5rem;
+  box-shadow: 0 2px 12px color.adjust(colors.$black-main, $alpha: -0.9);
+  overflow: hidden;
+  width: 240px;
   position: relative;
+  font-family: typography.$font-family;
 }
 
-.animationVideo {
+.imageContainer {
   width: 100%;
-  height: auto;
-  object-fit: cover;
-  transition: transform 0.5s ease;
+  height: 240px;
+  overflow: hidden;
+  flex-shrink: 0;
+}
 
-  &.videoMoved {
-    transform: translateY(-55%);
+.image {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+
+.heartIcon {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  background: colors.$white-elements;
+  border-radius: 50%;
+  box-shadow: 0 2px 6px color.adjust(colors.$black-main, $alpha: -0.8);
+  padding: 6px;
+  cursor: pointer;
+  border: none;
+  transition: background 0.2s;
+
+  &:hover {
+    background: color.adjust(colors.$magenta, $alpha: -0.95);
   }
 }
 
-.bottomCard {
-  position: absolute;
-  bottom: 0;
-  left: 50%;
-  transform: translateX(-50%);
-  width: 100%;
-  height: 50%;
-  background-color: colors.$black-main;
-  color: colors.$white-elements;
-  border-radius: 4rem 4rem 0 0;
-  text-align: center;
-
+.content {
+  flex-grow: 1;
   display: flex;
   flex-direction: column;
+  justify-content: space-between;
+  padding-top: 0.5rem;
+  gap: 0.5rem;
+}
+
+.title {
+  @include mixins.font('card-title', 'bold');
+  color: colors.$black-main;
+  margin: 0.5rem 0 0 0;
+  padding: 0 0 0 1.5rem;
+}
+
+.category {
+  @include mixins.font('icon-title', 'regular');
+  color: colors.$light-grey;
+  margin: 0 0 0 1.7rem;
+  padding: 0;
+}
+
+.footer {
+  display: flex;
+  justify-content: space-between;
   align-items: center;
-  justify-content: flex-start;
-  padding-top: 2rem;
+  width: 100%;
+  padding: 0 1.5rem;
+  margin-bottom: 1rem;
+}
 
-  animation: slideUp 0.8s ease-out forwards;
+.badge {
+  @include mixins.font('icon-title', 'medium');
+  padding: 0.25rem 0.5rem;
+  border-radius: 4px;
+  background: none;
+  text-decoration: none;
 
-  h2 {
-    margin-bottom: 0;
-    margin-top: 0;
-    font-size: 2.5rem;
-    font-weight: bold;
+  &.easy {
+    color: colors.$green;
   }
-
-  .bottomText {
-    margin-bottom: 1rem;
-    margin-top: 0.3rem;
-    font-size: 1.3rem;
-
-    p {
-      margin: 0;
-    }
+  &.moderate {
+    color: colors.$blue;
   }
-
-  .buttonGroup {
-    display: flex;
-    flex-direction: column;
-    gap: 1.5rem;
-    align-items: center;
-  }
-
-  .skipButton {
-    position: absolute;
-    bottom: 1.3rem;
-    right: 1rem;
-    width: 7.5rem; // 120px
-    height: 3.125rem; // 50px
-    border: 2px solid colors.$magenta;
-    background: none;
+  &.beginner {
     color: colors.$magenta;
-    padding: 0.3rem 0.4rem;
-    border-radius: 9999px;
-    cursor: pointer;
-    font-size: 1rem;
-    transition: background-color 0.2s ease;
-
-    &:hover {
-      background-color: color.adjust(
-        colors.$magenta,
-        $alpha: -0.8
-      ); // subtle overlay
-    }
+  }
+  &.expert {
+    color: colors.$red;
   }
 }
 
-@keyframes slideUp {
-  from {
-    transform: translate(-50%, 100%);
-  }
-  to {
-    transform: translate(-50%, 0);
-  }
+.price {
+  @include mixins.font('icon-title', 'bold');
+  color: colors.$black-main;
+  margin: 0;
+  padding: 0;
 }
 
-@media screen and (min-width: 601px) and (max-width: 1024px) {
-  .animationVideo {
-    width: 60%;
-    max-width: 60%;
+.cardLink {
+  text-decoration: none;
 
-    &.videoMoved {
-      transform: translateY(-35%);
-    }
-  }
-
-  .bottomCard {
-    height: 55%;
-    border-radius: 1.5rem 1.5rem 0 0;
-
-    h2 {
-      font-size: 1.3rem;
-    }
-    p {
-      font-size: 0.9rem;
-    }
-    .buttonGroup {
-      margin-bottom: 3rem;
-    }
-    .skipButton {
-      width: 6rem;
-      font-size: 0.9rem;
-      padding: 0.4rem 0.8rem;
-      margin-top: 0.2rem;
-    }
+  &,
+  * {
+    text-decoration: none;
   }
 }
