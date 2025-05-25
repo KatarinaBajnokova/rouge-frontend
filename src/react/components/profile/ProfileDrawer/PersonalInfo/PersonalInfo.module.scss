@@ -88,8 +88,10 @@
 }
 
 .logoutButton {
+  background-color: $red;
   border-color: $red;
-  color: $red;
+  color: $white-elements;
+  border-radius: 5rem;
   @include font('section-description', 'bold');
 
   &:hover {
