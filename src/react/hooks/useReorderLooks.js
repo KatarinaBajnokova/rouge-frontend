@@ -7,7 +7,10 @@ export function useReorderLooks() {
   const [error, setError] = useState(null);
 
   useEffect(() => {
+    let isCancelled = false;
+
     async function fetchReorders() {
+      setLoading(true);
       try {
         const data = await safeJsonFetch('/api/orders/reorder', {
           credentials: 'include',
@@ -26,16 +29,32 @@ export function useReorderLooks() {
           image_url: item.image_url,
         }));
 
-        setLooks(formatted);
+        if (!isCancelled) {
+          setLooks(formatted);
+          setError(null); // clear any previous errors
+        }
       } catch (err) {
-        setError(err.message);
         console.error('❌ Reorder fetch failed:', err);
+        if (!isCancelled) {
+          setLooks([]);
+          setError(err.message);
+        }
       } finally {
-        setLoading(false);
+        if (!isCancelled) {
+          setLoading(false);
+        }
       }
     }
 
     fetchReorders();
+
+    // ✅ Cleanup on unmount or logout
+    return () => {
+      isCancelled = true;
+      setLooks([]); // <- clear cached looks
+      setError(null);
+      setLoading(false);
+    };
   }, []);
 
   return { looks, loading, error };
