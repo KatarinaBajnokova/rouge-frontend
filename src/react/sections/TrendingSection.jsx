@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react';
-import TrendingCard from '../components/cards/TrendingCard';
+import TrendingCard from '@/react/components/cards/TrendingCard';
+import { safeJsonFetch } from '@/react/utils/fetchUtils';
 import '@/sass/sections/_trending_section.scss';
 
 const TrendingSection = () => {
@@ -13,12 +14,7 @@ const TrendingSection = () => {
       setError(null);
 
       try {
-        const res = await fetch('/api/items?category_group=trending');
-        if (!res.ok) {
-          const text = await res.text();
-          throw new Error(`HTTP ${res.status} — ${text}`);
-        }
-        const data = await res.json();
+        const data = await safeJsonFetch('/api/items?category_group=trending');
         const formatted = data.map(item => ({
           id: item.id,
           title: item.name,
@@ -54,7 +50,7 @@ const TrendingSection = () => {
       {!loading && !error && looks.length > 0 && (
         <div className='card-scroll-wrapper'>
           {looks.map(look => (
-            <TrendingCard key={look.id} look={look} showHeart={false} />
+            <TrendingCard key={look.id} look={look} showHeart={true} />
           ))}
         </div>
       )}

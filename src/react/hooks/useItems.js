@@ -1,4 +1,5 @@
 import { useQuery } from '@tanstack/react-query';
+import { safeJsonFetch } from '@/react/utils/fetchUtils';
 
 async function fetchItems({ queryKey }) {
   const [_key, { categoryId, subcategoryId, filters }] = queryKey;
@@ -21,23 +22,18 @@ async function fetchItems({ queryKey }) {
       params.set('detailed', selectedDetailed.join(','));
     if (selectedDifficulties.length)
       params.set('difficulties', selectedDifficulties.join(','));
-
     if (priceRange.length === 2) {
       params.set('minPrice', priceRange[0]);
       params.set('maxPrice', priceRange[1]);
     }
   }
 
-  const res = await fetch(`/api/item-filters?${params.toString()}`);
-  if (!res.ok) throw new Error(res.statusText);
-  return res.json();
+  return safeJsonFetch(`/api/item-filters?${params.toString()}`);
 }
 
 export function useItems(categoryId, subcategoryId, filters) {
   return useQuery({
     queryKey: ['items', { categoryId, subcategoryId, filters }],
     queryFn: fetchItems,
-    enabled: true,
-    staleTime: 300_000,
   });
 }

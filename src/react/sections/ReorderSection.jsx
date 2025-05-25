@@ -1,51 +1,42 @@
-import React, { useState, useEffect } from 'react';
-import TrendingCard from '../components/cards/TrendingCard';
+import React from 'react';
+import { useReorderLooks } from '@/react/hooks/useReorderLooks';
+
+import TrendingCard from '@/react/components/cards/TrendingCard.jsx';
 import '@/sass/components/cards/_trending_cards.scss';
 import '@/sass/sections/_reorder_section.scss';
 
 const ReorderSection = () => {
-  const [looks, setLooks] = useState([]);
-  const [loading, setLoading] = useState(true);
-  const [error, setError] = useState(null);
+  const { looks, loading, error } = useReorderLooks();
 
-  useEffect(() => {
-    fetch('/api/items?category_group=reorder')
-      .then(res => {
-        if (!res.ok) throw new Error('Failed to fetch reorder looks');
-        return res.json();
-      })
-      .then(data => {
-        const formatted = data.map(item => ({
-          id: item.id,
-          title: item.name,
-          category: item.category,
-          level: item.level,
-          price: item.price,
-          image_url: item.image_url,
-        }));
-        setLooks(formatted);
-      })
-      .catch(err => setError(err.message))
-      .finally(() => setLoading(false));
-  }, []);
+  const renderContent = () => {
+    if (loading) return <p>Loading your past looks…</p>;
+   if (
+  typeof error === 'string' &&
+  (error.toLowerCase().includes('not authenticated') || error.includes('401'))
+) {
+  return <p className="reorder-empty-msg">You need to log in to see your past purchases!</p>;
+}
+
+    if (looks.length === 0) {
+      return <p className="reorder-empty-msg">You haven’t purchased any looks yet.</p>;
+    }
+
+    return (
+      <div className="card-scroll-wrapper">
+        {looks.map(look => (
+          <TrendingCard key={look.id} look={look} showHeart={false} />
+        ))}
+      </div>
+    );
+  };
 
   return (
-    <section className='home-section section-reorder'>
-      <div className='section-header'>
+    <section className="home-section section-reorder">
+      <div className="section-header">
         <h1>Reorder</h1>
-        <p className='section-desc'>Rediscover your past looks</p>
+        <p className="section-desc">Rediscover your past looks</p>
       </div>
-
-      {loading && <p>Loading cards...</p>}
-      {error && <p className='error'>Error: {error}</p>}
-
-      {!loading && !error && (
-        <div className='card-scroll-wrapper'>
-          {looks.map(look => (
-            <TrendingCard key={look.id} look={look} showHeart={false} />
-          ))}
-        </div>
-      )}
+      {renderContent()}
     </section>
   );
 };

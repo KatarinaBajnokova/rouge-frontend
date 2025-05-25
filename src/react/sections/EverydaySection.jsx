@@ -1,5 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import TrendingCard from '../components/cards/TrendingCard';
+import { safeJsonFetch } from '@/react/utils/fetchUtils';
+
 import '@/sass/components/cards/_trending_cards.scss';
 import '@/sass/sections/_everyday_section.scss';
 
@@ -9,11 +11,7 @@ const EverydaySection = () => {
   const [error, setError] = useState(null);
 
   useEffect(() => {
-    fetch('/api/items?category_group=everyday')
-      .then(res => {
-        if (!res.ok) throw new Error('Failed to fetch everyday looks');
-        return res.json();
-      })
+    safeJsonFetch('/api/items?category_group=everyday')
       .then(data => {
         const formatted = data.map(item => ({
           id: item.id,
@@ -45,7 +43,7 @@ const EverydaySection = () => {
       {!loading && !error && (
         <div className='card-scroll-wrapper'>
           {looks.map(look => (
-            <TrendingCard key={look.id} look={look} showHeart={false} />
+            <TrendingCard key={look.id} look={look} showHeart={true} />
           ))}
         </div>
       )}

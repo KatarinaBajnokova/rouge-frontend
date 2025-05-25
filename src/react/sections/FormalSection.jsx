@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from 'react';
 import TrendingCard from '../components/cards/TrendingCard';
-import '@/sass/components/cards/_trending_cards.scss';
 import '@/sass/sections/_formal_section.scss';
 
 const FormalSection = () => {
@@ -45,7 +44,7 @@ const FormalSection = () => {
       {!loading && !error && (
         <div className='card-scroll-wrapper'>
           {looks.map(look => (
-            <TrendingCard key={look.id} look={look} showHeart={false} />
+            <TrendingCard key={look.id} look={look} showHeart={true} />
           ))}
         </div>
       )}

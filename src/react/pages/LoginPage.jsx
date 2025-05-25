@@ -31,44 +31,57 @@ const LoginPage = () => {
 
   // New helper: authenticate against backend
 
-  const handleEmailLogin = async () => {
-    if (!email || !password) {
-      showNotification({
-        title: 'Missing credentials',
-        message: 'Please enter both email and password.',
-        color: 'red',
-      });
-      return;
+const handleEmailLogin = async () => {
+  if (!email || !password) {
+    showNotification({
+      title: 'Missing credentials',
+      message: 'Please enter both email and password.',
+      color: 'red',
+    });
+    return;
+  }
+
+  setLoading(true);
+  try {
+    const { auth, signInWithEmailAndPassword } = await getFirebaseAuth();
+    await signInWithEmailAndPassword(auth, email, password);
+
+    const phpRes = await fetch('http://localhost:8000/api/auth/login', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      credentials: 'include',
+      body: JSON.stringify({ email, password }),
+    });
+
+    if (!phpRes.ok) {
+      const errorData = await phpRes.json();
+      throw new Error(errorData.error || 'Failed to log in to backend');
     }
 
-    setLoading(true);
-    try {
-      const { auth, signInWithEmailAndPassword } = await getFirebaseAuth();
-      await signInWithEmailAndPassword(auth, email, password);
+    showNotification({
+      title: 'Welcome back!',
+      message: 'You are now logged in.',
+      color: 'green',
+    });
 
-      showNotification({
-        title: 'Welcome back!',
-        message: 'You are now logged in.',
-        color: 'green',
-      });
-
-      if (cameFromProfile) {
-        navigate('/homescreen');
-      } else if (cameFromCheckout) {
-        navigate('/checkout/friend-info'); // 🛒 continue checkout after login
-      } else {
-        navigate('/homescreen');
-      }
-    } catch (err) {
-      showNotification({
-        title: 'Login error',
-        message: err.message,
-        color: 'red',
-      });
-    } finally {
-      setLoading(false);
+    if (cameFromProfile) {
+      navigate('/homescreen');
+    } else if (cameFromCheckout) {
+      navigate('/checkout/friend-info');
+    } else {
+      navigate('/homescreen');
     }
-  };
+  } catch (err) {
+    showNotification({
+      title: 'Login error',
+      message: err.message,
+      color: 'red',
+    });
+  } finally {
+    setLoading(false);
+  }
+};
+
 
   const handleGoogleSignIn = async () => {
     setLoading(true);
