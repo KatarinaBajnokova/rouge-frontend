@@ -1,7 +1,7 @@
 import React, { useCallback } from 'react';
 import { Button, Group, Title } from '@mantine/core';
 import { useNavigate } from 'react-router-dom';
-import '@/sass/pages/_initial_page.scss';
+import styles from './InitialPage.module.scss';
 
 export default function InitialPage() {
   const navigate = useNavigate();
@@ -15,11 +15,13 @@ export default function InitialPage() {
   }, [navigate]);
 
   return (
-    <main className='initial-page' role='main'>
-      <Title order={1}>Rouge</Title>
+    <main className={styles.initialPage} role='main'>
+      <Title order={1} className={styles.title}>
+        Rouge
+      </Title>
 
       <Group
-        className='button-group'
+        className={styles.buttonGroup}
         position='center'
         spacing='xl'
         aria-label='Choose navigation'
@@ -27,7 +29,7 @@ export default function InitialPage() {
         <Button
           type='button'
           variant='filled'
-          className='design-system-btn'
+          className={styles.designSystemBtn}
           onClick={handleGoToDesign}
           aria-label='Go to design system page'
         >
@@ -37,7 +39,7 @@ export default function InitialPage() {
         <Button
           type='button'
           variant='filled'
-          className='prototype-btn'
+          className={styles.prototypeBtn}
           onClick={handleGoToPrototype}
           aria-label='Go to prototype animation page'
         >

@@ -1,17 +1,14 @@
 import React from 'react';
 import { NavLink, useLocation } from 'react-router-dom';
-import { Image, Text } from '@mantine/core';
-import '@/sass/components/_navbar.scss';
+import { Text } from '@mantine/core';
+import styles from './Navbar.module.scss';
 
 import homeIcon from '@/assets/icons/icon_home_inactive.svg';
 import homeIconActive from '@/assets/icons/icon_home_active.svg';
-
 import allIcon from '@/assets/icons/icon_all_inactive.svg';
 import allIconActive from '@/assets/icons/icon_all_active.svg';
-
 import looksIcon from '@/assets/icons/icon_my_looks_inactive.svg';
 import looksIconActive from '@/assets/icons/icon_my_looks_active.svg';
-
 import profileIcon from '@/assets/icons/icon_profile_inactive.svg';
 import profileIconActive from '@/assets/icons/icon_profile_active.svg';
 
@@ -46,23 +43,23 @@ const Navbar = () => {
   const location = useLocation();
 
   return (
-    <nav className='navbar'>
+    <nav className={styles.navbar}>
       {navItems.map(item => {
         const isActive = location.pathname === item.path;
         return (
           <NavLink
             key={item.label}
             to={item.path}
-            className={`nav-item${isActive ? ' active' : ''}`}
+            className={`${styles.navItem}${isActive ? ' ' + styles.active : ''}`}
           >
-            <div className='nav-icon-container'>
+            <div className={styles.iconContainer}>
               <img
                 src={isActive ? item.activeIcon : item.icon}
                 alt={item.label}
-                className='nav-icon'
+                className={styles.icon}
               />
             </div>
-            <Text size='xs' className='nav-label'>
+            <Text size='xs' className={styles.label}>
               {item.label}
             </Text>
           </NavLink>

@@ -1,61 +1,68 @@
 import { useState, useEffect } from 'react';
-import { safeJsonFetch } from '@/react/utils/fetchUtils';
+import { useAuth } from './useAuth';
 
 export function useReorderLooks() {
+  const { userId, loading: authLoading } = useAuth();
   const [looks, setLooks] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
 
   useEffect(() => {
-    let isCancelled = false;
+    if (authLoading) return;
 
-    async function fetchReorders() {
-      setLoading(true);
-      try {
-        const data = await safeJsonFetch('/api/orders/reorder', {
-          credentials: 'include',
-        });
-
-        if (!Array.isArray(data)) {
-          throw new Error(data?.error || 'Unexpected response');
-        }
-
-        const formatted = data.map(item => ({
-          id: item.id,
-          title: item.name,
-          category: item.category,
-          level: item.level,
-          price: item.price,
-          image_url: item.image_url,
-        }));
-
-        if (!isCancelled) {
-          setLooks(formatted);
-          setError(null); // clear any previous errors
-        }
-      } catch (err) {
-        console.error('❌ Reorder fetch failed:', err);
-        if (!isCancelled) {
-          setLooks([]);
-          setError(err.message);
-        }
-      } finally {
-        if (!isCancelled) {
-          setLoading(false);
-        }
-      }
+    if (!userId) {
+      console.info('ℹ️ Reorder not fetched because user is logged out');
+      setLoading(false);
+      setLooks([]);
+      setError('User not authenticated');
+      return;
     }
 
-    fetchReorders();
+    const fetchReorders = async () => {
+      try {
+        const res = await fetch('/api/orders/reorder', {
+          credentials: 'include',
+          headers: { 'Content-Type': 'application/json' },
+        });
 
-    // ✅ Cleanup on unmount or logout
-    return () => {
-      isCancelled = true;
-      setLooks([]); // <- clear cached looks
-      setError(null);
-      setLoading(false);
+        if (res.status === 401) {
+          console.info('ℹ️ Reorder fetch skipped: user not authenticated');
+          setError('User not authenticated');
+          setLooks([]);
+          return;
+        }
+
+        if (!res.ok) {
+          const errText = await res.text();
+          throw new Error(`HTTP ${res.status} — ${errText}`);
+        }
+
+        const data = await res.json();
+
+        const formatted = Array.isArray(data)
+          ? data.map(item => ({
+              id: item.id,
+              title: item.name, // ← important fix
+              category: item.category,
+              level: item.level,
+              price: item.price,
+              image_url: item.image_url,
+            }))
+          : [];
+
+        setLooks(formatted);
+        setError(null);
+      } catch (err) {
+        console.error('❌ Unexpected reorder fetch error:', err);
+        setError(err.message || 'Failed to fetch reorder data');
+        setLooks([]);
+      } finally {
+        setLoading(false);
+      }
     };
-  }, []);
+
+    fetchReorders();
+  }, [authLoading, userId]);
 
   return { looks, loading, error };
 }
