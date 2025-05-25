@@ -6,7 +6,9 @@ import { AuthProvider, useAuth } from '@/react/hooks/useAuth';
 
 const InitialPage = lazy(() => import('@/react/pages/InitialPage/InitialPage'));
 const DesignSystem = lazy(() => import('@/react/pages/DesignSystem'));
-const AnimationPage = lazy(() => import('@/react/pages/AnimationPage'));
+const AnimationPage = lazy(
+  () => import('@/react/pages/AnimationPage/AnimationPage')
+);
 const HomeScreen = lazy(() => import('@/react/pages/HomeScreen'));
 const ProductDetail = lazy(() => import('@/react/pages/ProductDetail'));
 const ReviewsPage = lazy(
