@@ -1,6 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import { Carousel } from '@mantine/carousel';
 import { Text } from '@mantine/core';
+import { safeJsonFetch } from '@/react/utils/fetchUtils';
+
 import '@/sass/components/carousel/_detail_carousel.scss';
 
 export default function DetailCarousel({ itemId }) {
@@ -9,19 +11,16 @@ export default function DetailCarousel({ itemId }) {
   const [error, setError] = useState(null);
   const [loadedIndexes, setLoadedIndexes] = useState([]);
 
-  useEffect(() => {
-    fetch(`/api/items/${itemId}`)
-      .then(res => {
-        if (!res.ok) throw new Error(`Status ${res.status}`);
-        return res.json();
-      })
-      .then(data => {
-        const imageArray = Array.isArray(data.images) ? data.images : [];
-        setImages(imageArray);
-      })
-      .catch(err => setError(err.message))
-      .finally(() => setLoading(false));
-  }, [itemId]);
+useEffect(() => {
+  safeJsonFetch(`/api/items/${itemId}`)
+    .then(data => {
+      const imageArray = Array.isArray(data.images) ? data.images : [];
+      setImages(imageArray);
+    })
+    .catch(err => setError(err.message))
+    .finally(() => setLoading(false));
+}, [itemId]);
+
 
   const handleImageLoad = index => {
     setLoadedIndexes(prev => [...prev, index]);

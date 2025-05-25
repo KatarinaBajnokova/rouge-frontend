@@ -20,4 +20,14 @@
       margin: 0;
     }
   }
+  
+.reorder-empty-msg {
+      @include font('section-description', 'regular');
+      font-weight: bold;
+      margin-top: 0.5rem;
+      margin-left: 1rem;
+      margin-bottom: 2rem;
 }
+
+}
+

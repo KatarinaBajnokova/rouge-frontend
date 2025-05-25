@@ -1,9 +1,8 @@
 import { useQuery } from '@tanstack/react-query';
+import { safeJsonFetch } from '@/react/utils/fetchUtils';
 
 async function fetchCategories(groupId) {
-  const res = await fetch(`/api/categories?groupId=${groupId}`);
-  if (!res.ok) throw new Error('Failed to load categories');
-  return res.json();
+  return safeJsonFetch(`/api/categories?groupId=${groupId}`);
 }
 
 export function useCategories(groupId) {

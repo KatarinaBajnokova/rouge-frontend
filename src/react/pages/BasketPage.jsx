@@ -5,7 +5,9 @@ import { BackHeader } from '../components/buttons/IconButtons';
 import emptyBasketIcon from '@/assets/icons/IMG_empty_basket.svg';
 import '@/sass/pages/_basket_page.scss';
 import { useAuth } from '@/react/hooks/useAuth';
-import { getFirebaseAuth } from '../../getFirebaseAuth'; // ✅ import here
+import { getFirebaseAuth } from '../../getFirebaseAuth';
+import { safeJsonFetch } from '@/react/utils/fetchUtils';
+
 
 import {
   Title,
@@ -57,8 +59,7 @@ export default function BasketPage() {
     if (resetFlag === 'true') return;
 
     setLoading(true);
-    fetch('/api/basket')
-      .then(res => res.json())
+    safeJsonFetch('/api/basket')
       .then(data => {
         const items = data.items || [];
         setBasketItems(items);
