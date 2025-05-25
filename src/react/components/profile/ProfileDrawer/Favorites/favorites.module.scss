@@ -1,0 +1,17 @@
+@use '@/sass/abstract/colors' as colors;
+
+.favoritesPage {
+  min-height: 100vh;
+  
+}
+
+.favoritesGrid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(165px, 1fr));
+  column-gap: 1rem;
+  row-gap: 1.5rem;
+  padding: 0.5rem;
+  box-sizing: border-box;
+  margin-top: 1rem;
+}
+
