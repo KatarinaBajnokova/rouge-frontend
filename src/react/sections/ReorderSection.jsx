@@ -1,7 +1,7 @@
 import React from 'react';
 import { useReorderLooks } from '@/react/hooks/useReorderLooks';
 
-import TrendingCard from '../components/cards/TrendingCard';
+import TrendingCard from '@/react/components/cards/TrendingCard.jsx';
 import '@/sass/components/cards/_trending_cards.scss';
 import '@/sass/sections/_reorder_section.scss';
 
@@ -10,9 +10,13 @@ const ReorderSection = () => {
 
   const renderContent = () => {
     if (loading) return <p>Loading your past looks…</p>;
-    if (error?.toLowerCase()?.includes('not authenticated')) {
-      return <p className="reorder-empty-msg">You need to log in to see your past purchases!</p>;
-    }
+   if (
+  typeof error === 'string' &&
+  (error.toLowerCase().includes('not authenticated') || error.includes('401'))
+) {
+  return <p className="reorder-empty-msg">You need to log in to see your past purchases!</p>;
+}
+
     if (looks.length === 0) {
       return <p className="reorder-empty-msg">You haven’t purchased any looks yet.</p>;
     }
