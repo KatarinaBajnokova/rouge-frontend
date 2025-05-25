@@ -4,7 +4,7 @@ import { IconSearch } from '@tabler/icons-react';
 
 import { useReorderLooks } from '@/react/hooks/useReorderLooks';
 import TrendingCard from '@/react/components/cards/TrendingCard';
-import { BasketButton } from '@/react/components/buttons/BasketButton';
+import { BasketButton } from '@/react/components/buttons/basketbutton/BasketButton';
 import Navbar from '@/react/components/navbar/Navbar';
 
 import '@/sass/pages/_my_looks_page.scss';
@@ -50,7 +50,7 @@ const MyLooksPage = () => {
 
       <div className='looks-grid'>
         {filteredLooks.map(look => (
-          <TrendingCard key={look.id} look={look} showHeart={false} />
+          <TrendingCard key={look.id} look={look} showHeart={true} variant="compact" />
         ))}
       </div>
 

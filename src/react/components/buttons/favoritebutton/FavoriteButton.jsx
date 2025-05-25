@@ -4,7 +4,7 @@ import IconHeartFilled from '@tabler/icons-react/dist/esm/icons/iconHeartFilled'
 import { useFavorites } from '@/react/hooks/useFavorites';
 import './_favoritebutton.scss';
 
-const FavoriteButton = ({ itemId, size = 20, className = '' }) => {
+const FavoriteButton = ({ itemId, size = 20, className = 'favorite-button' }) => {
   const { favorites = [], toggleFavorite, isLoggedIn } = useFavorites();
   const navigate = useNavigate();
 
