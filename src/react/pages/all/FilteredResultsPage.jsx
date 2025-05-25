@@ -160,7 +160,7 @@ export default function FilteredResultsPage() {
               <h3 className='section-title'>{label}</h3>
               <div className='section-list'>
                 {list.map(item => (
-                  <TrendingCard key={item.id} look={item} showHeart={false} />
+                  <TrendingCard key={item.id} look={item} showHeart={true} />
                 ))}
               </div>
             </section>
