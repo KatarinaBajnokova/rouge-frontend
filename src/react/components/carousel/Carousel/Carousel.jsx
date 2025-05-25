@@ -1,10 +1,10 @@
 import React, { useState, useEffect } from 'react';
 import styles from './Carousel.module.scss';
 
-import carousel1 from '../../../assets/carousel/carousel1.svg';
-import carousel2 from '../../../assets/carousel/carousel2.svg';
-import carousel3 from '../../../assets/carousel/carousel3.svg';
-import carousel4 from '../../../assets/carousel/carousel4.svg';
+import carousel1 from '../../../../assets/carousel/carousel1.svg';
+import carousel2 from '../../../../assets/carousel/carousel2.svg';
+import carousel3 from '../../../../assets/carousel/carousel3.svg';
+import carousel4 from '../../../../assets/carousel/carousel4.svg';
 
 const images = [carousel1, carousel2, carousel3, carousel4];
 

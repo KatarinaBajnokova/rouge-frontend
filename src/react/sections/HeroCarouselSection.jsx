@@ -1,6 +1,6 @@
 import React from 'react';
-import SimpleCarousel from '../components/carousel/Carousel';
-import { BasketButton } from '../components/buttons/BasketButton';
+import SimpleCarousel from '../components/carousel/Carousel/Carousel';
+import { BasketButton } from '../components/buttons/basketbutton/BasketButton';
 import '@/sass/sections/_hero_carousel_section.scss';
 
 const HeroCarouselSection = () => (

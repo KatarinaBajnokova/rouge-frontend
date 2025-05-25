@@ -3,7 +3,7 @@ import { useNavigate } from 'react-router-dom';
 import {
   SignUpButton,
   WhiteLogInButton,
-} from './../../components/buttons/RedButtons';
+} from '../../components/buttons/RedButtons';
 import styles from './AnimationPage.module.scss';
 
 export default function AnimationPage() {
@@ -11,13 +11,24 @@ export default function AnimationPage() {
   const [showUI, setShowUI] = useState(false);
   const navigate = useNavigate();
 
-  const handleVideoEnded = useCallback(() => setShowUI(true), []);
+  const handleVideoEnded = useCallback(() => {
+    setShowUI(true);
+  }, []);
+
   const handleSkip = useCallback(() => {
-    if (videoRef.current) videoRef.current.pause();
+    if (videoRef.current) {
+      videoRef.current.pause();
+    }
     navigate('/homescreen');
   }, [navigate]);
-  const goToSignUp = useCallback(() => navigate('/signup'), [navigate]);
-  const goToLogin = useCallback(() => navigate('/login'), [navigate]);
+
+  const goToSignUp = useCallback(() => {
+    navigate('/signup');
+  }, [navigate]);
+
+  const goToLogin = useCallback(() => {
+    navigate('/login');
+  }, [navigate]);
 
   useEffect(() => {
     const vid = videoRef.current;
@@ -29,7 +40,7 @@ export default function AnimationPage() {
   }, []);
 
   return (
-    <main className={styles.animationPage} aria-label='Intro animation page'>
+    <div className={styles.animationPage}>
       <video
         ref={videoRef}
         className={`${styles.animationVideo} ${showUI ? styles.videoMoved : ''}`}
@@ -43,12 +54,14 @@ export default function AnimationPage() {
       </video>
 
       {showUI && (
-        <section className={styles.bottomCard} aria-label='Welcome and actions'>
+        <div className={styles.bottomCard}>
           <h2>Welcome</h2>
+
           <div className={styles.bottomText}>
             <p>Ready to continue?</p>
             <p>You can sign in, log in, or skip.</p>
           </div>
+
           <div className={styles.buttonGroup}>
             <SignUpButton onClick={goToSignUp} />
             <WhiteLogInButton onClick={goToLogin} />
@@ -61,8 +74,8 @@ export default function AnimationPage() {
           >
             Skip
           </button>
-        </section>
+        </div>
       )}
-    </main>
+    </div>
   );
 }

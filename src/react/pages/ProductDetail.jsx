@@ -4,7 +4,7 @@ import { Text } from '@mantine/core';
 import { notifications } from '@mantine/notifications';
 import { safeJsonFetch } from '@/react/utils/fetchUtils';
 
-import { BasketButton } from '../components/buttons/BasketButton';
+import { BasketButton } from '../components/buttons/basketbutton/BasketButton';
 import { BackIconButton } from '../components/buttons/IconButtons';
 
 import CarouselSection from '../components/productDetail/CarouselSection';
@@ -27,32 +27,30 @@ export default function ProductDetail() {
   const [expanded, setExpanded] = useState(false);
   const [basketRefresh, setBasketRefresh] = useState(0);
 
-useEffect(() => {
-  const fetchItemDetail = async () => {
-    try {
-      const data = await safeJsonFetch(`/api/item_detail?id=${itemId}`);
-      setItem(data);
-    } catch (err) {
-      setError(err.message);
-    } finally {
-      setLoading(false);
-    }
-  };
+  useEffect(() => {
+    const fetchItemDetail = async () => {
+      try {
+        const data = await safeJsonFetch(`/api/item_detail?id=${itemId}`);
+        setItem(data);
+      } catch (err) {
+        setError(err.message);
+      } finally {
+        setLoading(false);
+      }
+    };
 
-  fetchItemDetail();
-}, [itemId]);
-
+    fetchItemDetail();
+  }, [itemId]);
 
   const handleAddToBasket = async () => {
     if (!item) return;
 
     try {
-await safeJsonFetch('/api/basket', {
-  method: 'POST',
-  headers: { 'Content-Type': 'application/json' },
-  body: JSON.stringify({ item_id: item.id }),
-});
-
+      await safeJsonFetch('/api/basket', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ item_id: item.id }),
+      });
 
       notifications.show({
         title: 'Item added to basket',
@@ -79,7 +77,7 @@ await safeJsonFetch('/api/basket', {
   return (
     <div className='product-detail'>
       <div className='detail-header-buttons'>
-        <BackIconButton/>
+        <BackIconButton />
         <BasketButton refresh={basketRefresh} />
       </div>
 
