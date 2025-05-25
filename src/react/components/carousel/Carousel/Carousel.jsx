@@ -1,10 +1,10 @@
 import React, { useState, useEffect } from 'react';
-import '@/sass/components/carousel/_detail_carousel.scss';
+import styles from './Carousel.module.scss';
 
-import carousel1 from '../../../assets/carousel/carousel1.svg';
-import carousel2 from '../../../assets/carousel/carousel2.svg';
-import carousel3 from '../../../assets/carousel/carousel3.svg';
-import carousel4 from '../../../assets/carousel/carousel4.svg';
+import carousel1 from '../../../../assets/carousel/carousel1.svg';
+import carousel2 from '../../../../assets/carousel/carousel2.svg';
+import carousel3 from '../../../../assets/carousel/carousel3.svg';
+import carousel4 from '../../../../assets/carousel/carousel4.svg';
 
 const images = [carousel1, carousel2, carousel3, carousel4];
 
@@ -19,11 +19,11 @@ export default function SimpleCarousel({ height = 300, interval = 5000 }) {
   }, [interval]);
 
   return (
-    <div className='simple-carousel' style={{ height }}>
+    <div className={styles.simpleCarousel} style={{ height }}>
       <img
         src={images[currentIndex]}
         alt={`Slide ${currentIndex + 1}`}
-        className='slide'
+        className={styles.slide}
       />
     </div>
   );

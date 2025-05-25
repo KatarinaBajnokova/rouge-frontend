@@ -3,8 +3,8 @@ import { useNavigate } from 'react-router-dom';
 import {
   SignUpButton,
   WhiteLogInButton,
-} from '../components/buttons/RedButtons';
-import '@/sass/pages/_animation_page.scss';
+} from '../../components/buttons/RedButtons';
+import styles from './AnimationPage.module.scss';
 
 export default function AnimationPage() {
   const videoRef = useRef(null);
@@ -33,7 +33,6 @@ export default function AnimationPage() {
   useEffect(() => {
     const vid = videoRef.current;
     if (!vid) return;
-
     vid.play().catch(() => {
       vid.muted = true;
       vid.play();
@@ -41,10 +40,10 @@ export default function AnimationPage() {
   }, []);
 
   return (
-    <div className='animation-page'>
+    <div className={styles.animationPage}>
       <video
         ref={videoRef}
-        className={`animation-video ${showUI ? 'video-moved' : ''}`}
+        className={`${styles.animationVideo} ${showUI ? styles.videoMoved : ''}`}
         onEnded={handleVideoEnded}
         muted
         playsInline
@@ -55,21 +54,21 @@ export default function AnimationPage() {
       </video>
 
       {showUI && (
-        <div className='bottom-card'>
+        <div className={styles.bottomCard}>
           <h2>Welcome</h2>
 
-          <div className='bottom-text'>
+          <div className={styles.bottomText}>
             <p>Ready to continue?</p>
             <p>You can sign in, log in, or skip.</p>
           </div>
 
-          <div className='button-group'>
+          <div className={styles.buttonGroup}>
             <SignUpButton onClick={goToSignUp} />
             <WhiteLogInButton onClick={goToLogin} />
           </div>
           <button
             type='button'
-            className='skip-button'
+            className={styles.skipButton}
             onClick={handleSkip}
             aria-label='Skip intro'
           >
