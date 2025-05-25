@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
 import { Text } from '@mantine/core';
 import { notifications } from '@mantine/notifications';
+import { safeJsonFetch } from '@/react/utils/fetchUtils';
 
 import { BasketButton } from '../components/buttons/BasketButton';
 import { BackIconButton } from '../components/buttons/IconButtons';
@@ -26,36 +27,32 @@ export default function ProductDetail() {
   const [expanded, setExpanded] = useState(false);
   const [basketRefresh, setBasketRefresh] = useState(0);
 
-  useEffect(() => {
-    fetch(`/api/item_detail?id=${itemId}`)
-      .then(async res => {
-        if (!res.ok) {
-          const text = await res.text();
-          throw new Error(`Item not found: ${text}`);
-        }
-        const contentType = res.headers.get('Content-Type');
-        if (!contentType || !contentType.includes('application/json')) {
-          const text = await res.text();
-          throw new Error(`Unexpected response: ${text}`);
-        }
-        return res.json();
-      })
-      .then(data => setItem(data))
-      .catch(err => setError(err.message))
-      .finally(() => setLoading(false));
-  }, [itemId]);
+useEffect(() => {
+  const fetchItemDetail = async () => {
+    try {
+      const data = await safeJsonFetch(`/api/item_detail?id=${itemId}`);
+      setItem(data);
+    } catch (err) {
+      setError(err.message);
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  fetchItemDetail();
+}, [itemId]);
+
 
   const handleAddToBasket = async () => {
     if (!item) return;
 
     try {
-      const res = await fetch('/api/basket', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ item_id: item.id }),
-      });
-      const data = await res.json();
-      if (!res.ok) throw new Error(data.error || 'Failed to add to basket');
+await safeJsonFetch('/api/basket', {
+  method: 'POST',
+  headers: { 'Content-Type': 'application/json' },
+  body: JSON.stringify({ item_id: item.id }),
+});
+
 
       notifications.show({
         title: 'Item added to basket',

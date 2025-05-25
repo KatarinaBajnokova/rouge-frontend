@@ -1,3 +1,4 @@
+// src/react/pages/product_detail/ReviewModal.jsx
 import React, { useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
 import { useAuth } from '../../hooks/useAuth';
@@ -18,9 +19,8 @@ export default function ReviewModal({
   const [submitting, setSubmitting] = useState(false);
 
   useEffect(() => {
-    const fetchNameAndId = async () => {
+    async function fetchNameAndId() {
       if (!firebaseUid) return;
-
       try {
         const res = await fetch(
           `/api/users/by-firebase-uid?uid=${firebaseUid}`
@@ -30,13 +30,12 @@ export default function ReviewModal({
           setUserName(`${data.first_name} ${data.last_name}`);
           setBackendUserId(data.id);
         } else {
-          throw new Error('Failed to fetch user');
+          throw new Error(data.error || 'Failed to fetch user');
         }
       } catch (err) {
         console.error('⚠️ Failed to fetch user info:', err.message);
       }
-    };
-
+    }
     fetchNameAndId();
   }, [firebaseUid]);
 
@@ -60,10 +59,9 @@ export default function ReviewModal({
           author: userName,
           rating,
           comment,
-          user_id: backendUserId, // ✅ Now included
+          user_id: backendUserId,
         }),
       });
-
       const data = await res.json();
       if (!res.ok) throw new Error(data.error || 'Failed to submit review');
 
@@ -81,7 +79,6 @@ export default function ReviewModal({
         color: 'grape',
       });
 
-      console.log('✅ Review submitted:', newReview);
       onReviewSubmitted(newReview);
       setRating(0);
       setComment('');
@@ -102,13 +99,18 @@ export default function ReviewModal({
       onClose={onClose}
       title='Leave a Review'
       centered
-      overlayOpacity={0.5}
-      overlayBlur={3}
+      overlay={{ opacity: 0.5, blur: 3 }}
+      size='sm'
     >
       <Stack spacing='md'>
         <Group spacing='xs'>
           <div>Your Rating:</div>
-          <Rating value={rating} onChange={setRating} fractions={1} />
+          <Rating
+            value={rating}
+            onChange={setRating}
+            fractions={1}
+            color='grape'
+          />
         </Group>
 
         <Textarea

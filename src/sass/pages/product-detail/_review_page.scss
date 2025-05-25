@@ -1,0 +1,114 @@
+@use 'sass:color';
+@use '../../abstract/colors' as colors;
+@use '../../abstract/mixins' as mixins;
+
+.reviews-page {
+  background-color: colors.$white-background;
+  padding: 1rem;
+  min-height: 100vh;
+
+  &__avatar {
+    width: 2rem;
+    height: 2rem;
+    border-radius: 50%;
+    object-fit: cover;
+  }
+
+  &__header {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    margin-bottom: 1rem;
+  }
+
+  &__back-btn {
+    margin: 0;
+    padding: 0;
+    background: none;
+    border: none;
+    box-shadow: none;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    line-height: 0;
+  }
+
+  &__title {
+    margin: 0;
+    @include mixins.font('section-title', 'bold');
+    color: colors.$black-main;
+    line-height: 1;
+  }
+
+  &__section-title {
+    margin: 1.5rem 0 0.5rem;
+    @include mixins.font('section-title', 'medium');
+    color: colors.$black-main;
+  }
+  &__review-card {
+    position: relative; // establish a containing block
+    background: linear-gradient(
+      to bottom,
+      colors.$white-elements 0%,
+      rgba(colors.$magenta, 0.2) 100%
+    ) !important;
+    border-radius: 2rem;
+    padding: 1rem; // if you want extra inner gutter
+  }
+  &__review-card-rating {
+    position: absolute;
+    top: 1rem; // match your card padding
+    right: 1rem;
+  }
+  &__author {
+    // use your typography mixin or explicit weight
+    @include mixins.font('section-description', 'medium');
+    font-weight: 700; // enforce the “black” weight
+    margin-bottom: 0.25rem;
+  }
+}
+
+.reviews-summary {
+  width: 100%;
+  margin: 1rem auto;
+  padding: 1.5rem;
+  border-radius: 8px;
+  background: linear-gradient(
+    to bottom,
+    colors.$white-background 0%,
+    rgba(colors.$magenta, 0.2) 100%
+  );
+  text-align: center; // centers inline(-block/inline-flex) children
+
+  &__average {
+    @include mixins.font('top-title', 'black');
+    color: colors.$magenta;
+    line-height: 1;
+    margin-bottom: 0.5rem;
+  }
+
+  &__rating {
+    display: inline-flex; // shrink-wrap and respect parent text-align
+    margin: 0 0 0.5rem; // bottom spacing only
+
+    .mantine-Rating-label[data-filled='false'] svg {
+      fill: none !important;
+      stroke: colors.$black-main !important;
+      stroke-width: 1px !important;
+    }
+  }
+
+  &__count {
+    @include mixins.font('section-description', 'regular');
+    color: colors.$black-main;
+    line-height: 1;
+  }
+}
+
+/// Centered “Leave a review” button
+.reviews-action {
+  width: 100%;
+  margin: 1rem auto 2rem;
+  display: flex;
+  justify-content: center;
+}
