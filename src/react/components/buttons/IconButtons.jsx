@@ -191,7 +191,7 @@ export function SeeMoreButton({ onClick, ...props }) {
   );
 }
 
-export function BackIconButton({ onClick, ...props }) {
+export function BackIconButton({ onClick, className = '', ...props }) {
   const navigate = useNavigate();
 
   const handleClick = e => {
@@ -204,7 +204,7 @@ export function BackIconButton({ onClick, ...props }) {
 
   return (
     <button
-      className='backIconButton'
+      className={`backIconButton ${className}`.trim()}
       onClick={handleClick}
       aria-label='Go back'
       {...props}
@@ -213,6 +213,7 @@ export function BackIconButton({ onClick, ...props }) {
     </button>
   );
 }
+
 
 export function BackHeader({ text, onBack, backButtonStyle }) {
   return (
