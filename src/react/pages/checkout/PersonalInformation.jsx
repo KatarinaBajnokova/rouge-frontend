@@ -13,7 +13,6 @@ import { getFirebaseAuth } from '../../../getFirebaseAuth';
 import { useCheckout } from '../../contexts/CheckoutContext';
 
 import '@/sass/pages/checkout/_personal_information.scss';
-import '@/sass/components/buttons/_redbuttons.scss';
 
 import IconEye from '@tabler/icons-react/dist/esm/icons/iconEye';
 import IconEyeOff from '@tabler/icons-react/dist/esm/icons/iconEyeOff';

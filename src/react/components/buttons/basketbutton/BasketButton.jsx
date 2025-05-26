@@ -3,7 +3,7 @@ import { useNavigate } from 'react-router-dom';
 import { safeJsonFetch } from '@/react/utils/fetchUtils';
 
 import basketIcon from '@/assets/icons/icon_basket_active.svg';
-import '@/sass/components/buttons/_basketbutton.scss';
+import styles from './BasketButton.module.scss';
 
 export function BasketButton({ refresh }) {
   const navigate = useNavigate();
@@ -11,7 +11,7 @@ export function BasketButton({ refresh }) {
 
   const fetchBasketCount = async () => {
     try {
-const data = await safeJsonFetch('/api/basket');
+      const data = await safeJsonFetch('/api/basket');
       const count = Array.isArray(data.items)
         ? data.items.reduce((sum, item) => sum + (item.quantity || 0), 0)
         : 0;
@@ -21,12 +21,10 @@ const data = await safeJsonFetch('/api/basket');
     }
   };
 
-  // Initial fetch or prop-driven refresh
   useEffect(() => {
     fetchBasketCount();
   }, [refresh]);
 
-  // 🔁 Listen to localStorage 'basketRefresh' flag across tabs or reloads
   useEffect(() => {
     const onStorage = e => {
       if (e.key === 'basketRefresh') {
@@ -40,20 +38,14 @@ const data = await safeJsonFetch('/api/basket');
   return (
     <button
       type='button'
-      className='basket-button'
+      className={styles.basketButton}
       aria-label='Open basket'
       onClick={() => navigate('/basket')}
     >
-      <img
-        src={basketIcon}
-        alt='' // decorative
-        className='basket-button__icon'
-      />
-      <span className='basket-button__label'>Basket</span>
+      <img src={basketIcon} alt='' className={styles.icon} />
+      <span className={styles.label}>Basket</span>
 
-      {itemCount > 0 && (
-        <span className='basket-button__count'>{itemCount}</span>
-      )}
+      {itemCount > 0 && <span className={styles.count}>{itemCount}</span>}
     </button>
   );
 }

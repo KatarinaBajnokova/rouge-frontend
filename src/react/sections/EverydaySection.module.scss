@@ -1,0 +1,23 @@
+@use '@/sass/abstract/colors' as colors;
+@use '@/sass/abstract/typography' as typography;
+@use '@/sass/abstract/mixins' as mixins;
+
+.sectionEveryday {
+  background: colors.$white-background;
+  color: colors.$black-main;
+
+  .sectionHeader {
+    margin-left: 1rem;
+
+    h1 {
+      @include mixins.font('section-title', 'bold');
+      margin-bottom: 0.3rem;
+      margin-top: 1rem;
+    }
+
+    p {
+      @include mixins.font('section-description', 'regular');
+      margin: 0;
+    }
+  }
+}

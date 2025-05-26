@@ -1,9 +1,7 @@
 import React from 'react';
 import { useReorderLooks } from '@/react/hooks/useReorderLooks';
-
 import TrendingCard from '@/react/components/cards/TrendingCard.jsx';
-
-import '@/sass/sections/_reorder_section.scss';
+import styles from './ReorderSection.module.scss';
 
 const ReorderSection = () => {
   const { looks, loading, error } = useReorderLooks();
@@ -16,7 +14,7 @@ const ReorderSection = () => {
         error.includes('401'))
     ) {
       return (
-        <p className='reorder-empty-msg'>
+        <p className={styles.reorderEmptyMsg}>
           You need to log in to see your past purchases!
         </p>
       );
@@ -24,7 +22,7 @@ const ReorderSection = () => {
 
     if (looks.length === 0) {
       return (
-        <p className='reorder-empty-msg'>
+        <p className={styles.reorderEmptyMsg}>
           You haven’t purchased any looks yet.
         </p>
       );
@@ -40,8 +38,8 @@ const ReorderSection = () => {
   };
 
   return (
-    <section className='home-section section-reorder'>
-      <div className='section-header'>
+    <section className={`home-section ${styles.sectionReorder}`}>
+      <div className={styles.sectionHeader}>
         <h1>Reorder</h1>
         <p className='section-desc'>Rediscover your past looks</p>
       </div>

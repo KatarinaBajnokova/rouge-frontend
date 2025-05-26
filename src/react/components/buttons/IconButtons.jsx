@@ -2,7 +2,7 @@ import React from 'react';
 import { Button, Title } from '@mantine/core';
 import { useNavigate } from 'react-router-dom';
 
-import '@/sass/components/buttons/_iconbuttons.scss';
+import './IconButtons.module.scss';
 
 import addToBasketIcon from '@/assets/icons/icon_basket_active.svg';
 import seeReviewsIcon from '@/assets/icons/icon_see_reviews.svg';

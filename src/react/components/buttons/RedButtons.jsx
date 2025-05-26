@@ -1,7 +1,7 @@
 import React from 'react';
 import { Button } from '@mantine/core';
 import { Link } from 'react-router-dom';
-import '@/sass/components/buttons/_redbuttons.scss';
+import './RedButtons.module.scss';
 
 export function CheckoutButton(props) {
   return (

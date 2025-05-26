@@ -2,9 +2,9 @@ import { useNavigate } from 'react-router-dom';
 import IconHeart from '@tabler/icons-react/dist/esm/icons/iconHeart';
 import IconHeartFilled from '@tabler/icons-react/dist/esm/icons/iconHeartFilled';
 import { useFavorites } from '@/react/hooks/useFavorites';
-import './_favoritebutton.scss';
+import styles from './FavoriteButton.module.scss';
 
-const FavoriteButton = ({ itemId, size = 20, className = 'favorite-button' }) => {
+const FavoriteButton = ({ itemId, size = 20, className = '' }) => {
   const { favorites = [], toggleFavorite, isLoggedIn } = useFavorites();
   const navigate = useNavigate();
 
@@ -26,13 +26,17 @@ const FavoriteButton = ({ itemId, size = 20, className = 'favorite-button' }) =>
     <button
       type='button'
       onClick={onClick}
-      className={className}
+      className={
+        className
+          ? `${styles.favoriteButton} ${className}`
+          : styles.favoriteButton
+      }
       aria-label={
         !isLoggedIn
           ? 'Log in to add to favorites'
           : isFav
-          ? 'Remove from favorites'
-          : 'Add to favorites'
+            ? 'Remove from favorites'
+            : 'Add to favorites'
       }
     >
       {isFav ? (

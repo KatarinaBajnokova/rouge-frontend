@@ -1,25 +1,25 @@
-@use '/src/sass/abstract/colors' as *;
-@use '/src/sass/abstract/typography' as *;
-@use '/src/sass/abstract/mixins' as *;
+@use '@/sass/abstract/colors' as colors;
+@use '@/sass/abstract/typography' as typography;
+@use '@/sass/abstract/mixins' as mixins;
 
-.section-carousel {
+.sectionCarousel {
   position: relative;
   width: 100%;
 }
 
-.carousel-container {
+.carouselContainer {
   width: 100%;
   display: flex;
   flex-direction: column;
 }
 
-.basket-wrapper {
+.basketWrapper {
   position: absolute;
   top: 1rem;
   z-index: 1100;
 }
 
-.simple-carousel img {
+.simpleCarouselImg {
   display: block;
   width: 100%;
   height: auto;

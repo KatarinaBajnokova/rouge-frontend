@@ -1,5 +1,5 @@
 import React from 'react';
-import DetailCarousel from '../carousel/DetailCarousel';
+import DetailCarousel from '../carousel/detailcarousel/DetailCarousel';
 import FavoriteButton from '@/react/components/buttons/favoritebutton/FavoriteButton';
 import '@/sass/components/carousel/_detail_carousel.scss';
 

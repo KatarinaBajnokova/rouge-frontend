@@ -1,13 +1,13 @@
 import React from 'react';
 import SimpleCarousel from '../components/carousel/Carousel/Carousel';
 import { BasketButton } from '../components/buttons/basketbutton/BasketButton';
-import '@/sass/sections/_hero_carousel_section.scss';
+import styles from './HeroCarouselSection.module.scss';
 
 const HeroCarouselSection = () => (
-  <section className='home-section section-carousel'>
-    <div className='carousel-container'>
+  <section className={`home-section ${styles.sectionCarousel}`}>
+    <div className={styles.carouselContainer}>
       <SimpleCarousel height='auto' />
-      <div className='basket-wrapper'>
+      <div className={styles.basketWrapper}>
         <BasketButton />
       </div>
     </div>

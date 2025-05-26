@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import TrendingCard from '@/react/components/cards/TrendingCard';
 import { safeJsonFetch } from '@/react/utils/fetchUtils';
-import '@/sass/sections/_trending_section.scss';
+import styles from './TrendingSection.module.scss';
 
 const TrendingSection = () => {
   const [looks, setLooks] = useState([]);
@@ -36,8 +36,8 @@ const TrendingSection = () => {
   }, []);
 
   return (
-    <section className='home-section section-two'>
-      <div className='section-header'>
+    <section className={`home-section ${styles.sectionTwo}`}>
+      <div className={styles.sectionHeader}>
         <h1>What's trending</h1>
         <p className='section-desc'>
           Seasonal looks, holiday glam, and trending favorites!

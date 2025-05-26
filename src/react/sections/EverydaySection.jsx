@@ -1,8 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import TrendingCard from '../components/cards/TrendingCard';
 import { safeJsonFetch } from '@/react/utils/fetchUtils';
-
-import '@/sass/sections/_everyday_section.scss';
+import styles from './EverydaySection.module.scss';
 
 const EverydaySection = () => {
   const [looks, setLooks] = useState([]);
@@ -30,8 +29,8 @@ const EverydaySection = () => {
   }, []);
 
   return (
-    <section className='home-section section-everyday'>
-      <div className='section-header'>
+    <section className={`home-section ${styles.sectionEveryday}`}>
+      <div className={styles.sectionHeader}>
         <h1>Everyday</h1>
         <p>Your go-to kit for everyday glam</p>
       </div>

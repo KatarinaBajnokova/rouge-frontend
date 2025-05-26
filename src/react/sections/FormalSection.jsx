@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import TrendingCard from '../components/cards/TrendingCard';
-import '@/sass/sections/_formal_section.scss';
+import styles from './FormalSection.module.scss';
 
 const FormalSection = () => {
   const [looks, setLooks] = useState([]);
@@ -32,8 +32,8 @@ const FormalSection = () => {
   }, []);
 
   return (
-    <section className='home-section section-formal'>
-      <div className='section-header'>
+    <section className={`home-section ${styles.sectionFormal}`}>
+      <div className={styles.sectionHeader}>
         <h1>Formal</h1>
         <p className='section-desc'>Elegant taste for any formal setting</p>
       </div>
