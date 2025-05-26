@@ -1,0 +1,64 @@
+@use '@/sass/abstract/colors' as colors;
+@use '@/sass/abstract/typography' as typography;
+@use '@/sass/abstract/mixins' as mixins;
+
+.personalLookPage {
+  max-width: 420px;
+  margin: 0 auto;
+  background-color: colors.$white-background;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  position: relative;
+  padding: 1.5rem 1.5rem;
+  font-family: typography.$font-family;
+}
+
+.personalLookPage h2 {
+  @include mixins.font('section-title', 'bold');
+  margin-bottom: 0.5rem;
+  margin-top: 0.5rem;
+  color: colors.$black-main;
+  line-height: 1.2;
+}
+
+.personalLookPage p {
+  @include mixins.font('section-description', 'regular');
+  color: colors.$black-review;
+  margin-bottom: 2rem;
+  margin-top: 0.1rem;
+}
+
+.imageGrid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1.2rem;
+  margin-bottom: 2rem;
+}
+
+.imageBox {
+  aspect-ratio: 1 / 1;
+  border-radius: 16px;
+  overflow: hidden;
+  border: 2px solid transparent;
+  cursor: pointer;
+  transition:
+    border 0.2s ease,
+    box-shadow 0.2s ease;
+}
+
+.imageBox img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+
+.selected {
+  border-color: colors.$magenta;
+  box-shadow: 0 0 0 3px rgba(colors.$magenta, 0.3);
+}
+
+.backIconButton {
+  margin-top: 0;
+}

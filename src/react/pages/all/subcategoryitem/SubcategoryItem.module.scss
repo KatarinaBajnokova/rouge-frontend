@@ -1,0 +1,56 @@
+@use '@/sass/abstract/colors' as colors;
+@use '@/sass/abstract/typography' as typography;
+@use '@/sass/abstract/mixins' as mixins;
+
+.subcategoryItem {
+  background-color: transparent;
+  display: flex;
+  flex-direction: column;
+
+  .itemContent {
+    background-color: transparent;
+    border-radius: 12px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    width: 100%;
+    padding: 0.75rem 1rem;
+
+    .circleIndicator {
+      width: 40px;
+      height: 40px;
+      border-radius: 50%;
+      flex-shrink: 0;
+      margin-right: 0.75rem;
+    }
+
+    p {
+      @include mixins.font('category-title', 'bold');
+      margin: 0;
+      flex: 1;
+      color: colors.$black-main;
+    }
+
+    svg {
+      flex-shrink: 0;
+      color: colors.$light-grey;
+    }
+  }
+
+  &:hover > .itemContent {
+    background-color: lighten(colors.$white-background, 3%);
+  }
+
+  .mantine-Divider-root,
+  .categoryDivider {
+    margin: 0;
+    margin-bottom: 14px;
+    height: 1px;
+    min-height: 1px;
+    background-color: colors.$light-grey;
+    width: 100%;
+    border: none;
+    display: block;
+    flex-shrink: 0;
+  }
+}

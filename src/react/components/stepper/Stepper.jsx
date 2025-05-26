@@ -1,15 +1,15 @@
 import { Stepper } from '@mantine/core';
-import '@/sass/components/stepper/_stepper.scss';
+import '@/sass/styles.scss';
 
 function FinalStepper({ active }) {
   return (
     <Stepper
       active={active}
-      className='custom-stepper'
+      className='customStepper'
       classNames={{
-        separator: 'custom-stepper-separator',
-        stepIcon: 'custom-step-icon',
-        step: 'custom-step',
+        separator: 'customStepperSeparator',
+        stepIcon: 'customStepIcon',
+        step: 'customStep',
       }}
     >
       <Stepper.Step />

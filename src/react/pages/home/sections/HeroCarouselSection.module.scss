@@ -1,0 +1,28 @@
+@use '@/sass/abstract/colors' as colors;
+@use '@/sass/abstract/typography' as typography;
+@use '@/sass/abstract/mixins' as mixins;
+
+.sectionCarousel {
+  position: relative;
+  width: 100%;
+}
+
+.carouselContainer {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+}
+
+.basketWrapper {
+  position: absolute;
+  top: 1rem;
+  z-index: 1100;
+}
+
+.simpleCarouselImg {
+  display: block;
+  width: 100%;
+  height: auto;
+  margin: 0;
+  padding: 0;
+}

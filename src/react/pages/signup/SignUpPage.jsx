@@ -2,20 +2,19 @@ import React, { useState } from 'react';
 import { useNavigate, Link } from 'react-router-dom';
 import { TextInput, PasswordInput, Divider } from '@mantine/core';
 import { showNotification } from '@mantine/notifications';
-import { SignUpButton } from '../../components/buttons/RedButtons';
-import FinalStepper from '../../components/stepper/Stepper';
+import { SignUpButton } from '@/react/components/buttons/RedButtons';
+import FinalStepper from '@/react/components/stepper/Stepper';
 import {
   ContinueWithFacebookIconButton,
   ContinueWithGoogleIconButton,
   BackIconButton,
-} from '../../components/buttons/IconButtons';
-
-import { getFirebaseAuth } from '../../../getFirebaseAuth';
+} from '@/react/components/buttons/IconButtons';
+import { getFirebaseAuth } from '@/getFirebaseAuth';
 
 import IconEye from '@tabler/icons-react/dist/esm/icons/iconEye';
 import IconEyeOff from '@tabler/icons-react/dist/esm/icons/iconEyeOff';
 
-import '@/sass/pages/_signup_page.scss';
+import styles from '@/react/pages/signup/SignUpPage.module.scss';
 
 const SignUpPage = () => {
   const [firstName, setFirstName] = useState('');
@@ -77,7 +76,6 @@ const SignUpPage = () => {
       );
 
       const user = result.user;
-      console.log('✅ Firebase sign-up success:', user);
       localStorage.setItem('firebaseUid', user.uid);
 
       const backendResponse = await fetch('http://localhost:3000/api/users', {
@@ -96,7 +94,6 @@ const SignUpPage = () => {
       try {
         backendData = await backendResponse.json();
       } catch (parseError) {
-        console.error('❌ Failed to parse backend response as JSON');
         throw new Error('Invalid backend response');
       }
 
@@ -105,8 +102,6 @@ const SignUpPage = () => {
           backendData.error || 'Failed to create user in backend.'
         );
       }
-
-      console.log('✅ User created in backend:', backendData);
 
       showNotification({
         title: 'Signed up!',
@@ -118,8 +113,6 @@ const SignUpPage = () => {
         state: { newUser: true },
       });
     } catch (err) {
-      console.error('❌ Sign-up error:', err.message);
-
       if (err.message.includes('email-already-in-use')) {
         showNotification({
           title: 'Email already exists',
@@ -140,9 +133,7 @@ const SignUpPage = () => {
     try {
       const { auth, googleProvider, signInWithPopup } = await getFirebaseAuth();
       const result = await signInWithPopup(auth, googleProvider);
-
       const user = result.user;
-      console.log('✅ Google sign-in success:', user);
 
       showNotification({
         title: 'Logged in with Google',
@@ -152,7 +143,6 @@ const SignUpPage = () => {
 
       navigate('/personal-look');
     } catch (err) {
-      console.error('❌ Google sign-in error:', err.message);
       showNotification({
         title: 'Google sign-in error',
         message: err.message,
@@ -166,9 +156,7 @@ const SignUpPage = () => {
       const { auth, facebookProvider, signInWithPopup } =
         await getFirebaseAuth();
       const result = await signInWithPopup(auth, facebookProvider);
-
       const user = result.user;
-      console.log('✅ Facebook sign-in success:', user);
 
       showNotification({
         title: 'Logged in with Facebook',
@@ -178,7 +166,6 @@ const SignUpPage = () => {
 
       navigate('/personal-look');
     } catch (err) {
-      console.error('❌ Facebook sign-in error:', err.message);
       showNotification({
         title: 'Facebook sign-in error',
         message: err.message,
@@ -188,8 +175,8 @@ const SignUpPage = () => {
   };
 
   return (
-    <div className='signup-page'>
-      <BackIconButton />
+    <div className={styles.signUpPage}>
+      <BackIconButton className={styles.backIconButton} />
 
       <FinalStepper active={0} />
 
@@ -201,7 +188,7 @@ const SignUpPage = () => {
         placeholder='Your first name'
         value={firstName}
         onChange={e => setFirstName(e.currentTarget.value)}
-        className='input-field'
+        className={styles.inputField}
         required
       />
 
@@ -210,7 +197,7 @@ const SignUpPage = () => {
         placeholder='Your last name'
         value={lastName}
         onChange={e => setLastName(e.currentTarget.value)}
-        className='input-field'
+        className={styles.inputField}
         required
       />
 
@@ -219,7 +206,7 @@ const SignUpPage = () => {
         placeholder='Your email...'
         value={email}
         onChange={e => setEmail(e.currentTarget.value)}
-        className='input-field'
+        className={styles.inputField}
         required
       />
 
@@ -233,7 +220,7 @@ const SignUpPage = () => {
         }
         value={password}
         onChange={e => setPassword(e.currentTarget.value)}
-        className='input-field'
+        className={styles.inputField}
         required
       />
 
@@ -242,22 +229,26 @@ const SignUpPage = () => {
         placeholder='Confirm your password'
         value={confirmPassword}
         onChange={e => setConfirmPassword(e.currentTarget.value)}
-        className='input-field'
+        className={styles.inputField}
         required
       />
 
-      <SignUpButton fullWidth onClick={handleEmailSignUp}>
+      <SignUpButton
+        fullWidth
+        onClick={handleEmailSignUp}
+        className={styles.signUpButton}
+      >
         Sign up
       </SignUpButton>
 
-      <div className='social-register-section'>
+      <div className={styles.socialRegisterSection}>
         <Divider
-          className='social-divider'
+          className={styles.socialDivider}
           label='Or register with'
           labelPosition='center'
         />
 
-        <div className='social-buttons'>
+        <div className={styles.socialButtons}>
           <ContinueWithFacebookIconButton
             fullWidth
             onClick={handleFacebookSignIn}
@@ -269,7 +260,7 @@ const SignUpPage = () => {
           />
         </div>
 
-        <div className='login-link'>
+        <div className={styles.loginLink}>
           <Link to='/login'>Already have an account? Log in</Link>
         </div>
       </div>

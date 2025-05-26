@@ -2,8 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { Carousel } from '@mantine/carousel';
 import { Text } from '@mantine/core';
 import { safeJsonFetch } from '@/react/utils/fetchUtils';
-
-import '@/sass/components/carousel/_detail_carousel.scss';
+import '@/sass/styles.scss';
 
 export default function DetailCarousel({ itemId }) {
   const [images, setImages] = useState([]);
@@ -11,23 +10,22 @@ export default function DetailCarousel({ itemId }) {
   const [error, setError] = useState(null);
   const [loadedIndexes, setLoadedIndexes] = useState([]);
 
-useEffect(() => {
-  safeJsonFetch(`/api/items/${itemId}`)
-    .then(data => {
-      const imageArray = Array.isArray(data.images) ? data.images : [];
-      setImages(imageArray);
-    })
-    .catch(err => setError(err.message))
-    .finally(() => setLoading(false));
-}, [itemId]);
-
+  useEffect(() => {
+    safeJsonFetch(`/api/items/${itemId}`)
+      .then(data => {
+        const imageArray = Array.isArray(data.images) ? data.images : [];
+        setImages(imageArray);
+      })
+      .catch(err => setError(err.message))
+      .finally(() => setLoading(false));
+  }, [itemId]);
 
   const handleImageLoad = index => {
     setLoadedIndexes(prev => [...prev, index]);
   };
 
   if (loading) return <Text>Loading images…</Text>;
-  if (error) return <Text color='red'>Error: {error}</Text>;
+  if (error) return <Text>Error: {error}</Text>;
   if (!images || images.length === 0) return <Text>No images available.</Text>;
 
   return (
@@ -41,8 +39,8 @@ useEffect(() => {
     >
       {images.map((image, idx) => (
         <Carousel.Slide key={image.id || idx}>
-          <div className='carousel-image-wrapper'>
-            {!loadedIndexes.includes(idx) && <div className='image-skeleton' />}
+          <div className='carouselImageWrapper'>
+            {!loadedIndexes.includes(idx) && <div className='imageSkeleton' />}
             <img
               src={image.url}
               alt={`Slide ${idx + 1}`}

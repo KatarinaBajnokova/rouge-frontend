@@ -1,0 +1,96 @@
+@use '@/sass/abstract/colors' as colors;
+
+button.mantine-Button-root {
+  font-weight: bold;
+  font-size: 1.1rem;
+  border: none;
+  transition: all 0.2s ease;
+  text-align: center;
+
+  &:hover {
+    opacity: 0.95;
+  }
+
+  &.checkoutButton,
+  &.confirmPurchaseButton,
+  &.continueButton {
+    background-color: colors.$red;
+    color: colors.$white-elements;
+    width: fit-content;
+    min-width: 200px;
+    height: 50px;
+    padding: 0.7rem 1rem;
+    border-radius: 0.8rem;
+  }
+
+  &.logInButton,
+  &.signUpButton {
+    background-color: colors.$red;
+    color: colors.$white-elements;
+    width: 300px;
+    height: 50px;
+    padding: 0.2rem 1rem;
+    border-radius: 1rem;
+
+    &.signUpButton {
+      border-radius: 2rem;
+    }
+  }
+
+  &.whiteLogInButton {
+    background-color: colors.$plain-white;
+    color: colors.$black-main;
+    width: 300px;
+    height: 50px;
+    padding: 0.2rem 2rem;
+    border-radius: 2rem;
+  }
+
+  &.moreInfoButton {
+    background-color: colors.$magenta;
+    color: colors.$white-elements;
+    font-weight: normal;
+    width: 140px;
+    height: 50px;
+    padding: 0.2rem 1rem;
+    border-radius: 1rem;
+  }
+}
+
+@media screen and (max-width: 1024px) and (min-width: 601px) {
+  button.mantine-Button-root {
+    font-size: 1.05rem;
+
+    &.checkoutButton,
+    &.confirmPurchaseButton,
+    &.logInButton,
+    &.signUpButton,
+    &.continueButton,
+    &.moreInfoButton,
+    &.whiteLogInButton {
+      width: 200px;
+    }
+
+    &.checkoutButton,
+    &.confirmPurchaseButton,
+    &.continueButton,
+    &.moreInfoButton {
+      height: auto;
+    }
+  }
+}
+
+.bottomBar {
+  background-color: colors.$black-main;
+  padding: 1.8rem 2rem 2rem;
+  border-top-left-radius: 1.5rem;
+  border-top-right-radius: 1.5rem;
+  box-shadow: 0 -8px 20px rgba(colors.$black-main, 0.08);
+  position: fixed;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  z-index: 100;
+  display: flex;
+  justify-content: center;
+}

@@ -1,82 +1,41 @@
 import { Link } from 'react-router-dom';
-import FavoriteButton from '@/react/components/buttons/favoritebutton/FavoriteButton';
-import styles from './TrendingCard.module.scss';
+import FavoriteButton from '@/react/components/buttons/FavoriteButton';
+import '@/sass/styles.scss';
 
 const TrendingCard = ({ look, showHeart = false, variant = 'default' }) => {
-  const badgeClass = styles[look.level.toLowerCase()] || '';
+  const badgeClass = look.level ? look.level.toLowerCase() : '';
   const isCompact = variant === 'compact';
 
   return (
-    <div
-      className={`${styles.trendingCard} ${
-        isCompact ? styles.compactCard : ''
-      }`}
-    >
-      <Link to={`/item/${look.id}`} className={styles.cardLink}>
+    <div className={`trendingCard${isCompact ? ' compactCard' : ''}`}>
+      <Link to={`/item/${look.id}`} className='cardLink'>
         <div
-          className={`${styles.imageContainer} ${
-            isCompact ? styles.compactImageContainer : ''
-          }`}
+          className={`imageContainer${isCompact ? ' compactImageContainer' : ''}`}
         >
-          <img
-            src={look.image_url}
-            alt={look.title}
-            className={styles.image}
-          />
+          <img src={look.image_url} alt={look.title} className='image' />
         </div>
-
-        <div
-          className={`${styles.content} ${
-            isCompact ? styles.compactContent : ''
-          }`}
-        >
-          <div
-            className={`${styles.title} ${
-              isCompact ? styles.compactTitle : ''
-            }`}
-          >
+        <div className={`content${isCompact ? ' compactContent' : ''}`}>
+          <div className={`title${isCompact ? ' compactTitle' : ''}`}>
             {look.title}
           </div>
-
-          <div
-            className={`${styles.category} ${
-              isCompact ? styles.compactCategory : ''
-            }`}
-          >
+          <div className={`category${isCompact ? ' compactCategory' : ''}`}>
             {look.category}
           </div>
-
-          <div
-            className={`${styles.footer} ${
-              isCompact ? styles.compactFooter : ''
-            }`}
-          >
+          <div className={`footer${isCompact ? ' compactFooter' : ''}`}>
             <div
-              className={`${styles.badge} ${badgeClass} ${
-                isCompact ? styles.compactBadge : ''
-              }`}
+              className={`badge ${badgeClass}${isCompact ? ' compactBadge' : ''}`}
             >
               ✦ {look.level}
             </div>
-
-            <div
-              className={`${styles.price} ${
-                isCompact ? styles.compactPrice : ''
-              }`}
-            >
+            <div className={`price${isCompact ? ' compactPrice' : ''}`}>
               €{look.price}
             </div>
           </div>
         </div>
       </Link>
-
       {showHeart && (
-        <div className={styles.heartWrapper}>
-          <FavoriteButton
-            itemId={look.id}
-            className={styles.heartIcon}
-            size={20}
-          />
+        <div className='heartWrapper'>
+          <FavoriteButton itemId={look.id} className='heartIcon' size={20} />
         </div>
       )}
     </div>

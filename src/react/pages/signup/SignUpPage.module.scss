@@ -1,0 +1,111 @@
+@use '@/sass/abstract/colors' as colors;
+@use '@/sass/abstract/typography' as typography;
+@use '@/sass/abstract/mixins' as mixins;
+
+.signUpPage {
+  background-color: colors.$white-background;
+  padding: 1.2rem 1.5rem;
+  font-family: typography.$font-family;
+  color: colors.$black-main;
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+}
+
+.backIconButton {
+  margin-top: 0;
+}
+
+.signUpPage h2 {
+  @include mixins.font('section-title', 'bold');
+  margin-bottom: 0.2rem;
+  margin-top: 0.5rem;
+}
+
+.signUpPage p {
+  @include mixins.font('section-description', 'regular');
+  margin-bottom: 0.7rem;
+  margin-top: 0;
+}
+
+.inputField :global(input) {
+  border-radius: 12px;
+  @include mixins.font('section-description', 'regular');
+}
+
+:global(.mantine-TextInput-root),
+:global(.mantine-PasswordInput-root) {
+  margin-bottom: 0.5rem;
+}
+
+:global(.mantine-Divider-root) {
+  @include mixins.font('body', 'medium');
+  color: colors.$grey-background-elements;
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  &::before,
+  &::after {
+    content: '';
+    flex: 1;
+    height: 1px;
+    background-color: var(--mantine-color-dimmed);
+  }
+}
+
+:global(.mantine-Divider-label) {
+  white-space: nowrap;
+  font-size: 0.8rem;
+  color: var(--mantine-color-dimmed);
+}
+
+.socialRegisterSection {
+  margin-top: 1rem;
+}
+
+.socialDivider {
+  margin-bottom: 1rem;
+}
+
+.socialButtons {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.85rem;
+  margin-bottom: 1rem;
+}
+
+.socialButtons button {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  height: 45px;
+  max-width: 400px;
+}
+
+.loginLink {
+  text-align: center;
+  margin-top: auto;
+  @include mixins.font('icon-title', 'bold');
+  line-height: 1.4;
+}
+
+.loginLink a {
+  color: colors.$magenta;
+  @include mixins.font('icon-title', 'bold');
+  text-decoration: underline !important;
+}
+
+.signUpButton {
+  margin: 1.5rem auto 0.1rem;
+  display: block;
+  max-width: 400px;
+}
+
+:global(button.mantine-Button-root.continue-with-facebook-icon-button),
+:global(button.mantine-Button-root.continue-with-google-icon-button) {
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}

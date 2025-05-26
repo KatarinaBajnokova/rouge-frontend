@@ -1,55 +1,41 @@
-@use '/src/sass/abstract/colors' as *;
+@use '@/sass/abstract/colors' as colors;
 
-//notes bc the stepper was the most difficult to edit bc of mantine overwriting our styling
-
-.custom-stepper {
+.customStepper {
   max-width: 260px;
   min-width: 260px;
   margin: 0 auto;
   margin-bottom: 1.2rem !important;
+}
 
-  .mantine-Stepper-separator {
-    height: 3px;
-    background-color: $light-grey;
-    border-radius: 100px;
-  }
+.customStepperSeparator {
+  width: 100%;
+  min-width: 32px;
+  height: 2px;
+  background-color: colors.$light-grey !important;
+  border-radius: 100px;
+  display: block;
+}
 
-  //active separator
-  .mantine-Stepper-separator[data-active='true'] {
-    background-color: $magenta;
-  }
+.customStep {
+  font-weight: bold;
+}
 
-  //completed step
-  .mantine-Stepper-step[data-completed='true'] {
-    .mantine-Stepper-stepIcon {
-      background-color: $magenta;
-      border-color: $magenta;
-      color: $white-elements;
-      box-shadow: 0 2px 4px rgba(0, 0, 0, 0.15);
-    }
-  }
+.customStep[data-completed='true'] .customStepIcon {
+  background-color: colors.$magenta;
+  border-color: colors.$magenta;
+  color: colors.$white-elements;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.15);
+}
 
-  //active step
-  .mantine-Stepper-step[data-progress='true'] {
-    .mantine-Stepper-stepIcon {
-      background-color: $magenta;
-      border: 2px solid $magenta;
-      color: $white-elements;
-      font-weight: bold;
-    }
-  }
+.customStep[data-progress='true'] .customStepIcon {
+  background-color: colors.$magenta;
+  border: 2px solid colors.$magenta;
+  color: colors.$white-elements;
+  font-weight: bold;
+}
 
-  //inactive step (next)
-  .mantine-Stepper-step:not([data-completed]):not([data-progress]) {
-    .mantine-Stepper-stepIcon {
-      background-color: $white-elements;
-      border: 2px solid $light-grey;
-      color: $light-grey;
-    }
-  }
-
-  //step label/number
-  .mantine-Stepper-step {
-    font-weight: bold;
-  }
+.customStep:not([data-completed]):not([data-progress]) .customStepIcon {
+  background-color: colors.$white-elements;
+  border: 2px solid colors.$light-grey;
+  color: colors.$light-grey;
 }

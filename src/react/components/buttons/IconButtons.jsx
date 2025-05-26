@@ -1,8 +1,7 @@
-import React from 'react';
 import { Button, Title } from '@mantine/core';
 import { useNavigate } from 'react-router-dom';
 
-import '@/sass/components/buttons/_iconbuttons.scss';
+import '@/sass/styles.scss';
 
 import addToBasketIcon from '@/assets/icons/icon_basket_active.svg';
 import seeReviewsIcon from '@/assets/icons/icon_see_reviews.svg';
@@ -17,7 +16,7 @@ import IconChevronLeft from '@tabler/icons-react/dist/esm/icons/iconChevronLeft'
 export function AddToBasketIconButton({ onClick, ...props }) {
   return (
     <Button
-      classNames={{ root: 'add-to-basket-icon-button' }}
+      classNames={{ root: 'addToBasketIconButton' }}
       leftSection={
         <img
           src={addToBasketIcon}
@@ -38,7 +37,7 @@ export function AddToBasketIconButton({ onClick, ...props }) {
 export function SeeReviewsIconButton({ onClick, ...props }) {
   return (
     <Button
-      classNames={{ root: 'see-reviews-icon-button' }}
+      classNames={{ root: 'seeReviewsIconButton' }}
       leftSection={
         <img
           src={seeReviewsIcon}
@@ -59,7 +58,7 @@ export function SeeReviewsIconButton({ onClick, ...props }) {
 export function FilterIconButton({ onClick, ...props }) {
   return (
     <Button
-      classNames={{ root: 'filter-icon-button' }}
+      classNames={{ root: 'filterIconButton' }}
       leftSection={
         <img
           src={filterIcon}
@@ -79,23 +78,23 @@ export function FilterIconButton({ onClick, ...props }) {
 
 export function LeaveAReviewIconButton({ onClick, ...props }) {
   return (
-    <div className="leave-review-wrapper">
-    <Button
-      classNames={{ root: 'leave-a-review-icon-button' }}
-      leftSection={
-        <img
-          src={leaveReviewIcon}
-          alt=''
-          aria-hidden='true'
-          width={16}
-          height={16}
-        />
-      }
-      onClick={onClick}
-      {...props}
-    >
-      Leave a review
-    </Button>
+    <div className='leaveReviewWrapper'>
+      <Button
+        classNames={{ root: 'leaveAReviewIconButton' }}
+        leftSection={
+          <img
+            src={leaveReviewIcon}
+            alt=''
+            aria-hidden='true'
+            width={16}
+            height={16}
+          />
+        }
+        onClick={onClick}
+        {...props}
+      >
+        Leave a review
+      </Button>
     </div>
   );
 }
@@ -103,7 +102,7 @@ export function LeaveAReviewIconButton({ onClick, ...props }) {
 export function RepurchaseIconButton({ onClick, ...props }) {
   return (
     <Button
-      classNames={{ root: 'repurchase-icon-button' }}
+      classNames={{ root: 'repurchaseIconButton' }}
       leftSection={
         <img
           src={repurchaseIcon}
@@ -124,7 +123,7 @@ export function RepurchaseIconButton({ onClick, ...props }) {
 export function ContinueWithFacebookIconButton({ onClick, ...props }) {
   return (
     <Button
-      classNames={{ root: 'continue-with-facebook-icon-button' }}
+      classNames={{ root: 'continueWithFacebookIconButton' }}
       leftSection={
         <img
           src={continueWithFacebookIcon}
@@ -145,7 +144,7 @@ export function ContinueWithFacebookIconButton({ onClick, ...props }) {
 export function ContinueWithGoogleIconButton({ onClick, ...props }) {
   return (
     <Button
-      classNames={{ root: 'continue-with-google-icon-button' }}
+      classNames={{ root: 'continueWithGoogleIconButton' }}
       leftSection={
         <img
           src={continueWithGoogleIcon}
@@ -166,7 +165,7 @@ export function ContinueWithGoogleIconButton({ onClick, ...props }) {
 export function ContinueWithAppleIconButton({ onClick, ...props }) {
   return (
     <Button
-      classNames={{ root: 'continue-with-apple-icon-button' }}
+      classNames={{ root: 'continueWithAppleIconButton' }}
       leftSection={
         <img
           src={continueWithAppleIcon}
@@ -186,11 +185,7 @@ export function ContinueWithAppleIconButton({ onClick, ...props }) {
 
 export function SeeMoreButton({ onClick, ...props }) {
   return (
-    <Button
-      classNames={{ root: 'see-more-button' }}
-      onClick={onClick}
-      {...props}
-    >
+    <Button classNames={{ root: 'seeMoreButton' }} onClick={onClick} {...props}>
       See more &gt;
     </Button>
   );
@@ -209,7 +204,7 @@ export function BackIconButton({ onClick, ...props }) {
 
   return (
     <button
-      className='back-icon-button'
+      className='backIconButton'
       onClick={handleClick}
       aria-label='Go back'
       {...props}
@@ -221,7 +216,7 @@ export function BackIconButton({ onClick, ...props }) {
 
 export function BackHeader({ text, onBack, backButtonStyle }) {
   return (
-    <div className='back-header'>
+    <div className='backHeader'>
       <BackIconButton onClick={onBack} style={backButtonStyle} />
       <Title order={2}>{text}</Title>
     </div>

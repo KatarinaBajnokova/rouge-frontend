@@ -1,0 +1,98 @@
+@use '@/sass/abstract/colors' as colors;
+@use '@/sass/abstract/typography' as typography;
+@use '@/sass/abstract/mixins' as mixins;
+
+.personalInfo {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  padding: 1rem;
+}
+
+.section {
+  background: colors.$white-elements;
+  border: none;
+  border-radius: 6px;
+  padding: 1rem;
+
+  & + .section {
+    margin-top: 1.5rem;
+  }
+}
+
+.sectionTitle {
+  @include mixins.font('section-title', 'bold');
+  color: colors.$black-main;
+  margin-bottom: 0.75rem;
+}
+
+.sectionContent {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.divider {
+  border-color: rgba(colors.$grey-background-elements, 0.3);
+  margin: 1rem 0;
+
+  &.small {
+    margin: 0.75rem 0;
+  }
+}
+
+.infoRow {
+  display: flex;
+  align-items: center;
+
+  .label {
+    @include mixins.font('section-description', 'medium');
+    color: colors.$black-main;
+    width: 120px;
+  }
+
+  .value {
+    @include mixins.font('section-description');
+    color: colors.$light-grey;
+    flex: 1;
+  }
+}
+
+.addressBlock {
+  & + & {
+    margin-top: 0.75rem;
+  }
+}
+
+.lookSection {
+  text-align: center;
+}
+
+.lookContent {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.lookImage {
+  width: 120px;
+  height: 120px;
+  border-radius: 50%;
+  object-fit: cover;
+}
+
+.logoutWrapper {
+  margin-top: auto;
+  padding-top: 1.5rem;
+  padding-bottom: 2rem;
+}
+
+.logoutButton {
+  border-color: colors.$red;
+  color: colors.$red;
+  @include mixins.font('section-description', 'bold');
+
+  &:hover {
+    background: rgba(colors.$red, 0.1);
+  }
+}

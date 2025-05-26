@@ -1,0 +1,54 @@
+@use '@/sass/abstract/colors' as colors;
+@use '@/sass/abstract/typography' as typography;
+@use '@/sass/abstract/mixins' as mixins;
+
+:global {
+  body {
+    font-family: typography.$font-family;
+  }
+
+  .backIconButton {
+    margin-top: 0;
+  }
+
+  .productDetail,
+  .productDetail * {
+    font-family: inherit !important;
+  }
+
+  .detailDescription,
+  .detailDescription .mantine-Text-root {
+    font-family: inherit !important;
+  }
+
+  .productDetail {
+    position: relative;
+    max-width: 30rem;
+    background: colors.$white-background;
+    padding-bottom: 6rem;
+    color: colors.$grey-background-elements;
+    min-height: 100dvh;
+  }
+
+  .toggleDescBtn {
+    background: none;
+    border: none;
+    padding: 0;
+    margin-top: 0.5rem;
+    color: colors.$grey-background-elements;
+    font-weight: bold;
+    display: flex;
+    align-items: center;
+    gap: 0.3rem;
+    cursor: pointer;
+
+    &:hover {
+      text-decoration: underline;
+    }
+  }
+
+  .detailTitle.mantine-Title-root {
+    margin-bottom: 1rem;
+    @include mixins.font('section-title', 'bold');
+  }
+}

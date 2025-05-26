@@ -9,18 +9,18 @@ import {
   Modal,
 } from '@mantine/core';
 import { useNavigate } from 'react-router-dom';
-import { BackIconButton } from '../../components/buttons/IconButtons';
-import FinalStepper from '../../components/stepper/Stepper';
+import { BackIconButton } from '@/react/components/buttons/IconButtons';
+import FinalStepper from '@/react/components/stepper/Stepper';
 import {
   ContinueButton,
   BottomBarButton,
-} from '../../components/buttons/RedButtons';
+} from '@/react/components/buttons/RedButtons';
 import {
   IconCreditCard,
   IconBrandPaypal,
   IconBrandApple,
 } from '@tabler/icons-react';
-import '@/sass/pages/checkout/_payment_method.scss';
+import styles from './PaymentMethod.module.scss';
 
 const STORAGE_KEY = 'paymentMethod';
 
@@ -90,20 +90,22 @@ export default function PaymentMethodPage() {
 
   return (
     <>
-      <div className='payment-method-page'>
-        <BackIconButton />
+      <div className={styles.paymentMethodPage}>
+        <div className={styles.backIconButton}>
+          <BackIconButton />
+        </div>
         <FinalStepper active={2} />
 
         <h2>Choose your payment method</h2>
 
-        <Box className='payment-method-form'>
+        <Box className={styles.paymentMethodForm}>
           <Group direction='row' spacing='sm'>
             {options.map(({ value, label, icon }) => (
               <Paper
                 key={value}
                 withBorder
                 radius='md'
-                className={`payment-option ${method === value ? 'selected' : ''}`}
+                className={`${styles.paymentOption} ${method === value ? styles.selected : ''}`}
                 onClick={() => selectMethod(value)}
               >
                 {icon}
@@ -113,7 +115,7 @@ export default function PaymentMethodPage() {
           </Group>
 
           {method === 'card' && (
-            <Box className='card-details'>
+            <Box className={styles.cardDetails}>
               <TextInput
                 label='Cardholder Name'
                 placeholder='John Doe'

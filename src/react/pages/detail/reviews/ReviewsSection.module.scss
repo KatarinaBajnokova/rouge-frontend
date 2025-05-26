@@ -1,0 +1,66 @@
+@use '@/sass/abstract/colors' as colors;
+@use '@/sass/abstract/mixins' as mixins;
+
+.reviewsSection {
+  width: 100%;
+}
+
+.reviewsSummary {
+  width: 70%;
+  margin: 1rem auto;
+  padding: 1rem;
+  background: linear-gradient(
+    to bottom,
+    colors.$white-background 0%,
+    rgba(colors.$magenta, 0.2) 100%
+  );
+}
+
+.reviewsSummaryContent {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.reviewsAverage {
+  @include mixins.font('top-title', 'black');
+  color: colors.$magenta;
+  line-height: 1;
+  margin-bottom: 0.25rem;
+}
+
+.reviewsCount {
+  @include mixins.font('section-description', 'regular');
+  color: colors.$black-main;
+  line-height: 1;
+}
+
+:global(.mantine-Rating-root) {
+  .mantine-Rating-label[data-filled='false'] svg {
+    fill: none !important;
+    stroke: colors.$black-main !important;
+    stroke-width: 1px !important;
+  }
+}
+
+.reviewCard {
+  margin: 1rem auto;
+  padding: 1rem 0;
+  width: 90%;
+  max-width: 32rem;
+}
+
+.reviewHeader {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  margin-bottom: 0.5rem;
+}
+
+.reviewsAction {
+  width: 70%;
+  margin: 0 auto 2rem;
+  display: flex;
+  justify-content: flex-end;
+}
