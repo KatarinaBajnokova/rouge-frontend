@@ -61,6 +61,14 @@ button.mantine-Button-root.filter-icon-button {
   }
 }
 
+.leave-review-wrapper {
+  display: flex;
+  justify-content: center;
+  width: 100%;
+  margin-top: 0.5rem;
+}
+
+
 button.mantine-Button-root.leave-a-review-icon-button {
   background-color: $magenta;
   color: $white-elements;

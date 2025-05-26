@@ -2,7 +2,6 @@ import React, { useState, useEffect } from 'react';
 import TrendingCard from '../components/cards/TrendingCard';
 import { safeJsonFetch } from '@/react/utils/fetchUtils';
 
-import '@/sass/components/cards/_trending_cards.scss';
 import '@/sass/sections/_everyday_section.scss';
 
 const EverydaySection = () => {

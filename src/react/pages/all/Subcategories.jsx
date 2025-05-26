@@ -6,7 +6,7 @@ import {
   Navigate,
 } from 'react-router-dom';
 import { useSubcategories } from '@/react/hooks/useSubcategories';
-import { BasketButton } from '@/react/components/buttons/BasketButton';
+import { BasketButton } from '@/react/components/buttons/basketbutton/BasketButton';
 import { BackHeader } from '@/react/components/buttons/IconButtons';
 import SubcategoryItem from '@/react/components/all/SubcategoryItem';
 

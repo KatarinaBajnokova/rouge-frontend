@@ -39,3 +39,17 @@
   display: flex !important;
   justify-content: flex-end !important;
 }
+
+.reviews-summary,
+.reviews-page {
+  .mantine-Rating-starSymbol[data-filled='true'] {
+    stroke: colors.$magenta !important;
+    stroke-width: 1.5px !important;
+  }
+
+  .mantine-Rating-starSymbol[data-filled='false'] {
+    stroke: colors.$black-review !important;
+    stroke-width: 1.5px !important;
+    fill: none !important;
+  }
+}

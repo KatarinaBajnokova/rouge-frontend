@@ -52,7 +52,7 @@
       colors.$white-elements 0%,
       rgba(colors.$magenta, 0.2) 100%
     ) !important;
-    border-radius: 2rem;
+    border-radius: 1rem;
     padding: 1rem; // if you want extra inner gutter
   }
   &__review-card-rating {
@@ -69,10 +69,10 @@
 }
 
 .reviews-summary {
-  width: 100%;
+  width: 80%;
   margin: 1rem auto;
   padding: 1.5rem;
-  border-radius: 8px;
+  border-radius: 1rem;
   background: linear-gradient(
     to bottom,
     colors.$white-background 0%,
@@ -105,10 +105,60 @@
   }
 }
 
+
 /// Centered “Leave a review” button
 .reviews-action {
   width: 100%;
   margin: 1rem auto 2rem;
   display: flex;
   justify-content: center;
+}
+
+.see-reviews-icon-button {
+  margin-right: 1rem;
+  font-family: inherit;
+
+  .mantine-Button-inner {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.4rem;
+  }
+
+  .mantine-Button-section {
+    order: 2; // make sure the icon comes after the text
+  }
+
+  .mantine-Button-label {
+    order: 1;
+  }
+}
+
+.reviews-page__review-card{
+  padding-bottom: 1.4rem;
+}
+
+.reviews-page .mantine-Stack-root {
+  gap: 1.5rem !important;
+  margin-bottom: 1rem;
+}
+.reviews-page__review-header {
+  margin-bottom: 0.7rem;
+}
+
+
+.reviews-summary,
+.reviews-page {
+// filled stars
+.mantine-Rating-starSymbol[data-filled='true'] {
+  stroke: colors.$magenta !important;
+  stroke-width: 1.5px !important;
+}
+
+// unfilled stars
+.mantine-Rating-starSymbol:not([data-filled='true']) {
+  stroke: colors.$black-review !important;
+  stroke-width: 2px !important;
+  fill: none !important;
+}
+
 }
