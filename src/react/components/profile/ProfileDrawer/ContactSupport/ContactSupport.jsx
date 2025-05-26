@@ -15,7 +15,7 @@ export const ContactSupport = () => (
     </Title>
 
     <Text className={styles.intro}>
-      Welcome to Rouge Support! We’re here to help you with anything related to
+      Welcome to Rouge Support! We're here to help you with anything related to
       your make-up box subscription, from choosing the perfect palette to
       getting personalized advice.
     </Text>
@@ -98,9 +98,9 @@ export const ContactSupport = () => (
       <div className={styles.group__content}>
         <Text className={styles.group__title}>Business Hours</Text>
         <Text className={styles.group__text}>
-          Monday – Friday: 9 AM – 6 PM (CET)
+          Monday - Friday: 9 AM - 6 PM (CET)
           <br />
-          Saturday: 10 AM – 4 PM (CET)
+          Saturday: 10 AM - 4 PM (CET)
           <br />
           Closed on Sundays and public holidays.
         </Text>

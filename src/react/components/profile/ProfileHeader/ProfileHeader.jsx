@@ -1,4 +1,3 @@
-// src/react/components/profile/ProfileHeader.jsx
 import React, { memo, useState } from 'react';
 import styles from './ProfileHeader.module.scss';
 import { FiEdit2 } from 'react-icons/fi';

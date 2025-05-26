@@ -1,4 +1,3 @@
-import React from 'react';
 import { Loader, SimpleGrid, Text } from '@mantine/core';
 import { useFavorites } from '@/react/hooks/useFavorites';
 import { useItems } from '@/react/hooks/useItems';

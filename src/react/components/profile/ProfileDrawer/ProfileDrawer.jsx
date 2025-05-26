@@ -1,5 +1,3 @@
-// src/react/components/profile/ProfileDrawer/ProfileDrawer.jsx
-import React from 'react';
 import { Drawer } from '@mantine/core';
 import { BackHeader } from '@/react/components/buttons/IconButtons';
 

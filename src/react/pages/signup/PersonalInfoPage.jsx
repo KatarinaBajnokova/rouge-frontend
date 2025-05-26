@@ -6,14 +6,14 @@ import FinalStepper from '../../components/stepper/Stepper';
 import { useUpdateUser } from '@/react/hooks/useUpdateUser';
 import { BackIconButton } from '../../components/buttons/IconButtons';
 import { BottomBarButton } from '../../components/buttons/RedButtons';
-import { useAuth } from '@/react/hooks/useAuth'; // ✨ import useAuth
+import { useAuth } from '@/react/hooks/useAuth';
 
 import '@/sass/pages/_personal_info.scss';
 
 export default function PersonalInfoPage() {
   const navigate = useNavigate();
   const { updateUser, loading } = useUpdateUser();
-  const { userId: firebaseUid, loading: authLoading } = useAuth(); // ✨ get firebaseUid
+  const { userId: firebaseUid, loading: authLoading } = useAuth();
 
   const [country, setCountry] = useState('');
   const [street, setStreet] = useState('');
@@ -25,7 +25,6 @@ export default function PersonalInfoPage() {
   const [countryOptions, setCountryOptions] = useState([]);
   const [countriesLoading, setCountriesLoading] = useState(false);
 
-  // 🛠️ Auto-fetch backendUserId if missing
   useEffect(() => {
     const fetchBackendUserId = async () => {
       const storedBackendId = localStorage.getItem('backendUserId');

@@ -1,10 +1,10 @@
-@use '@sass/abstract/colors' as *;
-@use '@sass/abstract/typography' as *;
-@use '@sass/abstract/mixins' as *;
+@use '@sass/abstract/colors' as colors;
+@use '@sass/abstract/typography' as typography;
+@use '@sass/abstract/mixins' as mixins;
 
 .header {
-  background-color: $grey-background-elements;
-  color: $white-background;
+  background-color: colors.$grey-background-elements;
+  color: colors.$white-background;
 }
 
 .headerContent {
@@ -16,7 +16,7 @@
     align-items: center;
 
     .mantine-Title-root {
-      color: $white-background;
+      color: colors.$white-background;
       margin-left: 0.5rem;
     }
   }

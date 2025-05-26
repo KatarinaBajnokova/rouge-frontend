@@ -1,4 +1,3 @@
-import React from 'react';
 import { NavLink, useLocation } from 'react-router-dom';
 import { Text } from '@mantine/core';
 import styles from './Navbar.module.scss';

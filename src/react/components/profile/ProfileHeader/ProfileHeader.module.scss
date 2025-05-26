@@ -1,6 +1,6 @@
-@use '@sass/abstract/colors' as *;
-@use '@sass/abstract/typography' as *;
-@use '@sass/abstract/mixins' as *;
+@use '@sass/abstract/colors' as colors;
+@use '@sass/abstract/typography' as typography;
+@use '@sass/abstract/mixins' as mixins;
 
 .header {
   position: relative;
@@ -8,9 +8,9 @@
   padding: 2rem 1rem 9rem;
   background-size: cover;
   background-position: center;
-  color: $white-elements;
+  color: colors.$white-elements;
 
-  @include font('icon-title', bold);
+  @include mixins.font('icon-title', bold);
 }
 
 .btn {
@@ -24,7 +24,7 @@
   background: transparent;
   border: none;
   cursor: pointer;
-  color: $white-elements;
+  color: colors.$white-elements;
 }
 
 .basket {
@@ -48,7 +48,7 @@
   height: 120px;
 
   border-radius: 50%;
-  background: $white-background;
+  background: colors.$white-background;
   overflow: hidden;
   z-index: 2;
 }

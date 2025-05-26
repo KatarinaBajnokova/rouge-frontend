@@ -117,11 +117,11 @@
       background-color 0.2s ease,
       opacity 0.2s ease,
       box-shadow 0.2s ease;
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.3);
+    box-shadow: 0 4px 6px rgba(colors.$plain-black, 0.3);
 
     &:hover {
       opacity: 0.95;
-      box-shadow: 0 6px 8px rgba(0, 0, 0, 0.15);
+      box-shadow: 0 6px 8px rgba(colors.$plain-black, 0.15);
     }
   }
 
@@ -138,11 +138,11 @@
       background-color 0.2s ease,
       opacity 0.2s ease,
       box-shadow 0.2s ease;
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.3);
+    box-shadow: 0 4px 6px rgba(colors.$plain-black, 0.3);
 
     &:hover {
       opacity: 0.95;
-      box-shadow: 0 6px 8px rgba(0, 0, 0, 0.15);
+      box-shadow: 0 6px 8px rgba(colors.$plain-black, 0.15);
     }
   }
 
@@ -159,11 +159,11 @@
       background-color 0.2s ease,
       opacity 0.2s ease,
       box-shadow 0.2s ease;
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.3);
+    box-shadow: 0 4px 6px rgba(colors.$plain-black, 0.3);
 
     &:hover {
       opacity: 0.95;
-      box-shadow: 0 6px 8px rgba(0, 0, 0, 0.4);
+      box-shadow: 0 6px 8px rgba(colors.$plain-black, 0.4);
     }
   }
 
@@ -198,12 +198,12 @@
     display: flex;
     align-items: center;
     justify-content: center;
-    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.15);
+    box-shadow: 0 2px 6px rgba(colors.$plain-black, 0.15);
     cursor: pointer;
     transition: transform 0.2s ease;
 
     svg {
-      color: black;
+      color: colors.$plain-black;
     }
 
     &:hover {

@@ -1,4 +1,3 @@
-import React from 'react';
 import styles from './ProfileMenu.module.scss';
 import MenuItem from '../MenuItem/MenuItem';
 

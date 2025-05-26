@@ -25,7 +25,7 @@ export default function DetailCarousel({ itemId }) {
   };
 
   if (loading) return <Text>Loading images…</Text>;
-  if (error) return <Text color='red'>Error: {error}</Text>;
+  if (error) return <Text>Error: {error}</Text>;
   if (!images || images.length === 0) return <Text>No images available.</Text>;
 
   return (

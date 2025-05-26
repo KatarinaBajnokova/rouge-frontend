@@ -1,4 +1,3 @@
-import React from 'react';
 import { Modal, Text, Button } from '@mantine/core';
 import styles from './EditProfileModal.module.scss';
 
@@ -11,7 +10,7 @@ export function EditProfileModal({ opened, onClose }) {
       withCloseButton={false}
       title='Under Maintenance'
       classNames={{
-        header: styles.modalHeader, // clear default header background
+        header: styles.modalHeader,
         content: styles.modalContent,
         title: styles.modalTitle,
         body: styles.body,

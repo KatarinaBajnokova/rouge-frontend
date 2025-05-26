@@ -6,7 +6,7 @@
   left: 0;
   width: 100%;
   background-color: colors.$white-elements;
-  border-top: 1px solid #e0e0e0;
+  border-top: 1px solid colors.$white-background;
   box-shadow: 0 -2px 8px rgba(colors.$black-main, 0.1);
   z-index: 1000;
 
@@ -21,7 +21,7 @@
   flex-direction: column;
   align-items: center;
   text-decoration: none;
-  color: #666;
+  color: colors.$grey-background-elements;
   transition: color 0.15s;
 
   .iconContainer {

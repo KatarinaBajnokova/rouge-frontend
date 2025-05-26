@@ -17,8 +17,13 @@
   font-weight: bold;
 }
 
-.customStepperSeparator[data-active='true'] {
-  background-color: colors.$magenta;
+.customStepperSeparator {
+  width: 100%;
+  min-width: 32px;
+  height: 2px;
+  background-color: colors.$light-grey !important;
+  border-radius: 100px;
+  display: block;
 }
 
 .customStep[data-completed='true'] .customStepIcon {

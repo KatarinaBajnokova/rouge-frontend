@@ -1,23 +1,23 @@
-@use '@/sass/abstract/colors' as *;
-@use '@/sass/abstract/typography' as *;
-@use '@/sass/abstract/mixins' as *;
+@use '@/sass/abstract/colors' as colors;
+@use '@/sass/abstract/typography' as typography;
+@use '@/sass/abstract/mixins' as mixins;
 
 .modalContent {
-  background: $white-background;
+  background: colors.$white-background;
   border-radius: 8px;
   padding: 1.5rem;
 }
 
 .modalHeader {
   background: none !important;
-  padding: 0; /* remove default padding if any */
+  padding: 0;
   display: flex;
   justify-content: center;
 }
 
 .modalTitle {
-  color: $red;
-  @include font('section-title', 'bold');
+  color: colors.$red;
+  @include mixins.font('section-title', 'bold');
   font-size: 1.75rem;
   text-align: center;
   margin: 0;
@@ -26,14 +26,14 @@
 
 .body {
   padding: 1rem 1.5rem;
-  @include font('section-description');
-  color: $black-main;
+  @include mixins.font('section-description');
+  color: colors.$black-main;
 }
 
 .confirmButton {
-  @include font('section-description', 'bold');
-  background: $red;
-  color: $white-elements;
+  @include mixins.font('section-description', 'bold');
+  background: colors.$red;
+  color: colors.$white-elements;
   width: 100%;
   margin-top: 1rem;
   border-radius: 24px;

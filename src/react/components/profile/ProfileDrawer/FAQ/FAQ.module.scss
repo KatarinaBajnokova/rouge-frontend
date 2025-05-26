@@ -1,27 +1,27 @@
-@use '@/sass/abstract/colors' as *;
-@use '@/sass/abstract/typography' as *;
-@use '@/sass/abstract/mixins' as *;
+@use '@/sass/abstract/colors' as colors;
+@use '@/sass/abstract/typography' as typography;
+@use '@/sass/abstract/mixins' as mixins;
 
 .wrapper {
   padding: 1rem;
 }
 
 .header {
-  @include font('section-title', 'bold');
-  color: $black-main;
+  @include mixins.font('section-title', 'bold');
+  color: colors.$black-main;
   margin-bottom: 1rem;
 }
 
 .accordion {
   .mantine-Accordion-item {
-    border: 1px solid rgba($grey-background-elements, 0.3);
+    border: 1px solid rgba(colors.$grey-background-elements, 0.3);
     border-radius: 4px;
     margin-bottom: 0.75rem;
   }
 
   .mantine-Accordion-control {
-    @include font('section-description', 'medium');
-    color: $black-main;
+    @include mixins.font('section-description', 'medium');
+    color: colors.$black-main;
     padding: 0.75rem 1rem;
   }
 
@@ -31,7 +31,7 @@
 }
 
 .panelText {
-  @include font('section-description');
-  color: $light-grey;
+  @include mixins.font('section-description');
+  color: colors.$light-grey;
   line-height: 1.5;
 }

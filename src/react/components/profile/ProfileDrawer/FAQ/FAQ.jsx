@@ -19,7 +19,7 @@ export const FAQ = () => (
         <Accordion.Panel className={styles.panel}>
           <Text className={styles.panelText}>
             We offer standard and express shipping within Belgium and across the
-            EU. Standard takes 3–5 business days; Express takes 1–2 business
+            EU. Standard takes 3-5 business days; Express takes 1-2 business
             days. Shipping is free on orders over €50.
           </Text>
         </Accordion.Panel>

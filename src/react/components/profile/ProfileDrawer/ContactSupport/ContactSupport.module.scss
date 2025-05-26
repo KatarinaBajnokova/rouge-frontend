@@ -1,25 +1,25 @@
-@use '@/sass/abstract/colors' as *;
-@use '@/sass/abstract/typography' as *;
-@use '@/sass/abstract/mixins' as *;
+@use '@/sass/abstract/colors' as colors;
+@use '@/sass/abstract/typography' as typography;
+@use '@/sass/abstract/mixins' as mixins;
 
 .wrapper {
   padding: 1rem;
 }
 
 .header {
-  @include font('section-title', 'bold');
-  color: $black-main;
+  @include mixins.font('section-title', 'bold');
+  color: colors.$black-main;
   margin-bottom: 0.5rem;
 }
 
 .intro {
-  @include font('section-description');
-  color: $black-main;
+  @include mixins.font('section-description');
+  color: colors.$black-main;
   margin-bottom: 1rem;
 }
 
 .divider {
-  border-color: rgba($grey-background-elements, 0.3);
+  border-color: rgba(colors.$grey-background-elements, 0.3);
   margin: 0.75rem 0;
 }
 
@@ -30,7 +30,7 @@
 
   &__icon {
     margin-right: 0.75rem;
-    color: $red;
+    color: colors.$red;
     flex-shrink: 0;
     background-color: none;
   }
@@ -40,19 +40,19 @@
   }
 
   &__title {
-    @include font('section-description', 'bold');
-    color: $black-main;
+    @include mixins.font('section-description', 'bold');
+    color: colors.$black-main;
     margin-bottom: 0.25rem;
   }
 
   &__text {
-    @include font('section-description');
-    color: $light-grey;
+    @include mixins.font('section-description');
+    color: colors.$light-grey;
     margin-bottom: 0.25rem;
     line-height: 1.4;
 
     a {
-      color: $black-main;
+      color: colors.$black-main;
       text-decoration: none;
 
       &:hover {
@@ -64,11 +64,11 @@
 
 .footer {
   padding-bottom: 2.7rem;
-  @include font('section-description');
-  color: $light-grey;
+  @include mixins.font('section-description');
+  color: colors.$light-grey;
 
   a {
-    color: $magenta;
+    color: colors.$magenta;
     text-decoration: none;
 
     &:hover {
