@@ -146,3 +146,19 @@
 }
 
 
+.reviews-summary,
+.reviews-page {
+// filled stars
+.mantine-Rating-starSymbol[data-filled='true'] {
+  stroke: colors.$magenta !important;
+  stroke-width: 1.5px !important;
+}
+
+// unfilled stars
+.mantine-Rating-starSymbol:not([data-filled='true']) {
+  stroke: colors.$black-review !important;
+  stroke-width: 2px !important;
+  fill: none !important;
+}
+
+}
