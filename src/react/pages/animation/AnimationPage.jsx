@@ -53,29 +53,30 @@ export default function AnimationPage() {
         Your browser does not support the video tag.
       </video>
 
-      {showUI && (
-        <div className={styles.bottomCard}>
-          <h2>Welcome</h2>
+{showUI && (
+  <div className={styles.bottomCard}>
+    <div className={styles.bottomCardText}>
+      <h2>Welcome</h2>
+      <div className={styles.bottomText}>
+        <p>Ready to continue?</p>
+        <p>You can sign in, log in, or skip.</p>
+      </div>
+      <div className={styles.buttonGroup}>
+        <SignUpButton onClick={goToSignUp} />
+        <WhiteLogInButton onClick={goToLogin} />
+      </div>
+    </div>
+    <button
+      type="button"
+      className={styles.skipButton}
+      onClick={handleSkip}
+      aria-label="Skip intro"
+    >
+      Skip
+    </button>
+  </div>
+)}
 
-          <div className={styles.bottomText}>
-            <p>Ready to continue?</p>
-            <p>You can sign in, log in, or skip.</p>
-          </div>
-
-          <div className={styles.buttonGroup}>
-            <SignUpButton onClick={goToSignUp} />
-            <WhiteLogInButton onClick={goToLogin} />
-          </div>
-          <button
-            type='button'
-            className={styles.skipButton}
-            onClick={handleSkip}
-            aria-label='Skip intro'
-          >
-            Skip
-          </button>
-        </div>
-      )}
     </div>
   );
 }
