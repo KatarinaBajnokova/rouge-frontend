@@ -1,4 +1,3 @@
-// src/react/pages/product_detail/ReviewModal.jsx
 import React, { useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
 import { useAuth } from '../../hooks/useAuth';

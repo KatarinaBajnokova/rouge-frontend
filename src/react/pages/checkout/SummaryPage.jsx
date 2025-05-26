@@ -5,12 +5,11 @@ import { showNotification } from '@mantine/notifications';
 import { useAuth } from '@/react/hooks/useAuth';
 import { safeJsonFetch } from '@/react/utils/fetchUtils';
 
-import { BackIconButton } from '../../components/buttons/IconButtons';
-import { BottomBarButton } from '../../components/buttons/RedButtons';
+import { BackIconButton } from '@/react/components/buttons/IconButtons';
+import { BottomBarButton } from '@/react/components/buttons/RedButtons';
 
 import ConfirmationOverlay from './ConfirmationOverlay';
-import '@/sass/pages/checkout/_order_summary.scss';
-import '@/sass/pages/checkout/_last_popup.scss';
+import styles from './SummaryPage.module.scss';
 
 export default function SummaryPage() {
   const navigate = useNavigate();
@@ -68,12 +67,12 @@ export default function SummaryPage() {
   };
 
   useEffect(() => {
-safeJsonFetch('http://localhost:8000/api/basket')
-  .then(data => {
-    setBasketItems(data.items || []);
-    setBasketTotal(data.total_price || 0);
-  })
-  .catch(err => console.error('Failed to fetch basket:', err));
+    safeJsonFetch('http://localhost:8000/api/basket')
+      .then(data => {
+        setBasketItems(data.items || []);
+        setBasketTotal(data.total_price || 0);
+      })
+      .catch(err => console.error('Failed to fetch basket:', err));
 
     if (!savedPersonal.firstName && firebaseUid) {
       fetch(`/api/users/by-firebase-uid?uid=${firebaseUid}`)
@@ -92,13 +91,12 @@ safeJsonFetch('http://localhost:8000/api/basket')
                 lastName: user.last_name,
                 email: user.email,
               })
-            ); // 🔥 Add this caching
+            );
           }
         })
         .catch(err => console.error('Failed to fetch user info', err));
     }
   }, [firebaseUid]);
-  // ✅ Correct dependencies
 
   const handleConfirm = async () => {
     const resolvedFirstName = firstName || backendUser?.firstName;
@@ -134,7 +132,6 @@ safeJsonFetch('http://localhost:8000/api/basket')
       item_id: i.item_id,
       quantity: i.quantity,
       name: i.name,
-      quantity: i.quantity,
       price: i.price,
     }));
 
@@ -167,9 +164,9 @@ safeJsonFetch('http://localhost:8000/api/basket')
       if (!res.ok) throw new Error(`Server responded ${res.status}`);
 
       await fetch('/api/basket/clear', {
-  method: 'POST',
-  credentials: 'include', // ✅ Required for sending session cookie
-});
+        method: 'POST',
+        credentials: 'include',
+      });
 
       localStorage.removeItem('personalInfo');
       localStorage.removeItem('shippingAddress');
@@ -177,7 +174,6 @@ safeJsonFetch('http://localhost:8000/api/basket')
 
       setShowFinalScreen(true);
     } catch (err) {
-      console.error(err);
       showNotification({
         title: 'Order failed',
         message: 'Could not submit order. Please try again.',
@@ -191,95 +187,94 @@ safeJsonFetch('http://localhost:8000/api/basket')
   }
 
   return (
-    <div className='summary-page'>
-      <BackIconButton />
-      <div className='summary-top'>
+    <div className={styles.summaryPage}>
+      <div className={styles.backIconButton}>
+        <BackIconButton />
+      </div>
+      <div className={styles.summaryTop}>
         <h2>Review Your Order</h2>
         <p>
           Before finalizing the purchase check if your information is correct!
         </p>
       </div>
 
-      <div className='checkout-overview'>
-        <div className='checkout-personal-info'>
-          <div className='section'>
-            <Title order={4}>Personal information</Title>
-            <Text>
-              {(firstName || backendUser?.firstName || '-') +
-                ' ' +
-                (lastName || backendUser?.lastName || '-')}
-            </Text>
-            <Text>{email || backendUser?.email || '-'}</Text>
-          </div>
-
-          <div className='section'>
-            <Title order={4}>Buying for a friend</Title>
-            <div className='friend-additional'>
-              <Text>
-                {addGiftWrap ? '🎁 Gift wrapping added' : 'No gift wrapping'}
-              </Text>
-              <Text>
-                {addPersonalCard
-                  ? '✉️ Personal card added'
-                  : 'No personal card'}
-              </Text>
-            </div>
-            {(addGiftWrap || addPersonalCard) && (
-              <>
-                <Divider />
-                <Text>
-                  <span className='subtitle-text'>Name:</span>{' '}
-                  {friendName || '-'}
-                </Text>
-                <Text>
-                  <span className='subtitle-text'>Email:</span>{' '}
-                  {friendEmail || '-'}
-                </Text>
-                {addPersonalCard && (
-                  <Text>
-                    <span className='subtitle-text'>Note:</span>{' '}
-                    {personalNote || '-'}
-                  </Text>
-                )}
-              </>
-            )}
-          </div>
-
-          <div className='section'>
-            <Title order={4}>Shipping information</Title>
-            <Text>
-              <span className='subtitle-text'>Address:</span> {street}{' '}
-              {houseNumber}, {postalCode}, {country}
-            </Text>
-            <Text>
-              <span className='subtitle-text'>Phone:</span> {phone}
-            </Text>
-
-            <Divider />
-
-            <Title order={4}>Payment method</Title>
-            <Text>
-              <span className='subtitle-text'>Method:</span>{' '}
-              {paymentLabels[method] || '-'}
-            </Text>
-            {method === 'card' && (
-              <>
-                <Text>
-                  <span className='subtitle-text'>Cardholder:</span> {cardName}
-                </Text>
-                <Text>
-                  <span className='subtitle-text'>Card number:</span> **** ****
-                  **** {cardNumber?.slice(-4)}
-                </Text>
-              </>
-            )}
-          </div>
+      <div className={styles.checkoutOverview}>
+        <div className={styles.section}>
+          <Title order={4}>Personal information</Title>
+          <Text>
+            {(firstName || backendUser?.firstName || '-') +
+              ' ' +
+              (lastName || backendUser?.lastName || '-')}
+          </Text>
+          <Text>{email || backendUser?.email || '-'}</Text>
         </div>
 
-        <div className='checkout-order-info'>
+        <div className={styles.section}>
+          <Title order={4}>Buying for a friend</Title>
+          <div className='friend-additional'>
+            <Text>
+              {addGiftWrap ? '🎁 Gift wrapping added' : 'No gift wrapping'}
+            </Text>
+            <Text>
+              {addPersonalCard ? '✉️ Personal card added' : 'No personal card'}
+            </Text>
+          </div>
+          {(addGiftWrap || addPersonalCard) && (
+            <>
+              <Divider />
+              <Text>
+                <span className={styles.subtitleText}>Name:</span>{' '}
+                {friendName || '-'}
+              </Text>
+              <Text>
+                <span className={styles.subtitleText}>Email:</span>{' '}
+                {friendEmail || '-'}
+              </Text>
+              {addPersonalCard && (
+                <Text>
+                  <span className={styles.subtitleText}>Note:</span>{' '}
+                  {personalNote || '-'}
+                </Text>
+              )}
+            </>
+          )}
+        </div>
+
+        <div className={styles.section}>
+          <Title order={4}>Shipping information</Title>
+          <Text>
+            <span className={styles.subtitleText}>Address:</span> {street}{' '}
+            {houseNumber}, {postalCode}, {country}
+          </Text>
+          <Text>
+            <span className={styles.subtitleText}>Phone:</span> {phone}
+          </Text>
+
+          <Divider />
+
+          <Title order={4}>Payment method</Title>
+          <Text>
+            <span className={styles.subtitleText}>Method:</span>{' '}
+            {paymentLabels[method] || '-'}
+          </Text>
+          {method === 'card' && (
+            <>
+              <Text>
+                <span className={styles.subtitleText}>Cardholder:</span>{' '}
+                {cardName}
+              </Text>
+              <Text>
+                <span className={styles.subtitleText}>Card number:</span> ****
+                **** **** {cardNumber?.slice(-4)}
+              </Text>
+            </>
+          )}
+        </div>
+
+        <div className={styles.checkoutOrderInfo}>
           <Title order={4}>Order summary</Title>
           {basketItems.map(item => (
-            <div className='summary-line' key={item.id}>
+            <div className={styles.summaryLine} key={item.id}>
               <Text>
                 {item.name} x{item.quantity}
               </Text>
@@ -292,26 +287,26 @@ safeJsonFetch('http://localhost:8000/api/basket')
           <Divider my='sm' />
 
           <Title order={4}>Costs</Title>
-          <div className='summary-line'>
+          <div className={styles.summaryLine}>
             <Text>Shipping</Text>
             <Text>€{SHIPPING_COST.toFixed(2).replace('.', ',')}</Text>
           </div>
           {addGiftWrap && (
-            <div className='summary-line'>
+            <div className={styles.summaryLine}>
               <Text>🎁 Gift wrapping</Text>
               <Text>€{GIFT_WRAP_COST.toFixed(2).replace('.', ',')}</Text>
             </div>
           )}
           {addPersonalCard && (
-            <div className='summary-line'>
+            <div className={styles.summaryLine}>
               <Text>✉️ Personal card</Text>
               <Text>€{PERSONAL_CARD_COST.toFixed(2).replace('.', ',')}</Text>
             </div>
           )}
           <Divider my='sm' />
-          <div className='summary-line-total'>
-            <Text className='total-text'>Final total</Text>
-            <Text className='total-text'>€{finalTotal}</Text>
+          <div className={styles.summaryLineTotal}>
+            <Text className={styles.totalText}>Final total</Text>
+            <Text className={styles.totalText}>€{finalTotal}</Text>
           </div>
         </div>
 

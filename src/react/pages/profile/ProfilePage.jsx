@@ -1,5 +1,3 @@
-// src/react/pages/profile/ProfilePage.jsx
-
 import React, { useState, useEffect } from 'react';
 import { useAuth } from '@/react/hooks/useAuth.jsx';
 import { getFirebaseAuth } from '@/getFirebaseAuth';
@@ -23,22 +21,18 @@ export default function ProfilePage() {
   const navigate = useNavigate();
   const { userId: firebaseUid, loading: authLoading } = useAuth();
 
-  // drawer state
   const [drawerOpened, setDrawerOpened] = useState(false);
   const [activeSection, setActiveSection] = useState('');
 
-  // profile data
   const [user, setUser] = useState(null);
   const [addresses, setAddresses] = useState([]);
   const [fetching, setFetching] = useState(true);
 
-  // open a drawer section
   const openSection = key => {
     setActiveSection(key);
     setDrawerOpened(true);
   };
 
-  // logout identical to old page (function remains in case used elsewhere)
   const logout = async () => {
     try {
       const { auth, signOut } = await getFirebaseAuth();
@@ -53,7 +47,6 @@ export default function ProfilePage() {
     }
   };
 
-  // fetch profile & addresses, redirect if not authed
   useEffect(() => {
     const fetchAddresses = async userId => {
       try {
@@ -72,7 +65,6 @@ export default function ProfilePage() {
       if (authLoading) return;
       const { auth } = await getFirebaseAuth();
 
-      // ensure both firebaseUid and currentUser are present
       if (!firebaseUid || !auth.currentUser) {
         navigate('/login?from=profile', { replace: true });
         return;
@@ -99,7 +91,6 @@ export default function ProfilePage() {
     fetchProfile();
   }, [authLoading, firebaseUid, navigate]);
 
-  // show loader while auth or profile is resolving
   if (authLoading || fetching) {
     return (
       <div className={styles.container}>
@@ -110,7 +101,6 @@ export default function ProfilePage() {
 
   if (!user) return null;
 
-  // wire up menu config
   const forYouItems = cfgForYou.map(item => ({
     label: item.label,
     onClick: () => openSection(item.key),

@@ -1,8 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { BackIconButton } from '../../components/buttons/IconButtons';
-import { BottomBarButton } from '../../components/buttons/RedButtons';
-import FinalStepper from '../../components/stepper/Stepper';
+import { BackIconButton } from '@/react/components/buttons/IconButtons';
+import { BottomBarButton } from '@/react/components/buttons/RedButtons';
+import FinalStepper from '@/react/components/stepper/Stepper';
 import { useAuth } from '@/react/hooks/useAuth';
 
 import Look1 from '@/assets/yourlook/1look.png';
@@ -10,7 +10,7 @@ import Look2 from '@/assets/yourlook/2look.png';
 import Look3 from '@/assets/yourlook/3look.png';
 import Look4 from '@/assets/yourlook/4look.png';
 
-import '@/sass/pages/_personal_look.scss';
+import styles from '@/react/pages/signup/PersonalLookPage.module.scss';
 
 const images = [
   { id: 1, src: Look1, alt: 'Look 1' },
@@ -25,52 +25,33 @@ export default function PersonalLookPage() {
   const navigate = useNavigate();
   const { loading: authLoading } = useAuth();
 
-  // 🧹 Preload next page
   useEffect(() => {
-    import(
-      /* webpackPreload: true */
-      './PersonalInfoPage'
-    )
-      .then(() => console.log('✅ PersonalInfoPage chunk ready'))
-      .catch(err => console.error('❌ preload failed', err));
+    import('./PersonalInfoPage').then(() => {}).catch(() => {});
   }, []);
 
   const handleSelect = id => setSelected(id);
 
   useEffect(() => {
     const fetchBackendUserId = async () => {
-      const firebaseUid = localStorage.getItem('firebaseUid'); // ← you MUST store this at sign-up
+      const firebaseUid = localStorage.getItem('firebaseUid');
       if (!firebaseUid) {
-        console.error('No Firebase UID found.');
         navigate('/login');
         return;
       }
-
-      console.log(
-        `🔗 Fetching backend user ID using Firebase UID: ${firebaseUid}`
-      );
       try {
         const res = await fetch(
           `http://localhost:3000/api/users/by-firebase-uid?uid=${firebaseUid}`
         );
         const data = await res.json();
-
         if (res.ok && data.id) {
           localStorage.setItem('backendUserId', data.id);
-          console.log('✅ Stored backend user_id in localStorage:', data.id);
         } else {
-          console.error(
-            '❌ Failed to fetch backend user ID:',
-            data.error || 'No ID'
-          );
           navigate('/login');
         }
-      } catch (error) {
-        console.error('❌ Error fetching backend user ID:', error);
+      } catch {
         navigate('/login');
       }
     };
-
     fetchBackendUserId();
   }, [navigate]);
 
@@ -89,30 +70,22 @@ export default function PersonalLookPage() {
 
     try {
       setLoading(true);
-
-      console.time('UPDATE_LOOK');
       const res = await fetch('/api/users/update', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ user_id: backendUserId, look_id: selected }),
       });
-      console.timeEnd('UPDATE_LOOK');
 
       if (!res.ok) {
         let errorMessage = 'Failed to update look.';
         try {
           const errorData = await res.json();
           errorMessage = errorData.error || errorMessage;
-        } catch (err) {
-          console.warn('⚠️ No JSON body returned');
-        }
+        } catch {}
         throw new Error(errorMessage);
       }
-
-      console.log('✅ Look ID updated in backend');
       navigate('/personal-info');
     } catch (error) {
-      console.error('❌ Error updating look:', error.message);
       alert('Failed to update look. Please try again.');
     } finally {
       setLoading(false);
@@ -122,18 +95,18 @@ export default function PersonalLookPage() {
   if (authLoading) return <div>Loading...</div>;
 
   return (
-    <div className='personal-look-page'>
-      <BackIconButton />
+    <div className={styles.personalLookPage}>
+      <BackIconButton className={styles.backIconButton} />
       <FinalStepper active={1} />
 
       <h2>Select a picture that resembles you</h2>
       <p>This will help us show products that match your appearance.</p>
 
-      <div className='image-grid'>
+      <div className={styles.imageGrid}>
         {images.map(img => (
           <div
             key={img.id}
-            className={`image-box ${selected === img.id ? 'selected' : ''}`}
+            className={`${styles.imageBox} ${selected === img.id ? styles.selected : ''}`}
             onClick={() => handleSelect(img.id)}
           >
             <img src={img.src} alt={img.alt} />

@@ -2,9 +2,9 @@ import React from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
 import { Card, Stack, Text, Rating } from '@mantine/core';
 import PropTypes from 'prop-types';
-import { SeeReviewsIconButton } from '../../components/buttons/IconButtons';
+import { SeeReviewsIconButton } from '@/react/components/buttons/IconButtons';
 
-import '@/sass/pages/product-detail/_review_section.scss';
+import styles from '@/react/pages/product_detail/ReviewsSectionPage.module.scss';
 
 export default function ReviewsSection({ reviews }) {
   const navigate = useNavigate();
@@ -19,17 +19,17 @@ export default function ReviewsSection({ reviews }) {
 
   return (
     <>
-      <Card className='reviews-summary' shadow='sm' padding='md'>
+      <Card className={styles.reviewsSummary} shadow='sm' padding='md'>
         <Stack align='center' spacing='xs'>
-          <Text className='reviews-average'>{avg.toFixed(1)}</Text>
+          <Text className={styles.reviewsAverage}>{avg.toFixed(1)}</Text>
           <Rating value={avg} readOnly fractions={2} color='grape' />
-          <Text className='reviews-count'>
+          <Text className={styles.reviewsCount}>
             {count} {count === 1 ? 'rating' : 'ratings'}
           </Text>
         </Stack>
       </Card>
 
-      <div className='reviews-action'>
+      <div className={styles.reviewsAction}>
         <SeeReviewsIconButton
           onClick={() => navigate(`/item/${itemId}/reviews`)}
         />

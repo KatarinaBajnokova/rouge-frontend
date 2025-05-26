@@ -1,0 +1,93 @@
+@use '@/sass/abstract/colors' as colors;
+@use '@/sass/abstract/typography' as typography;
+@use '@/sass/abstract/mixins' as mixins;
+
+.orderLoadingOverlay {
+  position: fixed;
+  inset: 0;
+  background-color: darken(colors.$red, 30%);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 9999;
+}
+
+.spinner {
+  width: 60px;
+  height: 60px;
+  border: 6px solid colors.$plain-white;
+  border-top-color: transparent;
+  border-radius: 50%;
+  animation: spin 1s linear infinite;
+}
+
+.orderConfirmationScreen {
+  position: fixed;
+  inset: 0;
+  background: radial-gradient(circle at center, #c8102e 20%, #80001f 100%);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  z-index: 10000;
+}
+
+.confirmationBubble {
+  background-color: colors.$white-background;
+  padding: 2rem;
+  border-radius: 60px;
+  width: 88%;
+  max-width: 380px;
+  box-shadow: 0 4px 20px rgba(colors.$plain-black, 0.15);
+  animation: pop 0.6s ease-out;
+}
+
+.confirmationBubble h3 {
+  color: #c8102e;
+  @include mixins.font('section-title', 'bold');
+  margin-bottom: 0.6rem;
+}
+
+.confirmationBubble p {
+  @include mixins.font('section-description', 'regular');
+  margin-bottom: 0.6rem;
+}
+
+.confirmationBubble :global(.mantine-Text-root),
+.confirmationBubble :global(.mantine-Title-root) {
+  max-width: 100%;
+  padding: 0;
+  text-align: center;
+}
+
+.continueButton {
+  background-color: colors.$red !important;
+  color: colors.$plain-white;
+  font-weight: bold;
+  padding: 0.75rem 2rem;
+  border-radius: 2rem;
+  box-shadow: 0 4px 14px rgba(colors.$plain-black, 0.1);
+  margin-top: 1rem;
+}
+
+:global(.m_26063560:checked) {
+  background-color: colors.$magenta;
+  border: colors.$magenta;
+}
+
+@keyframes spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+@keyframes pop {
+  0% {
+    transform: scale(0.7);
+    opacity: 0;
+  }
+  100% {
+    transform: scale(1);
+    opacity: 1;
+  }
+}

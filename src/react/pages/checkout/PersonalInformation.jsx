@@ -1,23 +1,22 @@
 import React, { useState, useEffect } from 'react';
 import { useNavigate, Link } from 'react-router-dom';
-import { useAuth } from '../../hooks/useAuth.jsx';
+import { useAuth } from '@/react/hooks/useAuth.jsx';
 import { TextInput, Divider, PasswordInput, Loader } from '@mantine/core';
 import { showNotification } from '@mantine/notifications';
-import { SignUpButton } from '../../components/buttons/RedButtons';
+import { SignUpButton } from '@/react/components/buttons/RedButtons';
 import {
   ContinueWithFacebookIconButton,
   ContinueWithGoogleIconButton,
   BackIconButton,
-} from '../../components/buttons/IconButtons';
-import { getFirebaseAuth } from '../../../getFirebaseAuth';
-import { useCheckout } from '../../contexts/CheckoutContext';
+} from '@/react/components/buttons/IconButtons';
+import { getFirebaseAuth } from '@/getFirebaseAuth';
+import { useCheckout } from '@/react/contexts/CheckoutContext';
 
-import '@/sass/pages/checkout/_personal_information.scss';
+import styles from './PersonalInformation.module.scss';
 
 import IconEye from '@tabler/icons-react/dist/esm/icons/iconEye';
 import IconEyeOff from '@tabler/icons-react/dist/esm/icons/iconEyeOff';
 
-// NEW helper utils
 const saveBackendUserId = id => localStorage.setItem('backendUserId', id);
 const clearBackendUserId = () => localStorage.removeItem('backendUserId');
 
@@ -144,7 +143,6 @@ export default function PersonalInfoCheckout() {
         );
       }
     } catch (err) {
-      console.error('Signup error:', err.message);
       showNotification({
         title: 'Sign-up error',
         message: err.message,
@@ -156,9 +154,7 @@ export default function PersonalInfoCheckout() {
         const { auth, signOut } = await getFirebaseAuth();
         await signOut(auth);
         clearBackendUserId();
-      } catch (signOutError) {
-        console.warn('Sign-out after error failed', signOutError);
-      }
+      } catch (signOutError) {}
     }
   };
 
@@ -196,21 +192,23 @@ export default function PersonalInfoCheckout() {
   };
 
   return (
-    <div className='signup-page'>
-      <BackIconButton />
+    <div className={styles.signupPage}>
+      <div className={styles.backIconButton}>
+        <BackIconButton />
+      </div>
       <h2>Account</h2>
-      <div className='step-description'>
+      <div className={styles.stepDescription}>
         <p style={{ color: 'red', fontWeight: 'bold' }}>Before proceeding!</p>
         <p>Seems like you don't have an account or aren't logged in!</p>
       </div>
 
-      <div className='form-wrapper'>
+      <div className={styles.formWrapper}>
         <TextInput
           label='First Name'
           placeholder='Your first name'
           value={firstName}
           onChange={e => setFirstName(e.currentTarget.value)}
-          className='input-field'
+          className={styles.inputField}
           required
         />
         <TextInput
@@ -218,7 +216,7 @@ export default function PersonalInfoCheckout() {
           placeholder='Your last name'
           value={lastName}
           onChange={e => setLastName(e.currentTarget.value)}
-          className='input-field'
+          className={styles.inputField}
           required
         />
         <TextInput
@@ -226,7 +224,7 @@ export default function PersonalInfoCheckout() {
           placeholder='Your email...'
           value={email}
           onChange={e => setEmail(e.currentTarget.value)}
-          className='input-field'
+          className={styles.inputField}
           required
         />
 
@@ -240,7 +238,7 @@ export default function PersonalInfoCheckout() {
           }
           value={password}
           onChange={e => setPassword(e.currentTarget.value)}
-          className='input-field'
+          className={styles.inputField}
           required
         />
 
@@ -249,22 +247,26 @@ export default function PersonalInfoCheckout() {
           placeholder='Confirm your password'
           value={confirmPassword}
           onChange={e => setConfirmPassword(e.currentTarget.value)}
-          className='input-field'
+          className={styles.inputField}
           required
         />
 
-        <SignUpButton fullWidth onClick={handleEmailContinue}>
+        <SignUpButton
+          fullWidth
+          onClick={handleEmailContinue}
+          className={styles.signUpButton}
+        >
           Continue
         </SignUpButton>
       </div>
 
-      <div className='social-register-section'>
+      <div className={styles.socialRegisterSection}>
         <Divider
-          className='social-divider'
+          className={styles.socialDivider}
           label='Or log in with'
           labelPosition='center'
         />
-        <div className='social-buttons'>
+        <div className={styles.socialButtons}>
           <ContinueWithFacebookIconButton
             fullWidth
             onClick={() => handleSocialSignIn('Facebook', 'Facebook')}
@@ -273,7 +275,7 @@ export default function PersonalInfoCheckout() {
             fullWidth
             onClick={() => handleSocialSignIn('Google', 'Google')}
           />
-          <div className='login-link'>
+          <div className={styles.loginLink}>
             <Link to='/login'>Already have an account? Log in</Link>
           </div>
         </div>

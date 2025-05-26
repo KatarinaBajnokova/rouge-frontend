@@ -2,21 +2,13 @@
 @use '@/sass/abstract/typography' as *;
 @use '@/sass/abstract/mixins' as *;
 
-@use './product-detail/header';
-@use './product-detail/info';
-@use './product-detail/box';
-@use './product-detail/tutorial';
-@use './product-detail/instructions';
-
-@use './product-detail/purchase-banner';
-
 body {
   font-family: $font-family;
 }
 
-  .back-icon-button {
-    margin-top: 0;
-  }
+.back-icon-button {
+  margin-top: 0;
+}
 
 .product-detail,
 .product-detail * {

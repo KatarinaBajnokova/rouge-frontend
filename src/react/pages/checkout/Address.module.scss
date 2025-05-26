@@ -1,0 +1,21 @@
+@use '@/sass/abstract/colors' as colors;
+@use '@/sass/abstract/typography' as typography;
+@use '@/sass/abstract/mixins' as mixins;
+
+.addressPage {
+  min-height: 100vh;
+  background-color: colors.$white-background;
+  padding: 1.2rem 1.5rem;
+  font-family: typography.$font-family;
+  color: colors.$black-main;
+  display: flex;
+  flex-direction: column;
+}
+
+.backIconButton {
+  margin-top: 0;
+}
+
+.personalForm {
+  margin-top: 0.5rem;
+}

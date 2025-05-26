@@ -1,19 +1,15 @@
 import React, { useEffect, useState } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
 import { Text, Loader, Stack, Card, Rating, Group } from '@mantine/core';
-import { useAuth } from '../../hooks/useAuth';
+import { useAuth } from '@/react/hooks/useAuth';
 import { notifications } from '@mantine/notifications';
 import {
   BackIconButton,
   LeaveAReviewIconButton,
-} from '../../components/buttons/IconButtons';
+} from '@/react/components/buttons/IconButtons';
 import ReviewModal from './ReviewModal';
-
-import '@/sass/pages/product-detail/_review_page.scss';
-
-// Import your bundled default avatar
-import DefaultAvatar from '../../../assets/avatar/default.png';
-// (If you're using a path alias like '@', adjust to '@/assets/avatar/default.png')
+import styles from './ReviewsPage.module.scss';
+import DefaultAvatar from '@/assets/avatar/default.png';
 
 export default function ReviewsPage() {
   const { id } = useParams();
@@ -23,7 +19,6 @@ export default function ReviewsPage() {
   const [error, setError] = useState(null);
   const [modalOpen, setModalOpen] = useState(false);
 
-  // Only one destructure here
   const { userId: firebaseUid } = useAuth();
 
   useEffect(() => {
@@ -48,40 +43,32 @@ export default function ReviewsPage() {
     count > 0 ? reviews.reduce((sum, r) => sum + r.rating, 0) / count : 0;
 
   return (
-    <div className='reviews-page'>
-      {/* Header */}
-      <div className='reviews-page__header'>
+    <div className={styles.reviewsPage}>
+      <div className={styles.header}>
         <BackIconButton
           onClick={() => navigate(-1)}
-          className='reviews-page__back-btn'
+          className={styles.backBtn}
         />
-        <Text
-          component='h1'
-          className='reviews-page__title'
-          size='xl'
-          weight={500}
-        >
+        <Text component='h1' className={styles.title} size='xl' weight={500}>
           Reviews
         </Text>
       </div>
 
-      {/* Summary */}
-      <div className='reviews-summary'>
-        <Text className='reviews-summary__average'>{avg.toFixed(1)}</Text>
+      <div className={styles.reviewsSummary}>
+        <Text className={styles.average}>{avg.toFixed(1)}</Text>
         <Rating
-          className='reviews-summary__rating'
+          className={styles.rating}
           value={avg}
           readOnly
           fractions={2}
           color='grape'
         />
-        <Text className='reviews-summary__count'>
+        <Text className={styles.count}>
           {count} {count === 1 ? 'rating' : 'ratings'}
         </Text>
       </div>
 
-      {/* Leave a review */}
-      <div className='reviews-action'>
+      <div className={styles.reviewsAction}>
         <LeaveAReviewIconButton
           onClick={() => {
             if (!firebaseUid) {
@@ -97,7 +84,6 @@ export default function ReviewsPage() {
         />
       </div>
 
-      {/* Reviews List */}
       <Stack spacing='md'>
         {count > 0 ? (
           reviews.map(
@@ -106,10 +92,10 @@ export default function ReviewsPage() {
                 key={reviewId}
                 shadow='sm'
                 padding='md'
-                className='reviews-page__review-card'
+                className={styles.reviewCard}
               >
                 <Rating
-                  className='reviews-page__review-card-rating'
+                  className={styles.reviewCardRating}
                   value={rating}
                   readOnly
                   fractions={1}
@@ -119,17 +105,17 @@ export default function ReviewsPage() {
                 <Group
                   spacing='sm'
                   align='center'
-                  className='reviews-page__review-header'
+                  className={styles.reviewHeader}
                 >
                   <img
                     src={avatar_url || DefaultAvatar}
                     alt={`${author} avatar`}
-                    className='reviews-page__avatar'
+                    className={styles.avatar}
                   />
-                  <Text className='reviews-page__author'>{author}</Text>
+                  <Text className={styles.author}>{author}</Text>
                 </Group>
 
-                <Text size='sm' className='reviews-page__comment'>
+                <Text size='sm' className={styles.comment}>
                   {comment}
                 </Text>
               </Card>

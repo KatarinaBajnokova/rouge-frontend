@@ -1,8 +1,7 @@
-@use '@sass/abstract/colors' as *;
-@use '@sass/abstract/typography' as *;
+@use '@sass/abstract/colors' as colors;
 
 .container {
-  background-color: $grey-background-elements;
+  background-color: colors.$grey-background-elements;
   min-height: 100vh;
   display: flex;
   flex-direction: column;

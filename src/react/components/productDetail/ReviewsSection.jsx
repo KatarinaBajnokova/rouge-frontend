@@ -1,5 +1,5 @@
 import { Title, Text, Paper, Rating, Button, Divider } from '@mantine/core';
-import styles from './ReviewsSection.module.scss';
+import styles from './ReviewsSectionComponent.module.scss';
 
 export default function ReviewsSection({
   reviews = [],
