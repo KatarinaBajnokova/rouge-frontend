@@ -1,5 +1,6 @@
 import React from 'react';
 import { Title, Text, Paper, Rating, Button, Divider } from '@mantine/core';
+import { IconChevronRight } from '@tabler/icons-react';
 
 export default function ReviewsSection({
   reviews = [],
@@ -41,15 +42,18 @@ export default function ReviewsSection({
               {reviewCount} {reviewCount === 1 ? 'rating' : 'ratings'}
             </Text>
             {reviewCount > 0 && (
-              <Button
-                size='sm'
-                radius='xl'
-                mt='sm'
-                color='grape'
-                onClick={() => setShowReviews(true)}
-              >
-                See reviews ›
-              </Button>
+
+<Button
+  radius="xl"
+  color="grape"
+  className="see-reviews-icon-button"
+  onClick={() => setShowReviews(true)}
+  rightSection={<IconChevronRight size={16} />}
+>
+  See reviews
+</Button>
+
+
             )}
           </div>
         </Paper>

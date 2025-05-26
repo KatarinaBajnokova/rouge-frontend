@@ -79,6 +79,7 @@ export function FilterIconButton({ onClick, ...props }) {
 
 export function LeaveAReviewIconButton({ onClick, ...props }) {
   return (
+    <div className="leave-review-wrapper">
     <Button
       classNames={{ root: 'leave-a-review-icon-button' }}
       leftSection={
@@ -95,6 +96,7 @@ export function LeaveAReviewIconButton({ onClick, ...props }) {
     >
       Leave a review
     </Button>
+    </div>
   );
 }
 

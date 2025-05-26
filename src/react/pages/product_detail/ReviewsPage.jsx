@@ -4,7 +4,7 @@ import { Text, Loader, Stack, Card, Rating, Group } from '@mantine/core';
 import { useAuth } from '../../hooks/useAuth';
 import { notifications } from '@mantine/notifications';
 import {
-  BackIconButton,
+  BackHeader,
   LeaveAReviewIconButton,
 } from '../../components/buttons/IconButtons';
 import ReviewModal from './ReviewModal';
@@ -51,18 +51,8 @@ export default function ReviewsPage() {
     <div className='reviews-page'>
       {/* Header */}
       <div className='reviews-page__header'>
-        <BackIconButton
-          onClick={() => navigate(-1)}
-          className='reviews-page__back-btn'
-        />
-        <Text
-          component='h1'
-          className='reviews-page__title'
-          size='xl'
-          weight={500}
-        >
-          Reviews
-        </Text>
+
+<BackHeader text='Reviews'/>
       </div>
 
       {/* Summary */}
@@ -98,7 +88,7 @@ export default function ReviewsPage() {
       </div>
 
       {/* Reviews List */}
-      <Stack spacing='md'>
+      <Stack>
         {count > 0 ? (
           reviews.map(
             ({ id: reviewId, author, comment, rating, avatar_url }) => (
