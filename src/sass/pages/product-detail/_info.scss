@@ -21,30 +21,31 @@
       font-size: 17px;
     }
 
-.detail-tags {
-  display: flex;
-  gap: 0.5rem;
-  overflow-x: auto;
-  overflow-y: hidden;
-  padding: 0.5rem 0;
-  margin-top: 0.9rem;
-  scroll-snap-type: x mandatory;
-  -webkit-overflow-scrolling: touch;
-  scrollbar-width: none; //makes scrollbar invisible in browser
+    .detail-tags {
+      display: flex;
+      gap: 0.5rem;
+      overflow-x: auto;
+      overflow-y: hidden;
+      padding: 0.5rem 0;
+      margin-top: 0.9rem;
+      scroll-snap-type: x mandatory;
 
-.detail-tag {
-  @include mixin.font('text', 'regular');
-  height: 2rem;
-  background: linear-gradient(to top, rgba($magenta, 0.9), rgba($magenta, 0.08));
-  border: 1px solid $magenta;
-  color: $white-background;
-  font-weight: map.get($font-weights, medium);
-  border-radius: 9999px;
-  padding: 0.25rem 1rem;
-  white-space: nowrap;
-  flex-shrink: 0;
-}
-
+      .detail-tag {
+        @include mixin.font('text', 'regular');
+        height: 2rem;
+        background: linear-gradient(
+          to top,
+          rgba($magenta, 0.9),
+          rgba($magenta, 0.08)
+        );
+        border: 1px solid $magenta;
+        color: $white-background;
+        font-weight: map.get($font-weights, medium);
+        border-radius: 9999px;
+        padding: 0.25rem 1rem;
+        white-space: nowrap;
+        flex-shrink: 0;
+      }
     }
 
     .detail-description {

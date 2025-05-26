@@ -1,6 +1,6 @@
-import React from 'react';
 import { Title, Text, Badge } from '@mantine/core';
 import { IconChevronDown, IconChevronUp } from '@tabler/icons-react';
+import styles from './InfoSection.module.scss';
 
 export default function InfoSection({ item, expanded, setExpanded }) {
   if (!item) return null;
@@ -9,7 +9,7 @@ export default function InfoSection({ item, expanded, setExpanded }) {
   const shortDesc = fullDesc.slice(0, 100) + (fullDesc.length > 100 ? '…' : '');
 
   return (
-    <section className='detail-info'>
+    <section className={styles.detailInfo}>
       <Title order={2}>{item.name}</Title>
 
       <Badge
@@ -24,18 +24,18 @@ export default function InfoSection({ item, expanded, setExpanded }) {
         variant='light'
         mt='xs'
       >
-         ✦ {item.level}
+        ✦ {item.level}
       </Badge>
 
       {item.tags?.length > 0 && (
-        <div className='detail-tags'>
+        <div className={styles.detailTags}>
           {item.tags.map(tag => (
             <Badge
               key={tag}
               size='xs'
               variant='filled'
               radius='sm'
-              className='detail-tag'
+              className={styles.detailTag}
             >
               {tag}
             </Badge>
@@ -43,12 +43,14 @@ export default function InfoSection({ item, expanded, setExpanded }) {
         </div>
       )}
 
-      <div className={`detail-description ${expanded ? 'expanded' : ''}`}>
+      <div
+        className={`${styles.detailDescription} ${expanded ? styles.expanded : ''}`}
+      >
         <Text>{expanded ? fullDesc : shortDesc}</Text>
         {fullDesc.length > 180 && (
           <button
             onClick={() => setExpanded(!expanded)}
-            className='toggle-desc-btn'
+            className={styles.toggleDescBtn}
           >
             {expanded ? (
               <IconChevronUp size={20} />

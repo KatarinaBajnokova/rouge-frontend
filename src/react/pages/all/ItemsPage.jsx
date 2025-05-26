@@ -1,4 +1,3 @@
-// src/react/pages/all/ItemsPage.jsx
 import React, { useState } from 'react';
 import { useNavigate, useLocation } from 'react-router-dom';
 import { TextInput } from '@mantine/core';
@@ -15,7 +14,7 @@ import SearchResults from '@/react/components/all/SearchResults';
 import FilterModal from '@/react/components/all/FilterModal';
 import { useItems } from '@/react/hooks/useItems';
 
-import '@/sass/pages/all/_items_page.scss';
+import styles from './ItemsPage.module.scss'; // 👈 MODULE IMPORT
 
 export default function ItemsPage() {
   const navigate = useNavigate();
@@ -49,37 +48,37 @@ export default function ItemsPage() {
     title: item.name || item.title || 'Untitled',
   }));
 
-  if (isLoading) return <div className='items-page'>Loading…</div>;
-  if (isError) return <div className='items-page'>Error loading items</div>;
+  if (isLoading) return <div className={styles.itemsPage}>Loading…</div>;
+  if (isError)
+    return <div className={styles.itemsPage}>Error loading items</div>;
 
   // Common header
   const Header = () => (
-    <div className='header-with-basket'>
+    <div className={styles.headerWithBasket}>
       <BackHeader text={flatMode ? categoryName : subcategoryName} />
       <BasketButton />
     </div>
   );
 
-  // Common search + filter
   const SearchRow = () => (
     <>
-      <div className='search-wrapper'>
-        <div className='search-row'>
-          <div className='custom-search-bar'>
-            <IconSearch size={18} className='search-icon' />
+      <div className={styles.searchWrapper}>
+        <div className={styles.searchRow}>
+          <div className={styles.customSearchBar}>
+            <IconSearch size={18} className={styles.searchIcon} />
             <TextInput
               value={search}
               onChange={e => setSearch(e.currentTarget.value)}
               placeholder='Search…'
               variant='unstyled'
-              className='bare-input'
+              className={styles.bareInput}
             />
           </div>
         </div>
       </div>
-      <div className='filter-row'>
+      <div className={styles.filterRow}>
         <FilterIconButton
-          className='filter-button'
+          className={styles.filterButton}
           onClick={() => setIsFilterOpen(true)}
         />
       </div>
@@ -88,7 +87,7 @@ export default function ItemsPage() {
 
   if (search.trim() !== '') {
     return (
-      <div className='items-page'>
+      <div className={styles.itemsPage}>
         <Header />
         <SearchRow />
 
@@ -107,9 +106,8 @@ export default function ItemsPage() {
     );
   }
 
-  // the “flat” / normal listing
   return (
-    <div className='items-page'>
+    <div className={styles.itemsPage}>
       <Header />
       <SearchRow />
 
@@ -123,7 +121,7 @@ export default function ItemsPage() {
         }}
       />
 
-      <div className='items-list'>
+      <div className={styles.itemsList}>
         {['natural', 'classic', 'bold'].map(key => {
           const group = mappedItems.filter(
             i => i.category.toLowerCase() === key
@@ -131,9 +129,9 @@ export default function ItemsPage() {
           if (!group.length) return null;
           const label = key.charAt(0).toUpperCase() + key.slice(1);
           return (
-            <div className='items-section' key={key}>
-              <h3 className='section-title'>{label}</h3>
-              <div className='section-list'>
+            <div className={styles.itemsSection} key={key}>
+              <h3 className={styles.sectionTitle}>{label}</h3>
+              <div className={styles.sectionList}>
                 {group.map(item => (
                   <TrendingCard key={item.id} look={item} showHeart={true} />
                 ))}
@@ -143,7 +141,7 @@ export default function ItemsPage() {
         })}
 
         {mappedItems.length === 0 && (
-          <div className='no-items'>
+          <div className={styles.noItems}>
             {flatMode
               ? `No items found in ${categoryName}.`
               : `No items found in ${subcategoryName}.`}

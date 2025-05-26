@@ -1,4 +1,3 @@
-import React from 'react';
 import {
   useNavigate,
   useParams,
@@ -10,7 +9,7 @@ import { BasketButton } from '@/react/components/buttons/basketbutton/BasketButt
 import { BackHeader } from '@/react/components/buttons/IconButtons';
 import SubcategoryItem from '@/react/components/all/SubcategoryItem';
 
-import '@/sass/pages/all/_subcategories.scss';
+import styles from './Subcategories.module.scss';
 
 export default function SubcategoriesPage() {
   const nav = useNavigate();
@@ -30,13 +29,15 @@ export default function SubcategoriesPage() {
 
   const { data: subs = [], isLoading, isError } = useSubcategories(categoryId);
 
-  if (isLoading) return <div className='subcategories-page'>Loading…</div>;
+  if (isLoading)
+    return <div className={styles.subcategoriesPage}>Loading…</div>;
   if (isError)
     return (
-      <div className='subcategories-page'>Error loading subcategories</div>
+      <div className={styles.subcategoriesPage}>
+        Error loading subcategories
+      </div>
     );
 
-  // if no subs, go straight to items
   if (subs.length === 0) {
     return (
       <Navigate
@@ -48,15 +49,15 @@ export default function SubcategoriesPage() {
   }
 
   return (
-    <div className='subcategories-page'>
-      <div className='header-wrapper'>
+    <div className={styles.subcategoriesPage}>
+      <div className={styles.headerWrapper}>
         <BackHeader text={categoryName} />
-        <div className='header-controls'>
+        <div className={styles.headerControls}>
           <BasketButton />
         </div>
       </div>
 
-      <div className='category-list'>
+      <div className={styles.categoryList}>
         {subs.map(sub => (
           <SubcategoryItem
             key={sub.id}

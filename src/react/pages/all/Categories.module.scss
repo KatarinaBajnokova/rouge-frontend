@@ -1,14 +1,13 @@
-@use 'sass:map';
-@use '@/sass/abstract/colors' as *;
-@use '@/sass/abstract/typography' as *;
-@use '@/sass/abstract/mixins' as *;
+@use '@/sass/abstract/colors' as colors;
+@use '@/sass/abstract/typography' as typography;
+@use '@/sass/abstract/mixins' as mixins;
 
-body {
-  background-color: $white-background;
+:global(body) {
+  background-color: colors.$white-background;
 }
 
 .categories-page {
-  background-color: $white-background;
+  background-color: colors.$white-background;
   min-height: 100vh;
   display: flex;
   flex-direction: column;
@@ -30,10 +29,10 @@ body {
       flex: 1;
       display: flex;
       align-items: center;
-      background-color: $white-elements;
+      background-color: colors.$white-elements;
       padding: 0.2rem 1rem;
       border-radius: 2rem;
-      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+      box-shadow: 0 4px 8px rgba(colors.$plain-black, 0.2);
       margin-right: 3.5rem;
     }
 
@@ -48,7 +47,7 @@ body {
       background: transparent;
       border: none;
       outline: none;
-      color: $black-main;
+      color: colors.$black-main;
     }
 
     .basket-button {
@@ -68,14 +67,14 @@ body {
     margin-top: 1.6rem;
 
     h2 {
-      @include font('category-title', 'bold');
-      color: $black-main;
+      @include mixins.font('category-title', 'bold');
+      color: colors.$black-main;
       margin-top: 0;
     }
 
     .category-list {
       border-radius: 0.5rem;
-      overflow: visible; // 🧠 Key fix: allow dividers to show fully
+      overflow: visible;
       display: flex;
       flex-direction: column;
     }

@@ -12,7 +12,7 @@ import { FilterIconButton } from '@/react/components/buttons/IconButtons';
 import Navbar from '@/react/components/navbar/Navbar';
 import AllCategoryItem from '@/react/components/all/AllCategoryItem';
 
-import '@/sass/pages/all/_categories.scss';
+import styles from './Categories.module.scss';
 
 async function fetchGroups() {
   const res = await fetch('/api/category-groups');
@@ -33,9 +33,9 @@ function CategoryGroup({ group, search }) {
   if (!filtered.length) return null;
 
   return (
-    <div className='category-section'>
+    <div className={styles['category-section']}>
       <h2>{group.name}</h2>
-      <div className='category-list'>
+      <div className={styles['category-list']}>
         {filtered.map(cat => (
           <AllCategoryItem
             key={cat.id}
@@ -56,7 +56,6 @@ function CategoryGroup({ group, search }) {
 export default function CategoriesPage() {
   const navigate = useNavigate();
   const [search, setSearch] = useState('');
-
   const [isFilterOpen, setIsFilterOpen] = useState(false);
   const [filters, setFilters] = useState({
     selectedOccasions: [],
@@ -76,34 +75,36 @@ export default function CategoriesPage() {
   });
 
   const renderSearchBar = () => (
-    <div className='custom-search-bar'>
-      <IconSearch size={18} className='search-icon' />
+    <div className={styles['custom-search-bar']}>
+      <IconSearch size={18} className={styles['search-icon']} />
       <TextInput
         value={search}
         onChange={e => setSearch(e.currentTarget.value)}
         placeholder='Search…'
         variant='unstyled'
-        className='bare-input'
+        className={styles['bare-input']}
       />
     </div>
   );
 
-  if (isLoading) return <div className='categories-page'>Loading…</div>;
+  if (isLoading)
+    return <div className={styles['categories-page']}>Loading…</div>;
   if (isError)
-    return <div className='categories-page'>Error loading groups</div>;
+    return (
+      <div className={styles['categories-page']}>Error loading groups</div>
+    );
 
-  // ─── Search Mode ────────────────────────────────────────────────
   if (search.trim() !== '') {
     return (
-      <div className='categories-page'>
-        <div className='search-wrapper'>
-          <div className='search-row'>
+      <div className={styles['categories-page']}>
+        <div className={styles['search-wrapper']}>
+          <div className={styles['search-row']}>
             {renderSearchBar()}
             {!isFilterOpen && <BasketButton />}
           </div>
           {!isFilterOpen && (
             <FilterIconButton
-              className='filter-button'
+              className={styles['filter-button']}
               onClick={() => setIsFilterOpen(true)}
             />
           )}
@@ -133,17 +134,16 @@ export default function CategoriesPage() {
     );
   }
 
-  // ─── Default Grid View ──────────────────────────────────────────
   return (
-    <div className='categories-page'>
-      <div className='search-wrapper'>
-        <div className='search-row'>
+    <div className={styles['categories-page']}>
+      <div className={styles['search-wrapper']}>
+        <div className={styles['search-row']}>
           {renderSearchBar()}
           {!isFilterOpen && <BasketButton />}
         </div>
         {!isFilterOpen && (
           <FilterIconButton
-            className='filter-button'
+            className={styles['filter-button']}
             onClick={() => setIsFilterOpen(true)}
           />
         )}

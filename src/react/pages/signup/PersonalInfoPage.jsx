@@ -28,9 +28,9 @@ export default function PersonalInfoPage() {
   useEffect(() => {
     const fetchBackendUserId = async () => {
       const storedBackendId = localStorage.getItem('backendUserId');
-      if (storedBackendId) return; // already exists ✅
+      if (storedBackendId) return;
 
-      if (!firebaseUid) return; // still waiting for firebase
+      if (!firebaseUid) return;
 
       console.log(
         `🔗 Fetching backend user ID using Firebase UID: ${firebaseUid}`
@@ -84,7 +84,6 @@ export default function PersonalInfoPage() {
       });
   }, []);
 
-  // ✨ Corrected handleConfirm
   const handleConfirm = async () => {
     const backendUserId = localStorage.getItem('backendUserId');
     if (!backendUserId) {

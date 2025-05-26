@@ -1,19 +1,19 @@
-import React from 'react';
 import { Title, Text } from '@mantine/core';
+import styles from './TutorialSection.module.scss';
 
 export default function TutorialSection({ tutorialUrl, poster }) {
   if (!tutorialUrl) return null;
 
   return (
-    <section className='detail-tutorial'>
-      <Title className='detail-title' order={3}>
+    <section className={styles.tutorialSection}>
+      <Title className={styles.detailTitle} order={3}>
         Tutorial preview
       </Title>
       <video
         src={tutorialUrl}
         controls
         poster={poster}
-        className='detail-video'
+        className={styles.detailVideo}
         preload='metadata'
         width='100%'
       >

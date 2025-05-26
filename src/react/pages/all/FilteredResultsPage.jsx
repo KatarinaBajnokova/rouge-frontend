@@ -1,10 +1,9 @@
-// src/react/pages/all/FilteredResultsPage.jsx
 import React, { useState, useMemo, useCallback } from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
 import { TextInput, Center, Loader, Text } from '@mantine/core';
 import { IconSearch } from '@tabler/icons-react';
 
-import { BasketButton } from '@/react/components/buttons/BasketButton';
+import { BasketButton } from '@/react/components/buttons/basketbutton/BasketButton';
 import {
   BackHeader,
   FilterIconButton,
@@ -14,7 +13,8 @@ import FilterModal from '@/react/components/all/FilterModal';
 import SearchResults from '@/react/components/all/SearchResults';
 import { useItems } from '@/react/hooks/useItems';
 
-import '@/sass/pages/all/_filtered_results.scss';
+import styles from './FilteredResultsPage.module.scss';
+
 export default function FilteredResultsPage() {
   const navigate = useNavigate();
   const { search: rawSearch, pathname } = useLocation();
@@ -73,7 +73,7 @@ export default function FilteredResultsPage() {
   );
 
   const Header = () => (
-    <div className='header-with-basket'>
+    <div className={styles.headerWrapper}>
       <BackHeader text='Filter' />
       <BasketButton />
     </div>
@@ -81,23 +81,23 @@ export default function FilteredResultsPage() {
 
   const SearchRow = () => (
     <>
-      <div className='search-wrapper'>
-        <div className='search-row'>
-          <div className='custom-search-bar'>
-            <IconSearch size={18} className='search-icon' />
+      <div className={styles.searchWrapper}>
+        <div className={styles.searchRow}>
+          <div className={styles.customSearchBar}>
+            <IconSearch size={18} className={styles.searchIcon} />
             <TextInput
               value={search}
               onChange={e => handleSearch(e.currentTarget.value)}
               placeholder='Search…'
               variant='unstyled'
-              className='bare-input'
+              className={styles.bareInput}
             />
           </div>
         </div>
       </div>
-      <div className='filter-row'>
+      <div className={styles.filterRow}>
         <FilterIconButton
-          className='filter-button'
+          className={styles.filterButton}
           onClick={() => setFilterOpen(true)}
         />
       </div>
@@ -122,7 +122,7 @@ export default function FilteredResultsPage() {
 
   if (search.trim()) {
     return (
-      <div className='filtered-results-page'>
+      <div className={styles.page}>
         <Header />
         <SearchRow />
         <SearchResults query={search.trim()} />
@@ -140,7 +140,7 @@ export default function FilteredResultsPage() {
   }
 
   return (
-    <div className='filtered-results-page'>
+    <div className={styles.page}>
       <Header />
       <SearchRow />
       <FilterModal
@@ -153,12 +153,12 @@ export default function FilteredResultsPage() {
         }}
       />
 
-      <div className='items-list'>
+      <div className={styles.itemsList}>
         {grouped.map(({ key, label, list }) =>
           list.length ? (
-            <section className='items-section' key={key}>
-              <h3 className='section-title'>{label}</h3>
-              <div className='section-list'>
+            <section className={styles.itemsSection} key={key}>
+              <h3 className={styles.sectionTitle}>{label}</h3>
+              <div className={styles.sectionList}>
                 {list.map(item => (
                   <TrendingCard key={item.id} look={item} showHeart={true} />
                 ))}
@@ -167,7 +167,7 @@ export default function FilteredResultsPage() {
           ) : null
         )}
         {!items.length && (
-          <div className='no-items'>No items matched your filters.</div>
+          <div className={styles.noItems}>No items matched your filters.</div>
         )}
       </div>
     </div>

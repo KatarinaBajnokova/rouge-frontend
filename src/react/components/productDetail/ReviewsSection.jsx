@@ -1,5 +1,5 @@
-import React from 'react';
 import { Title, Text, Paper, Rating, Button, Divider } from '@mantine/core';
+import styles from './ReviewsSection.module.scss';
 
 export default function ReviewsSection({
   reviews = [],
@@ -14,7 +14,7 @@ export default function ReviewsSection({
   const avgRatingLabel = avgRating.toFixed(1).replace('.', ',');
 
   return (
-    <section className='detail-reviews'>
+    <section className={styles.reviewsSection}>
       <Title className='detail-title' order={3}>
         Reviews
       </Title>
@@ -25,11 +25,13 @@ export default function ReviewsSection({
           shadow='sm'
           p='lg'
           radius='lg'
-          className='reviews-summary'
+          className={styles.reviewsSummary}
           mt='sm'
         >
-          <div className='reviews-summary-content'>
-            <Title order={2}>{avgRatingLabel}</Title>
+          <div className={styles.reviewsSummaryContent}>
+            <Title order={2} className={styles.reviewsAverage}>
+              {avgRatingLabel}
+            </Title>
             <Rating
               value={avgRating}
               readOnly
@@ -37,7 +39,7 @@ export default function ReviewsSection({
               size='lg'
               color='grape'
             />
-            <Text fw={500} mt='xs'>
+            <Text fw={500} mt='xs' className={styles.reviewsCount}>
               {reviewCount} {reviewCount === 1 ? 'rating' : 'ratings'}
             </Text>
             {reviewCount > 0 && (
@@ -59,8 +61,8 @@ export default function ReviewsSection({
         <>
           {reviews.length > 0 ? (
             reviews.map(r => (
-              <div key={r.id} className='review-card'>
-                <div className='review-header'>
+              <div key={r.id} className={styles.reviewCard}>
+                <div className={styles.reviewHeader}>
                   <Text fw={700}>{r.author}</Text>
                   <Rating
                     value={r.rating}
@@ -77,14 +79,16 @@ export default function ReviewsSection({
           ) : (
             <Text>No reviews yet.</Text>
           )}
-          <Button
-            variant='subtle'
-            radius='xl'
-            size='xs'
-            onClick={() => setShowReviews(false)}
-          >
-            ‹ Back to summary
-          </Button>
+          <div className={styles.reviewsAction}>
+            <Button
+              variant='subtle'
+              radius='xl'
+              size='xs'
+              onClick={() => setShowReviews(false)}
+            >
+              ‹ Back to summary
+            </Button>
+          </div>
         </>
       )}
     </section>
