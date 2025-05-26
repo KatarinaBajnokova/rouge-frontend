@@ -4,33 +4,41 @@ import LoadingSpinner from '@/react/components/ui/LoadingSpinner';
 import { CheckoutProvider } from '@/react/contexts/CheckoutContext';
 import { AuthProvider, useAuth } from '@/react/hooks/useAuth';
 
-const InitialPage = lazy(() => import('@/react/pages/InitialPage/InitialPage'));
-const DesignSystem = lazy(() => import('@/react/pages/DesignSystem'));
+const InitialPage = lazy(() => import('@/react/pages/initial/InitialPage'));
+const DesignSystem = lazy(() => import('@/react/pages/design/DesignSystem'));
 const AnimationPage = lazy(
-  () => import('@/react/pages/AnimationPage/AnimationPage')
+  () => import('@/react/pages/animation/AnimationPage')
 );
-const HomeScreen = lazy(() => import('@/react/pages/HomeScreen'));
-const ProductDetail = lazy(() => import('@/react/pages/ProductDetail'));
+const HomeScreen = lazy(() => import('@/react/pages/home/HomeScreen'));
+const ProductDetail = lazy(
+  () => import('@/react/pages/detail/main/ProductDetail')
+);
 const ReviewsPage = lazy(
-  () => import('@/react/pages/product_detail/ReviewsPage')
+  () => import('@/react/pages/detail/reviews/ReviewsPage')
 );
-const BasketPage = lazy(() => import('@/react/pages/BasketPage'));
+const BasketPage = lazy(() => import('@/react/pages/basket/BasketPage'));
 
 const SignUpPage = lazy(() => import('@/react/pages/signup/SignUpPage'));
-const LoginPage = lazy(() => import('@/react/pages/LoginPage'));
+const LoginPage = lazy(() => import('@/react/pages/login/LoginPage'));
 const PersonalLookPage = lazy(
   () => import('@/react/pages/signup/PersonalLookPage')
 );
 
-const MyLooksPage = lazy(() => import('@/react/pages/MyLooksPage'));
+const MyLooksPage = lazy(() => import('@/react/pages/mylooks/MyLooksPage'));
 
-const ProfilePage = lazy(() => import('@/react/pages/profile/ProfilePage'));
+const ProfilePage = lazy(
+  () => import('@/react/pages/profile/main/ProfilePage')
+);
 
-const Categories = lazy(() => import('@/react/pages/all/Categories'));
-const Subcategories = lazy(() => import('@/react/pages/all/Subcategories'));
-const ItemsPage = lazy(() => import('@/react/pages/all/ItemsPage'));
+const Categories = lazy(
+  () => import('@/react/pages/all/categories/Categories')
+);
+const Subcategories = lazy(
+  () => import('@/react/pages/all/subcategories/Subcategories')
+);
+const ItemsPage = lazy(() => import('@/react/pages/all/items/ItemsPage'));
 const FilteredResultsPage = lazy(
-  () => import('@/react/pages/all/FilteredResultsPage')
+  () => import('@/react/pages/all/filteredresults/FilteredResultsPage')
 );
 
 import PersonalInfoPage from '@/react/pages/signup/PersonalInfoPage';

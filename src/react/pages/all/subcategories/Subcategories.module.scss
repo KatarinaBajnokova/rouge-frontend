@@ -1,0 +1,39 @@
+@use '@/sass/abstract/colors' as colors;
+@use '@/sass/abstract/typography' as typography;
+@use '@/sass/abstract/mixins' as mixins;
+
+.subcategoriesPage {
+  background-color: colors.$white-background;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+.headerWrapper {
+  padding: 1rem;
+  padding-bottom: 0;
+}
+
+.headerControls {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 0.75rem;
+
+  .basket-button {
+    flex-shrink: 0;
+  }
+}
+
+.headerWrapper h2 {
+  @include mixins.font('section-title', 'bold');
+  color: colors.$black-main;
+  margin: 0;
+}
+
+.categoryList {
+  display: flex;
+  flex-direction: column;
+  padding: 1rem;
+  padding-top: 0;
+}

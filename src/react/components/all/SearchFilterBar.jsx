@@ -1,10 +1,10 @@
 import React, { useEffect, useState } from 'react';
 import { Autocomplete } from '@mantine/core';
 import { IconSearch } from '@tabler/icons-react';
-import { BasketButton } from '@/react/components/buttons/basketbutton/BasketButton';
+import { BasketButton } from '@/react/components/buttons/BasketButton';
 import { FilterIconButton } from '@/react/components/buttons/IconButtons';
 
-import styles from './SearchFilterBar.module.scss';
+import '@/sass/styles.scss';
 
 export default function SearchFilterBar({
   value,
@@ -48,17 +48,17 @@ export default function SearchFilterBar({
   };
 
   return (
-    <div className={styles.searchFilterWrapper}>
-      <div className={styles.searchAndFilter}>
+    <div className='searchFilterWrapper'>
+      <div className='searchAndFilter'>
         <form
-          className={styles.searchForm}
+          className='searchForm'
           onSubmit={e => {
             e.preventDefault();
             onSearch(value);
           }}
         >
           <Autocomplete
-            className={styles.searchBar}
+            className='searchBar'
             placeholder={placeholder}
             value={value}
             onChange={onChange}
@@ -73,16 +73,13 @@ export default function SearchFilterBar({
             onKeyDown={handleKeyDown}
             onItemSubmit={({ value: itemValue }) => onSearch(itemValue)}
           />
-          <button type='submit' className={styles.searchButton}>
+          <button type='submit' className='searchButton'>
             <IconSearch size={20} />
           </button>
         </form>
 
         {showFilter && (
-          <FilterIconButton
-            className={styles.filterButton}
-            onClick={onFilterClick}
-          />
+          <FilterIconButton className='filterButton' onClick={onFilterClick} />
         )}
       </div>
 

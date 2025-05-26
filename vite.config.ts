@@ -40,7 +40,7 @@ export default defineConfig({
             if (id.includes('firebase')) return 'firebase';
             if (id.includes('@mantine')) return 'mantine';
             if (id.includes('react')) return 'react';
-            return 'vendor'; // everything else
+            return 'vendor';
           }
         },
       },

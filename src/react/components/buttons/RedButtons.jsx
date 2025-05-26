@@ -1,11 +1,12 @@
 import React from 'react';
 import { Button } from '@mantine/core';
 import { Link } from 'react-router-dom';
-import './RedButtons.module.scss';
+
+import '@/sass/styles.scss';
 
 export function CheckoutButton(props) {
   return (
-    <Button type='button' classNames={{ root: 'checkout-button' }} {...props}>
+    <Button type='button' classNames={{ root: 'checkoutButton' }} {...props}>
       Check-out
     </Button>
   );
@@ -15,7 +16,7 @@ export function ConfirmPurchaseButton(props) {
   return (
     <Button
       type='button'
-      classNames={{ root: 'confirm-purchase-button' }}
+      classNames={{ root: 'confirmPurchaseButton' }}
       {...props}
     >
       Confirm Purchase
@@ -25,7 +26,7 @@ export function ConfirmPurchaseButton(props) {
 
 export function LogInButton(props) {
   return (
-    <Button type='button' classNames={{ root: 'log-in-button' }} {...props}>
+    <Button type='button' classNames={{ root: 'logInButton' }} {...props}>
       Log in
     </Button>
   );
@@ -33,11 +34,7 @@ export function LogInButton(props) {
 
 export function WhiteLogInButton(props) {
   return (
-    <Button
-      type='button'
-      classNames={{ root: 'white-log-in-button' }}
-      {...props}
-    >
+    <Button type='button' classNames={{ root: 'whiteLogInButton' }} {...props}>
       Log in
     </Button>
   );
@@ -45,7 +42,7 @@ export function WhiteLogInButton(props) {
 
 export function SignUpButton(props) {
   return (
-    <Button classNames={{ root: 'sign-up-button' }} {...props}>
+    <Button classNames={{ root: 'signUpButton' }} {...props}>
       {props.children || 'Sign up'}
     </Button>
   );
@@ -53,7 +50,7 @@ export function SignUpButton(props) {
 
 export function ContinueButton({ text = 'Continue', ...props }) {
   return (
-    <Button type='button' classNames={{ root: 'continue-button' }} {...props}>
+    <Button type='button' classNames={{ root: 'continueButton' }} {...props}>
       {text}
     </Button>
   );
@@ -61,7 +58,7 @@ export function ContinueButton({ text = 'Continue', ...props }) {
 
 export function MoreInfoButton(props) {
   return (
-    <Button type='button' classNames={{ root: 'more-info-button' }} {...props}>
+    <Button type='button' classNames={{ root: 'moreInfoButton' }} {...props}>
       More info
     </Button>
   );
@@ -69,7 +66,7 @@ export function MoreInfoButton(props) {
 
 export function BottomBarButton(props) {
   return (
-    <div className='bottom-bar'>
+    <div className='bottomBar'>
       <ContinueButton {...props} />
     </div>
   );
@@ -77,7 +74,7 @@ export function BottomBarButton(props) {
 
 export function BottomBarConfirmPurchaseButton(props) {
   return (
-    <div className='bottom-bar'>
+    <div className='bottomBar'>
       <ConfirmPurchaseButton {...props} />
     </div>
   );

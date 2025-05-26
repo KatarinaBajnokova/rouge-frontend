@@ -1,0 +1,15 @@
+@use '@/sass/abstract/colors' as colors;
+@use '@/sass/abstract/typography' as typography;
+@use '@/sass/abstract/mixins' as mixins;
+
+.tutorialSection {
+  padding: 1rem;
+}
+
+.detailVideo {
+  width: 100%;
+  border-radius: 1rem;
+  border: 2px solid colors.$red;
+  display: block;
+  margin: 0 auto;
+}

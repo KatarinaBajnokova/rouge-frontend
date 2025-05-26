@@ -1,6 +1,7 @@
 import { useQuery } from '@tanstack/react-query';
 import TrendingCard from '@/react/components/cards/TrendingCard';
-import styles from './SearchResults.module.scss';
+
+import '@/sass/styles.scss';
 
 async function fetchSearchResults(query) {
   const res = await fetch(`/api/search?query=${encodeURIComponent(query)}`);
@@ -20,14 +21,13 @@ export default function SearchResults({ query }) {
     staleTime: 300_000,
   });
 
-  if (isLoading) return <p className={styles.searchLoading}>Searching…</p>;
-  if (isError)
-    return <p className={styles.searchError}>Error while searching</p>;
+  if (isLoading) return <p className='searchLoading'>Searching…</p>;
+  if (isError) return <p className='searchError'>Error while searching</p>;
   if (items.length === 0)
-    return <p className={styles.searchNone}>No looks found for “{query}”</p>;
+    return <p className='searchNone'>No looks found for “{query}”</p>;
 
   return (
-    <div className={styles.searchResultsGrid}>
+    <div className='searchResultsGrid'>
       {items.map(item => {
         const look = {
           id: item.id,
