@@ -1,37 +1,35 @@
-@use 'sass:map';
-@use '@/sass/abstract/colors' as *;
-@use '@/sass/abstract/typography' as *;
-@use '@/sass/abstract/mixins' as *;
+@use '@/sass/abstract/colors' as colors;
+@use '@/sass/abstract/typography' as typography;
+@use '@/sass/abstract/mixins' as mixin;
 
-.search-filter-wrapper {
+.searchFilterWrapper {
   display: flex;
   align-items: flex-start;
   gap: 1rem;
   margin-bottom: 1rem;
 
-  /* Basket button sits to the right */
   > .mantine-Button-root {
     flex-shrink: 0;
   }
 
-  .search-and-filter {
+  .searchAndFilter {
     flex: 1;
     display: flex;
     flex-direction: column;
     gap: 0.5rem;
 
-    .search-form {
+    .searchForm {
       display: flex;
       align-items: center;
       gap: 0.5rem;
 
-      .search-bar {
+      .searchBar {
         flex: 1;
-        background-color: $white-background;
+        background-color: colors.$white-background;
         border-radius: 2px;
       }
 
-      .search-button {
+      .searchButton {
         background: transparent;
         border: none;
         padding: 0.5rem;
@@ -39,8 +37,7 @@
       }
     }
 
-    .filter-button {
-      /* full-width below the search bar */
+    .filterButton {
       width: 100%;
       justify-content: center;
     }

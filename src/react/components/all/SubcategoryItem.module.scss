@@ -1,15 +1,13 @@
-@use 'sass:map';
-@use 'sass:color';
-@use '@/sass/abstract/colors' as *;
-@use '@/sass/abstract/typography' as t;
-@use '@/sass/abstract/mixins' as mixin;
+@use '@/sass/abstract/colors' as colors;
+@use '@/sass/abstract/typography' as typography;
+@use '@/sass/abstract/mixins' as mixins;
 
-.subcategory-item {
+.subcategoryItem {
   background-color: transparent;
   display: flex;
   flex-direction: column;
 
-  .item-content {
+  .itemContent {
     background-color: transparent;
     border-radius: 12px;
     display: flex;
@@ -18,7 +16,7 @@
     width: 100%;
     padding: 0.75rem 1rem;
 
-    .circle-indicator {
+    .circleIndicator {
       width: 40px;
       height: 40px;
       border-radius: 50%;
@@ -27,30 +25,29 @@
     }
 
     p {
-      @include mixin.font('category-title', 'bold');
+      @include mixins.font('category-title', 'bold');
       margin: 0;
       flex: 1;
-      color: $black-main;
+      color: colors.$black-main;
     }
 
     svg {
       flex-shrink: 0;
-      color: $light-grey;
+      color: colors.$light-grey;
     }
   }
 
-  &:hover > .item-content {
-    background-color: color.adjust($white-background, $lightness: 3%);
+  &:hover > .itemContent {
+    background-color: lighten(colors.$white-background, 3%);
   }
 
-  // Divider styling identical to .all-category-item
   .mantine-Divider-root,
-  .category-divider {
+  .categoryDivider {
     margin: 0;
     margin-bottom: 14px;
     height: 1px;
     min-height: 1px;
-    background-color: #bababa;
+    background-color: colors.$light-grey;
     width: 100%;
     border: none;
     display: block;

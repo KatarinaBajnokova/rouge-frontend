@@ -1,6 +1,5 @@
-import React from 'react';
 import PropTypes from 'prop-types';
-import '@/sass/components/all/_pill.scss';
+import styles from './Pill.module.scss';
 
 const Pill = ({
   children,
@@ -10,7 +9,7 @@ const Pill = ({
 }) => (
   <button
     type='button'
-    className={`pill${checked ? ' pill--checked' : ''}`}
+    className={`${styles.pill}${checked ? ' ' + styles.pillChecked : ''}`}
     onClick={onClick}
     style={style}
   >

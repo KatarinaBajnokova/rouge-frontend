@@ -1,6 +1,6 @@
 import { IconChevronRight } from '@tabler/icons-react';
 import { Divider } from '@mantine/core';
-import '@/sass/components/all/_all_category_item.scss';
+import styles from './AllCategoryItem.module.scss';
 
 export default function AllCategoryItem({
   iconUrl,
@@ -13,19 +13,19 @@ export default function AllCategoryItem({
   };
 
   return (
-    <div className='all-category-item' onClick={onClick}>
-      <div className='item-content'>
+    <div className={styles.allCategoryItem} onClick={onClick}>
+      <div className={styles.itemContent}>
         <img
           src={iconUrl}
           alt={`${label} icon`}
           onError={handleImgError}
           loading='lazy'
+          className={styles.icon}
         />
-        <p>{label}</p>
-        <IconChevronRight size={30} stroke={2} />
+        <p className={styles.label}>{label}</p>
+        <IconChevronRight size={30} stroke={2} className={styles.chevron} />
       </div>
-
-      <Divider className='category-divider' />
+      <Divider className={styles.divider} />
     </div>
   );
 }

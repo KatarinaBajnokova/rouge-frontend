@@ -4,7 +4,7 @@ import { IconSearch } from '@tabler/icons-react';
 import { BasketButton } from '@/react/components/buttons/basketbutton/BasketButton';
 import { FilterIconButton } from '@/react/components/buttons/IconButtons';
 
-import '@/sass/components/all/_search_filter_bar.scss';
+import styles from './SearchFilterBar.module.scss';
 
 export default function SearchFilterBar({
   value,
@@ -48,17 +48,17 @@ export default function SearchFilterBar({
   };
 
   return (
-    <div className='search-filter-wrapper'>
-      <div className='search-and-filter'>
+    <div className={styles.searchFilterWrapper}>
+      <div className={styles.searchAndFilter}>
         <form
-          className='search-form'
+          className={styles.searchForm}
           onSubmit={e => {
             e.preventDefault();
             onSearch(value);
           }}
         >
           <Autocomplete
-            className='search-bar'
+            className={styles.searchBar}
             placeholder={placeholder}
             value={value}
             onChange={onChange}
@@ -73,13 +73,16 @@ export default function SearchFilterBar({
             onKeyDown={handleKeyDown}
             onItemSubmit={({ value: itemValue }) => onSearch(itemValue)}
           />
-          <button type='submit' className='search-button'>
+          <button type='submit' className={styles.searchButton}>
             <IconSearch size={20} />
           </button>
         </form>
 
         {showFilter && (
-          <FilterIconButton className='filter-button' onClick={onFilterClick} />
+          <FilterIconButton
+            className={styles.filterButton}
+            onClick={onFilterClick}
+          />
         )}
       </div>
 

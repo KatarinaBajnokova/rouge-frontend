@@ -1,110 +1,108 @@
-@use '@/sass/abstract/colors' as *;
-@use '@/sass/abstract/typography' as *;
+@use '@/sass/abstract/colors' as colors;
+@use '@/sass/abstract/typography' as typography;
 @use '@/sass/abstract/mixins' as mixin;
 
-.filter-drawer {
-  .mantine-Drawer-header {
+.filterDrawer {
+  :global(.mantine-Drawer-header) {
     display: none;
     height: 0;
     margin: 0;
     padding: 0;
   }
 
-  .mantine-Drawer-body {
+  :global(.mantine-Drawer-body) {
     display: flex;
     flex-direction: column;
     padding: 0;
-    background-color: $white-elements;
+    background-color: colors.$white-elements;
   }
 
-  .filter-body {
+  .filterBody {
     display: flex;
     flex-direction: column;
     height: 100%;
   }
 
-  .filter-scroll {
+  .filterScroll {
     flex: 1;
     overflow: auto;
     padding: 1rem;
     margin-bottom: 0.5rem;
 
-    .filter-section {
+    .filterSection {
       margin-bottom: 1.5rem;
 
-      .mantine-Group-root {
+      :global(.mantine-Group-root) {
         --group-gap: 0.5rem !important;
       }
     }
   }
 
-  .back-header {
+  .backHeader {
     display: flex;
     align-items: center;
     height: 3rem;
     padding: 0 1rem;
     margin: 1rem 0 0;
 
-    .back-icon-button {
-      background-color: $black-main;
+    .backIconButton {
+      background-color: colors.$black-main;
 
       svg {
-        color: white;
+        color: colors.$plain-white;
       }
     }
 
     h2 {
       @include mixin.font('section-title', 'bold');
-      color: $black-main;
+      color: colors.$black-main;
       margin: 0;
       line-height: 3rem;
     }
   }
 
-  .filter-section-title {
+  .filterSectionTitle {
     @include mixin.font('section-description', 'bold');
-    color: $black-main;
+    color: colors.$black-main;
     margin: 0.5rem 0 0.7rem;
   }
 
-  .filter-chip-group {
+  .filterChipGroup {
     display: flex;
     flex-wrap: wrap;
     gap: 0.5rem;
     margin-bottom: 1rem;
   }
 
-  .mantine-RangeSlider-root {
+  :global(.mantine-RangeSlider-root) {
     padding: 0 1rem;
 
-    .mantine-RangeSlider-bar {
-      background-color: $magenta !important;
+    :global(.mantine-RangeSlider-bar) {
+      background-color: colors.$magenta !important;
     }
-
-    .mantine-RangeSlider-track {
-      background-color: rgba($magenta, 0.2) !important;
+    :global(.mantine-RangeSlider-track) {
+      background-color: rgba(colors.$magenta, 0.2) !important;
     }
-
-    .mantine-RangeSlider-thumb {
-      background-color: $magenta !important;
-      border: 2px solid $white-elements !important;
+    :global(.mantine-RangeSlider-thumb) {
+      background-color: colors.$magenta !important;
+      border: 2px solid colors.$white-elements !important;
     }
   }
 
-  .filter-footer {
+  .filterFooter {
     position: sticky;
     bottom: 0;
     z-index: 5;
-    background: rgba(0, 0, 0, 0.8);
+    background: rgba(colors.$plain-black, 0.8);
     padding: 1rem 0;
     display: flex;
     justify-content: center;
     border-radius: 3rem 3rem 0 0;
 
-    .filter-apply-btn {
+    .filterApplyBtn {
       width: 10rem;
       height: 2.75rem;
-      background-color: $red;
+      background-color: colors.$red;
       @include mixin.font('button', 'medium');
       border-radius: 15px;
       margin: 0;
@@ -112,12 +110,12 @@
     }
   }
 
-  .filter-slider {
+  .filterSlider {
     width: 80%;
     margin: 1.5rem auto 1rem;
   }
 
-  .filter-footer .filter-apply-btn img {
+  .filterFooter .filterApplyBtn img {
     filter: brightness(0) invert(1) !important;
   }
 }

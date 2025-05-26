@@ -1,12 +1,12 @@
 @use 'sass:map';
-@use '@/sass/abstract/colors' as *;
-@use '@/sass/abstract/typography' as *;
+@use '@/sass/abstract/colors' as colors;
+@use '@/sass/abstract/typography' as typography;
 @use '@/sass/abstract/mixins' as mixin;
 
 .pill {
   @include mixin.font('text', 'regular');
-  background: $white-elements;
-  border: 1px solid $light-grey;
+  background: colors.$white-elements;
+  border: 1px solid colors.$light-grey;
   border-radius: 9999px;
   padding: 0.25rem 1rem;
   margin-bottom: 0.5rem;
@@ -16,7 +16,7 @@
     color 150ms,
     border-color 150ms;
   display: inline-block;
-  color: $black-main;
+  color: colors.$black-main;
 
   transition:
     background 220ms ease,
@@ -24,11 +24,11 @@
     border-color 220ms ease,
     font-weight 220ms ease,
     transform 220ms ease;
+}
 
-  &--checked {
-    background: $magenta;
-    border-color: $magenta;
-    color: $white-background;
-    font-weight: map.get($font-weights, medium);
-  }
+.pillChecked {
+  background: colors.$magenta;
+  border-color: colors.$magenta;
+  color: colors.$white-background;
+  font-weight: map.get(typography.$font-weights, medium);
 }

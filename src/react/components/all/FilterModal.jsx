@@ -15,7 +15,7 @@ import {
   FilterIconButton,
 } from '@/react/components/buttons/IconButtons';
 import Pill from './Pill';
-import '@/sass/components/all/_filter_modal.scss';
+import styles from './FilterModal.module.scss';
 
 const DIFF_COLORS = {
   easy: '#00ac70',
@@ -24,7 +24,6 @@ const DIFF_COLORS = {
   expert: '#ac003e',
 };
 
-// Gradient config for occasion/detailed selections
 const GRADIENT_STYLE = {
   background:
     'linear-gradient(to top, rgba(170, 29, 163, 0.9), rgba(170, 29, 163, 0.07))',
@@ -122,7 +121,7 @@ export default function FilterModal({
 
   return (
     <Drawer
-      className='filter-drawer'
+      className={styles.filterDrawer}
       opened={opened}
       onClose={onClose}
       title={null}
@@ -136,31 +135,35 @@ export default function FilterModal({
           <Loader />
         </Center>
       ) : (
-        <div className='filter-body'>
-          <ScrollArea className='filter-scroll'>
-            <div className='filter-section'>
-              <Text className='filter-section-title'>Select occasion</Text>
+        <div className={styles.filterBody}>
+          <ScrollArea className={styles.filterScroll}>
+            <div className={styles.filterSection}>
+              <Text className={styles.filterSectionTitle}>Select occasion</Text>
               <Group>{renderPills(opts.occasions, selOcc, setSelOcc)}</Group>
             </div>
 
-            <div className='filter-section'>
-              <Text className='filter-section-title'>Select more detailed</Text>
+            <div className={styles.filterSection}>
+              <Text className={styles.filterSectionTitle}>
+                Select more detailed
+              </Text>
               <Group>
                 {renderPills(opts.detailedOccasions, selDet, setSelDet)}
               </Group>
             </div>
 
-            <div className='filter-section'>
-              <Text className='filter-section-title'>Select difficulty</Text>
+            <div className={styles.filterSection}>
+              <Text className={styles.filterSectionTitle}>
+                Select difficulty
+              </Text>
               <Group>{difficultyPills}</Group>
             </div>
 
-            <div className='filter-section'>
-              <Text className='filter-section-title'>
+            <div className={styles.filterSection}>
+              <Text className={styles.filterSectionTitle}>
                 Select your price range
               </Text>
               <RangeSlider
-                className='filter-slider'
+                className={styles.filterSlider}
                 value={price}
                 onChange={setPrice}
                 min={priceRange[0]}
@@ -174,20 +177,20 @@ export default function FilterModal({
                 styles={{
                   track: {
                     backgroundColor: 'rgba(170,29,164,0.2)',
-                    height: 10, // increased height
+                    height: 10,
                   },
                   bar: {
                     backgroundColor: '#aa1da4',
-                    height: 10, // match track height
+                    height: 10,
                   },
                   thumb: {
                     backgroundColor: '#aa1da4',
                     border: '3px solid #fbfbfb',
-                    width: 24, // larger circle
+                    width: 24,
                     height: 24,
                   },
                   markLabel: {
-                    fontSize: '1rem', // bigger labels
+                    fontSize: '1rem',
                     fontWeight: 'bold',
                   },
                 }}
@@ -195,11 +198,11 @@ export default function FilterModal({
             </div>
           </ScrollArea>
 
-          <div className='filter-footer'>
+          <div className={styles.filterFooter}>
             <FilterIconButton
               fullWidth
               onClick={handleApply}
-              classNames={{ root: 'filter-apply-btn' }}
+              classNames={{ root: styles.filterApplyBtn }}
             >
               Filter
             </FilterIconButton>
