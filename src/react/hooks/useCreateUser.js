@@ -2,12 +2,12 @@ import { useState } from 'react';
 import { showNotification } from '@mantine/notifications';
 import { useNavigate } from 'react-router-dom';
 import { useSignUpData } from './useSignUpData';
-import { useAuth } from './useAuth'; // ✅ import useAuth
+import { useAuth } from './useAuth';
 
 export function useCreateUser() {
   const navigate = useNavigate();
   const { data, clear } = useSignUpData();
-  const { userId } = useAuth(); // ✅ get Firebase UID
+  const { userId } = useAuth();
   const [loading, setLoading] = useState(false);
 
   async function createUser(overrides = {}, onSuccess) {
@@ -20,7 +20,7 @@ export function useCreateUser() {
       const payload = {
         ...data,
         ...overrides,
-        firebase_uid: userId, // ✅ attach firebase_uid
+        firebase_uid: userId,
       };
 
       const res = await fetch('/api/users/by-firebase-uid', {

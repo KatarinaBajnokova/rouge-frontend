@@ -38,6 +38,17 @@
   margin-right: 3.5rem;
   width: 90%;
   min-height: 50px;
+
+  :global {
+  .mantine-TextInput-input {
+    font-size: 1.2rem !important;
+    background: transparent;
+    border: none;
+    outline: none;
+    color: colors.$black-main;
+    padding-top: 0.35rem;
+  }
+}
 }
 
 .searchIcon {
@@ -47,17 +58,6 @@
   display: flex;
   align-items: center;
   justify-content: center;
-}
-
-:global {
-  .mantine-TextInput-input {
-    font-size: 1.2rem !important;
-    background: transparent;
-    border: none;
-    outline: none;
-    color: colors.$black-main;
-    padding-top: 0.35rem;
-  }
 }
 
 .basketButton {
@@ -87,6 +87,11 @@
   overflow: visible;
   display: flex;
   flex-direction: column;
+  width: 100%;
+}
+
+.categoryList > * {
+  width: 100%;
 }
 
 .categoriesPage nav {

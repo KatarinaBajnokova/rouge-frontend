@@ -1,4 +1,3 @@
-// src/getFirebaseAuth.js
 import { initializeApp, getApps } from 'firebase/app';
 import {
   getAuth,
@@ -23,7 +22,7 @@ const firebaseConfig = {
 let authInstance = null;
 
 export const getFirebaseAuth = () => {
-  // initialize once
+
   if (!getApps().length) {
     const app = initializeApp(firebaseConfig);
     authInstance = getAuth(app);
