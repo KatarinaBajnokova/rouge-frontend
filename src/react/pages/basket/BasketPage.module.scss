@@ -100,7 +100,8 @@
   position: absolute;
   top: 0;
   right: 0;
-  background-color: colors.$red-heart;
+  background-color: transparent;
+  color: colors.$black-main;
 }
 
 .emptyBasket {
