@@ -3,7 +3,7 @@ import { BasketButton } from '@/react/components/buttons/BasketButton';
 import styles from './HeroCarouselSection.module.scss';
 
 const HeroCarouselSection = () => (
-  <section className={`homeSection ${styles.sectionCarousel}`}>
+  <section className={`homeSection noPaddingBottom ${styles.sectionCarousel}`}>
     <div className={styles.carouselContainer}>
       <SimpleCarousel height='auto' />
       <div className={styles.basketWrapper}>
