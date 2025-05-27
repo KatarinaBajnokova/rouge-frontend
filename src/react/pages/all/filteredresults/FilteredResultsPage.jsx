@@ -3,7 +3,7 @@ import { useLocation, useNavigate } from 'react-router-dom';
 import { TextInput, Center, Loader, Text } from '@mantine/core';
 import { IconSearch } from '@tabler/icons-react';
 
-import { BasketButton } from '@/react/components/buttons/basketbutton/BasketButton';
+import { BasketButton } from '@/react/components/buttons/BasketButton';
 import {
   BackHeader,
   FilterIconButton,
@@ -73,7 +73,7 @@ export default function FilteredResultsPage() {
   );
 
   const Header = () => (
-    <div className={styles.headerWrapper}>
+    <div>
       <BackHeader text='Filter' />
       <BasketButton />
     </div>

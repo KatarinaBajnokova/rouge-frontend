@@ -10,30 +10,6 @@
   padding: 1rem;
 }
 
-.headerWrapper {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  margin-bottom: 1rem;
-  background-color: colors.$white-background;
-  height: 4rem;
-  padding: 0 1rem;
-  border-radius: 8px;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
-
-  .titles {
-    flex: 1;
-    margin-left: 1rem;
-
-    h2 {
-      @include mixins.font('section-title', 'bold');
-      color: colors.$black-main;
-      margin: 0;
-      line-height: 4rem;
-    }
-  }
-}
-
 .searchWrapper {
   margin-top: 0.5rem;
   display: flex;

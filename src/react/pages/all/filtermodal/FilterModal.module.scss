@@ -39,26 +39,7 @@
   }
 
   .backHeader {
-    display: flex;
-    align-items: center;
-    height: 3rem;
-    padding: 0 1rem;
-    margin: 1rem 0 0;
-
-    .backIconButton {
-      background-color: colors.$black-main;
-
-      svg {
-        color: colors.$plain-white;
-      }
-    }
-
-    h2 {
-      @include mixin.font('section-title', 'bold');
-      color: colors.$black-main;
-      margin: 0;
-      line-height: 3rem;
-    }
+    margin: 1rem 0 0 1rem;
   }
 
   .filterSectionTitle {
