@@ -7,7 +7,7 @@ import '@/sass/styles.scss';
 const FavoriteButton = ({
   itemId,
   size = 20,
-  className = 'favoriteButton', // camelCase default
+  className = '',
 }) => {
   const { favorites = [], toggleFavorite, isLoggedIn } = useFavorites();
   const navigate = useNavigate();
@@ -30,7 +30,7 @@ const FavoriteButton = ({
     <button
       type='button'
       onClick={onClick}
-      className={className}
+      className={`favoriteButton ${className}`.trim()}
       aria-label={
         !isLoggedIn
           ? 'Log in to add to favorites'
@@ -47,5 +47,6 @@ const FavoriteButton = ({
     </button>
   );
 };
+
 
 export default FavoriteButton;
