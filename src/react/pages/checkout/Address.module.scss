@@ -10,17 +10,8 @@
   color: colors.$black-main;
   display: flex;
   flex-direction: column;
-}
 
-.backIconButton {
-  margin-top: 0;
-}
-
-.personalForm {
-  margin-top: 0.5rem;
-}
-
-:global {
+  :global {
   input.mantine-Input-input,
   input.mantine-TextInput-input,
   input.mantine-Select-input {
@@ -43,4 +34,13 @@
     border-color: colors.$magenta;
     background-color: colors.$white-elements;
   }
+}
+}
+
+.backIconButton {
+  margin-top: 0;
+}
+
+.personalForm {
+  margin-top: 0.5rem;
 }

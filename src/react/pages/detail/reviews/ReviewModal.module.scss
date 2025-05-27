@@ -18,10 +18,9 @@
   }
   .mantine-Modal-title {
     @include mixins.font('section-title', 'bold');
-    padding: 1rem;
+    margin-bottom: 1rem;
     width: 100%;
     text-align: center;
-    position: absolute;
     pointer-events: none;
   }
   .mantine-Modal-title span {
@@ -43,6 +42,7 @@
 }
 
 .reviewComment {
+  width: 100%;
   text-align: left !important;
   display: block;
 
@@ -54,6 +54,7 @@
   }
 
   textarea {
+    min-height: 8.5rem;
     border-radius: 1.1rem;
     border: 1.5px solid colors.$magenta;
     font-family: inherit;
@@ -71,6 +72,7 @@
 
 .buttonGroup {
   margin-top: 0.4rem;
+  margin-bottom: 0.4rem;
   gap: 1.1rem;
   display: flex;
 }
@@ -91,4 +93,10 @@
   padding: 0.7rem 1.8rem;
   border-radius: 1.7rem;
   box-shadow: 0 2px 12px rgba(colors.$magenta, 0.1);
+}
+
+.modalStack {
+  :global {
+    --stack-gap: 0.5rem !important;
+  }
 }
