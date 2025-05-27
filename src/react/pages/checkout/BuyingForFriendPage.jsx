@@ -71,10 +71,14 @@ export default function BuyingForFriendPage() {
 
   return (
     <div className={styles.forfriendPage}>
-      <div className={styles.backIconButton}>
-        <BackIconButton />
+      <div className={styles.headerRow}>
+        <div className={styles.backIconButton}>
+          <BackIconButton />
+        </div>
+        <div className={styles.headerCenter}>
+          <FinalStepper active={0} />
+        </div>
       </div>
-      <FinalStepper active={0} />
 
       <div className={styles.checkoutSummary}>
         <h2>Buying for a friend</h2>
