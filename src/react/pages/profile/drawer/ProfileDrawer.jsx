@@ -26,7 +26,12 @@ export default function ProfileDrawer({
 
   const headerNode = (
     <div className={styles.headerContent}>
-      <BackHeader text={titles[activeSection]} onBack={onClose} />
+      <BackHeader
+  text={titles[activeSection]}
+  onBack={onClose}
+  className={styles.drawerBackHeader}
+/>
+
     </div>
   );
 

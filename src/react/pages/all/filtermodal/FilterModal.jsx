@@ -128,7 +128,7 @@ export default function FilterModal({
       size='sm'
       padding='md'
     >
-      <BackHeader text='Filter' onBack={onClose} />
+      <BackHeader text='Filter' onBack={onClose} className={styles.backHeader} />
 
       {isLoading ? (
         <Center style={{ height: '80vh' }}>

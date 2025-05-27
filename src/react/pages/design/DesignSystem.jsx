@@ -2,8 +2,6 @@ import React from 'react';
 import { MantineProvider, Group } from '@mantine/core';
 import { Stepper } from '@mantine/core';
 
-import { BackIconButton, BackHeader } from '../components/buttons/IconButtons';
-
 import {
   CheckoutButton,
   ConfirmPurchaseButton,
@@ -12,9 +10,11 @@ import {
   ContinueButton,
   MoreInfoButton,
   BottomBarButton,
-} from '../components/buttons/RedButtons';
+} from '@/react/components/buttons/RedButtons';
 
 import {
+  BackIconButton,
+  BackHeader,
   AddToBasketIconButton,
   SeeReviewsIconButton,
   FilterIconButton,
@@ -23,11 +23,9 @@ import {
   ContinueWithFacebookIconButton,
   ContinueWithGoogleIconButton,
   ContinueWithAppleIconButton,
-} from '../components/buttons/IconButtons';
-import { BasketButton } from '../components/buttons/BasketButton';
-import AllCategoryItem from '../components/all/AllCategoryItem';
-
-import iconEveryday from '@/assets/icons/all_categories/IMG_Everyday.svg';
+} from '@/react/components/buttons/IconButtons';
+import { BasketButton } from '@/react/components/buttons/BasketButton';
+import AllCategoryItem from '@/react/pages/all/categoryitem/AllCategoryItem';
 
 const DesignSystem = () => {
   return (
@@ -59,7 +57,6 @@ const DesignSystem = () => {
 
         <h2>Category component</h2>
         <AllCategoryItem
-          icon={iconEveryday}
           label='Everyday'
           //onClick={() => navigate('/category/everyday')}
         />

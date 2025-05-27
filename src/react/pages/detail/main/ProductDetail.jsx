@@ -89,7 +89,7 @@ export default function ProductDetail() {
         poster={item.images?.[0]}
       />
       <InstructionsSection instructions={item.instructions} />
-      <ReviewsSection reviews={item.reviews} />
+      <ReviewsSection reviews={item.reviews} itemId={item.id} />
       <PurchaseBanner item={item} handleAddToBasket={handleAddToBasket} />
     </div>
   );

@@ -1,23 +1,35 @@
-@use '@sass/abstract/colors' as colors;
-@use '@sass/abstract/typography' as typography;
-@use '@sass/abstract/mixins' as mixins;
+@use '@sass/abstract/colors' as *;
+@use '@sass/abstract/typography' as *;
+@use '@sass/abstract/mixins' as *;
 
 .header {
-  background-color: colors.$grey-background-elements;
-  color: colors.$white-background;
+  background-color: $grey-background-elements;
+  color: $white-elements;
 }
 
 .headerContent {
   display: flex;
   align-items: center;
 
-  .backHeader {
+  .drawerBackHeader {
     display: flex;
     align-items: center;
+    margin-top: 1rem;
+    margin-bottom: 0.5rem;
 
     .mantine-Title-root {
-      color: colors.$white-background;
+      color: $white-background;
       margin-left: 0.5rem;
     }
   }
+}
+
+.drawer {
+  background-color: $white-background!important;
+  width: 100vw !important;
+  max-width: 100vw !important;
+}
+
+.body {
+  background-color: $white-background !important;
 }

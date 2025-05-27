@@ -73,7 +73,7 @@ export default function FilteredResultsPage() {
   );
 
   const Header = () => (
-    <div className={styles.headerWrapper}>
+    <div>
       <BackHeader text='Filter' />
       <BasketButton />
     </div>

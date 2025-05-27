@@ -28,7 +28,7 @@
     scroll-snap-type: x mandatory;
 
     .detailTag {
-      @include mixins.font('text', 'medium');
+      @include mixins.font('icon-title', 'medium');
       height: 2rem;
       background: linear-gradient(
         to top,
@@ -68,7 +68,7 @@
       border: none;
       display: flex;
       align-items: center;
-      color: colors.$magenta;
+      color: colors.$grey-background-elements;
       cursor: pointer;
       @include mixins.font('text', 'bold');
       gap: 0.3rem;

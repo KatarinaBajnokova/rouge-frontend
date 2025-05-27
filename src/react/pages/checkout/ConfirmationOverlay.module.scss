@@ -62,17 +62,14 @@
 
 .continueButton {
   background-color: colors.$red !important;
+  border: none !important;
   color: colors.$plain-white;
   font-weight: bold;
   padding: 0.75rem 2rem;
-  border-radius: 2rem;
-  box-shadow: 0 4px 14px rgba(colors.$plain-black, 0.1);
+  border-radius: 2rem !important;
+  height: 3rem !important;
+  box-shadow: 0 4px 14px rgba(colors.$plain-black, 0.1) !important;
   margin-top: 1rem;
-}
-
-:global(.m_26063560:checked) {
-  background-color: colors.$magenta;
-  border: colors.$magenta;
 }
 
 @keyframes spin {

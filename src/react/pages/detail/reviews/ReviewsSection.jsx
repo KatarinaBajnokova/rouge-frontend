@@ -1,11 +1,14 @@
 import { Title, Text, Paper, Rating, Button, Divider } from '@mantine/core';
+import { useNavigate, useParams } from 'react-router-dom';
 import styles from './ReviewsSection.module.scss';
 
 export default function ReviewsSection({
   reviews = [],
   showReviews,
   setShowReviews,
+  itemId,
 }) {
+  const navigate = useNavigate();
   const reviewCount = reviews.length;
   const avgRating =
     reviewCount === 0
@@ -48,7 +51,7 @@ export default function ReviewsSection({
                 radius='xl'
                 mt='sm'
                 color='grape'
-                onClick={() => setShowReviews(true)}
+                onClick={() => navigate(`/item/${itemId}/reviews`)}
               >
                 See reviews ›
               </Button>

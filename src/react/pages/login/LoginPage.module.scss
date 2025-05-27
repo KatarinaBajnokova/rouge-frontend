@@ -8,9 +8,12 @@
     margin-bottom: 0 !important;
   }
 
+  body{
+    background-color: colors.$white-background;
+  }
+
   .loginPage {
     background-color: colors.$white-background;
-    margin: 1rem;
     padding: 1.2rem 1.5rem;
     font-family: typography.$font-family;
     color: colors.$black-main;

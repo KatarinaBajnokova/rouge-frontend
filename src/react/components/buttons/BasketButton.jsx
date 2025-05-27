@@ -5,7 +5,7 @@ import { safeJsonFetch } from '@/react/utils/fetchUtils';
 import basketIcon from '@/assets/icons/icon_basket_active.svg';
 import '@/sass/styles.scss';
 
-export function BasketButton({ refresh }) {
+export function BasketButton({ refresh, className = '', ...props }) {
   const navigate = useNavigate();
   const [itemCount, setItemCount] = useState(0);
 
@@ -37,14 +37,16 @@ export function BasketButton({ refresh }) {
 
   return (
     <button
-      type='button'
-      className='basketButton'
-      aria-label='Open basket'
+      type="button"
+      className={`basketButton ${className}`.trim()}
+      aria-label="Open basket"
       onClick={() => navigate('/basket')}
+      {...props}
     >
-      <img src={basketIcon} alt='' className='icon' />
-      <span className='label'>Basket</span>
-      {itemCount > 0 && <span className='count'>{itemCount}</span>}
+      <img src={basketIcon} alt="" className="icon" />
+      <span className="label">Basket</span>
+      {itemCount > 0 && <span className="count">{itemCount}</span>}
     </button>
   );
 }
+
