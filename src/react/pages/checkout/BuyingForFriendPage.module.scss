@@ -9,6 +9,11 @@
   font-family: typography.$font-family;
   display: flex;
   flex-direction: column;
+
+  :global(.m_26063560:checked) {
+  background-color: colors.$magenta;
+  border: colors.$magenta;
+}
 }
 
 .backIconButton {
@@ -57,11 +62,6 @@
 
 .checkoutForm :global(.mantine-Checkbox-root) {
   margin-top: 0.5rem;
-}
-
-:global(.m_26063560:checked) {
-  background-color: colors.$magenta;
-  border: colors.$magenta;
 }
 
 .checkboxesPart {
