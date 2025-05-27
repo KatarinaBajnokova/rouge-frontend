@@ -94,14 +94,15 @@ export default function ReviewsPage() {
                 padding='md'
                 className={styles.reviewCard}
               >
-                <Rating
-                  className={styles.rating}
-                  value={avg}
-                  readOnly
-                  fractions={2}
-                  color='grape'
-                />
-
+                <div className={styles.reviewCardRatingWrapper}>
+                  <Rating
+                    className={styles.reviewCardRating}
+                    value={rating}
+                    readOnly
+                    fractions={1}
+                    color='grape'
+                  />
+                </div>
                 <Group
                   spacing='sm'
                   align='center'

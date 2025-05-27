@@ -4,6 +4,7 @@ import { useAuth } from '@/react/hooks/useAuth';
 
 import { Modal, Group, Button, Textarea, Rating, Stack } from '@mantine/core';
 import { notifications } from '@mantine/notifications';
+import styles from './ReviewModal.module.scss';
 
 export default function ReviewModal({
   opened,
@@ -97,19 +98,21 @@ export default function ReviewModal({
     <Modal
       opened={opened}
       onClose={onClose}
-      title='Leave a Review'
+      title={<span className={styles.modalTitle}>Leave a Review</span>}
       centered
       overlay={{ opacity: 0.5, blur: 3 }}
       size='sm'
+      withCloseButton={false}
     >
-      <Stack spacing='md'>
-        <Group spacing='xs'>
-          <div>Your Rating:</div>
+      <Stack spacing='md' className={styles.modalStack}>
+        <Group spacing='xs' className={styles.reviewHeader}>
+          <div className={styles.reviewLabel}>Your Rating:</div>
           <Rating
             value={rating}
             onChange={setRating}
             fractions={1}
             color='grape'
+            className={styles.reviewRating}
           />
         </Group>
 
@@ -120,14 +123,26 @@ export default function ReviewModal({
           value={comment}
           onChange={e => setComment(e.currentTarget.value)}
           required
+          className={styles.reviewComment}
         />
 
-        <Group position='right' mt='md'>
-          <Button variant='default' onClick={onClose} disabled={submitting}>
+        <Group position='right' mt='md' className={styles.buttonGroup}>
+          <Button
+            variant='default'
+            onClick={onClose}
+            disabled={submitting}
+            className={styles.btnCancel}
+          >
             Cancel
           </Button>
-          <Button onClick={handleSubmit} loading={submitting}>
-            Submit Review
+          <Button
+            onClick={handleSubmit}
+            loading={submitting}
+            className={styles.btnSubmit}
+            color='grape'
+            radius='xl'
+          >
+            Submit
           </Button>
         </Group>
       </Stack>
