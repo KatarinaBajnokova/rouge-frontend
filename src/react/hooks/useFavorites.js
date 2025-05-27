@@ -26,7 +26,7 @@ export function useFavorites() {
         return res.json();
       })
 .then(data => {
-  // Assume the backend returns full item objects; just store their ids
+
   const ids = Array.isArray(data) ? data.map(item => item.id) : [];
   setFavorites(ids);
 })
@@ -63,7 +63,6 @@ export function useFavorites() {
       return;
     }
 
-    // ✅ Re-fetch to ensure state is synced with backend
     fetch('/api/favorites', {
       credentials: 'include',
       headers: { 'Content-Type': 'application/json' },

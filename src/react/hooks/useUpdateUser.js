@@ -1,14 +1,14 @@
 import { useState } from 'react';
 import { showNotification } from '@mantine/notifications';
 import { useNavigate } from 'react-router-dom';
-import { getFirebaseAuth } from '../../getFirebaseAuth'; // ✨ added this
+import { getFirebaseAuth } from '../../getFirebaseAuth';
 
 export function useUpdateUser() {
   const navigate = useNavigate();
   const [loading, setLoading] = useState(false);
 
   async function updateUser(data) {
-    const backendUserId = localStorage.getItem('backendUserId'); // ✨ correct key
+    const backendUserId = localStorage.getItem('backendUserId');
     if (!backendUserId) throw new Error('Not logged in');
     setLoading(true);
 
@@ -20,16 +20,16 @@ export function useUpdateUser() {
         throw new Error('Not logged in');
       }
 
-      await currentUser.reload(); // ✨ reload user session
-      const token = await currentUser.getIdToken(true); // ✨ get fresh token
+      await currentUser.reload();
+      const token = await currentUser.getIdToken(true);
 
       const res = await fetch('/api/users/update', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
-          Authorization: `Bearer ${token}`, // ✨ Authorization header
+          Authorization: `Bearer ${token}`,
         },
-        body: JSON.stringify({ user_id: backendUserId, ...data }), // 🔥 backendUserId, not userId
+        body: JSON.stringify({ user_id: backendUserId, ...data }),
       });
 
       const json = await res.json();
@@ -51,7 +51,7 @@ export function useUpdateUser() {
         color: 'red',
         position: 'top-center',
       });
-      throw err; // ✨ rethrow for catch block in page
+      throw err;
     } finally {
       setLoading(false);
     }
