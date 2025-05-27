@@ -37,14 +37,6 @@
   line-height: 1;
 }
 
-:global(.mantine-Rating-root) {
-  .mantine-Rating-label[data-filled='false'] svg {
-    fill: none !important;
-    stroke: colors.$black-main !important;
-    stroke-width: 1px !important;
-  }
-}
-
 .reviewCard {
   margin: 1rem auto;
   padding: 1rem 0;

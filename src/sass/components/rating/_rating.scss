@@ -1,0 +1,12 @@
+@use '@/sass/abstract/colors' as colors;
+
+.mantine-Rating-starSymbol[data-filled='true'] {
+  stroke: colors.$magenta !important;
+  stroke-width: 1.5px !important;
+}
+
+.mantine-Rating-starSymbol:not([data-filled='true']) {
+  stroke: colors.$black-main !important;
+  stroke-width: 2px !important;
+  fill: none !important;
+}

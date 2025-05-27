@@ -36,7 +36,7 @@ export default function ReviewsPage() {
   }, [id]);
 
   if (loading) return <Loader />;
-  if (error) return <Text color='red'>Error loading reviews: {error}</Text>;
+  if (error) return <Text>Error loading reviews: {error}</Text>;
 
   const count = reviews.length;
   const avg =
@@ -95,10 +95,10 @@ export default function ReviewsPage() {
                 className={styles.reviewCard}
               >
                 <Rating
-                  className={styles.reviewCardRating}
-                  value={rating}
+                  className={styles.rating}
+                  value={avg}
                   readOnly
-                  fractions={1}
+                  fractions={2}
                   color='grape'
                 />
 
@@ -122,10 +122,9 @@ export default function ReviewsPage() {
             )
           )
         ) : (
-          <Text color='dimmed'>No reviews yet.</Text>
+          <Text>No reviews yet.</Text>
         )}
       </Stack>
-
       <ReviewModal
         opened={modalOpen}
         onClose={() => setModalOpen(false)}

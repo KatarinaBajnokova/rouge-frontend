@@ -54,7 +54,10 @@
     rgba(colors.$magenta, 0.2) 100%
   ) !important;
   border-radius: 2rem;
-  padding: 1rem;
+  padding: 2rem;
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
 }
 
 .reviewCardRating {
@@ -92,12 +95,6 @@
 .rating {
   display: inline-flex;
   margin: 0 0 0.5rem;
-
-  :global(.mantine-Rating-label[data-filled='false'] svg) {
-    fill: none !important;
-    stroke: colors.$black-main !important;
-    stroke-width: 1px !important;
-  }
 }
 
 .count {
