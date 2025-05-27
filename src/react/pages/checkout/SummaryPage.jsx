@@ -146,7 +146,7 @@ export default function SummaryPage() {
   try {
     setButtonLoading(true);
 
-    console.log('🚀 Submitting order payload:', payload); // ✅ Place the log here
+    console.log('🚀 Submitting order payload:', payload);
 
     const res = await fetch('http://localhost:8000/api/orders/create', {
       method: 'POST',
@@ -162,11 +162,10 @@ export default function SummaryPage() {
       throw new Error(data.error || 'Order creation failed');
     }
 
-await fetch('http://localhost:8000/api/basket', {
-  method: 'DELETE',
-  credentials: 'include',
-});
-
+    await fetch('http://localhost:8000/api/basket', {
+      method: 'DELETE',
+      credentials: 'include',
+    });
 
 
     localStorage.removeItem('personalInfo');
