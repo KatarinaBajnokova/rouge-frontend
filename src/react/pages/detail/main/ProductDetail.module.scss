@@ -2,6 +2,15 @@
 @use '@/sass/abstract/typography' as typography;
 @use '@/sass/abstract/mixins' as mixins;
 
+:global(.mantine-Title-root) {
+  margin-top: 0.5rem;
+  margin-bottom: 1rem;
+  font-size: 1.25rem;
+  line-height: 1.4;
+  @include mixins.font('section-title', 'bold');
+  color: colors.$black-main;
+}
+
 :global {
   body {
     font-family: typography.$font-family;
@@ -25,7 +34,7 @@
     position: relative;
     max-width: 30rem;
     background: colors.$white-background;
-    padding-bottom: 6rem;
+    padding-bottom: 7rem;
     color: colors.$grey-background-elements;
     min-height: 100dvh;
   }
@@ -46,9 +55,7 @@
       text-decoration: underline;
     }
   }
-
-  .detailTitle.mantine-Title-root {
-    margin-bottom: 1rem;
-    @include mixins.font('section-title', 'bold');
-  }
 }
+
+
+

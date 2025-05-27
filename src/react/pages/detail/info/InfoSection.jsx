@@ -32,7 +32,6 @@ export default function InfoSection({ item, expanded, setExpanded }) {
           {item.tags.map(tag => (
             <Badge
               key={tag}
-              size='xs'
               variant='filled'
               radius='sm'
               className={styles.detailTag}

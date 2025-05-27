@@ -3,30 +3,40 @@
 @use '@/sass/abstract/mixins' as mixins;
 
 .purchaseBanner {
-  position: fixed;
-  bottom: 0;
-  left: 0;
-  right: 0;
-  padding: 0.75rem 1rem;
-  z-index: 999;
-  background: rgba(colors.$white-elements, 0.95);
-  box-shadow: 0 -4px 12px rgba(colors.$black-main, 0.05);
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    padding: 0.3rem 1.5rem;
+    z-index: 999;
+    background: rgba(colors.$white-elements, 0.95);
+    border-top-right-radius: 2rem;
+    border-top-left-radius: 2rem;
+    box-shadow: 0 -4px 12px rgba(colors.$black-main, 0.05);
+
+      display: flex;
+    justify-content: center;
+    align-items: center;
 
   .purchaseBannerContent {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    max-width: 30rem;
-    margin: 0 auto;
-    gap: 1rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      width: 100%;
+      max-width: 30rem;
+      gap: 1rem;
+      padding: 1rem 0;
   }
 
   .purchaseBannerPrice {
-    display: flex;
-    flex-direction: column;
+      display: flex;
+      flex-direction: column;
+      gap: 0.5rem;
 
     .mantine-Text-root {
-      line-height: 1.2;
+        font-size: 16px;
+        font-weight: 500;
+        line-height: 1.4;
     }
   }
 
