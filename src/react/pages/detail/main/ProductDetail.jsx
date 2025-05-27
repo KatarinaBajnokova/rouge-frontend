@@ -80,14 +80,18 @@ export default function ProductDetail() {
         <BackIconButton />
         <BasketButton refresh={basketRefresh} />
       </div>
-
       <CarouselSection itemId={itemId} />
       <InfoSection item={item} expanded={expanded} setExpanded={setExpanded} />
       <BoxProductsSection boxProducts={item.boxProducts} />
+
       <TutorialSection
-        tutorialUrl={item.tutorialUrl}
-        poster={item.images?.[0]}
+        thumbnailUrl={
+          item.thumbnailUrl
+            ? `http://localhost:8000/${item.thumbnailUrl.replace(/^\/?/, '')}`
+            : null
+        }
       />
+
       <InstructionsSection instructions={item.instructions} />
       <ReviewsSection reviews={item.reviews} itemId={item.id} />
       <PurchaseBanner item={item} handleAddToBasket={handleAddToBasket} />
