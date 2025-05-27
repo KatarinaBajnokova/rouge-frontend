@@ -45,6 +45,10 @@ export function PersonalInfo({ user, addresses = [] }) {
         const name = eqPos > -1 ? cookie.substr(0, eqPos) : cookie;
         document.cookie = `${name}=;expires=${new Date(0).toUTCString()};path=/`;
       });
+
+      // --- Trigger basketRefresh so BasketButton updates in THIS tab too ---
+      window.localStorage.setItem('basketRefresh', Date.now());
+
       navigate('/login?from=profile', { replace: true });
     } catch (err) {
       console.error('Logout failed:', err);
@@ -118,7 +122,7 @@ export function PersonalInfo({ user, addresses = [] }) {
               withPlaceholder
             />
           ) : (
-            <Text color='dimmed'>No look selected.</Text>
+            <Text>No look selected.</Text>
           )}
         </div>
       </section>

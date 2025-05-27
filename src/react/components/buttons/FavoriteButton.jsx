@@ -4,11 +4,7 @@ import IconHeartFilled from '@tabler/icons-react/dist/esm/icons/iconHeartFilled'
 import { useFavorites } from '@/react/hooks/useFavorites';
 import '@/sass/styles.scss';
 
-const FavoriteButton = ({
-  itemId,
-  size = 20,
-  className = '',
-}) => {
+const FavoriteButton = ({ itemId, size = 20, className = '' }) => {
   const { favorites = [], toggleFavorite, isLoggedIn } = useFavorites();
   const navigate = useNavigate();
 
@@ -47,6 +43,5 @@ const FavoriteButton = ({
     </button>
   );
 };
-
 
 export default FavoriteButton;
