@@ -36,7 +36,7 @@ function CategoryGroup({ group, search }) {
     <div className={styles.categorySection}>
       <h2>{group.name}</h2>
       <div className={styles.categoryList}>
-        {filtered.map(cat => (
+        {filtered.map((cat, idx) => (
           <AllCategoryItem
             key={cat.id}
             iconUrl={cat.icon_url}
@@ -46,6 +46,7 @@ function CategoryGroup({ group, search }) {
                 state: { categoryName: cat.name },
               })
             }
+            isLastItem={idx === filtered.length - 1}
           />
         ))}
       </div>
@@ -82,7 +83,7 @@ export default function CategoriesPage() {
         onChange={e => setSearch(e.currentTarget.value)}
         placeholder='Search…'
         variant='unstyled'
-        className={styles.bareInput}
+        inputClassName={styles.bareInput}
       />
     </div>
   );

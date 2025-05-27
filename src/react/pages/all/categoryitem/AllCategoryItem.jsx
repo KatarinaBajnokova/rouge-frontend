@@ -23,9 +23,13 @@ export default function AllCategoryItem({
           className={styles.icon}
         />
         <p className={styles.label}>{label}</p>
-        <IconChevronRight size={30} stroke={2} className={styles.chevron} />
+        <IconChevronRight
+          size={30}
+          stroke={2}
+          className={styles.chevron}
+        />{' '}
       </div>
-      <Divider className={styles.divider} />
+      {!isLastItem && <div className={styles.divider}></div>}
     </div>
   );
 }

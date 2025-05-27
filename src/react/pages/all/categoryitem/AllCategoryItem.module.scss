@@ -6,16 +6,28 @@
   background-color: transparent;
   display: flex;
   flex-direction: column;
+  padding: 0;
 }
 
 .itemContent {
   background-color: transparent;
-  border-radius: 12px;
   display: flex;
   align-items: center;
   justify-content: space-between;
   width: 100%;
   padding: 0.75rem 1rem;
+}
+
+.divider {
+  width: 100%;
+  height: 1px;
+  min-height: 1px;
+  background-color: colors.$light-grey !important;
+  border: none !important;
+  margin: 0 0 0 0;
+  display: block;
+  opacity: 1 !important;
+  box-shadow: none !important;
 }
 
 .icon {
@@ -28,22 +40,7 @@
   margin: 0;
   flex: 1;
 }
-
 .chevron {
   flex-shrink: 0;
   color: colors.$light-grey;
-}
-
-.divider {
-  margin-bottom: 10px;
-  height: 1px;
-  min-height: 1px;
-  background-color: colors.$light-grey;
-  width: 100%;
-  border: none;
-  display: block;
-}
-
-.allCategoryItem:hover > .itemContent {
-  background-color: lighten(colors.$white-background, 3%);
 }

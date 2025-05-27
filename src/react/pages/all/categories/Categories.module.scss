@@ -28,28 +28,36 @@
 }
 
 .customSearchBar {
-  flex: 1;
   display: flex;
   align-items: center;
+  justify-content: center;
   background-color: colors.$white-elements;
   padding: 0.2rem 1rem;
   border-radius: 2rem;
   box-shadow: 0 4px 8px rgba(colors.$plain-black, 0.2);
   margin-right: 3.5rem;
+  width: 90%;
+  min-height: 50px;
 }
 
 .searchIcon {
-  margin-right: 0.5rem;
-  flex-shrink: 0;
+  margin-right: 0.75rem;
+  height: 1.4rem;
+  width: 1.8rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
-.bareInput {
-  flex: 1;
-  font-size: 1rem;
-  background: transparent;
-  border: none;
-  outline: none;
-  color: colors.$black-main;
+:global {
+  .mantine-TextInput-input {
+    font-size: 1.2rem !important;
+    background: transparent;
+    border: none;
+    outline: none;
+    color: colors.$black-main;
+    padding-top: 0.35rem;
+  }
 }
 
 .basketButton {
