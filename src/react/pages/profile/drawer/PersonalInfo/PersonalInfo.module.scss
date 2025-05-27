@@ -82,14 +82,17 @@
 }
 
 .logoutWrapper {
-  margin-top: auto;
+  margin-top: 1rem;
   padding-top: 1.5rem;
   padding-bottom: 2rem;
 }
 
 .logoutButton {
+  height: 2.5rem;
+  background-color: colors.$red;
   border-color: colors.$red;
-  color: colors.$red;
+  color: colors.$white-elements;
+  border-radius: 5rem;
   @include mixins.font('section-description', 'bold');
 
   &:hover {
