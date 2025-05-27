@@ -5,6 +5,7 @@
   background-color: colors.$white-background;
   padding: 1rem;
   min-height: 100vh;
+  margin-bottom: 1rem;
 }
 
 .avatar {
@@ -19,18 +20,6 @@
   align-items: center;
   gap: 1rem;
   margin-bottom: 1rem;
-}
-
-.backBtn {
-  margin: 0;
-  padding: 0;
-  background: none;
-  border: none;
-  box-shadow: none;
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  line-height: 0;
 }
 
 .title {
@@ -118,4 +107,10 @@
 
 .comment {
   @include mixins.font('body', 'regular');
+}
+
+.reviewStack {
+  :global {
+    --stack-gap: 1.4rem !important;
+  }
 }

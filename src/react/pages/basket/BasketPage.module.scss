@@ -10,12 +10,6 @@
   margin-bottom: 2.5rem;
 }
 
-.basketHeader {
-  display: flex;
-  align-items: center;
-  gap: 0.75rem;
-}
-
 .backIconButton {
   position: relative;
   margin-top: 0;
@@ -100,8 +94,13 @@
   position: absolute;
   top: 0;
   right: 0;
-  background-color: transparent;
-  color: colors.$black-main;
+  background-color: colors.$red-heart;
+  color: colors.$white-elements;
+
+    &:hover {
+    background-color: colors.$red-heart !important;
+    color: colors.$white-elements !important;
+  }
 }
 
 .emptyBasket {

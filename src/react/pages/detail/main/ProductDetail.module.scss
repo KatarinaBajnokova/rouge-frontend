@@ -2,14 +2,15 @@
 @use '@/sass/abstract/typography' as typography;
 @use '@/sass/abstract/mixins' as mixins;
 
-:global(.mantine-Title-root) {
+:global(.productDetail .detailTitle) {
+  @include mixins.font('section-title', 'bold');
+  color: colors.$black-main;
   margin-top: 0.5rem;
   margin-bottom: 1rem;
   font-size: 1.25rem;
   line-height: 1.4;
-  @include mixins.font('section-title', 'bold');
-  color: colors.$black-main;
 }
+
 
 :global {
   body {
@@ -56,6 +57,3 @@
     }
   }
 }
-
-
-

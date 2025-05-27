@@ -11,9 +11,13 @@
   flex-direction: column;
 
   :global(.m_26063560:checked) {
-    background-color: colors.$magenta;
-    border: colors.$magenta;
-  }
+  background-color: colors.$magenta;
+  border: colors.$magenta;
+}
+}
+
+.headerRow{
+  margin-bottom: 1rem;
 }
 
 .backIconButton {
@@ -43,73 +47,46 @@
   margin-top: 0.1rem;
 }
 
-.checkoutForm :global(.mantine-TextInput-root) {
-  margin-bottom: 1rem;
-}
+.checkoutForm {
+    :global(.mantine-TextInput-root) {
+      margin-bottom: 1rem;
+    }
 
-.checkoutForm :global(.mantine-TextInput-input) {
-  border-radius: 1rem;
-  background-color: colors.$plain-white;
-  border: 1px solid colors.$white-elements;
-  padding: 0.75rem 1rem;
-}
+    :global(.mantine-TextInput-input) {
+      border-radius: 1rem;
+      background-color: colors.$plain-white;
+      border: 1px solid colors.$white-elements;
+      padding: 0.75rem 1rem;
+    }
 
-.checkoutForm :global(.mantine-TextInput-label) {
-  font-weight: 600;
-  font-size: 0.95rem;
-  margin-bottom: 0.25rem;
-}
+    :global(.mantine-TextInput-label) {
+      font-weight: 600;
+      font-size: 0.95rem;
+      margin-bottom: 0.25rem;
+    }
 
-.checkoutForm :global(.mantine-Checkbox-root) {
-  margin-top: 0.5rem;
-}
+    :global(.mantine-Checkbox-root) {
+      margin-top: 0.5rem;
+    }
+
+        :global(.mantine-Textarea-input) {
+      margin-bottom: 1rem;
+      border-radius: 0.5rem;
+      background-color: colors.$plain-white;
+      border: 1px solid colors.$white-elements;
+      padding: 0.75rem 1rem;
+    }
+
+    :global(.mantine-Textarea-label) {
+      font-weight: 600;
+      font-size: 0.95rem;
+      margin-bottom: 0.25rem;
+    }
+  }
 
 .checkboxesPart {
   display: flex;
   flex-direction: column;
   gap: 0.35rem;
   margin-bottom: 1rem;
-}
-
-.myCustomTextarea :global(.mantine-Textarea-input) {
-  margin-bottom: 1rem;
-  border-radius: 0.5rem;
-  background-color: colors.$plain-white;
-  border: 1px solid colors.$white-elements;
-  padding: 0.75rem 1rem;
-}
-
-.myCustomTextarea :global(.mantine-Textarea-label) {
-  font-weight: 600;
-  font-size: 0.95rem;
-  margin-bottom: 0.25rem;
-}
-.headerRow {
-  position: relative;
-  height: 90px;
-  margin-bottom: 3rem;
-  width: 100%;
-}
-
-.backIconButton {
-  position: absolute;
-  left: 0;
-  top: 20%;
-  transform: translateY(-50%);
-}
-
-.headerCenter {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  height: 100%;
-  width: 100%;
-  position: absolute;
-  left: 0;
-  top: 0;
-  pointer-events: none;
-}
-
-.headerCenter > * {
-  pointer-events: auto;
 }

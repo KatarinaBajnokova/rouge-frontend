@@ -104,7 +104,7 @@ export default function ReviewModal({
       size='sm'
       withCloseButton={false}
     >
-      <Stack spacing='md' className={styles.modalStack}>
+      <Stack className={styles.modalStack}>
         <Group spacing='xs' className={styles.reviewHeader}>
           <div className={styles.reviewLabel}>Your Rating:</div>
           <Rating
