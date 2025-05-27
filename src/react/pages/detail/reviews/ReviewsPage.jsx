@@ -4,7 +4,7 @@ import { Text, Loader, Stack, Card, Rating, Group } from '@mantine/core';
 import { useAuth } from '@/react/hooks/useAuth';
 import { notifications } from '@mantine/notifications';
 import {
-  BackIconButton,
+  BackHeader,
   LeaveAReviewIconButton,
 } from '@/react/components/buttons/IconButtons';
 import ReviewModal from './ReviewModal';
@@ -45,13 +45,7 @@ export default function ReviewsPage() {
   return (
     <div className={styles.reviewsPage}>
       <div className={styles.header}>
-        <BackIconButton
-          onClick={() => navigate(-1)}
-          className={styles.backBtn}
-        />
-        <Text component='h1' className={styles.title} size='xl' weight={500}>
-          Reviews
-        </Text>
+        <BackHeader text='Reviews' />
       </div>
 
       <div className={styles.reviewsSummary}>
@@ -84,7 +78,7 @@ export default function ReviewsPage() {
         />
       </div>
 
-      <Stack spacing='md'>
+      <Stack className={styles.reviewStack}>
         {count > 0 ? (
           reviews.map(
             ({ id: reviewId, author, comment, rating, avatar_url }) => (
