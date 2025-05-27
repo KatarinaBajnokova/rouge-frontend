@@ -16,7 +16,7 @@ const TrendingCard = ({ look, showHeart = false, variant = 'default' }) => {
         </div>
         <div className={`content${isCompact ? ' compactContent' : ''}`}>
           <div className={`title${isCompact ? ' compactTitle' : ''}`}>
-            {look.title}
+            {look.title || look.name}
           </div>
           <div className={`category${isCompact ? ' compactCategory' : ''}`}>
             {look.category}
