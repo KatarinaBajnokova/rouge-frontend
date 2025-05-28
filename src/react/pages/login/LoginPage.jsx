@@ -1,8 +1,8 @@
 import React, { useState } from 'react';
 import { useNavigate, Link, useLocation } from 'react-router-dom';
 import { TextInput, PasswordInput, Divider } from '@mantine/core';
-import IconEye from '@tabler/icons-react/dist/esm/icons/iconEye';
-import IconEyeOff from '@tabler/icons-react/dist/esm/icons/iconEyeOff';
+import { IconEye } from '@tabler/icons-react';
+import { IconEyeOff } from '@tabler/icons-react';
 import { showNotification } from '@mantine/notifications';
 
 import { BackIconButton } from '@/react/components/buttons/IconButtons';

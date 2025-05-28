@@ -11,8 +11,8 @@ import {
 } from '@/react/components/buttons/IconButtons';
 import { getFirebaseAuth } from '@/getFirebaseAuth';
 
-import IconEye from '@tabler/icons-react/dist/esm/icons/iconEye';
-import IconEyeOff from '@tabler/icons-react/dist/esm/icons/iconEyeOff';
+import { IconEye } from '@tabler/icons-react';
+import { IconEyeOff } from '@tabler/icons-react';
 
 import styles from '@/react/pages/signup/SignUpPage.module.scss';
 

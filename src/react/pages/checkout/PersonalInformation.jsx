@@ -14,8 +14,8 @@ import { useCheckout } from '@/react/contexts/CheckoutContext';
 
 import styles from './PersonalInformation.module.scss';
 
-import IconEye from '@tabler/icons-react/dist/esm/icons/iconEye';
-import IconEyeOff from '@tabler/icons-react/dist/esm/icons/iconEyeOff';
+import { IconEye } from '@tabler/icons-react';
+import { IconEyeOff } from '@tabler/icons-react';
 
 const saveBackendUserId = id => localStorage.setItem('backendUserId', id);
 const clearBackendUserId = () => localStorage.removeItem('backendUserId');
