@@ -7,6 +7,18 @@ Rouge
 ⚠️Changing the frontend port may cause CORS errors!!!!!!!!!!!!!!!! ⚠️  
 ⚠️⚠️⚠️⚠️⚠️⚠️⚠️⚠️⚠️⚠️⚠️⚠️⚠️⚠️⚠️⚠️⚠️⚠️⚠️⚠️⚠️⚠️⚠️⚠️⚠️⚠️⚠️⚠️
 
+Due to technical difficulties, we decided to set:
+
+        ⚠️Andrea-branch⚠️ (front-end)
+
+        ⚠️Andrea-cookies⚠️ (back-end)
+
+    as the
+
+        ⚠️master branch⚠️
+
+More information regarding that will be provided during the exam on the 2nd of June.
+
 ----Project Description----
 
 Rouge is a modern, full-stack web application for online shopping.
