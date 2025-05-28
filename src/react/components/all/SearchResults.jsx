@@ -37,7 +37,6 @@ export default function SearchResults({ query }) {
           level: item.difficulty,
           price: item.price,
           description: item.description,
-          tutorial_url: item.tutorial_url,
         };
         return (
           <TrendingCard
