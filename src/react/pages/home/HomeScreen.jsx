@@ -8,6 +8,7 @@ import EverydaySection from '@/react/pages/home/sections/EverydaySection';
 import FormalSection from '@/react/pages/home/sections/FormalSection';
 import ReorderSection from '@/react/pages/home/sections/ReorderSection';
 import Navbar from '@/react/components/navbar/Navbar';
+import CookiesBanner from '@/react/components/cookies/cookiesBanner';
 
 import './HomeScreen.module.scss';
 
@@ -70,6 +71,8 @@ export default function HomeScreen() {
       <EverydaySection />
       <FormalSection />
       <ReorderSection />
+
+            <CookiesBanner /> 
 
       <Navbar />
     </div>
