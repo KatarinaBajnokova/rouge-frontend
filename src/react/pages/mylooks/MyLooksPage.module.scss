@@ -1,0 +1,94 @@
+@use '@/sass/abstract/colors' as colors;
+@use '@/sass/abstract/typography' as typography;
+@use '@/sass/abstract/mixins' as mixins;
+
+.myLooksPage {
+  background-color: colors.$grey-background-elements;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  padding: 1rem;
+
+  h2 {
+    margin: 0.5rem 0 0.5rem 1rem;
+    color: colors.$white-elements;
+    @include mixins.font('section-title', 'bold');
+  }
+
+  .searchWrapper {
+    margin: 1rem;
+    margin-bottom: 1.5rem;
+  }
+
+  .searchRow {
+    display: grid;
+    grid-template-columns: 1fr auto;
+    column-gap: 1.5rem;
+    align-items: flex-start;
+  }
+
+  .customSearchBar {
+    flex: 1;
+    display: flex;
+    align-items: center;
+    background-color: colors.$white-elements;
+    padding: 0.2rem 1rem;
+    border-radius: 2rem;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    margin-right: 3.5rem;
+  }
+
+  .searchIcon {
+    margin-right: 0.5rem;
+    flex-shrink: 0;
+  }
+
+  .bareInput {
+    flex: 1;
+    font-size: 1rem;
+    background: transparent;
+    border: none;
+    outline: none;
+    color: colors.$black-main;
+    @include mixins.font('section-description', 'regular');
+  }
+
+  .basketButton {
+    flex-shrink: 0;
+    align-self: flex-start;
+    margin-left: 1.5rem;
+  }
+
+  h1 {
+    text-align: center;
+    margin: 1.5rem 0;
+  }
+
+  .looksGrid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(165px, 1fr));
+    column-gap: 1rem;
+    row-gap: 1.5rem;
+    padding: 0.5rem;
+    box-sizing: border-box;
+    margin-bottom: 90px;
+  }
+
+  .centered {
+    text-align: center;
+    color: colors.$white-elements;
+    @include mixins.font('section-description', 'regular');
+  }
+
+  .error {
+    color: colors.$magenta;
+  }
+}
+
+:global {
+  .mantine-TextInput-input {
+    border: none;
+    box-shadow: none;
+    background: transparent;
+  }
+}

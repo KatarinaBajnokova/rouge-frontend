@@ -1,0 +1,93 @@
+@use '@/sass/abstract/colors' as colors;
+@use '@/sass/abstract/typography' as typography;
+@use '@/sass/abstract/mixins' as mixins;
+
+.itemsPage {
+  background-color: colors.$white-background;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  padding: 1rem;
+  
+.searchWrapper {
+  margin-top: 0.5rem;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  margin-bottom: 0.5rem;
+}
+
+.searchRow {
+  display: grid;
+  grid-template-columns: 1fr auto;
+  column-gap: 1.5rem;
+  align-items: center;
+  width: 100%;
+
+.customSearchBar {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  background-color: colors.$white-elements;
+  padding: 0.2rem 1rem;
+  border-radius: 2rem;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+.searchIcon {
+  margin-right: 0.5rem;
+  flex-shrink: 0;
+}
+
+.bareInput {
+  flex: 1;
+  font-size: 1rem;
+  background: transparent;
+  border: none;
+  outline: none;
+  color: colors.$black-main;
+}
+  }
+
+  .filterRow {
+    display: flex;
+    justify-content: flex-start;
+    margin-bottom: 1rem;
+  }
+
+.itemsList {
+  display: flex;
+  flex-direction: column;
+}
+
+.itemsSection {
+  margin-bottom: 1.5rem;
+}
+
+.sectionTitle {
+  @include mixins.font('section-title', 'bold');
+  color: colors.$black-main;
+  margin: 0 0 0.5rem;
+}
+
+.sectionList {
+  display: flex;
+  gap: 0.75rem;
+  overflow-x: auto;
+  padding-bottom: 0.5rem;
+  scroll-snap-type: x mandatory;
+  -webkit-overflow-scrolling: touch;
+}
+
+.sectionList > * {
+  flex: 0 0 auto;
+  scroll-snap-align: start;
+}
+
+.noItems {
+  text-align: center;
+  color: colors.$light-grey;
+  margin-top: 2rem;
+  @include mixins.font('section-description', 'regular');
+}
+}

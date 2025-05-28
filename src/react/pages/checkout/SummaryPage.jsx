@@ -5,12 +5,11 @@ import { showNotification } from '@mantine/notifications';
 import { useAuth } from '@/react/hooks/useAuth';
 import { safeJsonFetch } from '@/react/utils/fetchUtils';
 
-import { BackIconButton } from '../../components/buttons/IconButtons';
-import { BottomBarButton } from '../../components/buttons/RedButtons';
+import { BackIconButton } from '@/react/components/buttons/IconButtons';
+import { BottomBarButton } from '@/react/components/buttons/RedButtons';
 
 import ConfirmationOverlay from './ConfirmationOverlay';
-import '@/sass/pages/checkout/_order_summary.scss';
-import '@/sass/pages/checkout/_last_popup.scss';
+import styles from './SummaryPage.module.scss';
 
 export default function SummaryPage() {
   const navigate = useNavigate();
@@ -22,15 +21,9 @@ export default function SummaryPage() {
   const [basketTotal, setBasketTotal] = useState(0);
   const [buttonLoading, setButtonLoading] = useState(false);
 
-  const savedPersonal = JSON.parse(
-    localStorage.getItem('personalInfo') || '{}'
-  );
-  const savedAddress = JSON.parse(
-    localStorage.getItem('shippingAddress') || '{}'
-  );
-  const savedPayment = JSON.parse(
-    localStorage.getItem('paymentMethod') || '{}'
-  );
+  const savedPersonal = JSON.parse(localStorage.getItem('personalInfo') || '{}');
+  const savedAddress = JSON.parse(localStorage.getItem('shippingAddress') || '{}');
+  const savedPayment = JSON.parse(localStorage.getItem('paymentMethod') || '{}');
 
   const {
     firstName,
@@ -48,6 +41,10 @@ export default function SummaryPage() {
   const { country, street, houseNumber, postalCode, phone } = savedAddress;
   const { method, cardName, cardNumber } = savedPayment;
 
+  const resolvedFirstName = firstName || backendUser?.firstName || '';
+  const resolvedLastName = lastName || backendUser?.lastName || '';
+  const resolvedEmail = email || backendUser?.email || '';
+
   const SHIPPING_COST = 5.0;
   const GIFT_WRAP_COST = addGiftWrap ? 3.99 : 0;
   const PERSONAL_CARD_COST = addPersonalCard ? 2.99 : 0;
@@ -56,9 +53,7 @@ export default function SummaryPage() {
     SHIPPING_COST +
     GIFT_WRAP_COST +
     PERSONAL_CARD_COST
-  )
-    .toFixed(2)
-    .replace('.', ',');
+  ).toFixed(2).replace('.', ',');
 
   const paymentLabels = {
     card: 'Credit / Debit card',
@@ -68,12 +63,12 @@ export default function SummaryPage() {
   };
 
   useEffect(() => {
-safeJsonFetch('http://localhost:8000/api/basket')
-  .then(data => {
-    setBasketItems(data.items || []);
-    setBasketTotal(data.total_price || 0);
-  })
-  .catch(err => console.error('Failed to fetch basket:', err));
+    safeJsonFetch('http://localhost:8000/api/basket')
+      .then(data => {
+        setBasketItems(data.items || []);
+        setBasketTotal(data.total_price || 0);
+      })
+      .catch(err => console.error('Failed to fetch basket:', err));
 
     if (!savedPersonal.firstName && firebaseUid) {
       fetch(`/api/users/by-firebase-uid?uid=${firebaseUid}`)
@@ -85,233 +80,207 @@ safeJsonFetch('http://localhost:8000/api/basket')
               lastName: user.last_name,
               email: user.email,
             });
-            localStorage.setItem(
-              'personalInfo',
-              JSON.stringify({
-                firstName: user.first_name,
-                lastName: user.last_name,
-                email: user.email,
-              })
-            ); // 🔥 Add this caching
+            localStorage.setItem('personalInfo', JSON.stringify({
+              firstName: user.first_name,
+              lastName: user.last_name,
+              email: user.email,
+            }));
           }
         })
         .catch(err => console.error('Failed to fetch user info', err));
     }
   }, [firebaseUid]);
-  // ✅ Correct dependencies
 
   const handleConfirm = async () => {
-    const resolvedFirstName = firstName || backendUser?.firstName;
-    const resolvedLastName = lastName || backendUser?.lastName;
-    const resolvedEmail = email || backendUser?.email;
-
-    if (!resolvedFirstName || !resolvedLastName || !resolvedEmail) {
-      showNotification({
-        title: 'Missing info',
-        message: 'Personal info incomplete',
-        color: 'red',
-      });
-      return;
-    }
-    if (!country || !street || !houseNumber || !postalCode || !phone) {
-      showNotification({
-        title: 'Missing info',
-        message: 'Address incomplete',
-        color: 'red',
-      });
-      return;
-    }
-    if (!method) {
-      showNotification({
-        title: 'Missing info',
-        message: 'Payment method not selected',
-        color: 'red',
-      });
-      return;
-    }
-
-    const items = basketItems.map(i => ({
-      item_id: i.item_id,
-      quantity: i.quantity,
-      name: i.name,
-      quantity: i.quantity,
-      price: i.price,
-    }));
-
-    const payload = {
-      full_name: `${resolvedFirstName} ${resolvedLastName}`,
-      email: resolvedEmail,
-      phone,
-      address_1: `${street} ${houseNumber}`,
-      address_2: '',
-      company_name: companyName || '',
-      vat_number: vatNumber || '',
-      payment_method: method,
-      is_gift: addGiftWrap ? 1 : 0,
-      friend_name: friendName || null,
-      friend_email: friendEmail || null,
-      personal_note: personalNote || null,
-      items,
-      shipping_cost: SHIPPING_COST,
-      gift_wrap_cost: GIFT_WRAP_COST,
-      card_cost: PERSONAL_CARD_COST,
-    };
-
-    try {
-      const res = await fetch('http://localhost:8000/api/checkout', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        credentials: 'include',
-        body: JSON.stringify(payload),
-      });
-      if (!res.ok) throw new Error(`Server responded ${res.status}`);
-
-      await fetch('/api/basket/clear', {
-  method: 'POST',
-  credentials: 'include', // ✅ Required for sending session cookie
-});
-
-      localStorage.removeItem('personalInfo');
-      localStorage.removeItem('shippingAddress');
-      localStorage.removeItem('paymentMethod');
-
-      setShowFinalScreen(true);
-    } catch (err) {
-      console.error(err);
-      showNotification({
-        title: 'Order failed',
-        message: 'Could not submit order. Please try again.',
-        color: 'red',
-      });
-    }
-  };
-
-  if (showFinalScreen) {
-    return <ConfirmationOverlay />;
+  if (!resolvedFirstName || !resolvedLastName || !resolvedEmail) {
+    showNotification({
+      title: 'Missing info',
+      message: 'Personal info incomplete',
+      color: 'red',
+    });
+    return;
   }
 
+  if (!country || !street || !houseNumber || !postalCode || !phone) {
+    showNotification({
+      title: 'Missing info',
+      message: 'Address incomplete',
+      color: 'red',
+    });
+    return;
+  }
+
+  if (!method) {
+    showNotification({
+      title: 'Missing info',
+      message: 'Payment method not selected',
+      color: 'red',
+    });
+    return;
+  }
+
+  const items = basketItems.map(i => ({
+    item_id: i.item_id,
+    quantity: i.quantity,
+    name: i.name,
+    price: i.price,
+  }));
+
+  const payload = {
+    full_name: `${resolvedFirstName} ${resolvedLastName}`,
+    email: resolvedEmail,
+    phone,
+    company_name: companyName || '',
+    vat_number: vatNumber || '',
+    payment_method: method,
+    is_gift: addGiftWrap ? 1 : 0,
+    friend_name: friendName || null,
+    friend_email: friendEmail || null,
+    personal_note: personalNote || null,
+    items,
+    shipping_cost: SHIPPING_COST,
+    gift_wrap_cost: GIFT_WRAP_COST,
+    card_cost: PERSONAL_CARD_COST,
+  };
+
+  try {
+    setButtonLoading(true);
+
+    console.log('🚀 Submitting order payload:', payload);
+
+    const res = await fetch('http://localhost:8000/api/orders/create', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      credentials: 'include',
+      body: JSON.stringify(payload),
+    });
+
+    const data = await res.json();
+
+    if (!res.ok) {
+      console.error('❌ Backend error response:', data);
+      throw new Error(data.error || 'Order creation failed');
+    }
+
+    await fetch('http://localhost:8000/api/basket', {
+      method: 'DELETE',
+      credentials: 'include',
+    });
+
+
+    localStorage.removeItem('personalInfo');
+    localStorage.removeItem('shippingAddress');
+    localStorage.removeItem('paymentMethod');
+
+    setShowFinalScreen(true);
+  } catch (err) {
+    showNotification({
+      title: 'Order failed',
+      message: err.message || 'Could not submit order. Please try again.',
+      color: 'red',
+    });
+  } finally {
+    setButtonLoading(false);
+  }
+};
+
+
+  if (showFinalScreen) return <ConfirmationOverlay />;
+
   return (
-    <div className='summary-page'>
-      <BackIconButton />
-      <div className='summary-top'>
+    <div className={styles.summaryPage}>
+      <div className={styles.backIconButton}>
+        <BackIconButton />
+      </div>
+      <div className={styles.summaryTop}>
         <h2>Review Your Order</h2>
-        <p>
-          Before finalizing the purchase check if your information is correct!
-        </p>
+        <p>Before finalizing the purchase check if your information is correct!</p>
       </div>
 
-      <div className='checkout-overview'>
-        <div className='checkout-personal-info'>
-          <div className='section'>
-            <Title order={4}>Personal information</Title>
-            <Text>
-              {(firstName || backendUser?.firstName || '-') +
-                ' ' +
-                (lastName || backendUser?.lastName || '-')}
-            </Text>
-            <Text>{email || backendUser?.email || '-'}</Text>
-          </div>
-
-          <div className='section'>
-            <Title order={4}>Buying for a friend</Title>
-            <div className='friend-additional'>
-              <Text>
-                {addGiftWrap ? '🎁 Gift wrapping added' : 'No gift wrapping'}
-              </Text>
-              <Text>
-                {addPersonalCard
-                  ? '✉️ Personal card added'
-                  : 'No personal card'}
-              </Text>
-            </div>
-            {(addGiftWrap || addPersonalCard) && (
-              <>
-                <Divider />
-                <Text>
-                  <span className='subtitle-text'>Name:</span>{' '}
-                  {friendName || '-'}
-                </Text>
-                <Text>
-                  <span className='subtitle-text'>Email:</span>{' '}
-                  {friendEmail || '-'}
-                </Text>
-                {addPersonalCard && (
-                  <Text>
-                    <span className='subtitle-text'>Note:</span>{' '}
-                    {personalNote || '-'}
-                  </Text>
-                )}
-              </>
-            )}
-          </div>
-
-          <div className='section'>
-            <Title order={4}>Shipping information</Title>
-            <Text>
-              <span className='subtitle-text'>Address:</span> {street}{' '}
-              {houseNumber}, {postalCode}, {country}
-            </Text>
-            <Text>
-              <span className='subtitle-text'>Phone:</span> {phone}
-            </Text>
-
-            <Divider />
-
-            <Title order={4}>Payment method</Title>
-            <Text>
-              <span className='subtitle-text'>Method:</span>{' '}
-              {paymentLabels[method] || '-'}
-            </Text>
-            {method === 'card' && (
-              <>
-                <Text>
-                  <span className='subtitle-text'>Cardholder:</span> {cardName}
-                </Text>
-                <Text>
-                  <span className='subtitle-text'>Card number:</span> **** ****
-                  **** {cardNumber?.slice(-4)}
-                </Text>
-              </>
-            )}
-          </div>
+      <div className={styles.checkoutOverview}>
+        {/* Personal Info */}
+        <div className={styles.section}>
+          <Title order={4}>Personal information</Title>
+          <Text>{`${resolvedFirstName || '-'} ${resolvedLastName || '-'}`}</Text>
+          <Text>{resolvedEmail || '-'}</Text>
         </div>
 
-        <div className='checkout-order-info'>
+        {/* Gift Options */}
+        <div className={styles.section}>
+          <Title order={4}>Buying for a friend</Title>
+          <div className='friend-additional'>
+            <Text>{addGiftWrap ? '🎁 Gift wrapping added' : 'No gift wrapping'}</Text>
+            <Text>{addPersonalCard ? '✉️ Personal card added' : 'No personal card'}</Text>
+          </div>
+          {(addGiftWrap || addPersonalCard) && (
+            <>
+              <Divider />
+              <Text><span className={styles.subtitleText}>Name:</span> {friendName || '-'}</Text>
+              <Text><span className={styles.subtitleText}>Email:</span> {friendEmail || '-'}</Text>
+              {addPersonalCard && (
+                <Text><span className={styles.subtitleText}>Note:</span> {personalNote || '-'}</Text>
+              )}
+            </>
+          )}
+        </div>
+
+        {/* Shipping Info */}
+        <div className={styles.section}>
+          <Title order={4}>Shipping information</Title>
+          <Text>
+            <span className={styles.subtitleText}>Address:</span> {street} {houseNumber}, {postalCode}, {country}
+          </Text>
+          <Text>
+            <span className={styles.subtitleText}>Phone:</span> {phone}
+          </Text>
+
+          <Divider />
+
+          <Title order={4}>Payment method</Title>
+          <Text>
+            <span className={styles.subtitleText}>Method:</span> {paymentLabels[method] || '-'}
+          </Text>
+          {method === 'card' && (
+            <>
+              <Text><span className={styles.subtitleText}>Cardholder:</span> {cardName}</Text>
+              <Text><span className={styles.subtitleText}>Card number:</span> **** **** **** {cardNumber?.slice(-4)}</Text>
+            </>
+          )}
+        </div>
+
+        {/* Order Summary */}
+        <div className={styles.checkoutOrderInfo}>
           <Title order={4}>Order summary</Title>
           {basketItems.map(item => (
-            <div className='summary-line' key={item.id}>
-              <Text>
-                {item.name} x{item.quantity}
-              </Text>
-              <Text>
-                €{(item.price * item.quantity).toFixed(2).replace('.', ',')}
-              </Text>
+            <div className={styles.summaryLine} key={item.id}>
+              <Text>{item.name} x{item.quantity}</Text>
+              <Text>€{(item.price * item.quantity).toFixed(2).replace('.', ',')}</Text>
             </div>
           ))}
 
           <Divider my='sm' />
 
           <Title order={4}>Costs</Title>
-          <div className='summary-line'>
+          <div className={styles.summaryLine}>
             <Text>Shipping</Text>
             <Text>€{SHIPPING_COST.toFixed(2).replace('.', ',')}</Text>
           </div>
           {addGiftWrap && (
-            <div className='summary-line'>
+            <div className={styles.summaryLine}>
               <Text>🎁 Gift wrapping</Text>
               <Text>€{GIFT_WRAP_COST.toFixed(2).replace('.', ',')}</Text>
             </div>
           )}
           {addPersonalCard && (
-            <div className='summary-line'>
+            <div className={styles.summaryLine}>
               <Text>✉️ Personal card</Text>
               <Text>€{PERSONAL_CARD_COST.toFixed(2).replace('.', ',')}</Text>
             </div>
           )}
           <Divider my='sm' />
-          <div className='summary-line-total'>
-            <Text className='total-text'>Final total</Text>
-            <Text className='total-text'>€{finalTotal}</Text>
+          <div className={styles.summaryLineTotal}>
+            <Text className={styles.totalText}>Final total</Text>
+            <Text className={styles.totalText}>€{finalTotal}</Text>
           </div>
         </div>
 

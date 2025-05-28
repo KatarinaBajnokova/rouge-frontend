@@ -9,18 +9,18 @@ import {
   Modal,
 } from '@mantine/core';
 import { useNavigate } from 'react-router-dom';
-import { BackIconButton } from '../../components/buttons/IconButtons';
-import FinalStepper from '../../components/stepper/Stepper';
+import { BackIconButton } from '@/react/components/buttons/IconButtons';
+import FinalStepper from '@/react/components/stepper/Stepper';
 import {
   ContinueButton,
   BottomBarButton,
-} from '../../components/buttons/RedButtons';
+} from '@/react/components/buttons/RedButtons';
 import {
   IconCreditCard,
   IconBrandPaypal,
   IconBrandApple,
 } from '@tabler/icons-react';
-import '@/sass/pages/checkout/_payment_method.scss';
+import styles from './PaymentMethod.module.scss';
 
 const STORAGE_KEY = 'paymentMethod';
 
@@ -70,11 +70,22 @@ export default function PaymentMethodPage() {
     navigate('/checkout/summary');
   };
 
-  const handleProceed = () => {
-    if (!method) return;
-    if (method === 'card' && (!cardName || !cardNumber || !cvc)) return;
-    navigate('/checkout/summary');
-  };
+const handleProceed = () => {
+  if (!method) return;
+
+  if (
+    method === 'card' &&
+    (!cardName ||
+      cardNumber.length < 16 ||
+      cardNumber.length > 19 ||
+      cvc.length !== 3)
+  ) {
+    return;
+  }
+
+  navigate('/checkout/summary');
+};
+
 
   const modalTitleMap = {
     paypal: 'Pay with PayPal',
@@ -90,20 +101,22 @@ export default function PaymentMethodPage() {
 
   return (
     <>
-      <div className='payment-method-page'>
-        <BackIconButton />
+      <div className={styles.paymentMethodPage}>
+        <div className={styles.backIconButton}>
+          <BackIconButton />
+        </div>
         <FinalStepper active={2} />
 
         <h2>Choose your payment method</h2>
 
-        <Box className='payment-method-form'>
+        <Box className={styles.paymentMethodForm}>
           <Group direction='row' spacing='sm'>
             {options.map(({ value, label, icon }) => (
               <Paper
                 key={value}
                 withBorder
                 radius='md'
-                className={`payment-option ${method === value ? 'selected' : ''}`}
+                className={`${styles.paymentOption} ${method === value ? styles.selected : ''}`}
                 onClick={() => selectMethod(value)}
               >
                 {icon}
@@ -113,30 +126,48 @@ export default function PaymentMethodPage() {
           </Group>
 
           {method === 'card' && (
-            <Box className='card-details'>
-              <TextInput
-                label='Cardholder Name'
-                placeholder='John Doe'
-                value={cardName}
-                onChange={e => setCardName(e.currentTarget.value)}
-                mb='sm'
-              />
-              <TextInput
-                label='Card Number'
-                placeholder='1234 5678 9012 3456'
-                value={cardNumber}
-                onChange={e => setCardNumber(e.currentTarget.value)}
-                mb='sm'
-              />
-              <TextInput
-                label='CVC'
-                placeholder='123'
-                value={cvc}
-                onChange={e => setCvc(e.currentTarget.value)}
-                mb='sm'
-              />
-            </Box>
-          )}
+  <Box className={styles.cardDetails}>
+    <TextInput
+      label='Cardholder Name'
+      placeholder='John Doe'
+      value={cardName}
+      onChange={e => setCardName(e.currentTarget.value)}
+      mb='sm'
+      required
+    />
+    <TextInput
+      label='Card Number'
+      placeholder='1234 5678 9012 3456'
+      value={cardNumber}
+      onChange={e => {
+        const numbersOnly = e.currentTarget.value.replace(/\D/g, '');
+        if (numbersOnly.length <= 19) setCardNumber(numbersOnly);
+      }}
+      error={
+        cardNumber && (cardNumber.length < 16 || cardNumber.length > 19)
+          ? 'Card number must be between 16 and 19 digits'
+          : null
+      }
+      mb='sm'
+      required
+    />
+    <TextInput
+      label='CVC'
+      placeholder='123'
+      value={cvc}
+      onChange={e => {
+        const digits = e.currentTarget.value.replace(/\D/g, '');
+        if (digits.length <= 3) setCvc(digits);
+      }}
+      error={
+        cvc && cvc.length !== 3 ? 'CVC must be exactly 3 digits' : null
+      }
+      mb='sm'
+      required
+    />
+  </Box>
+)}
+
 
           <BottomBarButton
             text='Continue'

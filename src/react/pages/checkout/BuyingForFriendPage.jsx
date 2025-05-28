@@ -1,12 +1,12 @@
 import React, { useState, useEffect } from 'react';
 import { Title, Checkbox, TextInput, Textarea } from '@mantine/core';
 import { useNavigate } from 'react-router-dom';
-import { BackIconButton } from '../../components/buttons/IconButtons';
-import FinalStepper from '../../components/stepper/Stepper';
-import { BottomBarButton } from '../../components/buttons/RedButtons';
-import { useCheckout } from '../../contexts/CheckoutContext';
-import '@/sass/pages/checkout/_forfriend_page.scss';
-import { useAuth } from '../../hooks/useAuth.jsx';
+import { BackIconButton } from '@/react/components/buttons/IconButtons';
+import FinalStepper from '@/react/components/stepper/Stepper';
+import { BottomBarButton } from '@/react/components/buttons/RedButtons';
+import { useCheckout } from '@/react/contexts/CheckoutContext';
+import styles from './BuyingForFriendPage.module.scss';
+import { useAuth } from '@/react/hooks/useAuth.jsx';
 
 const STORAGE_KEY = 'personalInfo';
 
@@ -25,16 +25,8 @@ export default function BuyingForFriendPage() {
 
         if (res.ok && data.id) {
           localStorage.setItem('userId', data.id);
-          console.log('✅ Updated backend userId in localStorage:', data.id);
-        } else {
-          console.error(
-            '❌ Backend fetch failed: ',
-            data.error || 'No ID found'
-          );
         }
-      } catch (err) {
-        console.error('❌ Error fetching backend user ID', err);
-      }
+      } catch (err) {}
     };
 
     fetchBackendUserId();
@@ -78,36 +70,42 @@ export default function BuyingForFriendPage() {
   };
 
   return (
-    <div className='forfriend-page'>
-      <BackIconButton />
-      <FinalStepper active={0} />
+    <div className={styles.forfriendPage}>
+      <div className={styles.headerRow}>
+        <div className={styles.backIconButton}>
+          <BackIconButton />
+        </div>
+        <div className={styles.headerCenter}>
+          <FinalStepper active={0} />
+        </div>
+      </div>
 
-      <div className='checkout-summary'>
+      <div className={styles.checkoutSummary}>
         <h2>Buying for a friend</h2>
         <p>If you're buying for a friend fillout these.</p>
 
-        <TextInput
-          className='checkout-form'
-          label='Name'
-          placeholder="Friend's name..."
-          value={friendName}
-          onChange={e => setFriendName(e.currentTarget.value)}
-          mt='sm'
-        />
-        <TextInput
-          className='checkout-form'
-          label='Email'
-          placeholder="Friend's email..."
-          type='email'
-          value={friendEmail}
-          onChange={e => setFriendEmail(e.currentTarget.value)}
-          mt='sm'
-        />
+        <div className={styles.checkoutForm}>
+          <TextInput
+            label='Name'
+            placeholder="Friend's name..."
+            value={friendName}
+            onChange={e => setFriendName(e.currentTarget.value)}
+            mt='sm'
+          />
+          <TextInput
+            label='Email'
+            placeholder="Friend's email..."
+            type='email'
+            value={friendEmail}
+            onChange={e => setFriendEmail(e.currentTarget.value)}
+            mt='sm'
+          />
+        </div>
       </div>
 
-      <div className='additional'>
+      <div className={styles.additional}>
         <h3>Additional</h3>
-        <div className='checkboxes-part'>
+        <div className={styles.checkboxesPart}>
           <Checkbox
             label={`🎁 Gift wrapping (€${GIFT_WRAP_COST.toFixed(2)})`}
             mt='md'
@@ -123,16 +121,17 @@ export default function BuyingForFriendPage() {
         </div>
 
         {addPersonalCard && (
-          <Textarea
-            className='my-custom-textarea'
-            label='Personal Note'
-            placeholder='Write a message...'
-            value={personalNote}
-            onChange={e => setPersonalNote(e.currentTarget.value)}
-            minRows={3}
-            autosize
-            mt='sm'
-          />
+          <div className={styles.myCustomTextarea}>
+            <Textarea
+              label='Personal Note'
+              placeholder='Write a message...'
+              value={personalNote}
+              onChange={e => setPersonalNote(e.currentTarget.value)}
+              minRows={3}
+              autosize
+              mt='sm'
+            />
+          </div>
         )}
         <BottomBarButton onClick={handleContinue} />
       </div>

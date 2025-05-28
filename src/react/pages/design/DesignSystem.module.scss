@@ -1,0 +1,130 @@
+@use '@/sass/abstract/colors' as colors;
+@use '@/sass/abstract/typography' as typography;
+@use '@/sass/abstract/mixins' as mixins;
+
+.designSystemContainer {
+  max-width: 950px;
+  margin: 0 auto;
+  padding: 0.5rem 0.5rem;
+  background: colors.$white-background;
+  min-height: 100vh;
+}
+ 
+.pageTitle {
+  @include mixins.font('top-title', 'black');
+  margin-bottom: 1rem; text-align: center;
+  color: colors.$black-main;
+}
+
+.sectionTitle {
+  @include mixins.font('section-title', 'bold');
+  margin-bottom: 1rem;
+  color: colors.$grey-background-elements;
+}
+
+.sectionRedButtons,
+.sectionIconButtons,
+.sectionBasketButton,
+.sectionTrendingCards,
+.sectionSimpleCarousel,
+.sectionStepper {
+  background: colors.$white-background;
+  padding: 1rem;
+  max-width: 240px;
+}
+ 
+.sectionOutlinedRating,
+.sectionBottomBarButtons {
+  padding: 1rem;
+}
+
+
+.buttonRow,
+.iconButtonRow {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 2rem;
+} 
+
+.iconButtonRow :global(button.backIconButton) {
+  min-width: unset;
+  padding: 0.2em 0.7em;
+  font-size: 1rem;
+  border-radius: 7px;
+  background: transparent;
+  box-shadow: none;
+  margin-left: 0;
+  align-self: flex-start;
+}
+
+
+.leaveReviewWrapper,
+.iconButtonRow :global(.leaveAReviewIconButton) {
+  margin: 0 !important;
+  padding: 0 !important;
+}
+
+.trendingCardsGrid {
+  display: flex;
+  gap: 1.4rem;
+  flex-wrap: wrap;
+  margin-top: 1.2rem;
+} 
+
+.sectionBasketButton {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 0.3rem;
+} 
+
+.basketButtonInline :global(.basketButton) {
+  position: static !important;
+  align-self: flex-start;
+  display: inline-flex;
+} 
+
+.stepperWrapper {
+  margin-left: 1rem;
+  width: auto;
+  display: flex;
+  align-items: center;
+}
+
+
+.bottomBarRow {
+  max-width: 200px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 60px;
+}
+ 
+
+.bottomBarButtonWrapper :global(.bottomBar) {
+  position: static !important;
+  bottom: auto !important;
+  margin: 0 !important;
+  max-width: 300px;
+}
+
+
+.simpleCarouselWrapper {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 60px;
+}
+
+
+.mantine-Rating-starSymbol[data-filled='true'] {
+  stroke: colors.$magenta !important;
+  stroke-width: 1.5px !important;
+}
+
+.mantine-Rating-starSymbol:not([data-filled='true']) {
+  stroke: colors.$black-main !important;
+  stroke-width: 2px !important;
+  fill: none !important;
+}

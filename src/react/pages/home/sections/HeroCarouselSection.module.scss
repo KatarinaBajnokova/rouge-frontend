@@ -1,0 +1,16 @@
+@use '@/sass/abstract/colors' as colors;
+@use '@/sass/abstract/typography' as typography;
+@use '@/sass/abstract/mixins' as mixins;
+
+.sectionCarousel {
+  position: relative;
+  width: 100%;
+}
+
+.simpleCarouselImg {
+  display: block;
+  width: 100%;
+  height: auto;
+  margin: 0;
+  padding: 0;
+}

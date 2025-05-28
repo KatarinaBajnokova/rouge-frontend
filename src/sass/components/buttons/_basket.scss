@@ -1,0 +1,38 @@
+@use '@/sass/abstract/colors' as colors;
+@use '@/sass/abstract/typography' as typography;
+@use '@/sass/abstract/mixins' as mixins;
+
+.basketButton {
+  position: fixed;
+  top: 0rem;
+  right: 0rem;
+  z-index: 9999;
+  cursor: pointer;
+  border: none;
+  outline: none;
+  background: rgba(colors.$red, 0.8);
+  width: 70px;
+  height: 85px;
+  border-radius: 0 0 1rem 1rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  color: colors.$plain-white;
+  text-align: center;
+  box-shadow: 0 4px 6px rgba(colors.$black-main, 0.15);
+  padding-top: 0.6rem;
+  padding-bottom: 0.5rem;
+
+  .icon {
+    width: 24px;
+    height: 24px;
+    margin-bottom: 0.25rem;
+  }
+
+  .label {
+    font-size: 0.9rem;
+    line-height: 1.2;
+    @include mixins.font('section-description', 'regular');
+  }
+}

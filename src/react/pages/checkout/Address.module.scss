@@ -1,0 +1,46 @@
+@use '@/sass/abstract/colors' as colors;
+@use '@/sass/abstract/typography' as typography;
+@use '@/sass/abstract/mixins' as mixins;
+
+.addressPage {
+  min-height: 100vh;
+  background-color: colors.$white-background;
+  padding: 1.2rem 1.5rem;
+  font-family: typography.$font-family;
+  color: colors.$black-main;
+  display: flex;
+  flex-direction: column;
+
+  :global {
+  input.mantine-Input-input,
+  input.mantine-TextInput-input,
+  input.mantine-Select-input {
+    background-color: colors.$white-elements !important;
+    border: 1px solid lighten(colors.$grey-background-elements, 20%) !important;
+    border-radius: 2rem !important;
+    box-shadow: 0 2px 10px rgba(colors.$magenta, 0.04);
+    transition: border 0.18s;
+    font-size: 0.95rem !important;
+    font-family: typography.$font-family !important;
+    color: colors.$black-main !important;
+    @include mixins.font('icon-title', 'regular');
+    text-align: left !important;
+    padding: 0.7rem !important;
+  }
+
+  .mantine-Input-input:focus,
+  .mantine-Select-input:focus,
+  .mantine-TextInput-input:focus {
+    border-color: colors.$magenta;
+    background-color: colors.$white-elements;
+  }
+}
+}
+
+.backIconButton {
+  margin-top: 0;
+}
+
+.personalForm {
+  margin-top: 0.5rem;
+}

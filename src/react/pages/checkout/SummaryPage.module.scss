@@ -1,0 +1,107 @@
+@use '@/sass/abstract/colors' as colors;
+@use '@/sass/abstract/typography' as typography;
+@use '@/sass/abstract/mixins' as mixins;
+
+.summaryPage {
+  background-color: colors.$white-background;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  padding: 1.2rem 1.5rem;
+  font-family: typography.$font-family;
+  margin-bottom: 30px;
+}
+
+.backHeader {
+  margin-bottom: 0;
+}
+
+.backIconButton {
+  margin-top: 0;
+}
+
+.summaryTop h2 {
+  @include mixins.font('section-title', 'bold');
+  margin-bottom: 0.2rem;
+  margin-top: 0.3rem;
+}
+
+.summaryTop p {
+  @include mixins.font('section-description', 'regular');
+  margin-top: 0;
+  margin-bottom: 0;
+}
+
+.checkoutOrderInfo {
+  border-radius: 1rem;
+  padding: 1.25rem;
+  box-shadow: 0 0 8px rgba(colors.$plain-black, 0.05);
+  background-color: colors.$grey-background-elements;
+  color: colors.$white-elements;
+  margin-bottom: 90px;
+}
+
+.checkoutOrderInfo :global(.mantine-Divider-root) {
+  border-color: colors.$white-elements;
+  height: 2px;
+}
+
+.summaryLine {
+  display: flex;
+  justify-content: space-between;
+  @include mixins.font('body', 'regular');
+  margin-top: 0.5rem;
+}
+
+.summaryLineTotal {
+  @include mixins.font('body', 'bold');
+  display: flex;
+  justify-content: space-between;
+  margin-top: 1rem;
+}
+
+.totalText {
+  @include mixins.font('section-title', 'bold');
+}
+
+.checkoutOverview {
+  display: flex;
+  flex-direction: column;
+  margin-top: 1.2rem;
+}
+
+.section {
+  background-color: colors.$white-elements;
+  border-radius: 1rem;
+  padding: 1.25rem;
+  box-shadow: 0 0 8px rgba(colors.$plain-black, 0.05);
+  margin-bottom: 1.3rem;
+  word-break: break-word;
+  overflow-wrap: break-word;
+}
+
+.section h3,
+.section h4 {
+  @include mixins.font('section-title', 'bold');
+  margin-bottom: 0.5rem;
+}
+
+.subtitleText {
+  @include mixins.font('body', 'bold');
+}
+
+.infoLine {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 0.5rem;
+  @include mixins.font('body', 'regular');
+}
+
+.total {
+  @include mixins.font('body', 'bold');
+}
+
+.section :global(.mantine-Divider-root) {
+  margin: 1rem 0;
+  height: 2px;
+}

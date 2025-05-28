@@ -1,0 +1,92 @@
+@use '@/sass/abstract/colors' as colors;
+@use '@/sass/abstract/typography' as typography;
+@use '@/sass/abstract/mixins' as mixins;
+
+.forfriendPage {
+  min-height: 100vh;
+  background-color: colors.$white-background;
+  padding: 1.2rem 1.5rem;
+  font-family: typography.$font-family;
+  display: flex;
+  flex-direction: column;
+
+  :global(.m_26063560:checked) {
+  background-color: colors.$magenta;
+  border: colors.$magenta;
+}
+}
+
+.headerRow{
+  margin-bottom: 1rem;
+}
+
+.backIconButton {
+  margin-top: 0;
+}
+
+.forfriendPage h3 {
+  margin-bottom: 0.2rem;
+}
+
+.checkoutSummary {
+  margin-bottom: 2rem;
+}
+
+.checkoutSummary h2 {
+  @include mixins.font('section-title', 'bold');
+  margin-bottom: 0.5rem;
+  margin-top: 0.5rem;
+  color: colors.$black-main;
+  line-height: 1.2;
+}
+
+.checkoutSummary p {
+  @include mixins.font('section-description', 'regular');
+  color: colors.$black-review;
+  margin-bottom: 1rem;
+  margin-top: 0.1rem;
+}
+
+.checkoutForm {
+    :global(.mantine-TextInput-root) {
+      margin-bottom: 1rem;
+    }
+
+    :global(.mantine-TextInput-input) {
+      border-radius: 1rem;
+      background-color: colors.$plain-white;
+      border: 1px solid colors.$white-elements;
+      padding: 0.75rem 1rem;
+    }
+
+    :global(.mantine-TextInput-label) {
+      font-weight: 600;
+      font-size: 0.95rem;
+      margin-bottom: 0.25rem;
+    }
+
+    :global(.mantine-Checkbox-root) {
+      margin-top: 0.5rem;
+    }
+
+        :global(.mantine-Textarea-input) {
+      margin-bottom: 1rem;
+      border-radius: 0.5rem;
+      background-color: colors.$plain-white;
+      border: 1px solid colors.$white-elements;
+      padding: 0.75rem 1rem;
+    }
+
+    :global(.mantine-Textarea-label) {
+      font-weight: 600;
+      font-size: 0.95rem;
+      margin-bottom: 0.25rem;
+    }
+  }
+
+.checkboxesPart {
+  display: flex;
+  flex-direction: column;
+  gap: 0.35rem;
+  margin-bottom: 1rem;
+}

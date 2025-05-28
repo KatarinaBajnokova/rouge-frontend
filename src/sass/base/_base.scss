@@ -1,0 +1,7 @@
+@use '@/sass/abstract/typography' as typography;
+body {
+  font-family: typography.$font-family, sans-serif;
+  min-height: 100vh;
+  line-height: 1.5;
+  font-size: 16px;
+}

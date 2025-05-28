@@ -1,70 +1,136 @@
-# Getting Started with Create React App
+Rouge
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+⚠️⚠️⚠️⚠️⚠️⚠️⚠️⚠️⚠️⚠️⚠️⚠️⚠️⚠️⚠️⚠️⚠️⚠️⚠️⚠️⚠️⚠️⚠️⚠️⚠️⚠️⚠️⚠️  
+⚠️Important: Use PORT 3000 for the Frontend! ⚠️
+⚠️Frontend must run on PORT 3000! ⚠️
+⚠️This is required for CORS to work with the backend on port 8000! ⚠️
+⚠️Changing the frontend port may cause CORS errors!!!!!!!!!!!!!!!! ⚠️  
+⚠️⚠️⚠️⚠️⚠️⚠️⚠️⚠️⚠️⚠️⚠️⚠️⚠️⚠️⚠️⚠️⚠️⚠️⚠️⚠️⚠️⚠️⚠️⚠️⚠️⚠️⚠️⚠️
 
-## Available Scripts
+----Project Description----
 
-In the project directory, you can run:
+Rouge is a modern, full-stack web application for online shopping.
+It features a PHP/SQLite backend and a React/Mantine frontend.
+Users can browse, filter, favorite products, leave reviews, and manage their baskets in a fast, mobile-first UI.
 
-### `npm start`
+What it does:
+Provides a complete e-commerce experience with authentication, dynamic filters, reviews, and modern design.
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+Technologies used:
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+    Frontend: React, Vite, Mantine, Sass
 
-### `npm test`
+    Backend: PHP 8+, SQLite, REST API
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+----How to Install and Run the Project----
 
-### `npm run build`
+1.  Clone both repositories
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+        git clone https://github.com/KatarinaBajnokova/rouge-backend.git
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+        git clone https://github.com/KatarinaBajnokova/rouge-frontend.git
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+2.  Install dependencies
 
-### `npm run eject`
+    In the terminal run:
 
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
+        npm install
 
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+3.  Verify package.json in the frontend
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
+In rouge-frontend/package.json, ensure you see these dependencies:
 
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
+"dependencies": {
+"@emotion/react": "^11.14.0",
+"@emotion/styled": "^11.14.0",
+"@mantine/carousel": "^7.17.4",
+"@mantine/core": "^7.17.4",
+"@mantine/hooks": "^7.17.4",
+"@mantine/notifications": "^7.17.4",
+"@tabler/icons-react": "^3.31.0",
+"@tanstack/react-query": "^5.75.5",
+"@testing-library/dom": "^10.4.0",
+"@testing-library/jest-dom": "^6.6.3",
+"@testing-library/react": "^16.3.0",
+"@testing-library/user-event": "^13.5.0",
+"firebase": "^11.6.0",
+"react": "^19.1.0",
+"react-dom": "^19.1.0",
+"react-icons": "^5.5.0",
+"react-responsive-carousel": "^3.2.23",
+"react-router-dom": "^7.5.1",
+"sass": "^1.86.3",
+"slick-carousel": "^1.8.1",
+"web-vitals": "^2.1.4"
+},
+"devDependencies": {
+"@vitejs/plugin-react": "^4.4.1",
+"concurrently": "^9.1.2",
+"prettier": "^3.5.3",
+"rollup-plugin-visualizer": "^5.14.0",
+"vite": "^6.3.2"
+}
 
-## Learn More
+4.  Run both servers
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+    Frontend:
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+        cd rouge-frontend
 
-### Code Splitting
+        npm start
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
+    Backend (in a new terminal):
 
-### Analyzing the Bundle Size
+        cd rouge-backend
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
+        php -S localhost:8000 -t public
 
-### Making a Progressive Web App
+⚠️⚠️⚠️BOTH MUST BE ON THE PORTS SHOWN BELLOW!!!!!⚠️⚠️⚠️
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
+            ⚠️⚠️⚠️PORT 3000⚠️⚠️⚠️
 
-### Advanced Configuration
+        Frontend: http://localhost:3000
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
+        Backend: http://localhost:8000
 
-### Deployment
+5.  Open in your browser
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
+        http://localhost:3000    -----> 3000⚠️⚠️⚠️
 
-### `npm run build` fails to minify
+        MAKE SURE THAT IT IS 3000⚠️⚠️⚠️
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+Missing Packages? Install Manually
+
+In rouge-frontend, run:
+
+Main dependencies
+
+npm install @emotion/react
+npm install @emotion/styled
+npm install @mantine/carousel
+npm install @mantine/core
+npm install @mantine/hooks
+npm install @mantine/notifications
+npm install @tabler/icons-react
+npm install @tanstack/react-query
+npm install @testing-library/dom
+npm install @testing-library/jest-dom
+npm install @testing-library/react
+npm install @testing-library/user-event
+npm install firebase
+npm install react
+npm install react-dom
+npm install react-icons
+npm install react-responsive-carousel
+npm install react-router-dom
+npm install sass
+npm install slick-carousel
+npm install web-vitals
+
+Dev dependencies
+
+npm install --save-dev @vitejs/plugin-react
+npm install --save-dev concurrently
+npm install --save-dev prettier
+npm install --save-dev rollup-plugin-visualizer
+npm install --save-dev vite

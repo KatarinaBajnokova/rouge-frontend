@@ -1,0 +1,99 @@
+@use '@/sass/abstract/colors' as colors;
+@use '@/sass/abstract/typography' as typography;
+@use '@/sass/abstract/mixins' as mixins;
+
+:global(body) {
+  background-color: colors.$white-background;
+}
+
+.categoriesPage {
+  background-color: colors.$white-background;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  margin-bottom: 90px;
+  padding: 1rem;
+}
+
+.searchWrapper {
+  margin: 1rem;
+  margin-bottom: 0;
+}
+
+.searchRow {
+  display: grid;
+  grid-template-columns: 1fr auto;
+  column-gap: 1.5rem;
+  align-items: flex-start;
+}
+
+.customSearchBar {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: colors.$white-elements;
+  padding: 0.2rem 1rem;
+  border-radius: 2rem;
+  box-shadow: 0 4px 8px rgba(colors.$plain-black, 0.2);
+  margin-right: 3.5rem;
+  width: 90%;
+  min-height: 50px;
+
+  :global {
+  .mantine-TextInput-input {
+    font-size: 1.2rem !important;
+    background: transparent;
+    border: none;
+    outline: none;
+    color: colors.$black-main;
+    padding-top: 0.35rem;
+  }
+}
+}
+
+.searchIcon {
+  margin-right: 0.75rem;
+  height: 1.4rem;
+  width: 1.8rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.basketButton {
+  flex-shrink: 0;
+  align-self: flex-start;
+  margin-left: 1.5rem;
+}
+
+.filterButton {
+  align-self: flex-start;
+  margin-top: 1.3rem;
+}
+
+.categorySection {
+  padding: 0 1rem;
+  margin-top: 1.6rem;
+}
+
+.categorySection h2 {
+  @include mixins.font('category-title', 'bold');
+  color: colors.$black-main;
+  margin-top: 0;
+}
+
+.categoryList {
+  border-radius: 0.5rem;
+  overflow: visible;
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+}
+
+.categoryList > * {
+  width: 100%;
+}
+
+.categoriesPage nav {
+  margin-top: auto;
+}

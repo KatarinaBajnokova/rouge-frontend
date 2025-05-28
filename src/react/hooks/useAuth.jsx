@@ -23,8 +23,8 @@ export const AuthProvider = ({ children }) => {
             `✅ Logged in as: ${firebaseUser.email || firebaseUser.uid}`
           );
         } else {
-          setUserId(null); // ❌ DO NOT restore cached UID
-          localStorage.removeItem('firebaseUid'); // ✅ clear cache
+          setUserId(null);
+          localStorage.removeItem('firebaseUid');
           console.log('🚪 No user is currently logged in.');
         }
 

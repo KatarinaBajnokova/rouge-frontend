@@ -1,0 +1,111 @@
+@use '@/sass/abstract/colors' as colors;
+@use '@/sass/abstract/typography' as typography;
+@use '@/sass/abstract/mixins' as mixins;
+
+.personalInfoPage {
+  background-color: colors.$white-background;
+  padding: 1.5rem 1.5rem;
+  font-family: typography.$font-family;
+  min-height: 100vh;
+}
+
+.personalInfoPage h2 {
+  @include mixins.font('section-title', 'bold');
+  margin-bottom: 0.5rem;
+  margin-top: 0.5rem;
+  color: colors.$black-main;
+  line-height: 1.2;
+}
+
+.personalInfoPage p {
+  @include mixins.font('section-description', 'regular');
+  color: colors.$black-review;
+  margin-bottom: 0.5rem;
+  margin-top: 0.1rem;
+}
+
+.stepDescription {
+  margin-bottom: 1rem;
+}
+
+.personalForm :global(.mantine-TextInput-root) {
+  margin-bottom: 1rem;
+}
+
+.personalForm :global(.mantine-TextInput-input) {
+  border-radius: 1rem;
+  background-color: colors.$white-elements;
+  border: 1px solid #b8b8b8;
+}
+
+.personalForm :global(.mantine-TextInput-label) {
+  @include mixins.font('section-description', 'semibold');
+  font-size: 0.95rem;
+  margin-bottom: 0.25rem;
+}
+
+.personalForm :global(.mantine-Checkbox-root) {
+  margin-top: 0.5rem;
+}
+
+.personalForm :global(.mantine-Text-root) {
+  font-size: 0.9rem;
+}
+
+.confirmationScreen {
+  position: fixed;
+  inset: 0;
+  background: radial-gradient(
+    circle at center,
+    colors.$red-heart 20%,
+    colors.$red 100%
+  );
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  z-index: 10000;
+}
+
+.confirmationBubble {
+  background-color: colors.$white-elements;
+  padding: 2rem;
+  border-radius: 50%;
+  width: 85%;
+  max-width: 380px;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.15);
+  animation: pop 0.6s ease-out;
+}
+
+.confirmationBubble h3 {
+  color: colors.$red-heart;
+  @include mixins.font('brandsheet-title', 'bold');
+  margin-bottom: 0.5rem;
+}
+
+.confirmationBubble p,
+.confirmationBubble :global(.mantine-Text-root) {
+  @include mixins.font('section-description', 'regular');
+  color: colors.$black-main;
+}
+
+.inputOutline {
+  border-radius: 1rem;
+  background-color: colors.$white-elements;
+  border: 1px solid #b8b8b8;
+}
+
+@keyframes pop {
+  0% {
+    transform: scale(0.7);
+    opacity: 0;
+  }
+  100% {
+    transform: scale(1);
+    opacity: 1;
+  }
+}
+
+.backIconButton {
+  margin-top: 0;
+}

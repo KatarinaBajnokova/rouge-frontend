@@ -1,7 +1,6 @@
-import React from 'react';
 import { NavLink, useLocation } from 'react-router-dom';
 import { Text } from '@mantine/core';
-import styles from './Navbar.module.scss';
+import '@/sass/styles.scss';
 
 import homeIcon from '@/assets/icons/icon_home_inactive.svg';
 import homeIconActive from '@/assets/icons/icon_home_active.svg';
@@ -43,23 +42,23 @@ const Navbar = () => {
   const location = useLocation();
 
   return (
-    <nav className={styles.navbar}>
+    <nav className='navbar'>
       {navItems.map(item => {
         const isActive = location.pathname === item.path;
         return (
           <NavLink
             key={item.label}
             to={item.path}
-            className={`${styles.navItem}${isActive ? ' ' + styles.active : ''}`}
+            className={`navItem${isActive ? ' active' : ''}`}
           >
-            <div className={styles.iconContainer}>
+            <div className='iconContainer'>
               <img
                 src={isActive ? item.activeIcon : item.icon}
                 alt={item.label}
-                className={styles.icon}
+                className='icon'
               />
             </div>
-            <Text size='xs' className={styles.label}>
+            <Text size='xs' className='label'>
               {item.label}
             </Text>
           </NavLink>

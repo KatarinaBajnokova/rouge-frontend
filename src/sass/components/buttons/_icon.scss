@@ -1,0 +1,234 @@
+@use '@/sass/abstract/colors' as colors;
+@use '@/sass/abstract/typography' as typography;
+
+button.mantine-Button-root.addToBasketIconButton {
+  background-color: colors.$red;
+  color: colors.$white-elements;
+  font-weight: bold;
+  font-size: 1.1rem;
+  width: 200px;
+  height: 50px;
+  padding: 0.2rem 1rem;
+  border-radius: 0.8rem;
+  transition:
+    background-color 0.2s ease,
+    opacity 0.2s ease;
+
+  &:hover {
+    opacity: 0.95;
+  }
+  img {
+    filter: brightness(0) invert(1);
+  }
+}
+
+button.mantine-Button-root.seeReviewsIconButton {
+  background-color: colors.$magenta;
+  color: colors.$white-elements;
+  font-weight: 500;
+  font-size: 0.8rem;
+  width: 120px;
+  height: 25px;
+  padding: 0.2rem 1rem;
+  border-radius: 2rem;
+  transition:
+    background-color 0.2s ease,
+    opacity 0.2s ease;
+
+  &:hover {
+    opacity: 0.95;
+  }
+}
+
+button.mantine-Button-root.filterIconButton {
+  background-color: colors.$red;
+  color: colors.$white-elements;
+  font-weight: bold;
+  font-size: 1rem;
+  width: 115px;
+  height: 45px;
+  padding: 0.2rem 0.5rem;
+  border-radius: 0.5rem;
+  transition:
+    background-color 0.2s ease,
+    opacity 0.2s ease;
+
+  &:hover {
+    opacity: 0.95;
+  }
+  img {
+    filter: brightness(0) invert(1);
+  }
+}
+
+.leaveReviewWrapper {
+  display: flex;
+  justify-content: center;
+  width: 100%;
+  margin-top: 0.5rem;
+}
+
+button.mantine-Button-root.leaveAReviewIconButton {
+  background-color: colors.$magenta;
+  color: colors.$white-elements;
+  font-weight: bold;
+  font-size: 1.1rem;
+  width: 200px;
+  height: 50px;
+  padding: 0.2rem 1rem;
+  border-radius: 0.8rem;
+  transition:
+    background-color 0.2s ease,
+    opacity 0.2s ease;
+
+  &:hover {
+    opacity: 0.95;
+  }
+  img {
+    filter: brightness(0) invert(1);
+  }
+}
+
+button.mantine-Button-root.repurchaseIconButton {
+  background-color: colors.$red;
+  color: colors.$white-elements;
+  font-weight: bold;
+  font-size: 1.1rem;
+  width: 200px;
+  height: 50px;
+  padding: 0.2rem 1rem;
+  border-radius: 0.8rem;
+  transition:
+    background-color 0.2s ease,
+    opacity 0.2s ease;
+
+  &:hover {
+    opacity: 0.95;
+  }
+  img {
+    filter: brightness(0) invert(1);
+  }
+}
+
+button.mantine-Button-root.continueWithFacebookIconButton {
+  background-color: colors.$white-elements;
+  color: colors.$black-main;
+  font-weight: bold;
+  font-size: 1.1rem;
+  width: 300px;
+  height: 50px;
+  padding: 0.2rem 1rem;
+  border-radius: 1rem;
+  transition:
+    background-color 0.2s ease,
+    opacity 0.2s ease,
+    box-shadow 0.2s ease;
+  box-shadow: 0 4px 6px rgba(colors.$black-main, 0.3);
+
+  &:hover {
+    opacity: 0.95;
+    box-shadow: 0 6px 8px rgba(colors.$black-main, 0.15);
+  }
+}
+
+button.mantine-Button-root.continueWithGoogleIconButton {
+  background-color: colors.$white-elements;
+  color: colors.$black-main;
+  font-weight: bold;
+  font-size: 1.1rem;
+  width: 300px;
+  height: 50px;
+  padding: 0.2rem 1rem;
+  border-radius: 1rem;
+  transition:
+    background-color 0.2s ease,
+    opacity 0.2s ease,
+    box-shadow 0.2s ease;
+  box-shadow: 0 4px 6px rgba(colors.$black-main, 0.3);
+
+  &:hover {
+    opacity: 0.95;
+    box-shadow: 0 6px 8px rgba(colors.$black-main, 0.15);
+  }
+}
+
+button.mantine-Button-root.continueWithAppleIconButton {
+  background-color: colors.$white-elements;
+  color: colors.$black-main;
+  font-weight: bold;
+  font-size: 1.1rem;
+  width: 300px;
+  height: 50px;
+  padding: 0.2rem 1rem;
+  border-radius: 1rem;
+  transition:
+    background-color 0.2s ease,
+    opacity 0.2s ease,
+    box-shadow 0.2s ease;
+  box-shadow: 0 4px 6px rgba(colors.$black-main, 0.3);
+
+  &:hover {
+    opacity: 0.95;
+    box-shadow: 0 6px 8px rgba(colors.$black-main, 0.4);
+  }
+}
+
+button.mantine-Button-root.seeMoreButton {
+  background-color: transparent;
+  color: colors.$magenta;
+  font-weight: bold;
+  font-size: 1.1rem;
+  border-radius: none;
+  width: auto;
+  height: auto;
+  padding: 0.4rem 1rem;
+  border: none;
+  transition:
+    background-color 0.2s ease,
+    opacity 0.2s ease;
+
+  &:hover {
+    opacity: 0.95;
+  }
+}
+
+.backIconButton {
+  position: relative;
+  background-color: colors.$white-elements;
+  border: none;
+  border-radius: 50%;
+  width: 44px;
+  height: 44px;
+  margin-bottom: 1.3rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 2px 6px rgba(colors.$black-main, 0.15);
+  cursor: pointer;
+  transition: transform 0.2s ease;
+
+  svg {
+    color: colors.$black-main;
+  }
+
+  &:hover {
+    transform: scale(1.05);
+  }
+}
+
+.backHeader {
+  display: flex;
+  align-items: center;
+  gap: 1.5rem;
+  margin-bottom: 1.8rem;
+
+  .backIconButton {
+    margin-top: 0 !important;
+    margin-bottom: 0 !important;
+  }
+}
+
+.filterIconButton {
+  margin-top: 1rem;
+  margin-bottom: 0.3rem;
+}

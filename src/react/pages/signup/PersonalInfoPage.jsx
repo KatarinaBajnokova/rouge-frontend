@@ -1,19 +1,18 @@
 import React, { useState, useEffect } from 'react';
 import { Title, TextInput, Group, Select, Loader } from '@mantine/core';
 import { useNavigate } from 'react-router-dom';
-
-import FinalStepper from '../../components/stepper/Stepper';
+import FinalStepper from '@/react/components/stepper/Stepper';
 import { useUpdateUser } from '@/react/hooks/useUpdateUser';
-import { BackIconButton } from '../../components/buttons/IconButtons';
-import { BottomBarButton } from '../../components/buttons/RedButtons';
-import { useAuth } from '@/react/hooks/useAuth'; // ✨ import useAuth
+import { BackIconButton } from '@/react/components/buttons/IconButtons';
+import { BottomBarButton } from '@/react/components/buttons/RedButtons';
+import { useAuth } from '@/react/hooks/useAuth';
 
-import '@/sass/pages/_personal_info.scss';
+import styles from './PersonalInfoPage.module.scss';
 
 export default function PersonalInfoPage() {
   const navigate = useNavigate();
   const { updateUser, loading } = useUpdateUser();
-  const { userId: firebaseUid, loading: authLoading } = useAuth(); // ✨ get firebaseUid
+  const { userId: firebaseUid, loading: authLoading } = useAuth();
 
   const [country, setCountry] = useState('');
   const [street, setStreet] = useState('');
@@ -25,17 +24,11 @@ export default function PersonalInfoPage() {
   const [countryOptions, setCountryOptions] = useState([]);
   const [countriesLoading, setCountriesLoading] = useState(false);
 
-  // 🛠️ Auto-fetch backendUserId if missing
   useEffect(() => {
     const fetchBackendUserId = async () => {
       const storedBackendId = localStorage.getItem('backendUserId');
-      if (storedBackendId) return; // already exists ✅
-
-      if (!firebaseUid) return; // still waiting for firebase
-
-      console.log(
-        `🔗 Fetching backend user ID using Firebase UID: ${firebaseUid}`
-      );
+      if (storedBackendId) return;
+      if (!firebaseUid) return;
       try {
         const res = await fetch(
           `http://localhost:3000/api/users/by-firebase-uid?uid=${firebaseUid}`
@@ -43,20 +36,13 @@ export default function PersonalInfoPage() {
         const data = await res.json();
         if (res.ok && data.id) {
           localStorage.setItem('backendUserId', data.id);
-          console.log('✅ Stored backend user_id in localStorage:', data.id);
         } else {
-          console.error(
-            '❌ Failed to fetch backend user ID:',
-            data.error || 'No ID'
-          );
           navigate('/login');
         }
-      } catch (error) {
-        console.error('❌ Error fetching backend user ID:', error);
+      } catch {
         navigate('/login');
       }
     };
-
     fetchBackendUserId();
   }, [firebaseUid, navigate]);
 
@@ -66,7 +52,6 @@ export default function PersonalInfoPage() {
       setCountryOptions(JSON.parse(cached));
       return;
     }
-
     setCountriesLoading(true);
     fetch('https://restcountries.com/v3.1/all?fields=name')
       .then(res => res.json())
@@ -77,15 +62,12 @@ export default function PersonalInfoPage() {
         setCountryOptions(names);
         sessionStorage.setItem('countries', JSON.stringify(names));
       })
-      .catch(err => {
-        console.error('Failed to fetch countries', err);
-      })
+      .catch(() => {})
       .finally(() => {
         setCountriesLoading(false);
       });
   }, []);
 
-  // ✨ Corrected handleConfirm
   const handleConfirm = async () => {
     const backendUserId = localStorage.getItem('backendUserId');
     if (!backendUserId) {
@@ -93,9 +75,7 @@ export default function PersonalInfoPage() {
       navigate('/login');
       return;
     }
-
     const address1 = `${street.trim()} ${houseNumber.trim()}, ${postalCode.trim()}, ${country.trim()}`;
-
     if (
       !street &&
       !houseNumber &&
@@ -107,7 +87,6 @@ export default function PersonalInfoPage() {
       navigate('/homescreen');
       return;
     }
-
     try {
       await updateUser({
         address_1: address1,
@@ -115,32 +94,29 @@ export default function PersonalInfoPage() {
         birthdate: birthdate || null,
         country: country || null,
       });
-      // 🚀 navigation happens inside updateUser, no need to navigate here
-    } catch (error) {
-      console.error('Failed to update user', error);
+    } catch {
       alert('Something went wrong updating your profile.');
     }
   };
 
   if (authLoading) {
     return (
-      <div className='personal-info-page'>
+      <div className={styles.personalInfoPage}>
         <Loader size='xl' color='pink' />
       </div>
     );
   }
 
   return (
-    <div className='personal-info-page'>
-      <BackIconButton />
+    <div className={styles.personalInfoPage}>
+      <BackIconButton className={styles.backIconButton} />
       <FinalStepper active={2} />
-      <div className='personal-form' style={{ marginTop: '2rem' }}>
+      <div className={styles.personalForm} style={{ marginTop: '2rem' }}>
         <h2>Personal information</h2>
-        <div className='step-description'>
+        <div className={styles.stepDescription}>
           <p>Press "Confirm & Continue" if you wish to skip this part.</p>
           <p>Your addresses can always be edited in the profile settings.</p>
         </div>
-
         <Select
           label='Country'
           placeholder='Select your country'
@@ -152,7 +128,6 @@ export default function PersonalInfoPage() {
           rightSection={countriesLoading ? <Loader size='xs' /> : null}
           mt='md'
         />
-
         <TextInput
           label='Street'
           placeholder='Enter street name'
@@ -160,7 +135,6 @@ export default function PersonalInfoPage() {
           onChange={e => setStreet(e.currentTarget.value)}
           mt='md'
         />
-
         <Group grow>
           <TextInput
             label='House Number'
@@ -169,7 +143,6 @@ export default function PersonalInfoPage() {
             onChange={e => setHouseNumber(e.currentTarget.value)}
             mt='md'
           />
-
           <TextInput
             label='Postal Code'
             placeholder='e.g. 1000'
@@ -178,7 +151,6 @@ export default function PersonalInfoPage() {
             mt='md'
           />
         </Group>
-
         <TextInput
           label='Phone number'
           placeholder='Enter your phone number'
@@ -186,7 +158,6 @@ export default function PersonalInfoPage() {
           onChange={e => setPhone(e.currentTarget.value)}
           mt='md'
         />
-
         <TextInput
           label='Date of Birth'
           type='date'
@@ -194,7 +165,6 @@ export default function PersonalInfoPage() {
           onChange={e => setBirthdate(e.currentTarget.value)}
           mt='md'
         />
-
         <BottomBarButton
           text='Confirm & Continue'
           onClick={handleConfirm}

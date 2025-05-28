@@ -1,0 +1,52 @@
+@use '@/sass/abstract/colors' as colors;
+@use '@/sass/abstract/typography' as typography;
+@use '@/sass/abstract/mixins' as mixins;
+
+.initialPage {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  padding: 2rem;
+  text-align: center;
+
+  .title {
+    @include mixins.font('top-title', 'bold');
+    margin-block-end: 2rem;
+  }
+
+  .buttonGroup {
+    display: flex;
+    justify-content: center;
+    gap: 2rem;
+    margin-block-start: 1rem;
+  }
+
+  .designSystemBtn,
+  .prototypeBtn {
+    color: colors.$white-elements;
+    border: none;
+    padding: 0 2rem;
+    border-radius: 0.5rem;
+    transition: background-color 0.2s ease;
+  }
+
+  .designSystemBtn {
+    background-color: colors.$magenta;
+    @include mixins.font('icon-title', 'bold');
+
+    &:hover {
+      background-color: lighten(colors.$magenta, 10%);
+    }
+  }
+
+  .prototypeBtn {
+    background-color: colors.$red;
+    @include mixins.font('icon-title', 'bold');
+
+    &:hover {
+      background-color: darken(colors.$red, 10%);
+    }
+  }
+}

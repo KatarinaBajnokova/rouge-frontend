@@ -1,0 +1,70 @@
+@use '@/sass/abstract/colors' as colors;
+@use '@/sass/abstract/typography' as typography;
+@use '@/sass/abstract/mixins' as mixins;
+
+:global {
+  .homeScreen {
+    margin-bottom: 65px;
+  }
+
+  .homeScreen,
+  .homeScreen * {
+    max-width: 100%;
+    overflow-x: hidden;
+  }
+
+  .sectionEveryday,
+  .sectionReorder,
+  .sectionTwo,
+  .sectionFormal {
+    padding: 0.5rem;
+
+    .sectionDesc {
+      margin-left: 1rem;
+      @include mixins.font('section-description', 'regular');
+    }
+  }
+
+  .cardScrollWrapper {
+    display: flex;
+    overflow-x: auto;
+    overflow-y: hidden;
+    scroll-snap-type: x mandatory;
+    gap: 1.5rem;
+    padding-inline: 1.5rem;
+    margin-block-start: 1.5rem;
+    padding-block-end: 1rem;
+    scroll-padding-inline: 1.5rem;
+    touch-action: pan-y;
+
+    &::-webkit-scrollbar {
+      display: none;
+    }
+
+    > * {
+      flex: 0 0 auto;
+      scroll-snap-align: start;
+      max-width: 15rem;
+    }
+
+    &.nonTrendingWrapper > * {
+      width: 15rem;
+      height: 15rem;
+
+      .mantine-Card-root {
+        display: flex;
+        flex-direction: column;
+        height: 100%;
+      }
+    }
+  }
+
+:global(.homeSection) {
+  padding-bottom: 1rem;
+}
+
+:global(.homeSection.noPaddingBottom) {
+  padding-bottom: 0 !important;
+}
+
+}

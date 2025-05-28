@@ -1,0 +1,67 @@
+@use '@/sass/abstract/colors' as colors;
+@use '@/sass/abstract/typography' as typography;
+@use '@/sass/abstract/mixins' as mixins;
+
+.wrapper {
+  padding: 1rem;
+}
+
+.header {
+  @include mixins.font('section-title', 'bold');
+  color: colors.$black-main;
+  margin-bottom: 0.5rem;
+}
+
+.updated {
+  @include mixins.font('section-description');
+  color: colors.$light-grey;
+  margin-bottom: 1rem;
+}
+
+.section {
+  margin-bottom: 1.25rem;
+}
+
+.sectionTitle {
+  @include mixins.font('section-description', 'bold');
+  color: colors.$black-main;
+  margin-bottom: 0.5rem;
+}
+
+.paragraph {
+  @include mixins.font('section-description');
+  color: colors.$black-main;
+  line-height: 1.5;
+  margin-bottom: 0.75rem;
+}
+
+.list {
+  margin-bottom: 0.75rem;
+
+  li {
+    @include mixins.font('section-description');
+    color: colors.$light-grey;
+    margin-bottom: 0.25rem;
+  }
+}
+
+.divider {
+  border-color: rgba(colors.$grey-background-elements, 0.3);
+  margin: 1rem 0;
+}
+
+.footer {
+  @include mixins.font('section-description');
+  color: colors.$black-main;
+  padding-bottom: 2rem;
+}
+
+.link {
+  @include mixins.font('section-description', 'bold');
+  color: colors.$magenta;
+  text-decoration: none;
+
+  &:hover {
+    text-decoration: underline;
+  }
+}

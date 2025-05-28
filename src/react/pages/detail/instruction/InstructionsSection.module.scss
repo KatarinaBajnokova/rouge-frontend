@@ -1,0 +1,40 @@
+@use '@/sass/abstract/colors' as colors;
+@use '@/sass/abstract/typography' as typography;
+@use '@/sass/abstract/mixins' as mixins;
+
+.detailInstructions {
+  padding: 1rem;
+
+  .instructionsList {
+    margin-top: 1rem;
+  }
+
+  .instructionStep {
+    display: flex;
+    align-items: flex-start;
+    margin-block-end: 1rem;
+
+    &__number {
+      @include mixins.font('text', 'bold');
+      background: colors.$magenta;
+      color: colors.$white-elements;
+      width: 2rem;
+      height: 2rem;
+      border-radius: 50%;
+      display: grid;
+      place-content: center;
+      flex-shrink: 0;
+    }
+
+    &__body {
+      margin-inline-start: 1rem;
+      flex: 1;
+      border-block-end: 1px solid rgba(colors.$black-main, 0.08);
+      padding-block-end: 1rem;
+
+      .instructionStepText {
+        color: colors.$light-grey !important;
+      }
+    }
+  }
+}
