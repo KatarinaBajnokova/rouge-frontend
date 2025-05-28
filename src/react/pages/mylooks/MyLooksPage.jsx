@@ -10,10 +10,13 @@ import Navbar from '@/react/components/navbar/Navbar';
 import styles from './MyLooksPage.module.scss';
 
 const MyLooksPage = () => {
-  const { looks, loading, error } = useReorderLooks();
+  const { looks = [], loading, error } = useReorderLooks();
   const [search, setSearch] = useState('');
-
-  const filteredLooks = looks.filter(look =>
+  const mappedLooks = looks.map(look => ({
+    ...look,
+    title: look.title || look.name || 'Untitled',
+  }));
+  const filteredLooks = mappedLooks.filter(look =>
     look.title.toLowerCase().includes(search.toLowerCase())
   );
 
