@@ -57,15 +57,32 @@ export default function AddressPage() {
     if (!firebaseUid) return;
 
     const fetchBackendUserId = async () => {
-      try {
-        const res = await fetch(`/api/users/by-firebase-uid?uid=${firebaseUid}`);
-        const user = await res.json();
-        if (user?.id) {
-          localStorage.setItem('backendUserId', user.id);
-          setBackendUserId(user.id);
+      let tries = 0;
+      let user = null;
+
+      while (tries < 5 && !user) {
+        try {
+          const res = await fetch(`/api/users/by-firebase-uid?uid=${firebaseUid}`);
+          const data = await res.json();
+
+          if (res.ok && data?.id) {
+            user = data;
+            localStorage.setItem('backendUserId', user.id);
+            setBackendUserId(user.id);
+            console.log('✅ Backend user found:', user);
+          } else {
+            console.warn(`⏳ Attempt ${tries + 1}: backend user not found yet...`);
+            await new Promise(resolve => setTimeout(resolve, 400));
+          }
+        } catch (err) {
+          console.error('❌ Error fetching backend user ID', err);
+          break;
         }
-      } catch (err) {
-        console.error('❌ Failed to fetch backend user ID', err);
+        tries++;
+      }
+
+      if (!user) {
+        console.error('❌ Backend user still not found after retries');
       }
     };
 
@@ -73,10 +90,7 @@ export default function AddressPage() {
   }, [firebaseUid]);
 
   useEffect(() => {
-    if (!backendUserId || backendUserId === 'undefined') {
-      console.warn('⏳ Waiting for backendUserId...');
-      return;
-    }
+    if (!backendUserId || backendUserId === 'undefined') return;
 
     fetch(`http://localhost:8000/api/users/${backendUserId}/addresses`)
       .then(res => res.json())
@@ -107,14 +121,13 @@ export default function AddressPage() {
   }, [backendUserId]);
 
   const handleConfirm = async () => {
-    if (!backendUserId) {
+    if (!backendUserId || backendUserId === 'undefined') {
       showNotification({
-        title: 'Session Expired',
-        message: 'Please log in again.',
-        color: 'red',
+        title: 'Loading',
+        message: 'Please wait for your user profile to load.',
+        color: 'yellow',
         position: 'top-center',
       });
-      navigate('/login');
       return;
     }
 
@@ -145,12 +158,14 @@ export default function AddressPage() {
           }),
         });
 
+        const data = await response.json(); // ✅ Parse once
+
         if (!response.ok) {
-          const errorData = await response.json().catch(() => ({}));
-          throw new Error(errorData.error || 'Failed to save address');
+          throw new Error(data.error || 'Failed to save address');
         }
 
-        const { address_id } = await response.json();
+        const { address_id } = data;
+
         if (!address_id) {
           throw new Error('Address creation failed: No ID returned');
         }
@@ -234,18 +249,17 @@ export default function AddressPage() {
           />
         </Group>
 
-<TextInput
-  label='Phone number'
-  placeholder='Enter your phone number'
-  value={phone}
-  onChange={e => {
-    const onlyNums = e.currentTarget.value.replace(/\D/g, '');
-    if (onlyNums.length <= 10) setPhone(onlyNums);
-  }}
-  mt='md'
-  required
-/>
-
+        <TextInput
+          label='Phone number'
+          placeholder='Enter your phone number'
+          value={phone}
+          onChange={e => {
+            const onlyNums = e.currentTarget.value.replace(/\D/g, '');
+            if (onlyNums.length <= 10) setPhone(onlyNums);
+          }}
+          mt='md'
+          required
+        />
 
         <BottomBarButton
           text='Confirm & Continue'
