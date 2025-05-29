@@ -1,3 +1,7 @@
+@use '@/sass/abstract/colors' as colors;
+@use '@/sass/abstract/typography' as typography;
+@use '@/sass/abstract/mixins' as mixins;
+
 :global {
   .homeScreen {
     margin-bottom: 65px;
